@@ -1,1 +1,3 @@
-Agenda: val av projekt
+Agenda: 
+- val av projekt
+- gruppregistrering
