@@ -1,0 +1,10 @@
+Agenda:
+- Val av GUI
+- Boka tid för möte med handledare
+
+Gruppen har möte via Discord.
+Vid val av GUI har gruppen valt att använda sig av JavaFX i första hand.
+Gruppen har även valt att grunden i spelet ska vara av formen "Space" med "Astroids".
+Tobias ska boka in en tid för möte med handledare och meddelar tid för detta via slack.
+
+Samtliga i gruppen deltog vid mötet.
