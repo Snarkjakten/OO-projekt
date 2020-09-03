@@ -23,22 +23,24 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom,
 - Maven, hur det ska struktureras upp och vart det ska ligga i projektet.
 - GUI
 - User storys
-- Domänmodel klar fre 11/9-20 (Domänmodel har bara med modelen, inte V & C.)
+- Domänmodel klar fre 11/9-20 (Domänmodel har bara med modellen, inte V & C.)
 
 ## Outcomes and assignments (5 min)
 
-- Dokument för hur git ska skötas.
+- Dokument för hur git ska skötas (git-kontrakt).
 - Dokument för Code of Conduct.
+- Bestämma kodstandard / indentation
+- Bra att använda RAD (Requirements and Analysis Document) redan från början. Sektion 1 viktig (skapa en wordlist).
 - Valt att använda JavaFX
 - Kolla efter UML-program alt. hitta ett form av "rit"-program som alla kan jobba i sammtidigt. 
+- Modellen får ej ha för få klasser (10 klasser bra).
 - Börja med Prototyping
-- Fokus på user story
+- Fokus på user stories, skriv och rangordna. En user story motsvarar ungefär en veckas arbete.
 - Fler bilder på GUI
 - Se till så att Oliver (Handledaren) har tillgång till repo mm.
+- Undvik servrar och databaser.
 
-- Nästa handledarmöte klocken 15 torsdagen 10/9-20
-
-
+- Nästa handledarmöte klockan 15 torsdagen 10/9-20
 
 
 ## Wrap up
