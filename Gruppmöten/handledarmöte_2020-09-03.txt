@@ -1,0 +1,47 @@
+# Meeting Agenda
+
+Group: 13 TheDodgers
+Date: 3/9-20
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, 
+	      Olle Westerlund, Viktor Sundberg, Oliver Karmetun
+
+
+
+## Objectives (5 min) 
+
+- Fråga om GUI
+- Fråga om Dodger spel är lämpligt.
+
+
+## Reports (15 min) from previous meeting
+
+- Redogjort för handledare vad vi gjort under de möten vi har haft.
+
+## Discussion items (35 min)
+
+- Maven, hur det ska struktureras upp och vart det ska ligga i projektet.
+- GUI
+- User storys
+- Domänmodel klar fre 11/9-20 (Domänmodel har bara med modelen, inte V & C.)
+
+## Outcomes and assignments (5 min)
+
+- Dokument för hur git ska skötas.
+- Dokument för Code of Conduct.
+- Valt att använda JavaFX
+- Kolla efter UML-program alt. hitta ett form av "rit"-program som alla kan jobba i sammtidigt. 
+- Börja med Prototyping
+- Fokus på user story
+- Fler bilder på GUI
+- Se till så att Oliver (Handledaren) har tillgång till repo mm.
+
+- Nästa handledarmöte klocken 15 torsdagen 10/9-20
+
+
+
+
+## Wrap up
+- Fixa dokument för git-regler & Code of Conduct.
+- Börja user story och prototyping
+- Börja med domänmodellen.
