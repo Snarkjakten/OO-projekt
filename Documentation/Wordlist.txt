@@ -1,0 +1,3 @@
+Sprite: in computer graphics, a sprite is a two-dimensional bitmap that is integrated into a larger scene, most often in a 2D video game.
+
+Wraparound: in video games, is a gameplay variation on the single-screen in which space is finite but unbounded; objects leaving one side of the screen immediately reappear on the opposite side, maintaining speed and trajectory.
