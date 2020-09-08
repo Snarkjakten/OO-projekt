@@ -6,13 +6,26 @@ Chair:
 Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
 
 ## Objectives
+  - Skapa första utkast av domänmodell
+  - Återbesöka User Stories och kontrollera kvalitet
+  - Skapa To Do List baserat på User Stories
 
 ## Reports
+  - Kommmit överrens om indentationsize
 
 ## Discussion items
 
   - Domain Model
+  - User Stories
+  - To Do List
 
 ## Outcomes and assignments
+  - Första iteration av domänmodell klar
+  - Första iteration av To Do List och tillhörande tasks klar
+  - Till nästa möte ska gruppen tillsammans komma med förslag till spelets sprites
+  - Nästa möte ska gruppen återbesöka domänmodellen och To Do Listen
+  - Nästa möte ska gruppen påbörja RAD-dokumentet
 
 ## Wrap up
+  - Dagens möte var produktivt, samtliga gruppmedlemmar deltog aktivt i diskussion och arbete
+  - Gruppen har kommit överrens om att fortsätta arbetet kommande dag kl. 13:15
