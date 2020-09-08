@@ -1,1 +1,18 @@
+# Meeting agenda 
 
+Group: 13 TheDodgers
+Date: 8/9-20
+Chair:
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+## Objectives
+
+## Reports
+
+## Discussion items
+
+  - Domain Model
+
+## Outcomes and assignments
+
+## Wrap up
