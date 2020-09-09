@@ -3,3 +3,5 @@ Sprite: in computer graphics, a sprite is a two-dimensional bitmap that is integ
 Wraparound: in video games, is a gameplay variation on the single-screen in which space is finite but unbounded; objects leaving one side of the screen immediately reappear on the opposite side, maintaining speed and trajectory.
 
 HP: Health Point, how much health the player has.
+
+Power Up: An item that the player can pick up that grants a boost to the player.
