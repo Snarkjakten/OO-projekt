@@ -10,13 +10,14 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom,
 
 ## Objectives (5 min) 
 
-- Fråga om GUI
-- Fråga om Dodger spel är lämpligt.
+???
 
 
 ## Reports (15 min) from previous meeting
 
-Färdig domänmodell, påbörjade user stories, GUI-skiss
+Gruppen har tillsammans gjort en domänmodell.
+Gruppen har tillsammans skrivit user stories i RAD och trello.
+Gruppen har gemensamt kommit fram till en design till ett GUI som Irja sedan skissade fram.
 
 ## Discussion items (35 min)
 
