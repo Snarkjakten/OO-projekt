@@ -44,5 +44,6 @@ Gruppen har gemensamt kommit fram till en design till ett GUI som Irja sedan ski
 
 ## Wrap up
 - Alla deltog aktivt i mötet
+- Imorgon 11/9 skapar gruppen gemensamt grunden till projektet och fördelar därefter uppgifter till vardera gruppmedlem för att inleda programmeringen. 
 
 
