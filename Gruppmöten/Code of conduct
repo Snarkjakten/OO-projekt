@@ -1,0 +1,18 @@
+  - Som IDE används IntelliJ. 
+  - Vi använder oss av IntelliJ’s automatiska indentering.
+  - För att skriva kommentarer används Javadoc.
+  - Variabelnamn skrivs som camelCase.
+  
+  Exempel på indentering för en metod, samt tillhörande Javadoc-kommentar:
+  
+  /**
+    * Makes a random change of the value
+    * @return the new value
+    */
+  public static double getAverage(int[] array) {
+        int sum = 0;
+        for (int i = 0; i < array.length; i++) {
+            sum += array[i];
+        }
+        return (double) sum / (double) array.length;
+    }

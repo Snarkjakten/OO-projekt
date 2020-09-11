@@ -1,0 +1,10 @@
+Agenda: 
+- val av projekt
+- gruppregistrering
+
+Gruppen har samlats för första mötet i discord. 
+Under dagens möte har vi fyllt i det obligatoriska informationsformuläret och skickat in det till kursansvarig. 
+Gruppen diskuterade sedan idéer inför kursens projekt, för tillfället lutar det mot någon typ av ”dodger”-liknande spel för desktop. 
+Samtliga gruppmedlemmar deltog vid mötet, alla i gruppen är nu även deltagare i de gemensamma git- och trellosidorna.
+Vi beslutade oss för att kalla vår grupp "TheDodgers".
+
