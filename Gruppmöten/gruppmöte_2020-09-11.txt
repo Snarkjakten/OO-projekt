@@ -3,7 +3,7 @@
 Group: TheDodgers (grupp 13)
 Date: 11 september 2020
 Chair: 
-Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg, Oliver Karmetun
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
 
 
 ## Objectives (5 min) 
