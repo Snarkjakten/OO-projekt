@@ -1,0 +1,30 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 11 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg, Oliver Karmetun
+
+
+## Objectives (5 min) 
+
+- Få git och maven att fungera med projektfilerna.
+- Fixa gitignore som vägrar ignorera redan existerande filer.
+
+## Reports (15 min) from previous meeting
+
+n/a
+
+## Discussion items (35 min)
+
+- Git och maven.
+- Java version för projektet.
+
+## Outcomes and assignments (5 min)
+
+- Vi ska använda java 11
+- gitignore fungerar inte
+
+## Wrap up
+
+- Fortsätt fixa med gitignore.
