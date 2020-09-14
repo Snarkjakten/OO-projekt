@@ -15,7 +15,7 @@ public class Window extends Application {
 
 
     // --------------------------------------
-    // Irjas main och spelare för test av move
+    // Irjas main och spelare för test av move todo: flytta
     public static void main(String[] args) {
         launch(args);
     }
@@ -58,6 +58,7 @@ public class Window extends Application {
 
             // @author Irja  ------------------------------------------------------------
             // todo: refactor
+            // When an arrow key is pressed, the player moves in that direction
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     switch (event.getCode()) {
@@ -82,6 +83,7 @@ public class Window extends Application {
                     }
                 }
             });
+            // When an arrow key is released, the player stops moving in that direction
             stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     switch (event.getCode()) {
