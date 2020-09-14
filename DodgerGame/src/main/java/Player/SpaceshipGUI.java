@@ -1,7 +1,5 @@
 package Player;
 
-import sun.jvm.hotspot.gc.shared.Space;
-
 import javax.imageio.ImageIO;
 import java.awt.*;
 import java.awt.image.BufferedImage;
@@ -23,7 +21,7 @@ public class SpaceshipGUI {
 
     public BufferedImage addImageToSpaceship(Spaceship spaceship) {
         try {
-            image = ImageIO.read(DrawPanel.class.getResourceAsStream("resources/Spaceship.jpg"));
+            image = ImageIO.read(Test.class.getResourceAsStream("resources/Spaceship.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }
