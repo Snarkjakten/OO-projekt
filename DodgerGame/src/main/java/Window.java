@@ -46,8 +46,4 @@ public class Window extends Application {
             e.printStackTrace();
         }
     }
-    //Temporary main for testing purposes
-    public static void main(String[] args) {
-        launch(args);
-    }
 }
