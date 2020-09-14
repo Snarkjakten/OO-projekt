@@ -1,7 +1,9 @@
 import javafx.application.Application;
+import javafx.event.EventHandler;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -11,10 +13,21 @@ import javafx.stage.Stage;
 
 public class Window extends Application {
 
+
+    // --------------------------------------
+    // Irjas main och spelare för test av move
+    public static void main(String[] args) {
+        launch(args);
+    }
+
+    Player player = new Player();
+    // --------------------------------------
+
     //Creates Pane
     private final Pane win = new Pane();
     //Gets image from resources
     Image windowBackground = new Image("file:src/main/resources/space.jpg");
+
     //Sets size of Pane
     private Pane createContent() {
         win.setPrefSize(1200, 800);
@@ -42,7 +55,57 @@ public class Window extends Application {
             //Opens program window
             stage.show();
 
-        } catch(Exception e) {
+
+            // @author Irja  ------------------------------------------------------------
+            // todo: refactor
+            stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
+                public void handle(KeyEvent event) {
+                    switch (event.getCode()) {
+                        case UP:
+                            player.up = 1;
+                            player.move();
+                            break;
+                        case DOWN:
+                            player.down = 1;
+                            player.move();
+                            break;
+                        case LEFT:
+                            player.left = 1;
+                            player.move();
+                            break;
+                        case RIGHT:
+                            player.right = 1;
+                            player.move();
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
+                public void handle(KeyEvent event) {
+                    switch (event.getCode()) {
+                        case UP:
+                            player.up = 0;
+                            break;
+                        case DOWN:
+                            player.down = 0;
+                            break;
+                        case LEFT:
+                            player.left = 0;
+                            break;
+                        case RIGHT:
+                            player.right = 0;
+                            break;
+                        default:
+                            break;
+                    }
+                }
+            });
+            // ------------------------------------------------------------------------
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
