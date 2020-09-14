@@ -1,12 +1,17 @@
 package Projectiles;
 
-import Move.Direction;
-
-public class Asteroids extends Projectiles {
+/**
+ * @Author Olle Westerlund
+ */
+public class SmallAsteroid extends Projectile {
     private int damage;
 
-    public Asteroids(int diameter, double speed, double xPos, double yPos, Direction direction) {
-        super(10, 100, 10, 10, Direction.EAST);
+    public SmallAsteroid() {
+        super(10, 100, 10, 10);
         this.damage = 20;
+    }
+
+    protected int getDamage() {
+        return damage;
     }
 }

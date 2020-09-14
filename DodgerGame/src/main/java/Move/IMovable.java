@@ -1,6 +1,19 @@
+package Move;
+
 public interface IMovable {
-    public void moveUp();
-    public void moveDown();
-    public void moveLeft();
-    public void moveRight();
+    public void moveNorth();
+
+    public void moveSouth();
+
+    public void moveWest();
+
+    public void moveEast();
+
+    public void moveNorthWest();
+
+    public void moveNorthEast();
+
+    public void moveSouthWest();
+
+    public void moveSouthEast();
 }
