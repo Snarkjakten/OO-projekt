@@ -20,7 +20,7 @@ public class Window extends Application {
         launch(args);
     }
 
-    Player player = new Player();
+    Ship ship = new Ship();
     // --------------------------------------
 
     //Creates Pane
@@ -30,7 +30,7 @@ public class Window extends Application {
 
     //Sets size of Pane
     private Pane createContent() {
-        win.setPrefSize(1200, 800);
+        win.setPrefSize(800, 600);
         return win;
     }
 
@@ -42,8 +42,8 @@ public class Window extends Application {
             iV.setImage(windowBackground);
 
             //Sets image size to fit Pane size (hard coded for now)
-            iV.setFitHeight(800);
-            iV.setFitWidth(1200);
+            iV.setFitHeight(600);
+            iV.setFitWidth(800);
 
             //Adds ImageView to Pane
             win.getChildren().addAll(iV);
@@ -58,46 +58,46 @@ public class Window extends Application {
 
             // @author Irja  ------------------------------------------------------------
             // todo: refactor
-            // When an arrow key is pressed, the player moves in that direction
+            // When an arrow key is pressed, the ship moves in that direction
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     switch (event.getCode()) {
                         case UP:
-                            player.up = 1;
-                            player.move();
+                            ship.up = 1;
+                            ship.move();
                             break;
                         case DOWN:
-                            player.down = 1;
-                            player.move();
+                            ship.down = 1;
+                            ship.move();
                             break;
                         case LEFT:
-                            player.left = 1;
-                            player.move();
+                            ship.left = 1;
+                            ship.move();
                             break;
                         case RIGHT:
-                            player.right = 1;
-                            player.move();
+                            ship.right = 1;
+                            ship.move();
                             break;
                         default:
                             break;
                     }
                 }
             });
-            // When an arrow key is released, the player stops moving in that direction
+            // When an arrow key is released, the ship stops moving in that direction
             stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     switch (event.getCode()) {
                         case UP:
-                            player.up = 0;
+                            ship.up = 0;
                             break;
                         case DOWN:
-                            player.down = 0;
+                            ship.down = 0;
                             break;
                         case LEFT:
-                            player.left = 0;
+                            ship.left = 0;
                             break;
                         case RIGHT:
-                            player.right = 0;
+                            ship.right = 0;
                             break;
                         default:
                             break;
