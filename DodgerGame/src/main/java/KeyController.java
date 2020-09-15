@@ -32,7 +32,6 @@ public class KeyController {
             default:
                 break;
         }
-
     }
 
     // When an arrow key is released, the ship stops moving in that direction
@@ -55,5 +54,4 @@ public class KeyController {
                 break;
         }
     }
-
 }

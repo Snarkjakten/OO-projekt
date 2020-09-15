@@ -24,6 +24,7 @@ public class Window extends Application {
     public static void main(String[] args) {
         launch(args);
     }
+
     Ship ship = new Ship();
     Projectile asteroid = new Projectile();
     // --------------------------------------
@@ -62,7 +63,7 @@ public class Window extends Application {
             stage.show();
 
             // Handle key pressed
-            // @author Irja Vuorela
+            // @Author Irja Vuorela
             KeyController keyController = new KeyController(ship);
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
@@ -71,7 +72,7 @@ public class Window extends Application {
             });
 
             // Handle key release
-            //@Author Irja Vuorela
+            // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     keyController.handleKeyReleased(event);

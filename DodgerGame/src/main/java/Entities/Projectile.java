@@ -15,8 +15,7 @@ public class Projectile extends AbstractMovable implements IMovable {
         updateVelocity();
         updatePosition();
 
-        //todo: remove print
-        System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
+        // System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // Update velocity
