@@ -21,7 +21,7 @@ public class SpaceshipGUI {
 
     public BufferedImage addImageToSpaceship(Spaceship spaceship) {
         try {
-            image = ImageIO.read(Test.class.getResourceAsStream("resources/Spaceship.jpg"));
+            image = ImageIO.read(Window.class.getResourceAsStream("resources/Spaceship.jpg"));
         } catch (IOException e) {
             e.printStackTrace();
         }

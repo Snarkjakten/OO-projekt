@@ -1,3 +1,4 @@
+import Player.SpaceshipGUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,6 +21,7 @@ public class Window extends Application {
         win.setPrefSize(1200, 800);
         return win;
     }
+    private SpaceshipGUI spaceshipGUI
 
     @Override
     public void start(Stage stage) {
@@ -34,10 +36,11 @@ public class Window extends Application {
 
             //Adds ImageView to Pane
             win.getChildren().addAll(iV);
+            win.getChildren().add()
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
-            //Removes option to change size of progam window
+            //Removes option to change size of program window
             stage.setResizable(false);
             //Opens program window
             stage.show();
