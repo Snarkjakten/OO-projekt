@@ -18,8 +18,6 @@ public class Window extends Application {
     private final Pane win = new Pane();
     //Gets image from resources
     Image windowBackground = new Image("file:src/main/resources/space.jpg");
-    Spaceship spaceship = SpaceshipFactory.createSpaceship();
-    SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 600, 400);
     //Sets size of Pane
     private Pane createContent() {
         win.setPrefSize(1200, 800);
@@ -38,7 +36,7 @@ public class Window extends Application {
             iV.setFitWidth(1200);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV, spaceshipGUI.getImage());
+            win.getChildren().addAll(iV);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
