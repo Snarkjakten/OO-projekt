@@ -1,14 +1,18 @@
 package Player;
 
+import javafx.scene.image.ImageView;
+
 import javax.imageio.ImageIO;
 import java.awt.*;
-import java.awt.image.BufferedImage;
+
+import javafx.scene.image.Image;
+
 import java.io.IOException;
 
 public class SpaceshipGUI {
     private Spaceship spaceship;
     private Point point = new Point();
-    private BufferedImage image;
+    private ImageView image;
 
     public SpaceshipGUI(Spaceship spaceship, int x, int y) {
         this.spaceship = spaceship;
@@ -19,13 +23,10 @@ public class SpaceshipGUI {
         this.point.y = y;
     }
 
-    public BufferedImage addImageToSpaceship(Spaceship spaceship) {
-        try {
-            image = ImageIO.read(Window.class.getResourceAsStream("resources/Spaceship.jpg"));
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
-        return image;
+    public ImageView addImageToSpaceship(Spaceship spaceship) {
+        Image image = new Image("file:src/main/resources/spaceship.gif");
+        ImageView imageView = new ImageView(image);
+        return imageView;
     }
 
     public Spaceship getSpaceship() {
@@ -36,7 +37,7 @@ public class SpaceshipGUI {
         return point;
     }
 
-    public BufferedImage getImage() {
+    public ImageView getImage() {
         return image;
     }
 }
