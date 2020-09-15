@@ -1,9 +1,11 @@
-package Entities;/*
+package Entities;
+
+/*
  * @Author Irja Vuorela
  */
 
 public interface IMovable {
 
-    // move self
+    // Move self
     void move();
 }

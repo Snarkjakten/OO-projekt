@@ -1,4 +1,5 @@
-import Entities.Ship;
+import Entities.TestShip;
+import Entities.TestProjectile;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -16,12 +17,14 @@ public class Window extends Application {
 
 
     // --------------------------------------
-    // Irjas main och spelare för test av move todo: flytta
+    // todo: flytta ut från window
+    // main, spelare och projektil för test av move
     public static void main(String[] args) {
         launch(args);
     }
 
-    Ship ship = new Ship();
+    TestShip ship = new TestShip();
+    TestProjectile asteroid = new TestProjectile();
     // --------------------------------------
 
     //Creates Pane
@@ -57,27 +60,32 @@ public class Window extends Application {
             stage.show();
 
 
-            // @author Irja  ------------------------------------------------------------
-            // todo: refactor
+            // ------------------------------------------------------------
+            // todo: refactor and move
             // When an arrow key is pressed, the ship moves in that direction
+            // @author Irja Vuorela
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
                     switch (event.getCode()) {
                         case UP:
                             ship.up = 1;
                             ship.move();
+                            asteroid.move();
                             break;
                         case DOWN:
                             ship.down = 1;
                             ship.move();
+                            asteroid.move();
                             break;
                         case LEFT:
                             ship.left = 1;
                             ship.move();
+                            asteroid.move();
                             break;
                         case RIGHT:
                             ship.right = 1;
                             ship.move();
+                            asteroid.move();
                             break;
                         default:
                             break;
