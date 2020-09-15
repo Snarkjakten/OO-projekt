@@ -17,17 +17,14 @@ import java.io.InputStream;
 
 public class Window extends Application {
 
-
-    // --------------------------------------
-    // todo: flytta main ut från window
-    // main, spelare och projektil för test av move
+    // todo: flytta main från Window -------------
     public static void main(String[] args) {
         launch(args);
     }
 
     Ship ship = new Ship();
-    Projectile asteroid = new Projectile();
-    // --------------------------------------
+    //---------------------------------------------
+
 
     //Creates Pane
     private final Pane win = new Pane();
