@@ -8,21 +8,84 @@ import java.util.Random;
  */
 
 public abstract class Projectile implements IMovable {
-    private int diameter;
     private double speed;
-    private double xPos;
-    private double yPos;
+    private double xPos = 0.0;
+    private double yPos = 0.0;
     private Direction direction;
 
-    public Projectile(int diameter, double speed, double xPos, double yPos) {
-        this.diameter = diameter;
+    public Projectile(double speed) {
         this.speed = speed;
-        this.xPos = xPos;
-        this.yPos = yPos;
         this.direction = randomDirection();
     }
 
-    public static Direction randomDirection() {
+    //TODO: Add different scripted versions.
+    public Projectile(double speed, String scriptVersion) {
+
+    }
+
+    private void randomPosition(Direction direction) {
+        Random randPos = new Random();
+        int side = randPos.nextInt(4);
+        switch (side) {
+            case 0: //Bottom side of the screen
+                this.xPos = randPos.nextDouble() * 1200;
+                this.yPos = 0.0;
+                if (direction.equals(Direction.SOUTH) || direction.equals(Direction.SOUTHEAST) ||
+                    direction.equals(Direction.SOUTHWEST)) {
+                    this.direction = specificDirection("NW");
+                }
+                break;
+            case 1: //Right side of the screen
+                this.xPos = 1200;
+                this.yPos = randPos.nextDouble() * 800;
+                if (direction.equals(Direction.EAST) || direction.equals(Direction.SOUTHEAST) ||
+                    direction.equals(Direction.NORTHEAST)) {
+                    this.direction = specificDirection("SW");
+                }
+                break;
+            case 2: //Top side of the screen
+                this.yPos = 800.0;
+                this.xPos = randPos.nextDouble() * 1200;
+                if (direction.equals(Direction.NORTH) || direction.equals(Direction.NORTHEAST) ||
+                    direction.equals(Direction.NORTHWEST)) {
+                    this.direction = specificDirection("SE");
+                }
+                break;
+            case 3: //Left side of the screen
+                this.xPos = 0.0;
+                this.yPos = randPos.nextDouble() * 800;
+                if (direction.equals(Direction.WEST) || direction.equals(Direction.SOUTHWEST) ||
+                    direction.equals(Direction.NORTHWEST)) {
+                    this.direction = specificDirection("NE");
+                }
+        }
+    }
+
+    private static Direction specificDirection(String direction) {
+        switch (direction) {
+            case "N":
+                return Direction.NORTH;
+            case "NW":
+                return Direction.NORTHWEST;
+            case "NE":
+                return Direction.NORTHEAST;
+            case "S":
+                return Direction.SOUTH;
+            case "SW":
+                return Direction.SOUTHWEST;
+            case "SE":
+                return Direction.SOUTHEAST;
+            case "W":
+                return Direction.WEST;
+            case "E":
+                return Direction.EAST;
+            default:
+                System.out.println("Wrong input");
+                return Direction.WEST;
+        }
+    }
+
+    private static Direction randomDirection() {
         Random randDirection = new Random();
         int number = randDirection.nextInt(8);
         switch (number) {
@@ -43,7 +106,7 @@ public abstract class Projectile implements IMovable {
             case 7:
                 return Direction.NORTHWEST;
             default:
-                System.out.println("Wrong direction");
+                System.out.println("Wrong number from random.");
                 break;
         }
         return Direction.WEST;
@@ -81,40 +144,22 @@ public abstract class Projectile implements IMovable {
 
     }
 
-    public int getDiameter() {
-        return diameter;
-    }
-
     public double getSpeed() {
         return speed;
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
     }
 
     public double getxPos() {
         return xPos;
     }
 
-    public void setxPos(double xPos) {
-        this.xPos = xPos;
-    }
 
     public double getyPos() {
         return yPos;
     }
 
-    public void setyPos(double yPos) {
-        this.yPos = yPos;
-    }
 
     public Direction getDirection() {
         return direction;
-    }
-
-    public void setDirection(Direction direction) {
-        this.direction = direction;
     }
 
 

@@ -4,10 +4,10 @@ package Projectiles;
  * @Author Olle Westerlund
  */
 public class SmallAsteroid extends Projectile {
-    private int damage;
+    private int damage; //The number of damage this asteroid does.
 
     public SmallAsteroid() {
-        super(10, 100, 10, 10);
+        super(100);
         this.damage = 20;
     }
 
