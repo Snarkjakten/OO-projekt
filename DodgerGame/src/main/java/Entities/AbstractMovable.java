@@ -21,7 +21,7 @@ public abstract class AbstractMovable implements IMovable {
         updatePosition();
     }
 
-    // Update current position with direction from velocity multiplied with your speed
+    // Update position
     // @Author Irja Vuorela
     public void updatePosition() {
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D

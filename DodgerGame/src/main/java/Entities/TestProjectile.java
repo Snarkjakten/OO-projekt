@@ -19,11 +19,12 @@ public class TestProjectile extends AbstractMovable implements IMovable {
         System.out.println("TestProjectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // Update and normalize velocity
+    // Update velocity
     // @Author Irja Vuorela
     public void updateVelocity() {
+        // Normalize velocity
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        // multiply with speed
+        // Multiply with speed
         this.velocity = new Point2D(horizontal * speed, vertical * speed);
     }
 

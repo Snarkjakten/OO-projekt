@@ -13,7 +13,6 @@ public class TestShip extends AbstractMovable implements IMovable {
     public int left = 0;
     public int right = 0;
 
-
     // Move self
     // @Author Irja Vuorela
     @Override
