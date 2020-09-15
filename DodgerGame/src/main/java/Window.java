@@ -1,3 +1,4 @@
+import Entities.Ship;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;

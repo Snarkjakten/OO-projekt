@@ -1,4 +1,4 @@
-/*
+package Entities;/*
  * @Author Irja Vuorela
  */
 

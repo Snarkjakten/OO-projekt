@@ -1,3 +1,5 @@
+package Entities;
+
 import javafx.geometry.Point2D;
 
 /*
