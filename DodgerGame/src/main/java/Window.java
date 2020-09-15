@@ -1,5 +1,5 @@
-import Entities.TestShip;
-import Entities.TestProjectile;
+import Entities.Ship;
+import Entities.Projectile;
 import javafx.application.Application;
 import javafx.event.EventHandler;
 import javafx.scene.Scene;
@@ -9,6 +9,8 @@ import javafx.scene.input.KeyEvent;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
+
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
@@ -17,20 +19,20 @@ public class Window extends Application {
 
 
     // --------------------------------------
-    // todo: flytta ut från window
+    // todo: flytta main ut från window
     // main, spelare och projektil för test av move
     public static void main(String[] args) {
         launch(args);
     }
-
-    TestShip ship = new TestShip();
-    TestProjectile asteroid = new TestProjectile();
+    Ship ship = new Ship();
+    Projectile asteroid = new Projectile();
     // --------------------------------------
 
     //Creates Pane
     private final Pane win = new Pane();
     //Gets image from resources
-    Image windowBackground = new Image("file:src/main/resources/space.jpg");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    Image windowBackground = new Image(inputStream);
 
     //Sets size of Pane
     private Pane createContent() {
@@ -59,61 +61,22 @@ public class Window extends Application {
             //Opens program window
             stage.show();
 
-
-            // ------------------------------------------------------------
-            // todo: refactor and move
-            // When an arrow key is pressed, the ship moves in that direction
+            // Handle key pressed
             // @author Irja Vuorela
+            KeyController keyController = new KeyController(ship);
             stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
-                    switch (event.getCode()) {
-                        case UP:
-                            ship.up = 1;
-                            ship.move();
-                            asteroid.move();
-                            break;
-                        case DOWN:
-                            ship.down = 1;
-                            ship.move();
-                            asteroid.move();
-                            break;
-                        case LEFT:
-                            ship.left = 1;
-                            ship.move();
-                            asteroid.move();
-                            break;
-                        case RIGHT:
-                            ship.right = 1;
-                            ship.move();
-                            asteroid.move();
-                            break;
-                        default:
-                            break;
-                    }
+                    keyController.handleKeyPressed(event);
                 }
             });
-            // When an arrow key is released, the ship stops moving in that direction
+
+            // Handle key release
+            //@Author Irja Vuorela
             stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
                 public void handle(KeyEvent event) {
-                    switch (event.getCode()) {
-                        case UP:
-                            ship.up = 0;
-                            break;
-                        case DOWN:
-                            ship.down = 0;
-                            break;
-                        case LEFT:
-                            ship.left = 0;
-                            break;
-                        case RIGHT:
-                            ship.right = 0;
-                            break;
-                        default:
-                            break;
-                    }
+                    keyController.handleKeyReleased(event);
                 }
             });
-            // ------------------------------------------------------------------------
 
 
         } catch (Exception e) {

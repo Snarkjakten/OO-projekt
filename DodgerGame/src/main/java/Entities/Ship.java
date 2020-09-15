@@ -5,7 +5,7 @@ import Entities.IMovable;
 import javafx.geometry.Point2D;
 
 // A ship to be controlled by the player
-public class TestShip extends AbstractMovable implements IMovable {
+public class Ship extends AbstractMovable implements IMovable {
 
     // Movement directions
     public int up = 0;
@@ -21,7 +21,7 @@ public class TestShip extends AbstractMovable implements IMovable {
         updatePosition();
 
         // todo: remove print
-        System.out.println("TestShip moved to (" + position.getX() + ", " + position.getY() + ")");
+        System.out.println("Ship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // Update velocity
@@ -32,5 +32,22 @@ public class TestShip extends AbstractMovable implements IMovable {
         this.velocity = (new Point2D((right - left), (up - down))).normalize();
         // Multiply direction with speed
         this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
+    }
+
+    // Setters for directions
+    public void setUp(int up) {
+        this.up = up;
+    }
+
+    public void setDown(int down) {
+        this.down = down;
+    }
+
+    public void setLeft(int left) {
+        this.left = left;
+    }
+
+    public void setRight(int right) {
+        this.right = right;
     }
 }
