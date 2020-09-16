@@ -5,14 +5,14 @@ package Projectiles;
  */
 
 public class LargeAsteroid extends Projectile {
-    private int damage; //The number of damage this asteroids does.
+    private double damage; //The number of damage this asteroids does.
 
     public LargeAsteroid() {
         super(60);
         this.damage = 35;
     }
 
-    public int getDamage() {
+    public double getDamage() {
         return damage;
     }
 }

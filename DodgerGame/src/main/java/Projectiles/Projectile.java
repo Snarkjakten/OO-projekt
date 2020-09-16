@@ -16,13 +16,19 @@ public abstract class Projectile implements IMovable {
     public Projectile(double speed) {
         this.speed = speed;
         this.direction = randomDirection();
+        randomPosition(direction);
     }
 
-    //TODO: Add different scripted versions.
+    //TODO: Add different constructor for running scripted versions.
     public Projectile(double speed, String scriptVersion) {
 
     }
 
+    /**
+     * The method sets a random starting position for the projectile and changes
+     * the direction if needed to a specific direction.
+     * @param direction The current direction of the projectile.
+     */
     private void randomPosition(Direction direction) {
         Random randPos = new Random();
         int side = randPos.nextInt(4);
@@ -61,6 +67,11 @@ public abstract class Projectile implements IMovable {
         }
     }
 
+    /**
+     * The method sets a specific direction from the input.
+     * @param direction The desired direction for the projectile.
+     * @return The chosen direction.
+     */
     private static Direction specificDirection(String direction) {
         switch (direction) {
             case "N":
@@ -85,6 +96,10 @@ public abstract class Projectile implements IMovable {
         }
     }
 
+    /**
+     * The method creates a random direction.
+     * @return A random direction.
+     */
     private static Direction randomDirection() {
         Random randDirection = new Random();
         int number = randDirection.nextInt(8);

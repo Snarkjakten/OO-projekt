@@ -20,8 +20,8 @@ public class ProjectileGUI {
         this.image = addImageToProjectile(projectile);
         this.point.x = x;
         this.point.y = y;
-        projectile.setxPos(x);
-        projectile.setyPos(y);
+//        projectile.setxPos(x); Do I need these if so add the set methods back in the projectile class.
+//        projectile.setyPos(y);
     }
 
     //TODO: Decide if return should be Image or BufferedImage and fix method.
