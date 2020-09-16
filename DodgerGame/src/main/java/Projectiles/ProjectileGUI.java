@@ -1,9 +1,7 @@
 package Projectiles;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
+import javafx.scene.image.Image;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.io.InputStream;
 
 /**
@@ -26,16 +24,12 @@ public class ProjectileGUI {
 
     //TODO: Decide if return should be Image or BufferedImage and fix method.
     public Image addImageToProjectile(Projectile projectile) {
-        try {
-            if (projectile instanceof SmallAsteroid) {
-                InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
-                image = ImageIO.read(inputStream);
-//                image = ImageIO.read(Window.class.getResourceAsStream("resources/smallAsteroid.png"));
-            } else if (projectile instanceof LargeAsteroid) {
-                ImageIO.read(Window.class.getResourceAsStream("resources/mediumAsteroid.png"));
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
+        if (projectile instanceof SmallAsteroid) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
+            image = new Image(inputStream);
+        } else if (projectile instanceof LargeAsteroid) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
+            image = new Image(inputStream);
         }
         return image;
     }
