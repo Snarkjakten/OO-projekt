@@ -1,10 +1,9 @@
 package Player;
 
-import javax.imageio.ImageIO;
-import java.awt.*;
 import java.awt.geom.Point2D;
-import java.io.IOException;
 import java.io.InputStream;
+
+import javafx.scene.image.Image;
 
 public class SpaceshipGUI {
     private Spaceship spaceship;
@@ -21,20 +20,24 @@ public class SpaceshipGUI {
     }
 
     public Image addImageToSpaceship(Spaceship spaceship) {
-        try {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
-            image = ImageIO.read(inputStream);
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+        image = new Image(inputStream);
         return image;
     }
 
-    public Spaceship getSpaceship() {
+    protected Spaceship getSpaceship() {
         return spaceship;
     }
 
-    public Point2D.Double getPoint() {
+    public double getxPosition() {
+        return spaceship.getxPosition();
+    }
+
+    public double getYPosition() {
+        return spaceship.getyPosition();
+    }
+
+    protected Point2D.Double getPoint() {
         return point;
     }
 
