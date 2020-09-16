@@ -5,6 +5,8 @@ import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
+
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
@@ -14,7 +16,10 @@ public class Window extends Application {
     //Creates Pane
     private final Pane win = new Pane();
     //Gets image from resources
-    Image windowBackground = new Image("file:src/main/resources/space.jpg");
+    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    Image windowBackground = new Image(inputStream);
+    //Creates instance of HealthBar
+    HealthBar hpBar = new HealthBar();
     //Sets size of Pane
     private Pane createContent() {
         win.setPrefSize(1200, 800);
@@ -33,7 +38,7 @@ public class Window extends Application {
             iV.setFitWidth(1200);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV);
+            win.getChildren().addAll(iV, hpBar);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
