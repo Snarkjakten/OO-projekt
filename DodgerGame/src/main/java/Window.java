@@ -17,13 +17,12 @@ import java.io.InputStream;
 
 public class Window extends Application {
 
-    // todo: flytta main från Window -------------
+    // --- todo: flytta main från Window --------------------
     public static void main(String[] args) {
         launch(args);
     }
-
     Ship ship = new Ship();
-    //---------------------------------------------
+    //-------------------------------------------------------
 
 
     //Creates Pane
@@ -59,22 +58,19 @@ public class Window extends Application {
             //Opens program window
             stage.show();
 
+
             // Handle key pressed
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(ship);
-            stage.getScene().setOnKeyPressed(new EventHandler<KeyEvent>() {
-                public void handle(KeyEvent event) {
-                    keyController.handleKeyPressed(event);
-                }
-            });
+            stage.getScene().setOnKeyPressed(
+                    event -> keyController.handleKeyPressed(event)
+            );
 
             // Handle key release
             // @Author Irja Vuorela
-            stage.getScene().setOnKeyReleased(new EventHandler<KeyEvent>() {
-                public void handle(KeyEvent event) {
-                    keyController.handleKeyReleased(event);
-                }
-            });
+            stage.getScene().setOnKeyReleased(
+                    event -> keyController.handleKeyReleased(event)
+            );
 
 
         } catch (Exception e) {
