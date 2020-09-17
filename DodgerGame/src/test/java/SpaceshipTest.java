@@ -65,21 +65,57 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place while attempting to move in two opposite directions?
+    // Did the ship move up and right diagonally?
     // @Author Irja Vuorela
-    public void ShipNotMovingWhenUpAndDown() {
+    public void SpaceshipMovedUpAndRight() {
         startPos = ship.position;
         ship.setUp(1);
-        ship.setDown(1);
+        ship.setRight(1);
         ship.velocity = new Point2D(1, 1);
         ship.move();
-        assertTrue((ship.position.getX() == startPos.getX()) && (ship.position.getY() == startPos.getY()));
+        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() > startPos.getY()));
+    }
+
+    @Test
+    // Did the ship move up and left diagonally?
+    // @Author Irja Vuorela
+    public void SpaceshipMovedUpAndLeft() {
+        startPos = ship.position;
+        ship.setUp(1);
+        ship.setLeft(1);
+        ship.velocity = new Point2D(-1, 1);
+        ship.move();
+        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() > startPos.getY()));
+    }
+
+    @Test
+    // Did the ship move up and left diagonally?
+    // @Author Irja Vuorela
+    public void SpaceshipMovedDownAndRight() {
+        startPos = ship.position;
+        ship.setDown(1);
+        ship.setRight(1);
+        ship.velocity = new Point2D(1, -1);
+        ship.move();
+        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() < startPos.getY()));
+    }
+
+    @Test
+    // Did the ship move up and left diagonally?
+    // @Author Irja Vuorela
+    public void SpaceshipMovedDownAndLeft() {
+        startPos = ship.position;
+        ship.setDown(1);
+        ship.setLeft(1);
+        ship.velocity = new Point2D(-1, -1);
+        ship.move();
+        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() < startPos.getY()));
     }
 
     @Test
     // Did the ship stay in place while attempting to move in two opposite directions?
     // @Author Irja Vuorela
-    public void ShipNotMovingWhenLeftAndRight() {
+    public void SpaceshipNotMovingWhenLeftAndRight() {
         startPos = ship.position;
         ship.setLeft(1);
         ship.setRight(1);
@@ -89,9 +125,21 @@ public class SpaceshipTest {
     }
 
     @Test
+    // Did the ship stay in place while attempting to move in two opposite directions?
+    // @Author Irja Vuorela
+    public void SpaceshipNotMovingWhenUpAndDown() {
+        startPos = ship.position;
+        ship.setUp(1);
+        ship.setDown(1);
+        ship.velocity = new Point2D(1, 1);
+        ship.move();
+        assertTrue((ship.position.getX() == startPos.getX()) && (ship.position.getY() == startPos.getY()));
+    }
+
+    @Test
     // Did the ship stay in place when its velocity is zero?
     // @Author Irja Vuorela
-    public void ShipNotMovingWhenVelocityZero() {
+    public void SpaceshipNotMovingWhenVelocityZero() {
         startPos = ship.position;
         ship.velocity = new Point2D(0, 0);
         ship.move();

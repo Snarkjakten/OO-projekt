@@ -109,10 +109,9 @@ public class ProjectileTest {
     // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = proj.position;
-               proj.setVertical(0);
+        proj.setVertical(0);
         proj.setHorizontal(0);
         proj.move();
         assertTrue((proj.position.getX() == startPos.getX()) && (proj.position.getY() == startPos.getY()));
     }
-
 }
