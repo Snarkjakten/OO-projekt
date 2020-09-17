@@ -1,7 +1,7 @@
 package Entities;
 
-import Entities.AbstractMovable;
-import Entities.IMovable;
+import Movement.AbstractMovable;
+import Movement.IMovable;
 import javafx.geometry.Point2D;
 
 // A ship to be controlled by the player
@@ -31,7 +31,7 @@ public class Ship extends AbstractMovable implements IMovable {
         // Normalize velocity
         this.velocity = (new Point2D((right - left), (up - down))).normalize();
         // Multiply direction with speed
-        this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
+//        this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
     }
 
     // Setters for directions

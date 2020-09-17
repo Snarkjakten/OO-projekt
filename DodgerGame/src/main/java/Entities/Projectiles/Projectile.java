@@ -1,17 +1,19 @@
-package Projectiles;
+package Entities.Projectiles;
 
-import Move.*;
+import Movement.*;
+import javafx.geometry.Point2D;
+
 import java.util.Random;
 
 /**
  * @Author Olle Westerlund
  */
 
-public abstract class Projectile implements IMovable {
-    private double speed;
-    private double xPos = 0.0;
-    private double yPos = 0.0;
-    private Direction direction;
+public abstract class Projectile extends AbstractMovable {
+    private double speed;               // Speed of the projectile.
+    private double horizontal = 0.0;    // positive value: right, negative value: left
+    private double vertical = 0.0;      // positive value: up, negative value: down
+    private Direction direction;        // The direction of the projectile.
 
     public Projectile(double speed) {
         this.speed = speed;
@@ -34,36 +36,47 @@ public abstract class Projectile implements IMovable {
         int side = randPos.nextInt(4);
         switch (side) {
             case 0: //Bottom side of the screen
-                this.xPos = randPos.nextDouble() * 1200;
-                this.yPos = 0.0;
+                this.horizontal = randPos.nextDouble() * 1200; // use this.position
+                this.vertical = 0.0;
                 if (direction.equals(Direction.SOUTH) || direction.equals(Direction.SOUTHEAST) ||
                     direction.equals(Direction.SOUTHWEST)) {
                     this.direction = specificDirection("NW");
                 }
+                updatePosition();
                 break;
             case 1: //Right side of the screen
-                this.xPos = 1200;
-                this.yPos = randPos.nextDouble() * 800;
+                this.horizontal = 1200;
+                this.vertical = randPos.nextDouble() * 800;
                 if (direction.equals(Direction.EAST) || direction.equals(Direction.SOUTHEAST) ||
                     direction.equals(Direction.NORTHEAST)) {
                     this.direction = specificDirection("SW");
                 }
+                updatePosition();
                 break;
             case 2: //Top side of the screen
-                this.yPos = 800.0;
-                this.xPos = randPos.nextDouble() * 1200;
+                this.horizontal = 800.0;
+                this.vertical = randPos.nextDouble() * 1200;
                 if (direction.equals(Direction.NORTH) || direction.equals(Direction.NORTHEAST) ||
                     direction.equals(Direction.NORTHWEST)) {
                     this.direction = specificDirection("SE");
                 }
+                updatePosition();
                 break;
             case 3: //Left side of the screen
-                this.xPos = 0.0;
-                this.yPos = randPos.nextDouble() * 800;
+                this.horizontal = 0.0;
+                this.vertical = randPos.nextDouble() * 800;
                 if (direction.equals(Direction.WEST) || direction.equals(Direction.SOUTHWEST) ||
                     direction.equals(Direction.NORTHWEST)) {
                     this.direction = specificDirection("NE");
                 }
+                updatePosition();
+                break;
+            default:
+                this.horizontal = 0.0;
+                this.vertical = 400;
+                this.direction = specificDirection("E");
+                updatePosition();
+                break;
         }
     }
 
@@ -91,7 +104,7 @@ public abstract class Projectile implements IMovable {
             case "E":
                 return Direction.EAST;
             default:
-                System.out.println("Wrong input");
+                System.out.println("Wrong input, setting west as default");
                 return Direction.WEST;
         }
     }
@@ -121,61 +134,88 @@ public abstract class Projectile implements IMovable {
             case 7:
                 return Direction.NORTHWEST;
             default:
-                System.out.println("Wrong number from random.");
+                System.out.println("Random out of range.");
                 break;
         }
         return Direction.WEST;
     }
 
-    public void moveNorth() {
+    /**
+     * Changing the position of the projectile depending on the direction and the speed
+     * of said projectile.
+     */
+    @Override
+    public void move() {
+        switch (this.direction) {
+            case NORTH:
+                setVertical(getVertical() + speed);
+                break;
+            case WEST:
+                setHorizontal(getHorizontal() - speed);
+                break;
+            case SOUTH:
+                setVertical(getVertical() - speed);
+                break;
+            case EAST:
+                setHorizontal(getHorizontal() + speed);
+                break;
+            case NORTHEAST:
+                setHorizontal(getHorizontal() + speed);
+                setVertical(getVertical() + speed);
+                break;
+            case NORTHWEST:
+                setVertical(getVertical() + speed);
+                setHorizontal(getVertical() - speed);
+                break;
+            case SOUTHEAST:
+                setVertical(getVertical() - speed);
+                setHorizontal(getHorizontal() + speed);
+                break;
+            case SOUTHWEST:
+                setHorizontal(getHorizontal() - speed);
+                setVertical(getVertical() - speed);
+                break;
+            default:
+                System.out.println("Projectile not moving");
+                break;
+        }
+        updateVelocity();
+        updatePosition();
 
+         System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    public void moveSouth() {
-
-    }
-
-    public void moveWest() {
-
-    }
-
-    public void moveEast() {
-
-    }
-
-    public void moveNorthWest() {
-
-    }
-
-    public void moveNorthEast() {
-
-    }
-
-    public void moveSouthWest() {
-
-    }
-
-    public void moveSouthEast() {
-
+    // Update velocity
+    // @Author Irja Vuorela
+    public void updateVelocity() {
+        // Normalize velocity
+        this.velocity = (new Point2D(horizontal, vertical)).normalize();
+        // Multiply with speed
+        this.velocity = new Point2D(horizontal, vertical);
+//        this.velocity = new Point2D(horizontal * speed, vertical * speed);
     }
 
     public double getSpeed() {
         return speed;
     }
 
-    public double getxPos() {
-        return xPos;
+    public double getHorizontal() {
+        return horizontal;
     }
 
-
-    public double getyPos() {
-        return yPos;
+    public double getVertical() {
+        return vertical;
     }
-
 
     public Direction getDirection() {
         return direction;
     }
 
+    protected void setHorizontal(double horizontal) {
+        this.horizontal = horizontal;
+    }
 
+    protected void setVertical(double vertical) {
+        this.vertical = vertical;
+    }
 }

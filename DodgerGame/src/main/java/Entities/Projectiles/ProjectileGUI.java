@@ -1,7 +1,7 @@
-package Projectiles;
+package Entities.Projectiles;
 
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
-import java.awt.geom.Point2D;
 import java.io.InputStream;
 
 /**
@@ -10,24 +10,21 @@ import java.io.InputStream;
 
 public class ProjectileGUI {
     private Projectile projectile;
-    private Point2D.Double point = new Point2D.Double();
+    private javafx.geometry.Point2D point;
     private Image image;
 
     public ProjectileGUI(Projectile projectile, double x, double y) {
+        this.point = new Point2D(x, y);
         this.projectile = projectile;
         this.image = addImageToProjectile(projectile);
-        this.point.x = x;
-        this.point.y = y;
-//        projectile.setxPos(x); Do I need these if so add the set methods back in the projectile class.
-//        projectile.setyPos(y);
+        this.point.add(x, y);
     }
 
-    //TODO: Decide if return should be Image or BufferedImage and fix method.
     public Image addImageToProjectile(Projectile projectile) {
         if (projectile instanceof SmallAsteroid) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
             image = new Image(inputStream);
-        } else if (projectile instanceof LargeAsteroid) {
+        } else if (projectile instanceof MediumAsteroid) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
             image = new Image(inputStream);
         }
@@ -38,8 +35,8 @@ public class ProjectileGUI {
         return this.projectile;
     }
 
-    public Point2D.Double getPoint() {
-        return this.point;
+    public Point2D getPoint() {
+        return point;
     }
 
     public Image getImage() {

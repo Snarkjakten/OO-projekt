@@ -1,3 +1,6 @@
+import Entities.Projectiles.Projectile;
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.ProjectileGUI;
 import Entities.Ship;
 import javafx.application.Application;
 import javafx.scene.Scene;
@@ -19,6 +22,7 @@ public class Window extends Application {
         launch(args);
     }
     Ship ship = new Ship();
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid(), 100, 100);
     //-------------------------------------------------------
 
 
@@ -41,19 +45,26 @@ public class Window extends Application {
             ImageView iV = new ImageView(windowBackground);
             iV.setImage(windowBackground);
 
+            ImageView testAsteroid = new ImageView(projectileGUI.getImage());
+            System.out.println(projectileGUI.getProjectile().getDirection());
+            System.out.println(projectileGUI.getProjectile().getSpeed());
+            System.out.println(projectileGUI.getProjectile().getVertical());
+            System.out.println(projectileGUI.getProjectile().getHorizontal());
+
+
             //Sets image size to fit Pane size (hard coded for now)
             iV.setFitHeight(600);
             iV.setFitWidth(800);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV);
+            win.getChildren().addAll(iV, testAsteroid);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
             //Removes option to change size of progam window
             stage.setResizable(false);
             //Opens program window
-            stage.show();
+
 
 
             // Handle key pressed
@@ -68,6 +79,19 @@ public class Window extends Application {
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+
+            int i = 0;
+            while (i < 20) {
+                projectileGUI.getProjectile().move();
+                Projectile projectile = projectileGUI.getProjectile();
+                projectileGUI = new ProjectileGUI(projectile, projectile.getHorizontal(), projectile.getVertical());
+                testAsteroid.setImage(projectileGUI.getImage());
+
+                System.out.println(projectileGUI.getPoint().getX());
+                System.out.println(projectileGUI.getPoint().getY());
+                i++;
+            }
+            stage.show();
 
 
         } catch (Exception e) {

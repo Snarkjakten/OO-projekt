@@ -1,4 +1,4 @@
-package Projectiles;
+package Entities.Projectiles;
 
 /**
  * @Author Olle Westerlund
@@ -10,8 +10,8 @@ public abstract class ProjectileFactory {
         return new SmallAsteroid();
     }
 
-    public static Projectile createLargeAsteroid() {
-        return new LargeAsteroid();
+    public static Projectile createMediumAsteroid() {
+        return new MediumAsteroid();
     }
 
 }

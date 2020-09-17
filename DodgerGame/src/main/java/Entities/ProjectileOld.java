@@ -1,8 +1,10 @@
 package Entities;
 
+import Movement.AbstractMovable;
+import Movement.IMovable;
 import javafx.geometry.Point2D;
 
-public class Projectile extends AbstractMovable implements IMovable {
+public class ProjectileOld extends AbstractMovable implements IMovable {
 
     // Horizontal and vertical values for velocity
     public double horizontal = 0;     // positive value: right, negative value: left
@@ -24,7 +26,7 @@ public class Projectile extends AbstractMovable implements IMovable {
         // Normalize velocity
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
         // Multiply with speed
-        this.velocity = new Point2D(horizontal * speed, vertical * speed);
+//        this.velocity = new Point2D(horizontal * speed, vertical * speed);
     }
 
     // Setters
