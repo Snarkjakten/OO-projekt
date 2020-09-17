@@ -2,6 +2,8 @@ import Player.SpaceshipFactory;
 import Player.SpaceshipGUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
@@ -32,18 +34,17 @@ public class Window extends Application {
         try {
             //Creates ImageView and sets image space.jpg as view
             ImageView iV = new ImageView(windowBackground);
-            ImageView spaceShipIV = new ImageView(spaceshipGUI.getImage());
+            Image spaceShipImage = spaceshipGUI.getImage();
+            Canvas canvas = new Canvas(1200, 800);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
+            gc.drawImage(spaceShipImage, spaceshipGUI.getxPosition(), spaceshipGUI.getYPosition());
 
             //Sets image size to fit Pane size (hard coded for now)
             iV.setFitHeight(800);
             iV.setFitWidth(1200);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV, spaceShipIV);
-            spaceShipIV.setFitHeight(64);
-            spaceShipIV.setFitWidth(64);
-            spaceShipIV.setX(spaceshipGUI.getxPosition());
-            spaceShipIV.setY(spaceshipGUI.getYPosition());
+            win.getChildren().addAll(iV, canvas);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
