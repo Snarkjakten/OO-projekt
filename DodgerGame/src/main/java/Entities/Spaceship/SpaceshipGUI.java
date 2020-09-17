@@ -15,12 +15,12 @@ public class SpaceshipGUI {
      */
     public SpaceshipGUI(Spaceship spaceship, double x, double y) {
         this.spaceship = spaceship;
-        this.image = addImageToSpaceship(spaceship);
+        this.image = addImageToSpaceship();
         spaceship.setPosition(x, y);
         this.point.add(x, y);
     }
 
-    public Image addImageToSpaceship(Spaceship spaceship) {
+    public Image addImageToSpaceship() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
         image = new Image(inputStream);
         return image;
