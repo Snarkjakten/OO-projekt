@@ -1,0 +1,61 @@
+# Meeting Agenda
+
+Group: 13 TheDodgers
+Date: 17/9-20
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, 
+	            Olle Westerlund, Viktor Sundberg, Oliver Karmetun
+
+
+
+## Objectives (5 min) 
+
+???
+
+
+## Reports (15 min) from previous meeting
+
+
+## Discussion items (35 min)
+
+- Tester
+- Sprints
+- Viewcontroller
+
+## Outcomes and assignments (5 min)
+
+  Olle:
+  Kan få fram asteroid på skärm och att den uppdaterar sin position, men inte fått in själva rörelsen än. Skeppet rör sig, men bilden är inte kopplad.
+  Ska börja jobba på att anpassa asteroidklassen till movable.
+
+  Tobias:
+  Gjort så att skeppet syns mot bakgrunden, men rör sig ej. Nästa assignent är att få bilden för skeppet att röra sig. 
+
+  Isak:
+  Gjort huvudmeny, men inte implementarat metod som tar en vidare till spelet. Nästa assignment är att göra tester samt metod som tar en
+  vidare till själva spelet. 
+
+  Viktor:
+  Gjort HP-bar, och metoder som ändrar hp. Ska börja jobba på att koppla detta till kollisioner.
+
+  Irja:
+  Har gjort movements, så att man kan flytta saker i modellen. Nästa assignment är att göra tester.
+
+
+  Börja med tester. Försök göra tester under tiden man kodar, exempelvis samtidigt som man gör en metod så skapar man test också. 
+  En testfil för varje klass. En maintestklass också för saker som gäller hela koden. En egen testklass för saker som har med asteroider att göra osv. 
+
+  Man kan byta ut att man skriver kod mot att göra exempelvis skisser, ifall man vill. 
+
+  Vi har kommit en bit på vägen med RAD. Ser bra ut, och vi har med nästan allt. Vi har dock skrivit både på engelska och svenska - åtgärda. 
+
+  Försök strukturera enligt MVC-pattern. Exempelvis så görs scenbyte mha av controller. 
+
+
+## Wrap up
+
+- Deadline för första sprinten är söndag 27/9. Vi ska ha ett skepp som rör sig på spelplanen, och spelet ska börja när man trycker på play-knappen på 
+  huvudmenyn. User story som inte hinns med följer med till nästa sprint.
+- Gruppmöte imorgon 17/9 kl 13:00. 
+- Nästa handledarmöte 24/9 kl 15:00.
+
