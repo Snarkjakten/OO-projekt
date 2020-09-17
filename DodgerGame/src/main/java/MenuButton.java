@@ -1,6 +1,8 @@
+import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -26,6 +28,7 @@ public class MenuButton extends StackPane {
             text.setTranslateX(10);
             background.setFill(Color.WHITE);
             text.setFill(Color.DARKBLUE);
+            background.setStroke(Color.DARKBLUE);
         });
 
         setOnMouseExited(Event -> {
@@ -33,12 +36,15 @@ public class MenuButton extends StackPane {
             text.setTranslateX(0);
             background.setFill(Color.DARKBLUE);
             text.setFill(Color.WHITE);
+            background.setStroke(Color.WHITE);
         });
 
         DropShadow drop = new DropShadow(50, Color.WHITESMOKE);
         drop.setInput(new Glow());
 
-        setOnMousePressed(mouseEvent -> setEffect(drop));
-        setOnMouseReleased(mouseEvent -> setEffect(null));
+        setOnMousePressed(Event -> setEffect(drop));
+        setOnMouseReleased(Event -> setEffect(null));
+
+
     }
 }
