@@ -31,6 +31,10 @@ public class Window extends Application {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
 
+
+    //Creates instance of HealthBar
+    HealthBar hpBar = new HealthBar();
+
     //Sets size of Pane
     private Pane createContent() {
         win.setPrefSize(800, 600);
@@ -49,7 +53,7 @@ public class Window extends Application {
             iV.setFitWidth(800);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV);
+            win.getChildren().addAll(iV, hpBar);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
