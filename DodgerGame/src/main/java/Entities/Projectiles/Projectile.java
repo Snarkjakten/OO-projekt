@@ -2,7 +2,6 @@ package Entities.Projectiles;
 
 import Movement.*;
 import javafx.geometry.Point2D;
-
 import java.util.Random;
 
 /**
@@ -25,6 +24,9 @@ public abstract class Projectile extends AbstractMovable {
     public Projectile(double speed, String scriptVersion) {
 
     }
+
+    //TODO: Rewrite move function to adapt for the abstractMovable class.
+    // Remove enum, change random position method and random direction so they work with abstractMovable.
 
     /**
      * The method sets a random starting position for the projectile and changes
@@ -191,8 +193,7 @@ public abstract class Projectile extends AbstractMovable {
         // Normalize velocity
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
         // Multiply with speed
-        this.velocity = new Point2D(horizontal, vertical);
-//        this.velocity = new Point2D(horizontal * speed, vertical * speed);
+        this.velocity = new Point2D(horizontal * speed, vertical * speed);
     }
 
     public double getSpeed() {
