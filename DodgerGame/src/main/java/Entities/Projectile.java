@@ -6,7 +6,7 @@ public class Projectile extends AbstractMovable implements IMovable {
 
     // Horizontal and vertical values for velocity
     public double horizontal = 0;     // positive value: right, negative value: left
-    public double vertical = 0;         // positive value: up, negative value: down
+    public double vertical = 0;       // positive value: up, negative value: down
 
     @Override
     // Move self
@@ -15,7 +15,7 @@ public class Projectile extends AbstractMovable implements IMovable {
         updateVelocity();
         updatePosition();
 
-        // System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
+        System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // Update velocity

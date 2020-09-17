@@ -67,7 +67,7 @@ public class SpaceshipTest {
     @Test
     // Did the ship stay in place while attempting to move in two opposite directions?
     // @Author Irja Vuorela
-    public void ShipStillWhileUpAndDown() {
+    public void ShipNotMovingWhenUpAndDown() {
         startPos = ship.position;
         ship.setUp(1);
         ship.setDown(1);
@@ -79,11 +79,21 @@ public class SpaceshipTest {
     @Test
     // Did the ship stay in place while attempting to move in two opposite directions?
     // @Author Irja Vuorela
-    public void ShipStillWhileLeftAndRight() {
+    public void ShipNotMovingWhenLeftAndRight() {
         startPos = ship.position;
         ship.setLeft(1);
         ship.setRight(1);
         ship.velocity = new Point2D(1, 1);
+        ship.move();
+        assertTrue((ship.position.getX() == startPos.getX()) && (ship.position.getY() == startPos.getY()));
+    }
+
+    @Test
+    // Did the ship stay in place when its velocity is zero?
+    // @Author Irja Vuorela
+    public void ShipNotMovingWhenVelocityZero() {
+        startPos = ship.position;
+        ship.velocity = new Point2D(0, 0);
         ship.move();
         assertTrue((ship.position.getX() == startPos.getX()) && (ship.position.getY() == startPos.getY()));
     }
