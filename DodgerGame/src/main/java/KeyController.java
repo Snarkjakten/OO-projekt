@@ -1,11 +1,11 @@
-import Entities.Ship;
+import Entities.Spaceship;
 import javafx.scene.input.KeyEvent;
 
 public class KeyController {
 
-    Ship ship;
+    Spaceship ship;
 
-    KeyController(Ship ship) {
+    KeyController(Spaceship ship) {
         this.ship = ship;
     }
 
