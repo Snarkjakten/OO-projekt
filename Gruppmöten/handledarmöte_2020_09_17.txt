@@ -15,12 +15,18 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom,
 
 ## Reports (15 min) from previous meeting
 
+- Alla user stories har inte specifika non-funtional criteria.
+- Travis är frivilligt att använda. 
+- Man får välja mellan att skriva på svenska eller engelska i RAD-rapporten.
+
+	
 
 ## Discussion items (35 min)
 
 - Tester
 - Sprints
 - Viewcontroller
+- Utöka domänmodellen
 
 ## Outcomes and assignments (5 min)
 
@@ -50,12 +56,15 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom,
   Vi har kommit en bit på vägen med RAD. Ser bra ut, och vi har med nästan allt. Vi har dock skrivit både på engelska och svenska - åtgärda. 
 
   Försök strukturera enligt MVC-pattern. Exempelvis så görs scenbyte mha av controller. 
+  
+  Många klasser vi har syns inte i domänmodellen. Pelle nämnde på seminariet att den såg lite för simpel och generell ut. Har man fler user stories ska de synas i domänmodellen (beroende på user story). 
+
 
 
 ## Wrap up
 
 - Deadline för första sprinten är söndag 27/9. Vi ska ha ett skepp som rör sig på spelplanen, och spelet ska börja när man trycker på play-knappen på 
-  huvudmenyn. User story som inte hinns med följer med till nästa sprint.
+  huvudmenyn. User stories som inte hinns med följer med till nästa sprint.
 - Gruppmöte imorgon 17/9 kl 13:00. 
 - Nästa handledarmöte 24/9 kl 15:00.
 
