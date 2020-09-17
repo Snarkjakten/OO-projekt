@@ -65,7 +65,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place while attempting to move up and down simultaneously?
+    // Did the ship stay in place while attempting to move in two opposite directions?
     // @Author Irja Vuorela
     public void ShipStillWhileUpAndDown() {
         startPos = ship.position;
@@ -77,7 +77,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place attempting to move left and right simultaneously?
+    // Did the ship stay in place while attempting to move in two opposite directions?
     // @Author Irja Vuorela
     public void ShipStillWhileLeftAndRight() {
         startPos = ship.position;
