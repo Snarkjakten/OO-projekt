@@ -1,5 +1,4 @@
-import Projectiles.ProjectileFactory;
-import Projectiles.ProjectileGUI;
+import Entities.Ship;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -15,19 +14,23 @@ import java.io.InputStream;
 
 public class Window extends Application {
 
+    // --- todo: flytta main från Window --------------------
+    public static void main(String[] args) {
+        launch(args);
+    }
+    Ship ship = new Ship();
+    //-------------------------------------------------------
+
+
     //Creates Pane
     private final Pane win = new Pane();
-    private ProjectileGUI smallAsteroid = new ProjectileGUI(ProjectileFactory.createSmallAsteroid(), 400,400);
+    //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
 
-//    Image windowBackground = new Image("file:/src/main/resources/space.jpg");
-
-
-
     //Sets size of Pane
     private Pane createContent() {
-        win.setPrefSize(1200, 800);
+        win.setPrefSize(800, 600);
         return win;
     }
 
@@ -36,17 +39,14 @@ public class Window extends Application {
         try {
             //Creates ImageView and sets image space.jpg as view
             ImageView iV = new ImageView(windowBackground);
-            ImageView testAsteroid = new ImageView(smallAsteroid.getImage());
             iV.setImage(windowBackground);
 
             //Sets image size to fit Pane size (hard coded for now)
-            iV.setFitHeight(800);
-            iV.setFitWidth(1200);
+            iV.setFitHeight(600);
+            iV.setFitWidth(800);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV, testAsteroid);
-            testAsteroid.setX(testAsteroid.getX());
-            testAsteroid.setY(testAsteroid.getY());
+            win.getChildren().addAll(iV);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
@@ -55,12 +55,23 @@ public class Window extends Application {
             //Opens program window
             stage.show();
 
-        } catch(Exception e) {
+
+            // Handle key pressed
+            // @Author Irja Vuorela
+            KeyController keyController = new KeyController(ship);
+            stage.getScene().setOnKeyPressed(
+                    event -> keyController.handleKeyPressed(event)
+            );
+
+            // Handle key release
+            // @Author Irja Vuorela
+            stage.getScene().setOnKeyReleased(
+                    event -> keyController.handleKeyReleased(event)
+            );
+
+
+        } catch (Exception e) {
             e.printStackTrace();
         }
-    }
-
-    public static void main(String[] args) {
-        launch(args);
     }
 }
