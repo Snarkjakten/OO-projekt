@@ -1,31 +1,52 @@
-package Entities;
+package Entities.Spaceship;
 
-import Entities.AbstractMovable;
-import Entities.IMovable;
+import Movements.AbstractMovable;
 import javafx.geometry.Point2D;
 
-// A ship to be controlled by the player
-public class Ship extends AbstractMovable implements IMovable {
+// A spaceship to be controlled by the player
+public class Spaceship extends AbstractMovable {
 
     // Movement directions
-    public int up = 0;
-    public int down = 0;
-    public int left = 0;
-    public int right = 0;
+    public int up;
+    public int down;
+    public int left;
+    public int right;
+
+    // Spaceship constructor
+    public Spaceship() {
+        this.up = 0;
+        this.down = 0;
+        this.left = 0;
+        this.right = 0;
+    }
+
+    // Getter for spaceship x position
+    // @Author Tobias Engblom
+    protected double getxPosition() {
+        return position.getX();
+    }
+
+    // Setter for spaceship position
+    // @Author Tobias Engblom
+    protected void setPosition(double xPos, double yPos) {
+        position = new Point2D(xPos, yPos);
+    }
 
     // Move self
     // @Author Irja Vuorela
     @Override
     public void move() {
-        updateVelocity();
         updatePosition();
-
-        // todo: remove print
+        updateVelocity();
         System.out.println("Ship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // Update velocity
-    // @Author Irja Vuorela
+    // Getter for spaceship y position
+    // @Author Tobias Engblom
+    protected double getyPosition() {
+        return position.getY();
+    }
+
     public void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity
@@ -35,6 +56,7 @@ public class Ship extends AbstractMovable implements IMovable {
     }
 
     // Setters for directions
+    // @Author Irja Vuorela
     public void setUp(int up) {
         this.up = up;
     }

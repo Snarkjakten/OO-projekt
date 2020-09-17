@@ -1,4 +1,4 @@
-package Player;
+package Entities.Spaceship;
 
 import javafx.geometry.Point2D;
 import java.io.InputStream;
@@ -10,11 +10,13 @@ public class SpaceshipGUI {
     private Point2D point = new Point2D(0, 0);
     private Image image;
 
+    /**
+     * @Author Tobias Engblom
+     */
     public SpaceshipGUI(Spaceship spaceship, double x, double y) {
         this.spaceship = spaceship;
         this.image = addImageToSpaceship(spaceship);
-        spaceship.setxPosition(x);
-        spaceship.setyPosition(y);
+        spaceship.setPosition(x, y);
         this.point.add(x, y);
     }
 
@@ -28,7 +30,7 @@ public class SpaceshipGUI {
         return spaceship;
     }
 
-    public double getxPosition() {
+    public double getXPosition() {
         return spaceship.getxPosition();
     }
 
@@ -36,11 +38,12 @@ public class SpaceshipGUI {
         return spaceship.getyPosition();
     }
 
-    protected Point2D getPoint() {
+    public Point2D getPoint() {
         return point;
     }
 
     public Image getImage() {
         return image;
     }
+    //------------------------------------------------------------------------------------------------------------------
 }
