@@ -2,7 +2,7 @@ package Entities;
 
 import javafx.geometry.Point2D;
 
-/*
+/**
  * @Author Irja Vuorela
  */
 
@@ -21,7 +21,7 @@ public abstract class AbstractMovable implements IMovable {
         updatePosition();
     }
 
-    // Update position
+    // Update the position of a movable object
     // @Author Irja Vuorela
     public void updatePosition() {
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D

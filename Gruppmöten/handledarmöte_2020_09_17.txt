@@ -63,8 +63,7 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom,
 
 ## Wrap up
 
-- Deadline för första sprinten är söndag 27/9. Vi ska ha ett skepp som rör sig på spelplanen, och spelet ska börja när man trycker på play-knappen på 
-  huvudmenyn. User stories som inte hinns med följer med till nästa sprint.
+- Deadline för första sprinten är söndag 27/9. Vi ska ha ett skepp som rör sig på spelplanen, samt en huvudmeny. User stories som inte hinns med följer med till nästa sprint.
 - Gruppmöte imorgon 17/9 kl 13:00. 
 - Nästa handledarmöte 24/9 kl 15:00.
 
