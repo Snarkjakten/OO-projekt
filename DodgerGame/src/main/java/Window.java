@@ -31,7 +31,7 @@ public class Window extends Application {
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
     Spaceship spaceship = SpaceshipFactory.createSpaceship();
-    SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 400, 300);
+    SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
 
     //Sets size of Pane
@@ -55,7 +55,7 @@ public class Window extends Application {
             new AnimationTimer() {
                 @Override
                 public void handle(long currentNanoTime) {
-                    gc.drawImage(windowBackground, 0, 0);
+                    gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                 }
             }.start();

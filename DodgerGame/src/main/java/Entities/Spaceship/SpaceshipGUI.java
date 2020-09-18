@@ -1,13 +1,14 @@
 package Entities.Spaceship;
 
 import javafx.geometry.Point2D;
+
 import java.io.InputStream;
 
 import javafx.scene.image.Image;
 
 public class SpaceshipGUI {
     private Spaceship spaceship;
-    private Point2D point = new Point2D(0, 0);
+    private Point2D point;
     private Image image;
 
     /**
@@ -17,7 +18,7 @@ public class SpaceshipGUI {
         this.spaceship = spaceship;
         this.image = addImageToSpaceship();
         spaceship.setPosition(x, y);
-        this.point.add(x, y);
+        point = new Point2D(x, y);
     }
 
     public Image addImageToSpaceship() {
