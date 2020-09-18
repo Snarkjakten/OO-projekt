@@ -20,12 +20,6 @@ public class Spaceship extends AbstractMovable {
         this.right = 0;
     }
 
-    // Getter for spaceship x position
-    // @Author Tobias Engblom
-    protected double getxPosition() {
-        return position.getX();
-    }
-
     // Setter for spaceship position
     // @Author Tobias Engblom
     protected void setPosition(double xPos, double yPos) {
@@ -41,12 +35,7 @@ public class Spaceship extends AbstractMovable {
         System.out.println("Ship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // Getter for spaceship y position
-    // @Author Tobias Engblom
-    protected double getyPosition() {
-        return position.getY();
-    }
-
+    // @Author Irja Vuorela
     public void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity

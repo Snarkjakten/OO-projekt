@@ -32,11 +32,11 @@ public class SpaceshipGUI {
     }
 
     public double getXPosition() {
-        return spaceship.getxPosition();
+        return spaceship.position.getX();
     }
 
     public double getYPosition() {
-        return spaceship.getyPosition();
+        return spaceship.position.getY();
     }
 
     public Point2D getPoint() {
