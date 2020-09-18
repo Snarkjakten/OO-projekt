@@ -63,7 +63,7 @@ public class Window extends Application {
                     event -> keyController.handleKeyPressed(event)
             );
 
-            // Handle key release
+            // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
