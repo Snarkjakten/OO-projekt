@@ -52,13 +52,11 @@ public class Window extends Application {
 
             final long startNanoTime = System.nanoTime();
 
-            new AnimationTimer()
-            {
+            new AnimationTimer() {
                 @Override
                 public void handle(long currentNanoTime) {
-                        double t = (currentNanoTime - startNanoTime) / 1000000000.0;
-                        gc.drawImage(windowBackground, 0, 0);
-                        gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(windowBackground, 0, 0);
+                    gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                 }
             }.start();
             //----------------------------------------------------------------------------------------------------------
