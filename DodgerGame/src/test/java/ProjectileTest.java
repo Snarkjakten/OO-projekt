@@ -43,10 +43,10 @@ public class ProjectileTest {
     // @Author Irja Vuorela
     public void ProjectileMovedUp() {
         startPos = proj.position;
-        // Positive vertical value to move up
-        proj.setVertical(1);
+        // Negative vertical value to move up
+        proj.setVertical(-1);
         proj.move();
-        assertTrue(proj.position.getY() > startPos.getY());
+        assertTrue(proj.position.getY() < startPos.getY());
     }
 
     @Test
@@ -54,38 +54,16 @@ public class ProjectileTest {
     // @Author Irja Vuorela
     public void ProjectileMovedDown() {
         startPos = proj.position;
-        // Negative vertical value to move down
-        proj.setVertical(-1);
+        // Positive vertical value to move down
+        proj.setVertical(1);
         proj.move();
-        assertTrue(proj.position.getY() < startPos.getY());
+        assertTrue(proj.position.getY() > startPos.getY());
     }
 
     @Test
     // Does move() move the projectile's position up and right diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
-        startPos = proj.position;
-        proj.setVertical(1);
-        proj.setHorizontal(1);
-        proj.move();
-        assertTrue((proj.position.getX() > startPos.getX()) && (proj.position.getY() > startPos.getY()));
-    }
-
-    @Test
-    // Does move() move the projectile's position up and left diagonally?
-    // @Author Irja Vuorela
-    public void ProjectileMovedUpLeft() {
-        startPos = proj.position;
-        proj.setVertical(1);
-        proj.setHorizontal(-1);
-        proj.move();
-        assertTrue((proj.position.getX() < startPos.getX()) && (proj.position.getY() > startPos.getY()));
-    }
-
-    @Test
-    // Does move() move the projectile's position down and right diagonally?
-    // @Author Irja Vuorela
-    public void ProjectileMovedDownRight() {
         startPos = proj.position;
         proj.setVertical(-1);
         proj.setHorizontal(1);
@@ -94,14 +72,36 @@ public class ProjectileTest {
     }
 
     @Test
-    // Does move() move the projectile's position down and left diagonally?
+    // Does move() move the projectile's position up and left diagonally?
     // @Author Irja Vuorela
-    public void ProjectileMovedDownLeft() {
+    public void ProjectileMovedUpLeft() {
         startPos = proj.position;
         proj.setVertical(-1);
         proj.setHorizontal(-1);
         proj.move();
         assertTrue((proj.position.getX() < startPos.getX()) && (proj.position.getY() < startPos.getY()));
+    }
+
+    @Test
+    // Does move() move the projectile's position down and right diagonally?
+    // @Author Irja Vuorela
+    public void ProjectileMovedDownRight() {
+        startPos = proj.position;
+        proj.setVertical(1);
+        proj.setHorizontal(1);
+        proj.move();
+        assertTrue((proj.position.getX() > startPos.getX()) && (proj.position.getY() > startPos.getY()));
+    }
+
+    @Test
+    // Does move() move the projectile's position down and left diagonally?
+    // @Author Irja Vuorela
+    public void ProjectileMovedDownLeft() {
+        startPos = proj.position;
+        proj.setVertical(1);
+        proj.setHorizontal(-1);
+        proj.move();
+        assertTrue((proj.position.getX() < startPos.getX()) && (proj.position.getY() > startPos.getY()));
     }
 
     @Test

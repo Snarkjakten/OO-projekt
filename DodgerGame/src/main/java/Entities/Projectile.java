@@ -6,7 +6,7 @@ public class Projectile extends AbstractMovable implements IMovable {
 
     // Horizontal and vertical values for velocity
     public double horizontal = 0;   // Positive value: right, negative value: left
-    public double vertical = 0;     // Positive value: up, negative value: down
+    public double vertical = 0;     // positive value: down, Negative value: up
 
     @Override
     // Move self

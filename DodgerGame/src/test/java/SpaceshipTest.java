@@ -46,10 +46,10 @@ public class SpaceshipTest {
     public void SpaceshipMovedUp() {
         startPos = ship.position;
         ship.setUp(1);
-        // Positive y value to move up
-        ship.velocity = new Point2D(0, 1);
+        // Negative y value to move up
+        ship.velocity = new Point2D(0, -1);
         ship.move();
-        assertTrue(ship.position.getY() > startPos.getY());
+        assertTrue(ship.position.getY() < startPos.getY());
     }
 
     @Test
@@ -58,10 +58,10 @@ public class SpaceshipTest {
     public void SpaceshipMovedDown() {
         startPos = ship.position;
         ship.setDown(1);
-        // Negative y value to move down
-        ship.velocity = new Point2D(0, -1);
+        // Positive y value to move down
+        ship.velocity = new Point2D(0, 1);
         ship.move();
-        assertTrue(ship.position.getY() < startPos.getY());
+        assertTrue(ship.position.getY() > startPos.getY());
     }
 
     @Test
@@ -71,9 +71,9 @@ public class SpaceshipTest {
         startPos = ship.position;
         ship.setUp(1);
         ship.setRight(1);
-        ship.velocity = new Point2D(1, 1);
+        ship.velocity = new Point2D(1, -1);
         ship.move();
-        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() > startPos.getY()));
+        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() < startPos.getY()));
     }
 
     @Test
@@ -83,9 +83,9 @@ public class SpaceshipTest {
         startPos = ship.position;
         ship.setUp(1);
         ship.setLeft(1);
-        ship.velocity = new Point2D(-1, 1);
+        ship.velocity = new Point2D(-1, -1);
         ship.move();
-        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() > startPos.getY()));
+        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() < startPos.getY()));
     }
 
     @Test
@@ -95,9 +95,9 @@ public class SpaceshipTest {
         startPos = ship.position;
         ship.setDown(1);
         ship.setRight(1);
-        ship.velocity = new Point2D(1, -1);
+        ship.velocity = new Point2D(1, 1);
         ship.move();
-        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() < startPos.getY()));
+        assertTrue((ship.position.getX() > startPos.getX()) && (ship.position.getY() > startPos.getY()));
     }
 
     @Test
@@ -107,9 +107,9 @@ public class SpaceshipTest {
         startPos = ship.position;
         ship.setDown(1);
         ship.setLeft(1);
-        ship.velocity = new Point2D(-1, -1);
+        ship.velocity = new Point2D(-1, 1);
         ship.move();
-        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() < startPos.getY()));
+        assertTrue((ship.position.getX() < startPos.getX()) && (ship.position.getY() > startPos.getY()));
     }
 
     @Test
