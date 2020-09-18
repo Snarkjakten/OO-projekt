@@ -50,7 +50,7 @@ public class Spaceship extends AbstractMovable {
     public void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity
-        this.velocity = (new Point2D((right - left), (up - down))).normalize();
+        this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
         this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
     }
