@@ -1,11 +1,12 @@
-import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
 import Entities.Ship;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -22,7 +23,8 @@ public class Window extends Application {
         launch(args);
     }
     Ship ship = new Ship();
-    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid(), 100, 100);
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
+    Image asteroidImage = projectileGUI.getImage();
     //-------------------------------------------------------
 
 
@@ -42,22 +44,16 @@ public class Window extends Application {
     public void start(Stage stage) {
         try {
             //Creates ImageView and sets image space.jpg as view
-            ImageView iV = new ImageView(windowBackground);
-            iV.setImage(windowBackground);
-
-            ImageView testAsteroid = new ImageView(projectileGUI.getImage());
-            System.out.println(projectileGUI.getProjectile().getDirection());
-            System.out.println(projectileGUI.getProjectile().getSpeed());
-            System.out.println(projectileGUI.getProjectile().getVertical());
-            System.out.println(projectileGUI.getProjectile().getHorizontal());
+//            ImageView iV = new ImageView(windowBackground);
+//            iV.setImage(windowBackground);
 
 
             //Sets image size to fit Pane size (hard coded for now)
-            iV.setFitHeight(600);
-            iV.setFitWidth(800);
+//            iV.setFitHeight(600);
+//            iV.setFitWidth(800);
 
             //Adds ImageView to Pane
-            win.getChildren().addAll(iV, testAsteroid);
+//            win.getChildren().addAll(iV);
 
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
@@ -79,18 +75,33 @@ public class Window extends Application {
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+            Canvas canvas = new Canvas(800, 600);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            int i = 0;
-            while (i < 20) {
-                projectileGUI.getProjectile().move();
-                Projectile projectile = projectileGUI.getProjectile();
-                projectileGUI = new ProjectileGUI(projectile, projectile.getHorizontal(), projectile.getVertical());
-                testAsteroid.setImage(projectileGUI.getImage());
+            win.getChildren().addAll(canvas);
 
-                System.out.println(projectileGUI.getPoint().getX());
-                System.out.println(projectileGUI.getPoint().getY());
-                i++;
-            }
+
+            final long startNanoTime = System.nanoTime();
+
+            new AnimationTimer() {
+                @Override
+                public void handle(long currentNanoTime) {
+                    projectileGUI.getProjectile().move();
+                    gc.drawImage(windowBackground, 0, 0, 800, 600);
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
+                    }
+
+//                    if (x > 950 || x < -150) {
+//                        projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
+//                    } else if (y > 600 || y < 0) {
+//                        projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
+//                    }
+                }
+            } .start();
+
             stage.show();
 
 

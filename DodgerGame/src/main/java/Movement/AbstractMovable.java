@@ -25,6 +25,5 @@ public abstract class AbstractMovable implements IMovable {
     // @Author Irja Vuorela
     public void updatePosition() {
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
-        System.out.println("Position updated");
     }
 }

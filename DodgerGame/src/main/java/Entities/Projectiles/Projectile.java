@@ -10,14 +10,14 @@ import java.util.Random;
 
 public abstract class Projectile extends AbstractMovable {
     private double speed;               // Speed of the projectile.
-    private double horizontal = 0.0;    // positive value: right, negative value: left
-    private double vertical = 0.0;      // positive value: up, negative value: down
-    private Direction direction;        // The direction of the projectile.
+    private double horizontal;    // positive value: right, negative value: left
+    private double vertical;      // positive value: up, negative value: down
+    private double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
+    private double screenSizeY = 600;   // TODO: Remember to get this from model not hard code.
 
     public Projectile(double speed) {
         this.speed = speed;
-        this.direction = randomDirection();
-        randomPosition(direction);
+        randomPosition();
     }
 
     //TODO: Add different constructor for running scripted versions.
@@ -25,175 +25,101 @@ public abstract class Projectile extends AbstractMovable {
 
     }
 
-    //TODO: Rewrite move function to adapt for the abstractMovable class.
-    // Remove enum, change random position method and random direction so they work with abstractMovable.
-
     /**
-     * The method sets a random starting position for the projectile and changes
-     * the direction if needed to a specific direction.
-     * @param direction The current direction of the projectile.
+     * @Author Olle Westerlund
      */
-    private void randomPosition(Direction direction) {
-        Random randPos = new Random();
-        int side = randPos.nextInt(4);
+    private void randomPosition() {
+        Random randomPos = new Random();
+        double xPos = 0;
+        double yPos = 0;
+        int side = randomPos.nextInt(4);
+        System.out.println(side);
         switch (side) {
-            case 0: //Bottom side of the screen
-                this.horizontal = randPos.nextDouble() * 1200; // use this.position
-                this.vertical = 0.0;
-                if (direction.equals(Direction.SOUTH) || direction.equals(Direction.SOUTHEAST) ||
-                    direction.equals(Direction.SOUTHWEST)) {
-                    this.direction = specificDirection("NW");
-                }
-                updatePosition();
+            case 0: // Bottom of the screen
+                xPos = randomPos.nextDouble() * screenSizeX;
+                yPos = screenSizeY;
+                this.position.add(xPos, yPos);
+                randomStartVelocity(side);
                 break;
-            case 1: //Right side of the screen
-                this.horizontal = 1200;
-                this.vertical = randPos.nextDouble() * 800;
-                if (direction.equals(Direction.EAST) || direction.equals(Direction.SOUTHEAST) ||
-                    direction.equals(Direction.NORTHEAST)) {
-                    this.direction = specificDirection("SW");
-                }
-                updatePosition();
+            case 1: // Right side of the screen
+                xPos = 800;
+                yPos = randomPos.nextDouble() * screenSizeY;
+                this.position.add(xPos, yPos);
+                randomStartVelocity(side);
                 break;
-            case 2: //Top side of the screen
-                this.horizontal = 800.0;
-                this.vertical = randPos.nextDouble() * 1200;
-                if (direction.equals(Direction.NORTH) || direction.equals(Direction.NORTHEAST) ||
-                    direction.equals(Direction.NORTHWEST)) {
-                    this.direction = specificDirection("SE");
-                }
-                updatePosition();
+            case 2: // Top of the screen
+                xPos = randomPos.nextDouble() * screenSizeX;
+                yPos = 0;
+                this.position.add(xPos, yPos);
+                randomStartVelocity(side);
                 break;
-            case 3: //Left side of the screen
-                this.horizontal = 0.0;
-                this.vertical = randPos.nextDouble() * 800;
-                if (direction.equals(Direction.WEST) || direction.equals(Direction.SOUTHWEST) ||
-                    direction.equals(Direction.NORTHWEST)) {
-                    this.direction = specificDirection("NE");
-                }
-                updatePosition();
+            case 3: // Left of the screen
+                xPos = 0;
+                yPos = randomPos.nextDouble() * screenSizeY;
+                this.position.add(xPos, yPos);
+                randomStartVelocity(side);
                 break;
             default:
-                this.horizontal = 0.0;
-                this.vertical = 400;
-                this.direction = specificDirection("E");
-                updatePosition();
+                System.out.println("Error in randomPosition");
                 break;
         }
     }
 
     /**
-     * The method sets a specific direction from the input.
-     * @param direction The desired direction for the projectile.
-     * @return The chosen direction.
+     * @Author Olle Westerlund
+     * @param side The side of the screen that the asteroid spawns on.
      */
-    private static Direction specificDirection(String direction) {
-        switch (direction) {
-            case "N":
-                return Direction.NORTH;
-            case "NW":
-                return Direction.NORTHWEST;
-            case "NE":
-                return Direction.NORTHEAST;
-            case "S":
-                return Direction.SOUTH;
-            case "SW":
-                return Direction.SOUTHWEST;
-            case "SE":
-                return Direction.SOUTHEAST;
-            case "W":
-                return Direction.WEST;
-            case "E":
-                return Direction.EAST;
+    private void randomStartVelocity(int side) {
+        double xPos = 0;
+        double yPos = 0;
+        Random randomDouble = new Random();
+        switch (side) {
+            case 0: //Velocity from bottom
+                xPos = randomDouble.nextDouble() * screenSizeX;
+                yPos = randomDouble.nextDouble() * (screenSizeY - 20);
+                break;
+            case 1: //Velocity from right
+                xPos = randomDouble.nextDouble() * (screenSizeX - 20);
+                yPos = randomDouble.nextDouble() * screenSizeY;
+                break;
+            case 2: //Velocity from top
+                xPos = randomDouble.nextDouble() * screenSizeX;
+                yPos = 20 + randomDouble.nextDouble() * (screenSizeY - 20);
+                break;
+            case 3: //Velocity from left
+                xPos = 20 + randomDouble.nextDouble() * (screenSizeX - 20);
+                yPos = randomDouble.nextDouble() * screenSizeY;
+                break;
             default:
-                System.out.println("Wrong input, setting west as default");
-                return Direction.WEST;
-        }
-    }
-
-    /**
-     * The method creates a random direction.
-     * @return A random direction.
-     */
-    private static Direction randomDirection() {
-        Random randDirection = new Random();
-        int number = randDirection.nextInt(8);
-        switch (number) {
-            case 0:
-                return Direction.NORTH;
-            case 1:
-                return Direction.EAST;
-            case 2:
-                return Direction.SOUTH;
-            case 3:
-                return Direction.WEST;
-            case 4:
-                return Direction.NORTHEAST;
-            case 5:
-                return Direction.SOUTHEAST;
-            case 6:
-                return Direction.SOUTHWEST;
-            case 7:
-                return Direction.NORTHWEST;
-            default:
-                System.out.println("Random out of range.");
+                System.out.println("Something wrong in randomVelocity");
                 break;
         }
-        return Direction.WEST;
+        setHorizontal(xPos);
+        setVertical(yPos);
+        updateVelocity();
     }
 
     /**
-     * Changing the position of the projectile depending on the direction and the speed
-     * of said projectile.
+     * @Author Irja Vuorela
      */
     @Override
     public void move() {
-        switch (this.direction) {
-            case NORTH:
-                setVertical(getVertical() + speed);
-                break;
-            case WEST:
-                setHorizontal(getHorizontal() - speed);
-                break;
-            case SOUTH:
-                setVertical(getVertical() - speed);
-                break;
-            case EAST:
-                setHorizontal(getHorizontal() + speed);
-                break;
-            case NORTHEAST:
-                setHorizontal(getHorizontal() + speed);
-                setVertical(getVertical() + speed);
-                break;
-            case NORTHWEST:
-                setVertical(getVertical() + speed);
-                setHorizontal(getVertical() - speed);
-                break;
-            case SOUTHEAST:
-                setVertical(getVertical() - speed);
-                setHorizontal(getHorizontal() + speed);
-                break;
-            case SOUTHWEST:
-                setHorizontal(getHorizontal() - speed);
-                setVertical(getVertical() - speed);
-                break;
-            default:
-                System.out.println("Projectile not moving");
-                break;
-        }
         updateVelocity();
         updatePosition();
-
-         System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // Update velocity
-    // @Author Irja Vuorela
-    public void updateVelocity() {
-        // Normalize velocity
+    /**
+     * @Author Irja Vuorela
+     */
+    private void updateVelocity() {
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        // Multiply with speed
-        this.velocity = new Point2D(horizontal * speed, vertical * speed);
+        this.velocity = velocity.multiply(this.speed);
+    }
+
+    public boolean isNotOnScreen() {
+        boolean isStillOnX = (position.getX() > -150 && position.getX() < 950);
+        boolean isStillOnY = (position.getY() > -150 && position.getY() < 750);
+        return (!isStillOnX || !isStillOnY);
     }
 
     public double getSpeed() {
@@ -208,15 +134,11 @@ public abstract class Projectile extends AbstractMovable {
         return vertical;
     }
 
-    public Direction getDirection() {
-        return direction;
-    }
-
-    protected void setHorizontal(double horizontal) {
+    private void setHorizontal(double horizontal) {
         this.horizontal = horizontal;
     }
 
-    protected void setVertical(double vertical) {
+    private void setVertical(double vertical) {
         this.vertical = vertical;
     }
 }

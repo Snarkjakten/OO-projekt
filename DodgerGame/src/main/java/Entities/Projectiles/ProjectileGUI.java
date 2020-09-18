@@ -12,12 +12,16 @@ public class ProjectileGUI {
     private Projectile projectile;
     private javafx.geometry.Point2D point;
     private Image image;
+    private double xPos;
+    private double yPos;
 
-    public ProjectileGUI(Projectile projectile, double x, double y) {
-        this.point = new Point2D(x, y);
+    public ProjectileGUI(Projectile projectile) {
         this.projectile = projectile;
+        this.xPos = projectile.position.getX();
+        this.yPos = projectile.position.getY();
+        this.point = new Point2D(xPos, yPos);
         this.image = addImageToProjectile(projectile);
-        this.point.add(x, y);
+//        this.point.add(x, y);
     }
 
     public Image addImageToProjectile(Projectile projectile) {
@@ -41,5 +45,13 @@ public class ProjectileGUI {
 
     public Image getImage() {
         return this.image;
+    }
+
+    public double getHorizontalPosition() {
+        return projectile.position.getX();
+    }
+
+    public double getVerticalPosition() {
+        return projectile.position.getY();
     }
 }
