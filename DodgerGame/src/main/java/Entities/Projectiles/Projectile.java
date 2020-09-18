@@ -1,5 +1,7 @@
-package Entities;
+package Entities.Projectiles;
 
+import Movement.AbstractMovable;
+import Movement.IMovable;
 import javafx.geometry.Point2D;
 
 public class Projectile extends AbstractMovable implements IMovable {

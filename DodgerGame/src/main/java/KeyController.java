@@ -1,12 +1,12 @@
-import Entities.Spaceship;
+import Entities.Player.Spaceship;
 import javafx.scene.input.KeyEvent;
 
 public class KeyController {
 
-    Spaceship ship;
+    Spaceship spaceship;
 
-    KeyController(Spaceship ship) {
-        this.ship = ship;
+    KeyController(Spaceship spaceship) {
+        this.spaceship = spaceship;
     }
 
     // When an arrow key is pressed, the ship moves in that direction
@@ -14,20 +14,20 @@ public class KeyController {
     public void handleKeyPressed(KeyEvent event) {
         switch (event.getCode()) {
             case UP:
-                ship.setUp(1);
-                ship.move();
+                spaceship.setUp(1);
+                spaceship.move();
                 break;
             case DOWN:
-                ship.setDown(1);
-                ship.move();
+                spaceship.setDown(1);
+                spaceship.move();
                 break;
             case LEFT:
-                ship.setLeft(1);
-                ship.move();
+                spaceship.setLeft(1);
+                spaceship.move();
                 break;
             case RIGHT:
-                ship.setRight(1);
-                ship.move();
+                spaceship.setRight(1);
+                spaceship.move();
                 break;
             default:
                 break;
@@ -39,16 +39,16 @@ public class KeyController {
     public void handleKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
             case UP:
-                ship.setUp(0);
+                spaceship.setUp(0);
                 break;
             case DOWN:
-                ship.setDown(0);
+                spaceship.setDown(0);
                 break;
             case LEFT:
-                ship.setLeft(0);
+                spaceship.setLeft(0);
                 break;
             case RIGHT:
-                ship.setRight(0);
+                spaceship.setRight(0);
                 break;
             default:
                 break;
