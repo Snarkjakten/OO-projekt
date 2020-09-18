@@ -30,8 +30,8 @@ public class Spaceship extends AbstractMovable {
     // @Author Irja Vuorela
     @Override
     public void move() {
-        updatePosition();
         updateVelocity();
+        updatePosition();
         System.out.println("Ship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
