@@ -8,10 +8,10 @@ import javafx.geometry.Point2D;
 public class Spaceship extends AbstractMovable implements IMovable {
 
     // Movement directions
-    public int up = 0;
-    public int down = 0;
-    public int left = 0;
-    public int right = 0;
+    public int up = 0;      // moving up decreases vertical axis value
+    public int down = 0;    // moving down increases vertical axis value
+    public int left = 0;    // moving left decreases horizontal axis value
+    public int right = 0;   // moving right increases horizontal axis value
 
     // Move self to a new position
     // @Author Irja Vuorela
