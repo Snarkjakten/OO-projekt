@@ -1,4 +1,4 @@
-package Movements;
+package Movement;
 
 /**
  * @Author Irja Vuorela

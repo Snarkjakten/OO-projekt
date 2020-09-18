@@ -1,4 +1,4 @@
-package Movements;
+package Movement;
 
 import javafx.geometry.Point2D;
 
