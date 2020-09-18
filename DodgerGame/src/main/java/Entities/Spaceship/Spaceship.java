@@ -41,7 +41,7 @@ public class Spaceship extends AbstractMovable {
         // Normalize velocity
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
-        this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
+        this.velocity = velocity.multiply(speed);
     }
 
     // Setters for directions
