@@ -13,7 +13,7 @@ public class Spaceship extends AbstractMovable implements IMovable {
     public int left = 0;
     public int right = 0;
 
-    // Move self
+    // Move self to a new position
     // @Author Irja Vuorela
     @Override
     public void move() {
@@ -28,13 +28,13 @@ public class Spaceship extends AbstractMovable implements IMovable {
     // @Author Irja Vuorela
     public void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
-        // Normalize velocity
+        // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D((right - left), (up - down))).normalize();
         // Multiply direction with speed
         this.velocity = new Point2D(velocity.getX() * speed, velocity.getY() * speed);
     }
 
-    // Setters for directions
+    // Setters for movement directions
     public void setUp(int up) {
         this.up = up;
     }

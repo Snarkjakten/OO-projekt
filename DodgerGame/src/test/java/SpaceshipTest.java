@@ -17,7 +17,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move to the left?
+    // Does move() move the ship's position to the left?
     // @Author Irja Vuorela
     public void SpaceshipMovedLeft() {
         startPos = ship.position;
@@ -29,7 +29,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move to the right?
+    // Does move() move the ship's position to the right?
     // @Author Irja Vuorela
     public void SpaceshipMovedRight() {
         startPos = ship.position;
@@ -41,7 +41,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move up?
+    // Does move() move the ship's position up?
     // @Author Irja Vuorela
     public void SpaceshipMovedUp() {
         startPos = ship.position;
@@ -53,7 +53,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move down?
+    // Does move() move the ship's position down?
     // @Author Irja Vuorela
     public void SpaceshipMovedDown() {
         startPos = ship.position;
@@ -65,7 +65,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move up and right diagonally?
+    // Does move() move the ship's position up and right diagonally?
     // @Author Irja Vuorela
     public void SpaceshipMovedUpAndRight() {
         startPos = ship.position;
@@ -77,7 +77,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move up and left diagonally?
+    // Does move() move the ship's position up and left diagonally?
     // @Author Irja Vuorela
     public void SpaceshipMovedUpAndLeft() {
         startPos = ship.position;
@@ -89,7 +89,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move up and left diagonally?
+    // Does move() move the ship's position down and right diagonally?
     // @Author Irja Vuorela
     public void SpaceshipMovedDownAndRight() {
         startPos = ship.position;
@@ -101,7 +101,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship move up and left diagonally?
+    // Does move() move the ship's position down and left diagonally?
     // @Author Irja Vuorela
     public void SpaceshipMovedDownAndLeft() {
         startPos = ship.position;
@@ -113,7 +113,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place while attempting to move in two opposite directions?
+    // Does move() leave the ship's position unchanged when attempting to move left and right simultaneously?
     // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenLeftAndRight() {
         startPos = ship.position;
@@ -125,7 +125,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place while attempting to move in two opposite directions?
+    // Does move() leave the ship's position unchanged when attempting to move up and down simultaneously?
     // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenUpAndDown() {
         startPos = ship.position;
@@ -137,7 +137,7 @@ public class SpaceshipTest {
     }
 
     @Test
-    // Did the ship stay in place when its velocity is zero?
+    // Does move() leave the ship's position unchanged when its velocity is zero?
     // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenVelocityZero() {
         startPos = ship.position;

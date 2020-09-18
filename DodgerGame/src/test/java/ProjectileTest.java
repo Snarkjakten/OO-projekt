@@ -11,13 +11,13 @@ public class ProjectileTest {
     Point2D startPos;
 
     @Before
-    // @Author Irja
+    // @Author Irja Vuorela
     public void init() {
         proj = new Projectile();
     }
 
     @Test
-    // Did the proj move to the left?
+    // Does move() move the projectile's position to the left?
     // @Author Irja Vuorela
     public void ProjectileMovedLeft() {
         startPos = proj.position;
@@ -28,7 +28,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the proj move to the right?
+    // Does move() move the projectile's position to the right?
     // @Author Irja Vuorela
     public void ProjectileMovedRight() {
         startPos = proj.position;
@@ -39,7 +39,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the proj move up?
+    // Does move() move the projectile's position up?
     // @Author Irja Vuorela
     public void ProjectileMovedUp() {
         startPos = proj.position;
@@ -50,7 +50,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the proj move down?
+    // Does move() move the projectile's position down?
     // @Author Irja Vuorela
     public void ProjectileMovedDown() {
         startPos = proj.position;
@@ -61,7 +61,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the projectile move diagonally up and right?
+    // Does move() move the projectile's position up and right diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
         startPos = proj.position;
@@ -72,7 +72,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the projectile move diagonally up and left?
+    // Does move() move the projectile's position up and left diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedUpLeft() {
         startPos = proj.position;
@@ -83,7 +83,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the projectile move diagonally down and right?
+    // Does move() move the projectile's position down and right diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedDownRight() {
         startPos = proj.position;
@@ -94,7 +94,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the projectile move diagonally down and left?
+    // Does move() move the projectile's position down and left diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedDownLeft() {
         startPos = proj.position;
@@ -105,7 +105,7 @@ public class ProjectileTest {
     }
 
     @Test
-    // Did the projectile stay in place when its velocity was (0,0)?
+    // Does move() leave the projectile's position unchanged when its velocity was zero?
     // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = proj.position;
