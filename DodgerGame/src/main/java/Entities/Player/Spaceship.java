@@ -14,16 +14,10 @@ public class Spaceship extends AbstractMovable {
 
     // Spaceship constructor
     public Spaceship() {
-        this.up = 0;
-        this.down = 0;
-        this.left = 0;
-        this.right = 0;
-    }
-
-    // Setter for spaceship position
-    // @Author Tobias Engblom
-    protected void setPosition(double xPos, double yPos) {
-        position = new Point2D(xPos, yPos);
+        this.up = 0;    // moving up decreases vertical axis value
+        this.down = 0;  // moving down increases vertical axis value
+        this.left = 0;  // moving left decreases horizontal axis value
+        this.right = 0; // moving right increases horizontal axis value
     }
 
     // Move self to a new position
