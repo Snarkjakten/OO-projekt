@@ -2,7 +2,6 @@ import javafx.event.EventHandler;
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.StackPane;
 import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
@@ -23,6 +22,7 @@ public class MenuButton extends StackPane {
 
         getChildren().addAll(background, text);
 
+        // Set effect when hovering over button
         setOnMouseEntered(Event -> {
             background.setTranslateX(10);
             text.setTranslateX(10);
@@ -42,6 +42,7 @@ public class MenuButton extends StackPane {
         DropShadow drop = new DropShadow(50, Color.WHITESMOKE);
         drop.setInput(new Glow());
 
+        // Set effect when pressing button
         setOnMousePressed(Event -> setEffect(drop));
         setOnMouseReleased(Event -> setEffect(null));
 

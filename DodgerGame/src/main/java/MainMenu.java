@@ -24,7 +24,10 @@ public class MainMenu {
     private Canvas title;
     private ImageView background;
 
-    public MainMenu() throws IOException {
+    private ButtonController buttonController;
+
+    public MainMenu(ButtonController buttonController) throws IOException {
+        this.buttonController = buttonController;
         // Creates a title to the main page.
         Canvas canvas = new Canvas(800, 150);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -67,11 +70,12 @@ public class MainMenu {
             menu.setTranslateX(270);
             menu.setTranslateY(200);
 
-            playBtn.setOnMouseClicked(Event -> {
-                //primaryStage.setScene(newScene);
+            // Handle button click
+            playBtn.setOnMouseClicked(event -> {
+                buttonController.changeToGameScene();
             });
 
-            quitBtn.setOnMouseClicked(Event -> {
+            quitBtn.setOnMouseClicked(event -> {
                 System.exit(0);
             });
 

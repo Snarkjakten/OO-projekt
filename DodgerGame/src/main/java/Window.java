@@ -77,4 +77,22 @@ public class Window extends Application {
             e.printStackTrace();
         }
     }
+
+    public Scene getGameScene(){
+        createContent();
+
+        ImageView iV = new ImageView(windowBackground);
+        iV.setImage(windowBackground);
+
+        //Sets image size to fit Pane size (hard coded for now)
+        iV.setFitHeight(600);
+        iV.setFitWidth(800);
+
+        //Adds ImageView to Pane
+        win.getChildren().addAll(iV);
+
+        Scene gameScene = new Scene(win);
+
+        return gameScene;
+    }
 }

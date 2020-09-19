@@ -1,21 +1,28 @@
 import javafx.application.Application;
 import javafx.scene.Scene;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.IOException;
 
+/**
+ * @Author Isak Almeros
+ */
+
 public class Main extends Application {
-    MainMenu mainMenu = new MainMenu();
     Stage stage;
+    MainMenu mainMenu;
+    Window window;
+    ButtonController buttonController;
 
     public Main() throws IOException {
     }
 
     @Override
     public void start(Stage stage) throws Exception {
+        this.stage = stage;
+        window = new Window();
+        buttonController = new ButtonController(window, stage);
+        mainMenu = new MainMenu(buttonController);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = mainMenu.getScene();
