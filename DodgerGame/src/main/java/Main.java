@@ -2,20 +2,15 @@ import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 
-import java.io.IOException;
-
 /**
  * @Author Isak Almeros
  */
 
 public class Main extends Application {
-    Stage stage;
-    MainMenu mainMenu;
-    Window window;
-    ButtonController buttonController;
-
-    public Main() throws IOException {
-    }
+    private Stage stage;
+    private  MainMenu mainMenu;
+    private Window window;
+    private ButtonController buttonController;
 
     @Override
     public void start(Stage stage) throws Exception {

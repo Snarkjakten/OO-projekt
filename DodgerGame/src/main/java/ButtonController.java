@@ -1,9 +1,14 @@
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 import javafx.scene.Scene;
+
+import java.util.Optional;
 
 /**
  * @Author Isak Almeros
  */
+
 public class ButtonController {
     private Window window;
     private MainMenu mainMenu;
@@ -25,8 +30,33 @@ public class ButtonController {
         });
 
         mainMenu.getQuitBtn().setOnMouseClicked(event -> {
-            System.exit(0);
+            closeProgram();
         });
 
+        // when closing window in the upper left corner
+        stage.setOnCloseRequest(event -> {
+            event.consume();
+            closeProgram();
+        });
+    }
+
+    // Opens a dialog box when pressing quit
+    private void closeProgram(){
+        Alert alert = new Alert(Alert.AlertType.NONE);
+        alert.setAlertType(Alert.AlertType.CONFIRMATION);
+        alert.setTitle("Quit game");
+        alert.setContentText("Are you sure you want to quit?");
+
+        // Replace buttons
+        alert.getButtonTypes().remove(ButtonType.OK);
+        alert.getButtonTypes().remove(ButtonType.CANCEL);
+        alert.getButtonTypes().add(ButtonType.YES);
+        alert.getButtonTypes().add(ButtonType.NO);
+
+        Optional<ButtonType> result = alert.showAndWait();
+
+        if (result.isPresent() && result.get() == ButtonType.YES) {
+            System.exit(0);
+        }
     }
 }
