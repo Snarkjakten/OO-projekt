@@ -21,13 +21,14 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         this.stage = stage;
         window = new Window();
-        buttonController = new ButtonController(window, stage);
-        mainMenu = new MainMenu(buttonController);
+        mainMenu = new MainMenu();
+        buttonController = new ButtonController(window, mainMenu, stage);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = mainMenu.getScene();
 
         stage.setScene(mainMenuScene);
+        //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();
     }

@@ -14,20 +14,20 @@ import javafx.stage.Stage;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @Author Isak Almeros
+ */
 public class MainMenu {
 
-    private MenuButton playBtn = new MenuButton("PLAY");
-    private MenuButton highscoreBtn = new MenuButton("HIGHSCORE");
-    private MenuButton quitBtn = new MenuButton("QUIT");
+    private MenuButton playBtn;
+    private MenuButton highscoreBtn;
+    private MenuButton quitBtn;
 
     private ButtonMenu buttonMenu = new ButtonMenu();
     private Canvas title;
     private ImageView background;
 
-    private ButtonController buttonController;
-
-    public MainMenu(ButtonController buttonController) throws IOException {
-        this.buttonController = buttonController;
+    public MainMenu() throws IOException {
         // Creates a title to the main page.
         Canvas canvas = new Canvas(800, 150);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -70,17 +70,24 @@ public class MainMenu {
             menu.setTranslateX(270);
             menu.setTranslateY(200);
 
-            // Handle button click
-            playBtn.setOnMouseClicked(event -> {
-                buttonController.changeToGameScene();
-            });
-
-            quitBtn.setOnMouseClicked(event -> {
-                System.exit(0);
-            });
+            playBtn = new MenuButton("PLAY");
+            highscoreBtn = new MenuButton("HIGHSCORE");
+            quitBtn = new MenuButton("QUIT");
 
             menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn);
             getChildren().addAll(menu);
         }
+    }
+
+    public MenuButton getPlayBtn() {
+        return playBtn;
+    }
+
+    public MenuButton getHighscoreBtn() {
+        return highscoreBtn;
+    }
+
+    public MenuButton getQuitBtn() {
+        return quitBtn;
     }
 }

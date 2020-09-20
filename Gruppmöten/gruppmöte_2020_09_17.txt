@@ -1,0 +1,35 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 17 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Fixa merge konflikt för Viktors branch
+- Gå igenom färdig kod och kontrollera funktionalitet
+
+## Reports (15 min) from previous meeting
+
+- Olle Westerlund: skapat klasserna som hanterar asteroiders utseende och rörelse
+- Viktor Sundberg: skapat klass, utseende av och funktionalitet (minska och öka hp) för hp-bar 
+- Irja Vuorela: skapat interface, metoder för movement och en keykontroller som hanterar input från användaren
+- Tobias Engblom: skapat utseende och objekt för spelkaraktären samt gjort små ändringar i Window klassen
+- Isak Almeros: skapat scen för main menu med tillhörande grafik och knappar redo för adderande av funktionalitet
+
+## Discussion items (35 min)
+
+- Diskuterade gameloop 
+- Diskuterade logik för hanteringen av de olika scenerna 
+
+## Outcomes and assignments (5 min)
+
+- Löste merge konflikten 
+- Genomföra handeldarmöte och därefter besluta om upppdelning av arbete och uppgifter
+- Fråga om användning av controller alt. lägga logiken i scenen
+
+## Wrap up
+
+- Genomför handledarmötet och skriv därefter nytt protokoll

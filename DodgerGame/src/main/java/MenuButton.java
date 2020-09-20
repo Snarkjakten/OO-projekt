@@ -7,6 +7,10 @@ import javafx.scene.paint.Color;
 import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
+/**
+ * @Author Isak Almeros
+ */
+
 public class MenuButton extends StackPane {
     private Text text;
 
@@ -18,11 +22,12 @@ public class MenuButton extends StackPane {
         background.setFill(Color.DARKBLUE);
         background.setStroke(Color.WHITE);
 
+        // Aligns the buttons text to the center of the rectangle
         setAlignment(Pos.CENTER);
 
         getChildren().addAll(background, text);
 
-        // Set effect when hovering over button
+        // Sets effect when hovering over button
         setOnMouseEntered(Event -> {
             background.setTranslateX(10);
             text.setTranslateX(10);
@@ -42,10 +47,8 @@ public class MenuButton extends StackPane {
         DropShadow drop = new DropShadow(50, Color.WHITESMOKE);
         drop.setInput(new Glow());
 
-        // Set effect when pressing button
+        // Sets effect when pressing button
         setOnMousePressed(Event -> setEffect(drop));
         setOnMouseReleased(Event -> setEffect(null));
-
-
     }
 }
