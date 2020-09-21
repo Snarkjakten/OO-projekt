@@ -37,32 +37,33 @@ public abstract class Projectile extends AbstractMovable {
         switch (side) {
             case 0: // Bottom of the screen
                 xPos = randomPos.nextDouble() * screenSizeX;
-                yPos = screenSizeY;
-                this.position.add(xPos, yPos);
+                yPos = screenSizeY + 50;
+                this.position = position.add(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 1: // Right side of the screen
-                xPos = 800;
+                xPos = 850;
                 yPos = randomPos.nextDouble() * screenSizeY;
-                this.position.add(xPos, yPos);
+                this.position = position.add(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 2: // Top of the screen
                 xPos = randomPos.nextDouble() * screenSizeX;
-                yPos = 0;
-                this.position.add(xPos, yPos);
+                yPos = -50;
+                this.position = position.add(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 3: // Left of the screen
-                xPos = 0;
+                xPos = -50;
                 yPos = randomPos.nextDouble() * screenSizeY;
-                this.position.add(xPos, yPos);
+                this.position = position.add(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             default:
                 System.out.println("Error in randomPosition");
                 break;
         }
+        System.out.println("Position: " + this.position);
     }
 
     /**
@@ -76,27 +77,29 @@ public abstract class Projectile extends AbstractMovable {
         switch (side) {
             case 0: //Velocity from bottom
                 xPos = randomDouble.nextDouble() * screenSizeX;
-                yPos = randomDouble.nextDouble() * (screenSizeY - 20);
+                yPos = randomDouble.nextDouble() * (screenSizeY - 60);
                 break;
             case 1: //Velocity from right
-                xPos = randomDouble.nextDouble() * (screenSizeX - 20);
+                xPos = randomDouble.nextDouble() * (screenSizeX - 60);
                 yPos = randomDouble.nextDouble() * screenSizeY;
                 break;
             case 2: //Velocity from top
                 xPos = randomDouble.nextDouble() * screenSizeX;
-                yPos = 20 + randomDouble.nextDouble() * (screenSizeY - 20);
+                yPos = 60 + randomDouble.nextDouble() * (screenSizeY - 60);
                 break;
             case 3: //Velocity from left
-                xPos = 20 + randomDouble.nextDouble() * (screenSizeX - 20);
+                xPos = 60 + randomDouble.nextDouble() * (screenSizeX - 60);
                 yPos = randomDouble.nextDouble() * screenSizeY;
                 break;
             default:
                 System.out.println("Something wrong in randomVelocity");
                 break;
         }
+        System.out.println("Target point (" + xPos + "," + yPos + ")");
         setHorizontal(xPos);
         setVertical(yPos);
         updateVelocity();
+        System.out.println("Velocity: " + this.velocity);
     }
 
     /**
@@ -116,9 +119,13 @@ public abstract class Projectile extends AbstractMovable {
         this.velocity = velocity.multiply(this.speed);
     }
 
+    /**
+     * @Author Olle Westerlund
+     * @return
+     */
     public boolean isNotOnScreen() {
-        boolean isStillOnX = (position.getX() > -150 && position.getX() < 950);
-        boolean isStillOnY = (position.getY() > -150 && position.getY() < 750);
+        boolean isStillOnX = (position.getX() > -150 && position.getX() < (screenSizeX + 150));
+        boolean isStillOnY = (position.getY() > -150 && position.getY() < (screenSizeY + 150));
         return (!isStillOnX || !isStillOnY);
     }
 

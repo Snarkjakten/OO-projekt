@@ -10,7 +10,7 @@ import java.io.InputStream;
 
 public class ProjectileGUI {
     private Projectile projectile;
-    private javafx.geometry.Point2D point;
+    private Point2D point;
     private Image image;
     private double xPos;
     private double yPos;
@@ -21,7 +21,6 @@ public class ProjectileGUI {
         this.yPos = projectile.position.getY();
         this.point = new Point2D(xPos, yPos);
         this.image = addImageToProjectile(projectile);
-//        this.point.add(x, y);
     }
 
     public Image addImageToProjectile(Projectile projectile) {
