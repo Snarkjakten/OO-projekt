@@ -38,32 +38,32 @@ public abstract class Projectile extends AbstractMovable {
             case 0: // Bottom of the screen
                 xPos = randomPos.nextDouble() * screenSizeX;
                 yPos = screenSizeY + 50;
-                this.position = position.add(xPos, yPos);
+                this.position = new Point2D(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 1: // Right side of the screen
                 xPos = 850;
                 yPos = randomPos.nextDouble() * screenSizeY;
-                this.position = position.add(xPos, yPos);
+                this.position = new Point2D(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 2: // Top of the screen
                 xPos = randomPos.nextDouble() * screenSizeX;
                 yPos = -50;
-                this.position = position.add(xPos, yPos);
+                this.position = new Point2D(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             case 3: // Left of the screen
                 xPos = -50;
                 yPos = randomPos.nextDouble() * screenSizeY;
-                this.position = position.add(xPos, yPos);
+                this.position = new Point2D(xPos, yPos);
                 randomStartVelocity(side);
                 break;
             default:
                 System.out.println("Error in randomPosition");
                 break;
         }
-        System.out.println("Position: " + this.position);
+        System.out.println("Starting position: " + this.position);
     }
 
     /**
@@ -78,6 +78,9 @@ public abstract class Projectile extends AbstractMovable {
             case 0: //Velocity from bottom
                 xPos = randomDouble.nextDouble() * screenSizeX;
                 yPos = randomDouble.nextDouble() * (screenSizeY - 60);
+                if (xPos > this.position.getX()) {
+
+                }
                 break;
             case 1: //Velocity from right
                 xPos = randomDouble.nextDouble() * (screenSizeX - 60);
@@ -115,7 +118,7 @@ public abstract class Projectile extends AbstractMovable {
      * @Author Irja Vuorela
      */
     private void updateVelocity() {
-        this.velocity = (new Point2D(horizontal, vertical)).normalize();
+        this.velocity = (new Point2D(horizontal - this.position.getX(), vertical - this.position.getY())).normalize();
         this.velocity = velocity.multiply(this.speed);
     }
 

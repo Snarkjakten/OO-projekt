@@ -24,8 +24,6 @@ public class Window extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
-    Image asteroidImage = projectileGUI.getImage();
     //-------------------------------------------------------
 
 
@@ -37,6 +35,8 @@ public class Window extends Application {
     Spaceship spaceship = SpaceshipFactory.createSpaceship();
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+    Image asteroidImage = projectileGUI.getImage();
 
     //Sets size of Pane
     private Pane createContent() {
@@ -61,6 +61,12 @@ public class Window extends Application {
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    projectileGUI.getProjectile().move();
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
+
                 }
             }.start();
             //----------------------------------------------------------------------------------------------------------
