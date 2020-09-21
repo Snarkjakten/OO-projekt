@@ -67,8 +67,8 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
-     * @Author Olle Westerlund
      * @param side The side of the screen that the asteroid spawns on.
+     * @Author Olle Westerlund
      */
     private void randomStartVelocity(int side) {
         double xPos = 0;
@@ -120,8 +120,8 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
-     * @Author Olle Westerlund
      * @return
+     * @Author Olle Westerlund
      */
     public boolean isNotOnScreen() {
         boolean isStillOnX = (position.getX() > -150 && position.getX() < (screenSizeX + 150));

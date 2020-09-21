@@ -1,6 +1,6 @@
 package Movement;
 
-/*
+/**
  * @Author Irja Vuorela
  */
 
