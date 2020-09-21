@@ -1,8 +1,12 @@
-import Entities.Ship;
+import Entities.Player.Spaceship;
+import Entities.Player.SpaceshipFactory;
+import Entities.Player.SpaceshipGUI;
+import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
+import javafx.scene.canvas.Canvas;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -18,7 +22,6 @@ public class Window extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    Ship ship = new Ship();
     //-------------------------------------------------------
 
 
@@ -27,6 +30,9 @@ public class Window extends Application {
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
+    Spaceship spaceship = SpaceshipFactory.createSpaceship();
+    SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
+    Image spaceShipImage = spaceshipGUI.getImage();
 
     //Sets size of Pane
     private Pane createContent() {
@@ -37,39 +43,42 @@ public class Window extends Application {
     @Override
     public void start(Stage stage) {
         try {
-            //Creates ImageView and sets image space.jpg as view
-            ImageView iV = new ImageView(windowBackground);
-            iV.setImage(windowBackground);
+            // @Author Tobias Engblom
+            Canvas canvas = new Canvas(800, 600);
+            GraphicsContext gc = canvas.getGraphicsContext2D();
 
-            //Sets image size to fit Pane size (hard coded for now)
-            iV.setFitHeight(600);
-            iV.setFitWidth(800);
+            //Adds ImageView and Canvas to Pane
+            win.getChildren().addAll(canvas);
 
-            //Adds ImageView to Pane
-            win.getChildren().addAll(iV);
+            final long startNanoTime = System.nanoTime();
 
+            new AnimationTimer() {
+                @Override
+                public void handle(long currentNanoTime) {
+                    gc.drawImage(windowBackground, 0, 0, 800, 600);
+                    gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                }
+            }.start();
+            //----------------------------------------------------------------------------------------------------------
             //Sets scene from created Pane createContent
             stage.setScene(new Scene(createContent()));
-            //Removes option to change size of progam window
+            //Removes option to change size of program window
             stage.setResizable(false);
             //Opens program window
             stage.show();
 
-
             // Handle key pressed
             // @Author Irja Vuorela
-            KeyController keyController = new KeyController(ship);
+            KeyController keyController = new KeyController(spaceship);
             stage.getScene().setOnKeyPressed(
                     event -> keyController.handleKeyPressed(event)
             );
 
-            // Handle key release
+            // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
-
-
         } catch (Exception e) {
             e.printStackTrace();
         }
