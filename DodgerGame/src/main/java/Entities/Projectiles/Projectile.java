@@ -141,11 +141,11 @@ public abstract class Projectile extends AbstractMovable {
         return vertical;
     }
 
-    private void setHorizontal(double horizontal) {
+    public void setHorizontal(double horizontal) {
         this.horizontal = horizontal;
     }
 
-    private void setVertical(double vertical) {
+    public void setVertical(double vertical) {
         this.vertical = vertical;
     }
 }

@@ -1,5 +1,7 @@
 
 import Entities.Projectiles.Projectile;
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.SmallAsteroid;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -8,13 +10,13 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ProjectileTest {
 
-    Projectile proj;
+    SmallAsteroid proj;
     Point2D startPos;
 
     @Before
     // @Author Irja Vuorela
     public void init() {
-        proj = new Projectile();
+        proj = new SmallAsteroid();
     }
 
     @Test

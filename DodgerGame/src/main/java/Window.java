@@ -4,14 +4,11 @@ import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
-import Entities.Ship;
-import javafx.animation.AnimationTimer;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -27,7 +24,6 @@ public class Window extends Application {
     public static void main(String[] args) {
         launch(args);
     }
-    Ship ship = new Ship();
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createMediumAsteroid());
     Image asteroidImage = projectileGUI.getImage();
     //-------------------------------------------------------
