@@ -35,6 +35,9 @@ public class Window extends Application {
     Spaceship spaceship = SpaceshipFactory.createSpaceship();
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
+
+    //------------------------------------------------------------
+
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     Image asteroidImage = projectileGUI.getImage();
 

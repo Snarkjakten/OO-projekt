@@ -110,13 +110,6 @@ public abstract class Projectile extends AbstractMovable {
         updateVelocity();
     }
 
-    /**
-     * @Author Irja Vuorela
-     */
-    @Override
-    public void move() {
-        updatePosition();
-    }
 
     /**
      * @Author Irja Vuorela
@@ -127,8 +120,8 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
-     * @return
      * @Author Olle Westerlund
+     * @return Boolean if the object is no longer on the screen.
      */
     public boolean isNotOnScreen() {
         boolean isStillOnX = (position.getX() > -70 && position.getX() < (screenSizeX + 70));
