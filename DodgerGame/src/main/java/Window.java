@@ -33,6 +33,10 @@ public class Window {
 
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     Image asteroidImage = projectileGUI.getImage();
+    ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
+    Image health = healthGain.getImage();
+    ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
+    Image shieldImage = shieldGUI.getImage();
 
     public Window(Stage stage){
         this.stage = stage;
@@ -57,9 +61,19 @@ public class Window {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    gc.drawImage(health, healthGain.getHorizontalPosition(), healthGain.getVerticalPosition());
+                    gc.drawImage(shieldImage, shieldGUI.getHorizontalPosition(), shieldGUI.getVerticalPosition(), 64, 64);
                     projectileGUI.getProjectile().move();
+                    healthGain.getProjectile().move();
+                    shieldGUI.getProjectile().move();
                     if (projectileGUI.getProjectile().isNotOnScreen()) {
                         projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
+                    if (healthGain.getProjectile().isNotOnScreen()) {
+                        healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
+                    }
+                    if (shieldGUI.getProjectile().isNotOnScreen()) {
+                        shieldGUI = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
                     }
 
                 }

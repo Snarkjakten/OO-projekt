@@ -38,6 +38,9 @@ public class ProjectileGUI {
         } else if (projectile instanceof HealthPowerUp) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
             image = new Image(inputStream);
+        } else if (projectile instanceof ShieldPowerUp) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
+            image = new Image(inputStream);
         }
         return image;
     }

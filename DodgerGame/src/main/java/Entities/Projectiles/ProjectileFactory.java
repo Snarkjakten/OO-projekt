@@ -18,4 +18,8 @@ public abstract class ProjectileFactory {
         return new HealthPowerUp();
     }
 
+    public static Projectile createShieldPowerUp() {
+        return new ShieldPowerUp();
+    }
+
 }
