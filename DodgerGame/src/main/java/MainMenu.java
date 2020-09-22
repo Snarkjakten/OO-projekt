@@ -46,8 +46,8 @@ public class MainMenu {
         is.close();
 
         background = new ImageView(image);
-        background.setFitWidth(1200);
-        background.setFitHeight(800);
+        background.setFitWidth(800);
+        background.setFitHeight(600);
     }
 
     // Creates a scene for the main page, containing background, buttons and title
