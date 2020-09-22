@@ -11,7 +11,7 @@ public class SmallAsteroid extends Projectile {
         this.damage = 20;
     }
 
-    protected double getDamage() {
+    public double getDamage() {
         return damage;
     }
 }

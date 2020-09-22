@@ -114,7 +114,7 @@ public abstract class Projectile extends AbstractMovable {
     /**
      * @Author Irja Vuorela
      */
-    private void updateVelocity() {
+    public void updateVelocity() {
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
         this.velocity = velocity.multiply(this.speed);
     }
