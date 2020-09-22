@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractMovable {
-    private double speed;               // Speed of the projectile.
+    private double speed;         // Speed of the projectile.
     private double horizontal;    // positive value: right, negative value: left
     private double vertical;      // positive value: up, negative value: down
     private double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
@@ -107,9 +107,16 @@ public abstract class Projectile extends AbstractMovable {
         }
         setHorizontal(xPos);
         setVertical(yPos);
-        updateVelocity();
     }
 
+    /**
+     * @Author Irja Vuorela
+     */
+    @Override
+    public void move() {
+        updateVelocity();
+        updatePosition();
+    }
 
     /**
      * @Author Irja Vuorela

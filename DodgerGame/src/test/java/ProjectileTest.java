@@ -17,7 +17,6 @@ public class ProjectileTest {
     // @Author Irja Vuorela
     public void init() {
         projSmallAsteroid = new SmallAsteroid();
-        projSmallAsteroid.setPosition(50,50);
         projMediumAsteroid = new MediumAsteroid();
         smallAsteroidGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     }
@@ -55,8 +54,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         // Negative horizontal value to move left
         projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.setVertical(0);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue(projSmallAsteroid.position.getX() < startPos.getX());
     }
@@ -68,8 +65,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         // Positive horizontal value to move right
         projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.setVertical(0);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue(projSmallAsteroid.position.getX() > startPos.getX());
     }
@@ -81,8 +76,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         // Negative vertical value to move up
         projSmallAsteroid.setVertical(-1);
-        projSmallAsteroid.setHorizontal(0);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue(projSmallAsteroid.position.getY() < startPos.getY());
     }
@@ -94,8 +87,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         // Positive vertical value to move down
         projSmallAsteroid.setVertical(1);
-        projSmallAsteroid.setHorizontal(0);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue(projSmallAsteroid.position.getY() > startPos.getY());
     }
@@ -107,7 +98,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(-1);
         projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
     }
@@ -119,7 +109,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(-1);
         projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
     }
@@ -131,7 +120,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(1);
         projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
     }
@@ -143,7 +131,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(1);
         projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
     }
@@ -155,7 +142,6 @@ public class ProjectileTest {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(0);
         projSmallAsteroid.setHorizontal(0);
-        projSmallAsteroid.updateVelocity();
         projSmallAsteroid.move();
         assertTrue((projSmallAsteroid.position.getX() == startPos.getX()) && (projSmallAsteroid.position.getY() == startPos.getY()));
     }
