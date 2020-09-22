@@ -1,11 +1,11 @@
 package Entities.Projectiles;
 
 public class HealthPowerUp extends Projectile{
-    private double HealthPoint;
+    private double HealthPoint;  // Percent of health the player gets back.
 
     public HealthPowerUp() {
         super(5);
-        HealthPoint = 50;
+        HealthPoint = 25;
     }
 
     public double getHealthPoint() {
