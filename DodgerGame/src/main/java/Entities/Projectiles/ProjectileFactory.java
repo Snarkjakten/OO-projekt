@@ -14,4 +14,8 @@ public abstract class ProjectileFactory {
         return new MediumAsteroid();
     }
 
+    public static Projectile createHealthPowerUp() {
+        return new HealthPowerUp();
+    }
+
 }
