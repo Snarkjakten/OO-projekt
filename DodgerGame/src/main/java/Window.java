@@ -78,6 +78,14 @@ public class Window {
 
                 }
             }.start();
+            //----------------------------------------------------------------------------------------------------------
+            //Sets scene from created Pane createContent
+            stage.setScene(new Scene(createContent()));
+            //Removes option to change size of program window
+            stage.setResizable(false);
+            //Opens program window
+            stage.show();
+
 
             // Handle key pressed
             // @Author Irja Vuorela
