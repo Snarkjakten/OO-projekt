@@ -64,6 +64,7 @@ public class Window {
             new AnimationTimer() {
                 @Override
                 public void handle(long currentNanoTime) {
+                    double time = (currentNanoTime - startNanoTime) / 1000000000.0;
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
