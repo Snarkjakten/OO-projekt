@@ -15,19 +15,15 @@ public class KeyController {
         switch (event.getCode()) {
             case UP:
                 spaceship.setUp(1);
-                //spaceship.move();
                 break;
             case DOWN:
                 spaceship.setDown(1);
-               // spaceship.move();
                 break;
             case LEFT:
                 spaceship.setLeft(1);
-              //  spaceship.move();
                 break;
             case RIGHT:
                 spaceship.setRight(1);
-              //  spaceship.move();
                 break;
             default:
                 break;

@@ -78,9 +78,9 @@ public class Window extends Application {
                     double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
 
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
-                    gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
-                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
-                    projectileGUI.getProjectile().move(deltaTime);
+                    // gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    // gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    // projectileGUI.getProjectile().move(deltaTime);
 
                     if (projectileGUI.getProjectile().isNotOnScreen()) {
                         projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
@@ -88,10 +88,12 @@ public class Window extends Application {
 
                     // update positions of ship and projectiles
                     spaceship.move(deltaTime);
+                    gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
 
                     for (Projectile p : projectiles) {
                         p.move(deltaTime);
-                        System.out.println(p + " moved to " + p.position);
+                        gc.drawImage(asteroidImage, p.position.getX(), p.position.getY());
+                        //System.out.println(p + " moved to " + p.position);
                     }
 
                     previousNanoTime = currentNanoTime;

@@ -7,17 +7,17 @@ import javafx.geometry.Point2D;
 public class Spaceship extends AbstractMovable {
 
     // Movement directions
-    public int up;
-    public int down;
-    public int left;
-    public int right;
+    public int up;      // moving up decreases vertical axis value
+    public int down;    // moving down increases vertical axis value
+    public int left;    // moving left decreases horizontal axis value
+    public int right;   // moving right increases horizontal axis value
 
     // Spaceship constructor
     public Spaceship() {
-        this.up = 0;    // moving up decreases vertical axis value
-        this.down = 0;  // moving down increases vertical axis value
-        this.left = 0;  // moving left decreases horizontal axis value
-        this.right = 0; // moving right increases horizontal axis value
+        this.up = 0;
+        this.down = 0;
+        this.left = 0;
+        this.right = 0;
     }
 
     // Move self to a new position
@@ -26,9 +26,6 @@ public class Spaceship extends AbstractMovable {
     public void move(double deltaTime) {
         updateVelocity();
         updatePosition(deltaTime);
-
-        // todo: remove print
-        //System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela

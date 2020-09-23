@@ -30,7 +30,7 @@ public class ProjectileTest {
                    projPosition.getY() == projGuiPosition.getY());
     }
 
-    /* 
+    /*
     @Test
     public void testAsteroidSpeed() {
         assertTrue(projSmallAsteroid.getSpeed() == 5);
