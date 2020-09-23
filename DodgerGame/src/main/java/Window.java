@@ -1,9 +1,12 @@
+import Entities.LaserBeam;
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
 import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
+import javafx.animation.KeyFrame;
+import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -11,8 +14,11 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
+import javafx.util.Duration;
 
 import java.io.InputStream;
+import java.sql.Time;
+import java.util.HashMap;
 
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
@@ -63,6 +69,7 @@ public class Window {
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
                     gc.drawImage(health, healthGain.getHorizontalPosition(), healthGain.getVerticalPosition());
                     gc.drawImage(shieldImage, shieldGUI.getHorizontalPosition(), shieldGUI.getVerticalPosition(), 64, 64);
+                    gc.drawImage(laserMap.get(1), laser.getHorizontal(), laser.getVertical(), 248, 700);
                     projectileGUI.getProjectile().move();
                     healthGain.getProjectile().move();
                     shieldGUI.getProjectile().move();
