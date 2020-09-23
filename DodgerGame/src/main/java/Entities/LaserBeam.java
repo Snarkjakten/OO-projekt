@@ -4,6 +4,9 @@ import javafx.scene.image.Image;
 
 import java.io.InputStream;
 
+/**
+ * @Author Olle Westerlund
+ */
 public class LaserBeam {
     private Image[] frames;
     private double horizontal;
@@ -21,12 +24,20 @@ public class LaserBeam {
         initImages();
     }
 
+    /**
+     * Loops through the array and sets an image on every position.
+     */
     private void initImages() {
         for (int i = 0; i < 8; i++) {
             frames[i] = setImage(i);
         }
     }
 
+    /**
+     *
+     * @param time is used to calculate what index is used.
+     * @return The image that is going to be displayed at the current time.
+     */
     public Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
         return frames[index];
@@ -34,11 +45,11 @@ public class LaserBeam {
 
     private void setPosition(double position) {
         if (isHorizontal) {
-            this.horizontal = position;
+            this.horizontal = position - (256 / 2);
             this.vertical = -50;
         } else {
             this.horizontal = -50;
-            this.vertical = position;
+            this.vertical = position - (256 / 2);
         }
     }
 
