@@ -1,5 +1,3 @@
-**/.idea/
-**/target/
 /Gruppmöten/
 /Documentation/
 *.md
@@ -15,6 +13,7 @@
 
 # Generated files
 **/.idea/
+**/target/
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files

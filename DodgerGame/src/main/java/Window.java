@@ -2,6 +2,8 @@ import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
 import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.ProjectileGUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -28,6 +30,10 @@ public class Window {
     Image spaceShipImage = spaceshipGUI.getImage();
 
     Scene gameScene;
+    //------------------------------------------------------------
+
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+    Image asteroidImage = projectileGUI.getImage();
 
     /*
     @Override
@@ -47,6 +53,12 @@ public class Window {
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    projectileGUI.getProjectile().move();
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
+
                 }
             }.start();
             //----------------------------------------------------------------------------------------------------------
@@ -56,6 +68,7 @@ public class Window {
             stage.setResizable(false);
             //Opens program window
             stage.show();
+
 
             // Handle key pressed
             // @Author Irja Vuorela
@@ -94,6 +107,12 @@ public class Window {
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    projectileGUI.getProjectile().move();
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
+
                 }
             }.start();
 
