@@ -1,40 +1,158 @@
 package Entities.Projectiles;
 
-import Movement.AbstractMovable;
-import Movement.IMovable;
+import Movement.*;
 import javafx.geometry.Point2D;
+import java.util.Random;
 
-public class Projectile extends AbstractMovable implements IMovable {
+/**
+ * @Author Olle Westerlund
+ */
 
-    // Horizontal and vertical values for velocity
-    public double horizontal = 0;   // Positive value: right, negative value: left
-    public double vertical = 0;     // positive value: down, Negative value: up
+public abstract class Projectile extends AbstractMovable {
+    private double speed;         // Speed of the projectile.
+    private double horizontal;    // positive value: right, negative value: left
+    private double vertical;      // positive value: up, negative value: down
+    private double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
+    private double screenSizeY = 600;   // TODO: Remember to get this from model not hard code.
 
+    public Projectile(double speed) {
+        this.speed = speed;
+        randomPosition();
+    }
+
+    //TODO: Add different constructor for running scripted versions.
+    public Projectile(double speed, String scriptVersion) {
+
+    }
+
+    /**
+     * @Author Olle Westerlund
+     */
+    private void randomPosition() {
+        Random randomPos = new Random();
+        double xPos = 0;
+        double yPos = 0;
+        int side = randomPos.nextInt(4);
+        switch (side) {
+            case 0: // Bottom of the screen
+                xPos = randomPos.nextDouble() * screenSizeX;
+                yPos = screenSizeY + 50;
+                this.position = new Point2D(xPos, yPos);
+                randomStartVelocity(side);
+                break;
+            case 1: // Right side of the screen
+                xPos = 850;
+                yPos = randomPos.nextDouble() * screenSizeY;
+                this.position = new Point2D(xPos, yPos);
+                randomStartVelocity(side);
+                break;
+            case 2: // Top of the screen
+                xPos = randomPos.nextDouble() * screenSizeX;
+                yPos = -50;
+                this.position = new Point2D(xPos, yPos);
+                randomStartVelocity(side);
+                break;
+            case 3: // Left of the screen
+                xPos = -50;
+                yPos = randomPos.nextDouble() * screenSizeY;
+                this.position = new Point2D(xPos, yPos);
+                randomStartVelocity(side);
+                break;
+            default:
+                System.out.println("Error in randomPosition");
+                break;
+        }
+    }
+
+    /**
+     * @param side The side of the screen that the asteroid spawns on.
+     * @Author Olle Westerlund
+     */
+    private void randomStartVelocity(int side) {
+        double xPos = 0;
+        double yPos = 0;
+        Random randomDouble = new Random();
+        switch (side) {
+            case 0: //Velocity from bottom
+                xPos = randomDouble.nextDouble() * screenSizeX;
+                if (xPos < this.position.getX()) {
+                    xPos *= -1;
+                }
+                yPos = (randomDouble.nextDouble() * (screenSizeY - 60)) * -1;
+                break;
+            case 1: //Velocity from right
+                xPos = randomDouble.nextDouble() * (screenSizeX - 60) * -1;
+                yPos = randomDouble.nextDouble() * screenSizeY;
+                if (yPos < this.position.getY()) {
+                    yPos *= -1;
+                }
+                break;
+            case 2: //Velocity from top
+                xPos = randomDouble.nextDouble() * screenSizeX;
+                if (xPos < this.position.getX()) {
+                    xPos *= -1;
+                }
+                yPos = 60 + randomDouble.nextDouble() * (screenSizeY - 60);
+                break;
+            case 3: //Velocity from left
+                xPos = 60 + randomDouble.nextDouble() * (screenSizeX - 60);
+                yPos = randomDouble.nextDouble() * screenSizeY;
+                if (yPos < this.position.getY()) {
+                    yPos *= -1;
+                }
+                break;
+            default:
+                System.out.println("Something wrong in randomVelocity");
+                break;
+        }
+        setHorizontal(xPos);
+        setVertical(yPos);
+    }
+
+    /**
+     * @Author Irja Vuorela
+     */
     @Override
-    // Move self
-    // @Author Irja Vuorela
     public void move() {
         updateVelocity();
         updatePosition();
-
-        System.out.println("Projectile moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // Update velocity
-    // @Author Irja Vuorela
+    /**
+     * @Author Irja Vuorela
+     */
     public void updateVelocity() {
-        // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        // Multiply with speed
-        this.velocity = new Point2D(horizontal * speed, vertical * speed);
+        this.velocity = velocity.multiply(this.speed);
     }
 
-    // Setters for velocity horizontal and vertical values
-    public void setHorizontal(double h) {
-        this.horizontal = h;
+    /**
+     * @Author Olle Westerlund
+     * @return Boolean if the object is no longer on the screen.
+     */
+    public boolean isNotOnScreen() {
+        boolean isStillOnX = (position.getX() > -70 && position.getX() < (screenSizeX + 70));
+        boolean isStillOnY = (position.getY() > -70 && position.getY() < (screenSizeY + 70));
+        return (!isStillOnX || !isStillOnY);
     }
 
-    public void setVertical(double v) {
-        this.vertical = v;
+    public double getSpeed() {
+        return speed;
+    }
+
+    public double getHorizontal() {
+        return horizontal;
+    }
+
+    public double getVertical() {
+        return vertical;
+    }
+
+    public void setHorizontal(double horizontal) {
+        this.horizontal = horizontal;
+    }
+
+    public void setVertical(double vertical) {
+        this.vertical = vertical;
     }
 }
