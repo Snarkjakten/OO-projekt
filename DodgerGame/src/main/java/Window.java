@@ -1,9 +1,8 @@
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
 import Entities.Player.SpaceshipGUI;
+import Entities.Projectiles.*;
 import javafx.animation.AnimationTimer;
-import Entities.Projectiles.ProjectileFactory;
-import Entities.Projectiles.ProjectileGUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -36,6 +35,15 @@ public class Window extends Application {
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
 
+
+    Projectile[] projectiles = {
+            ProjectileFactory.createSmallAsteroid(),
+            ProjectileFactory.createSmallAsteroid(),
+            ProjectileFactory.createSmallAsteroid(),
+            ProjectileFactory.createMediumAsteroid(),
+            ProjectileFactory.createMediumAsteroid()
+    };
+
     //------------------------------------------------------------
 
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
@@ -57,18 +65,36 @@ public class Window extends Application {
             //Adds ImageView and Canvas to Pane
             win.getChildren().addAll(canvas);
 
-            final long startNanoTime = System.nanoTime();
+            final long currentNanoTime = System.nanoTime();
 
             new AnimationTimer() {
+                long previousNanoTime = currentNanoTime;
+
                 @Override
                 public void handle(long currentNanoTime) {
+
+                    // calculate time since last update
+                    currentNanoTime = System.nanoTime();
+                    double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
+
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
-                    projectileGUI.getProjectile().move();
+                    projectileGUI.getProjectile().move(deltaTime);
+
                     if (projectileGUI.getProjectile().isNotOnScreen()) {
                         projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
                     }
+
+                    // update positions of ship and projectiles
+                    spaceship.move(deltaTime);
+
+                    for (Projectile p : projectiles) {
+                        p.move(deltaTime);
+                        System.out.println(p + " moved to " + p.position);
+                    }
+
+                    previousNanoTime = currentNanoTime;
 
                 }
             }.start();

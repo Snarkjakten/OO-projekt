@@ -2,6 +2,7 @@ package Entities.Projectiles;
 
 import Movement.*;
 import javafx.geometry.Point2D;
+
 import java.util.Random;
 
 /**
@@ -113,9 +114,9 @@ public abstract class Projectile extends AbstractMovable {
      * @Author Irja Vuorela
      */
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
     }
 
     /**
@@ -127,8 +128,8 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
-     * @Author Olle Westerlund
      * @return Boolean if the object is no longer on the screen.
+     * @Author Olle Westerlund
      */
     public boolean isNotOnScreen() {
         boolean isStillOnX = (position.getX() > -70 && position.getX() < (screenSizeX + 70));
