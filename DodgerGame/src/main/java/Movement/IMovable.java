@@ -1,6 +1,6 @@
-package Entities;
+package Movement;
 
-/*
+/**
  * @Author Irja Vuorela
  */
 
