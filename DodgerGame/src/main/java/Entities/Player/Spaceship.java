@@ -1,6 +1,8 @@
 package Entities.Player;
 
 import Movement.AbstractMovable;
+import javafx.beans.property.SimpleIntegerProperty;
+import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player
@@ -11,6 +13,8 @@ public class Spaceship extends AbstractMovable {
     public int down;
     public int left;
     public int right;
+
+    public SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     // Spaceship constructor
     public Spaceship() {

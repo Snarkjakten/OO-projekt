@@ -1,4 +1,5 @@
 import javafx.geometry.Insets;
+import javafx.geometry.Pos;
 import javafx.scene.Node;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -16,12 +17,14 @@ import java.io.InputStream;
 
 public class GameOverMenu {
 
-    private Scene gameOverScene;
-    private MenuButton mainMenu;
+    private Pane root;
+
+    private MenuButton mainMenuBtn;
+    private MenuButton tryAgainBtn;
 
     public GameOverMenu() throws IOException {
         // Creates a title to the page.
-        Canvas title = new Canvas(800, 150);
+        Canvas title = new Canvas(800, 200);
         GraphicsContext gc = title.getGraphicsContext2D();
         gc.setFill(Color.GRAY);
         gc.setStroke(Color.WHITE);
@@ -31,31 +34,40 @@ public class GameOverMenu {
         gc.fillText("GAME OVER", 150, 100);
         gc.strokeText("GAME OVER", 150, 100);
 
-        Text t = new Text();
-        t.setText("Score:");
-        Font theFont2 = Font.font("Arial", FontWeight.BOLD, 50);
-        t.setFont(theFont2);
-        t.setFill(Color.GRAY);
-        t.setStroke(Color.WHITE);
-        t.setTranslateX(200);
+        // Presents the score
+        Text score = new Text();
+        score.setText("Score: 3350");
+        Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
+        score.setFont(theFont2);
+        score.setFill(Color.GRAY);
+        score.setStroke(Color.WHITE);
+        score.setTranslateX(290);
+        score.setTranslateY(200);
 
 
-        Canvas score = new Canvas(800, 150);
-        GraphicsContext gc2 = score.getGraphicsContext2D();
+/*
+        GraphicsContext gc2 = title.getGraphicsContext2D();
         gc2.setFill(Color.GRAY);
         gc2.setStroke(Color.WHITE);
-        gc2.setLineWidth(2);
-        Font theFont3 = Font.font("Arial", FontWeight.BOLD, 50);
+        gc2.setLineWidth(1);
+        Font theFont3 = Font.font("Arial", FontWeight.BOLD, 30);
         gc2.setFont(theFont3);
-        gc2.fillText("SCORE:", 150, 150);
-        gc2.strokeText("SCORE:", 150, 150);
+        gc2.fillText("SCORE: 3350", 290, 200);
+        gc2.strokeText("SCORE: 3350", 290, 200);
 
-        mainMenu = new MenuButton("Main menu");
+ */
+        // Menu that contains the buttons on the screen
+        VBox menu = new VBox(20);
+        menu.setAlignment(Pos.CENTER);
 
-        VBox box = new VBox(title, t, mainMenu);
+        tryAgainBtn = new MenuButton("TRY AGAIN");
+        mainMenuBtn = new MenuButton("MAIN MENU");
 
+        menu.getChildren().addAll(tryAgainBtn, mainMenuBtn);
+        menu.setTranslateX(270);
+        menu.setTranslateY(250);
 
-        // Adds a background to the main page.
+        // Adds a background to the screen.
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("bg_1_1.png");
         Image image = new Image(inputStream);
         inputStream.close();
@@ -64,19 +76,23 @@ public class GameOverMenu {
         background.setFitWidth(800);
         background.setFitHeight(600);
 
-        Pane root = new Pane();
+        root = new Pane();
         root.setPrefSize(800,600);
 
-        root.getChildren().addAll(background, box);
+        root.getChildren().addAll(background, title, score, menu);
 
-        gameOverScene = new Scene(root);
+       // gameOverScene = new Scene(root);
     }
 
-    public Scene getGameOverScene() {
-        return gameOverScene;
+    public Pane getRoot() {
+        return root;
     }
 
-    public MenuButton getMainMenu() {
-        return mainMenu;
+    public MenuButton getMainMenuBtn() {
+        return mainMenuBtn;
+    }
+
+    public MenuButton getTryAgainBtn() {
+        return tryAgainBtn;
     }
 }

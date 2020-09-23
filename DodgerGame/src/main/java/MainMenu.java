@@ -22,10 +22,13 @@ public class MainMenu {
     private MenuButton playBtn;
     private MenuButton highscoreBtn;
     private MenuButton quitBtn;
+    MenuButton hp;
 
     private ButtonMenu buttonMenu = new ButtonMenu();
     private Canvas title;
     private ImageView background;
+
+    private Pane root;
 
     public MainMenu() throws IOException {
         // Creates a title to the main page.
@@ -48,8 +51,14 @@ public class MainMenu {
         background = new ImageView(image);
         background.setFitWidth(800);
         background.setFitHeight(600);
+
+        root = new Pane();
+        root.setPrefSize(800,600);
+
+        root.getChildren().addAll(background, buttonMenu, title);
     }
 
+    /*
     // Creates a scene for the main page, containing background, buttons and title
     public Scene getScene() throws IOException {
         Pane root = new Pane();
@@ -61,6 +70,8 @@ public class MainMenu {
 
         return mainMenuScene;
     }
+
+     */
 
     // This menu contains the buttons on the main page.
     private class ButtonMenu extends Parent {
@@ -74,7 +85,9 @@ public class MainMenu {
             highscoreBtn = new MenuButton("HIGHSCORE");
             quitBtn = new MenuButton("QUIT");
 
-            menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn);
+            hp = new MenuButton("HP");
+
+            menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn, hp);
             getChildren().addAll(menu);
         }
     }
@@ -89,5 +102,13 @@ public class MainMenu {
 
     public MenuButton getQuitBtn() {
         return quitBtn;
+    }
+
+    public Pane getRoot() {
+        return root;
+    }
+
+    public MenuButton getHp() {
+        return hp;
     }
 }

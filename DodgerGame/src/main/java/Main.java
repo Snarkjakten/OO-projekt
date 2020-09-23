@@ -16,13 +16,15 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         this.stage = stage;
-        window = new Window();
+        window = new Window(stage);
         mainMenu = new MainMenu();
         gameOverMenu = new GameOverMenu();
         buttonController = new ButtonController(window, mainMenu, gameOverMenu, stage);
         stage.setTitle("Space Dodger");
 
-        Scene mainMenuScene = mainMenu.getScene();
+        Scene mainMenuScene = new Scene(mainMenu.getRoot());
+
+        // Scene mainMenuScene = mainMenu.getScene();
 
         stage.setScene(mainMenuScene);
         //Removes option to change size of program window
