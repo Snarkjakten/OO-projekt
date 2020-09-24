@@ -33,8 +33,6 @@ public class ViewController {
         mainMenuButtonHandler();
         gameOverButtonHandler();
 
-        simulateHpDamage();
-
         hp = window.spaceship.hp;
 /*
         hp.addListener(new InvalidationListener() {
@@ -51,10 +49,12 @@ public class ViewController {
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
                 if ((int) newValue < 1){
 
-                    System.out.println("spökboll");
                     stage.getScene().setOnMouseClicked(null);
                     stage.getScene().setOnKeyPressed(null);
                     stage.getScene().setOnKeyReleased(null);
+
+                    window.spaceship.hp.set(200);
+                    window.stop();
                     stage.getScene().setRoot(gameOverMenu.getRoot());
                 }
             }
@@ -117,18 +117,5 @@ public class ViewController {
         if (result.isPresent() && result.get() == ButtonType.YES) {
             System.exit(0);
         }
-    }
-
-    // Delete method later
-    private void simulateHpDamage(){
-        mainMenu.getHp().setOnMouseClicked(event -> {
-            SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-
-            System.out.println(hp);
-
-            NumberBinding sub = hp.subtract(damage);
-            hp.set(sub.intValue());
-            System.out.println(hp);
-        });
     }
 }
