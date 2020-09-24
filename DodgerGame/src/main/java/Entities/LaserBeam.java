@@ -35,7 +35,7 @@ public class LaserBeam {
 
     /**
      *
-     * @param time is used to calculate what index is used.
+     * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
      */
     public Image getFrame(double time) {
