@@ -16,7 +16,7 @@ import javafx.beans.Observable;
  * @Author Isak Almeros
  */
 
-public class ButtonController {
+public class ViewController {
     private Window window;
     private MainMenu mainMenu;
     private GameOverMenu gameOverMenu;
@@ -24,7 +24,7 @@ public class ButtonController {
 
     SimpleIntegerProperty hp;
 
-    public ButtonController(Window window, MainMenu mainMenu, GameOverMenu gameOverMenu, Stage stage){
+    public ViewController(Window window, MainMenu mainMenu, GameOverMenu gameOverMenu, Stage stage){
         this.window = window;
         this.mainMenu = mainMenu;
         this.gameOverMenu = gameOverMenu;
@@ -64,7 +64,8 @@ public class ButtonController {
     }
 
     // Handles button clicks in the main menu
-    private void mainMenuButtonHandler(){
+    public void mainMenuButtonHandler(){
+        // Starts the game when clicking on "PLAY"
         mainMenu.getPlayBtn().setOnMouseClicked(event -> {
             window.init();
             stage.getScene().setRoot(window.getWin());
@@ -74,6 +75,7 @@ public class ButtonController {
             stage.getScene().setRoot(gameOverMenu.getRoot());
         });
 
+        // When clicking on "QUIT"
         mainMenu.getQuitBtn().setOnMouseClicked(event -> {
             closeProgram();
         });

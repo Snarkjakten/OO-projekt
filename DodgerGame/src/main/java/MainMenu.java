@@ -58,21 +58,6 @@ public class MainMenu {
         root.getChildren().addAll(background, buttonMenu, title);
     }
 
-    /*
-    // Creates a scene for the main page, containing background, buttons and title
-    public Scene getScene() throws IOException {
-        Pane root = new Pane();
-        root.setPrefSize(800,600);
-
-        root.getChildren().addAll(background, buttonMenu, title);
-
-        Scene mainMenuScene = new Scene(root);
-
-        return mainMenuScene;
-    }
-
-     */
-
     // This menu contains the buttons on the main page.
     private class ButtonMenu extends Parent {
         public ButtonMenu() {

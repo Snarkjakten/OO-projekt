@@ -7,25 +7,16 @@ import javafx.stage.Stage;
  */
 
 public class Main extends Application {
-    private Stage stage;
-    private  MainMenu mainMenu;
-    private Window window;
-    private ButtonController buttonController;
-    private GameOverMenu gameOverMenu;
 
     @Override
     public void start(Stage stage) throws Exception {
-        this.stage = stage;
-        window = new Window(stage);
-        mainMenu = new MainMenu();
-        gameOverMenu = new GameOverMenu();
-        buttonController = new ButtonController(window, mainMenu, gameOverMenu, stage);
+        Window window = new Window(stage);
+        MainMenu mainMenu = new MainMenu();
+        GameOverMenu gameOverMenu = new GameOverMenu();
+        new ViewController(window, mainMenu, gameOverMenu, stage);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
-
-        // Scene mainMenuScene = mainMenu.getScene();
-
         stage.setScene(mainMenuScene);
         //Removes option to change size of program window
         stage.setResizable(false);

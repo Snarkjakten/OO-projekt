@@ -1,0 +1,48 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 22 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+- Hur har vi tänkt kring Power Ups.
+- Wrap around.
+- Game Over menyn
+- Kollisionshantering
+
+## Reports (15 min) from previous meeting
+- Isak har fixat en fungerande huvudmeny. Väntar på att kunna merga med master för 
+  att fixa mergeconflicts innan han gör en pull request. 
+- Viktor har kommit igång med kollisionshanteringen. 
+- Irja läser på och kollar upp om game loops. På god väg att börja koda.
+- Tobias läser på och kollar upp information om wrap around. Hoppas kunna 
+  börja koda idag.
+- Olle är klar med asteroiderna och skrivit tester till dem. Finns som pull request.
+
+
+## Discussion items (35 min)
+- Bestämt att shieldPowerUp ska vara en träff och sen försvinna, plockar man upp flera ska de 
+  stacka så att man kan ta ytterligare träffar.
+- Bestämt att HealthPowerUp ger procent tillbaka på HP.
+- Idéer om att ha powerUps som saktar ned tiden, ökar hastigheten på spelaren, mer bonuspoäng under viss tid, 
+  samt göra alla projektiler små.
+- Idé kring att ha en laserprojektil som avskärmar kartan.
+- Idé kring att ha debuff projektiler, ta mer skada/one hit, omvända kontroller, flyger saktare.
+- Vid wrap around har vi bestämt att försöka ha så att man kan se bilden på båda sidorna under tiden av wrap around.
+- Diskution kring om vi ska overrida move() i projektil klassen, bestämt att vi ska göra det för att lättare kunna 
+  ändra projetilerna under spelets gång.
+- Vid game over ska man se sin poäng för omgången och kunna välja att gå till menyn eller att spela om med en gång.
+
+## Outcomes and assignments (5 min)
+- Olle ska vara klar med power ups
+- Irja ska har börjat koda på game loop
+- Tobias ska ha börjat koda på wrap around
+- Isak ska ha fått fram en början på en game over meny
+- Viktor ska ha fått upp en switch metod med placeholdernamn för de olika kollisionerna
+
+
+
+## Wrap up
+Nästa möte 24/9 2020 kl 13.00

@@ -27,7 +27,7 @@ public class MenuButton extends StackPane {
         getChildren().addAll(background, text);
 
         // Sets effect when hovering over button
-        setOnMouseEntered(Event -> {
+        setOnMouseEntered(event -> {
             background.setTranslateX(10);
             text.setTranslateX(10);
             background.setFill(Color.WHITE);
@@ -35,7 +35,7 @@ public class MenuButton extends StackPane {
             background.setStroke(Color.DARKBLUE);
         });
 
-        setOnMouseExited(Event -> {
+        setOnMouseExited(event -> {
             background.setTranslateX(0);
             text.setTranslateX(0);
             background.setFill(Color.DARKBLUE);
@@ -47,7 +47,7 @@ public class MenuButton extends StackPane {
         drop.setInput(new Glow());
 
         // Sets effect when pressing button
-        setOnMousePressed(Event -> setEffect(drop));
-        setOnMouseReleased(Event -> setEffect(null));
+        setOnMousePressed(event -> setEffect(drop));
+        setOnMouseReleased(event -> setEffect(null));
     }
 }

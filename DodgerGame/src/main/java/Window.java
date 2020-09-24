@@ -2,8 +2,10 @@ import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
 import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.ProjectileGUI;
+import javafx.application.Application;
+import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -28,7 +30,10 @@ public class Window {
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
 
-    Stage stage;
+    private Stage stage;
+
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+    Image asteroidImage = projectileGUI.getImage();
 
     public Window(Stage stage){
         this.stage = stage;
@@ -52,6 +57,12 @@ public class Window {
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    projectileGUI.getProjectile().move();
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
+
                 }
             }.start();
 
