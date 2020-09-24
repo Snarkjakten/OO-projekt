@@ -9,12 +9,12 @@ import java.util.Optional;
  * @Author Isak Almeros
  */
 
-public class ButtonController {
+public class ViewController {
     private Window window;
     private MainMenu mainMenu;
     private Stage stage;
 
-    public ButtonController(Window window, MainMenu mainMenu, Stage stage){
+    public ViewController(Window window, MainMenu mainMenu, Stage stage){
         this.window = window;
         this.mainMenu = mainMenu;
         this.stage = stage;
@@ -24,11 +24,13 @@ public class ButtonController {
 
     // Handles button clicks in the main menu
     public void mainMenuButtonHandler(){
+        // Starts the game when clicking on "PLAY"
         mainMenu.getPlayBtn().setOnMouseClicked(event -> {
-            Scene gameScene = window.getGameScene();
-            stage.setScene(gameScene);
+            window.init();
+            stage.getScene().setRoot(window.getWin());
         });
 
+        // When clicking on "QUIT"
         mainMenu.getQuitBtn().setOnMouseClicked(event -> {
             closeProgram();
         });

@@ -29,67 +29,16 @@ public class Window {
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
 
-    Scene gameScene;
-    //------------------------------------------------------------
+    private Stage stage;
 
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     Image asteroidImage = projectileGUI.getImage();
 
-    /*
-    @Override
-    public void start(Stage stage) {
-        try {
-            // @Author Tobias Engblom
-            Canvas canvas = new Canvas(800, 600);
-            GraphicsContext gc = canvas.getGraphicsContext2D();
-
-            //Adds ImageView and Canvas to Pane
-            win.getChildren().addAll(canvas);
-
-            final long startNanoTime = System.nanoTime();
-
-            new AnimationTimer() {
-                @Override
-                public void handle(long currentNanoTime) {
-                    gc.drawImage(windowBackground, 0, 0, 800, 600);
-                    gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
-                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
-                    projectileGUI.getProjectile().move();
-                    if (projectileGUI.getProjectile().isNotOnScreen()) {
-                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
-                    }
-
-                }
-            }.start();
-            //----------------------------------------------------------------------------------------------------------
-            //Sets scene from created Pane createContent
-            stage.setScene(new Scene(createContent()));
-            //Removes option to change size of program window
-            stage.setResizable(false);
-            //Opens program window
-            stage.show();
-
-
-            // Handle key pressed
-            // @Author Irja Vuorela
-            KeyController keyController = new KeyController(spaceship);
-            stage.getScene().setOnKeyPressed(
-                    event -> keyController.handleKeyPressed(event)
-            );
-
-            // Handle key released
-            // @Author Irja Vuorela
-            stage.getScene().setOnKeyReleased(
-                    event -> keyController.handleKeyReleased(event)
-            );
-        } catch (Exception e) {
-            e.printStackTrace();
-        }
+    public Window(Stage stage){
+        this.stage = stage;
     }
 
-     */
-
-    public Window(){
+    public void init(){
         try {
             createContent();
 
@@ -116,18 +65,16 @@ public class Window {
                 }
             }.start();
 
-            gameScene = new Scene(win);
-
             // Handle key pressed
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(spaceship);
-            gameScene.setOnKeyPressed(
+            stage.getScene().setOnKeyPressed(
                     event -> keyController.handleKeyPressed(event)
             );
 
             // Handle key released
             // @Author Irja Vuorela
-            gameScene.setOnKeyReleased(
+            stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
 
@@ -142,8 +89,7 @@ public class Window {
         return win;
     }
 
-    // @Author Isak Almeros
-    public Scene getGameScene(){
-        return gameScene;
+    public Pane getWin() {
+        return win;
     }
 }

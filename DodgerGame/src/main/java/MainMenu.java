@@ -27,6 +27,8 @@ public class MainMenu {
     private Canvas title;
     private ImageView background;
 
+    private Pane root;
+
     public MainMenu() throws IOException {
         // Creates a title to the main page.
         Canvas canvas = new Canvas(800, 150);
@@ -48,18 +50,12 @@ public class MainMenu {
         background = new ImageView(image);
         background.setFitWidth(1200);
         background.setFitHeight(800);
-    }
 
-    // Creates a scene for the main page, containing background, buttons and title
-    public Scene getScene() throws IOException {
-        Pane root = new Pane();
+        // Creates pane
+        root = new Pane();
         root.setPrefSize(800,600);
 
         root.getChildren().addAll(background, buttonMenu, title);
-
-        Scene mainMenuScene = new Scene(root);
-
-        return mainMenuScene;
     }
 
     // This menu contains the buttons on the main page.
@@ -89,5 +85,9 @@ public class MainMenu {
 
     public MenuButton getQuitBtn() {
         return quitBtn;
+    }
+
+    public Pane getRoot() {
+        return root;
     }
 }
