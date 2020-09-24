@@ -1,5 +1,5 @@
 If you get an error when trying to close the application, either by the 
-button or the x you need to add som VM-options.
+button or the x you need to add some VM-options.
 
  click on Run -> Edit Configurations... and add these VM options:
  For windows:
