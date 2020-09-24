@@ -2,6 +2,8 @@ import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
 import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.ProjectileGUI;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
@@ -18,14 +20,7 @@ import java.util.List;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window extends Application {
-
-    // --- todo: flytta main från Window --------------------
-    public static void main(String[] args) {
-        launch(args);
-    }
-    //-------------------------------------------------------
-
+public class Window {
 
     //Creates Pane
     private final Pane win = new Pane();
@@ -38,15 +33,19 @@ public class Window extends Application {
     Image spaceShipImage = spaceshipGUI.getImage();
     List<Spaceship> spaceships = game.getSpaceships();
 
-    //Sets size of Pane
-    private Pane createContent() {
-        win.setPrefSize(800, 600);
-        return win;
+    private Stage stage;
+
+    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+    Image asteroidImage = projectileGUI.getImage();
+
+    public Window(Stage stage) {
+        this.stage = stage;
     }
 
-    @Override
-    public void start(Stage stage) {
+    public void init() {
         try {
+            createContent();
+
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -61,15 +60,13 @@ public class Window extends Application {
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
                     gc.drawImage(spaceShipImage, wrapAroundSpaceshipGUI.getXPosition(), wrapAroundSpaceshipGUI.getYPosition(), 64, 64);
                     game.wrapAround();
+                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
+                    projectileGUI.getProjectile().move();
+                    if (projectileGUI.getProjectile().isNotOnScreen()) {
+                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+                    }
                 }
             }.start();
-            //----------------------------------------------------------------------------------------------------------
-            //Sets scene from created Pane createContent
-            stage.setScene(new Scene(createContent()));
-            //Removes option to change size of program window
-            stage.setResizable(false);
-            //Opens program window
-            stage.show();
 
             // Handle key pressed
             // @Author Irja Vuorela
@@ -83,8 +80,19 @@ public class Window extends Application {
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Sets size of Pane
+    private Pane createContent() {
+        win.setPrefSize(800, 600);
+        return win;
+    }
+
+    public Pane getWin() {
+        return win;
     }
 }
