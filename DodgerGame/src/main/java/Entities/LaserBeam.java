@@ -43,6 +43,10 @@ public class LaserBeam {
         return frames[index];
     }
 
+    /**
+     * Sets the horizontal and vertical position of the beam depending on isHorizontal.
+     * @param position The specific value where the beam should be placed.
+     */
     private void setPosition(double position) {
         if (isHorizontal) {
             this.horizontal = position - (256 / 2);
@@ -53,6 +57,11 @@ public class LaserBeam {
         }
     }
 
+    /**
+     * Sets the corresponding image depending on isHorizontal and the number passed to the method.
+     * @param number Which picture number the animation needs.
+     * @return The correct image and size of the image.
+     */
     private Image setImage(int number) {
         InputStream inputStream;
         Image image;
