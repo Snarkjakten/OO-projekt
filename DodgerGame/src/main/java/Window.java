@@ -18,14 +18,7 @@ import java.io.InputStream;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window extends Application {
-
-    // --- todo: flytta main från Window --------------------
-    public static void main(String[] args) {
-        launch(args);
-    }
-    //-------------------------------------------------------
-
+public class Window {
 
     //Creates Pane
     private final Pane win = new Pane();
@@ -36,20 +29,19 @@ public class Window extends Application {
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
     Image spaceShipImage = spaceshipGUI.getImage();
 
-    //------------------------------------------------------------
+    private Stage stage;
 
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     Image asteroidImage = projectileGUI.getImage();
 
-    //Sets size of Pane
-    private Pane createContent() {
-        win.setPrefSize(800, 600);
-        return win;
+    public Window(Stage stage){
+        this.stage = stage;
     }
 
-    @Override
-    public void start(Stage stage) {
+    public void init(){
         try {
+            createContent();
+
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -72,14 +64,6 @@ public class Window extends Application {
 
                 }
             }.start();
-            //----------------------------------------------------------------------------------------------------------
-            //Sets scene from created Pane createContent
-            stage.setScene(new Scene(createContent()));
-            //Removes option to change size of program window
-            stage.setResizable(false);
-            //Opens program window
-            stage.show();
-
 
             // Handle key pressed
             // @Author Irja Vuorela
@@ -93,8 +77,19 @@ public class Window extends Application {
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+
         } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    //Sets size of Pane
+    private Pane createContent() {
+        win.setPrefSize(800, 600);
+        return win;
+    }
+
+    public Pane getWin() {
+        return win;
     }
 }
