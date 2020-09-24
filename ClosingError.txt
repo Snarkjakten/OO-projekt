@@ -1,0 +1,11 @@
+If you get an error when trying to close the application, either by the 
+button or the x you need to add som VM-options.
+
+ click on Run -> Edit Configurations... and add these VM options:
+ For windows:
+ --module-path "\path\to\javafx-sdk-14\lib" --add-modules javafx.controls,javafx.fxml
+ 
+ For Linux/Mac:
+ --module-path /path/to/javafx-sdk-14/lib --add-modules javafx.controls,javafx.fxml
+ 
+ Remember to insert your local path to the javafx lib folder.
