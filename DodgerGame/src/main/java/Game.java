@@ -1,16 +1,13 @@
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
-import Entities.Player.SpaceshipGUI;
 
 import java.util.ArrayList;
 import java.util.List;
 
 public class Game {
     private static Game instance = null;
-    private Spaceship spaceship = SpaceshipFactory.createSpaceship(true);
-    private SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
-    private Spaceship wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false);
-    private SpaceshipGUI wrapAroundSpaceshipGUI = new SpaceshipGUI(wrapAroundSpaceship, 900, 900);
+    private Spaceship spaceship = SpaceshipFactory.createSpaceship(true, 368, 268);
+    private Spaceship wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false, 10000, 10000);
     private List<Spaceship> spaceships = new ArrayList<>();
 
     private Game() {
@@ -31,14 +28,12 @@ public class Game {
         spaceships.add(wrapAroundSpaceship);
     }
 
-    //@Author Tobias Engblom
-    protected SpaceshipGUI getSpaceshipGUI() {
-        return spaceshipGUI;
+    public Spaceship getSpaceship() {
+        return spaceship;
     }
 
-    //@Author Tobias Engblom
-    protected SpaceshipGUI getWrapAroundSpaceshipGUI() {
-        return wrapAroundSpaceshipGUI;
+    public Spaceship getWrapAroundSpaceship() {
+        return wrapAroundSpaceship;
     }
 
     //@Author Tobias Engblom
@@ -51,60 +46,60 @@ public class Game {
         if (spaceship.isActive() && wrapAroundSpaceship.isActive()) {
             //TODO What happens when both ships are active and crosses the "wall"?
         } else if (spaceship.isActive()) {
-            activateWrapAround(spaceshipGUI, wrapAroundSpaceshipGUI);
+            activateWrapAround(spaceship, wrapAroundSpaceship);
         } else if (wrapAroundSpaceship.isActive()) {
-            activateWrapAround(wrapAroundSpaceshipGUI, spaceshipGUI);
+            activateWrapAround(wrapAroundSpaceship, spaceship);
         }
-        if (checkInactive(spaceshipGUI))
+        if (checkInactive(spaceship))
             spaceship.setActive(false);
-        else if (checkInactive(wrapAroundSpaceshipGUI))
+        else if (checkInactive(wrapAroundSpaceship))
             wrapAroundSpaceship.setActive(false);
     }
 
     //@Author Tobias Engblom
     //Inactivates spaceship if it's outside the map
-    private boolean checkInactive(SpaceshipGUI spaceshipGUI) {
-        return spaceshipGUI.getXPosition() < -76 || spaceshipGUI.getXPosition() > 788 || spaceshipGUI.getYPosition() < -64 || spaceshipGUI.getYPosition() > 600;
+    private boolean checkInactive(Spaceship spaceship) {
+        return spaceship.position.getX() < -76 || spaceship.position.getX() > 788 || spaceship.position.getY() < -64 || spaceship.position.getY() > 600;
     }
 
     //@Author Tobias Engblom
-    private void activateWrapAround(SpaceshipGUI spaceshipGUI, SpaceshipGUI wrapAroundSpaceshipGUI) {
-        if (checkWestPosition(spaceshipGUI)) {
-            wrapAroundSpaceshipGUI.getSpaceship().setActive(true);
-            wrapAroundSpaceshipGUI.setPosition(788, spaceshipGUI.getYPosition());
-        } else if (checkEastPosition(spaceshipGUI)) {
-            wrapAroundSpaceshipGUI.getSpaceship().setActive(true);
-            wrapAroundSpaceshipGUI.setPosition(-76, spaceshipGUI.getYPosition());
-        } else if (checkNorthPosition(spaceshipGUI)) {
-            wrapAroundSpaceshipGUI.getSpaceship().setActive(true);
-            wrapAroundSpaceshipGUI.setPosition(spaceshipGUI.getXPosition(), 600);
-        } else if (checkSouthPosition(spaceshipGUI)) {
-            wrapAroundSpaceshipGUI.getSpaceship().setActive(true);
-            wrapAroundSpaceshipGUI.setPosition(spaceshipGUI.getXPosition(), -64);
+    private void activateWrapAround(Spaceship spaceship, Spaceship wrapAroundSpaceship) {
+        if (checkWestPosition(spaceship)) {
+            wrapAroundSpaceship.setActive(true);
+            wrapAroundSpaceship.setPosition(788, spaceship.position.getY());
+        } else if (checkEastPosition(spaceship)) {
+            wrapAroundSpaceship.setActive(true);
+            wrapAroundSpaceship.setPosition(-76, spaceship.position.getY());
+        } else if (checkNorthPosition(spaceship)) {
+            wrapAroundSpaceship.setActive(true);
+            wrapAroundSpaceship.setPosition(spaceship.position.getX(), 600);
+        } else if (checkSouthPosition(spaceship)) {
+            wrapAroundSpaceship.setActive(true);
+            wrapAroundSpaceship.setPosition(spaceship.position.getX(), -64);
         }
     }
 
     //@Author Tobias Engblom
     //Checks if active spaceship is beginning to go outside west wall
-    private boolean checkWestPosition(SpaceshipGUI spaceshipGUI) {
-        return spaceshipGUI.getXPosition() <= -12;
+    private boolean checkWestPosition(Spaceship spaceship) {
+        return spaceship.position.getX() <= -12;
     }
 
     //@Author Tobias Engblom
     //Checks if active spaceship is beginning to go outside north wall
-    private boolean checkNorthPosition(SpaceshipGUI spaceshipGUI) {
-        return spaceshipGUI.getYPosition() <= 0;
+    private boolean checkNorthPosition(Spaceship spaceship) {
+        return spaceship.position.getY() <= 0;
     }
 
     //@Author Tobias Engblom
     //Checks if active spaceship is beginning to go outside east wall
-    private boolean checkEastPosition(SpaceshipGUI spaceshipGUI) {
-        return spaceshipGUI.getXPosition() >= 724;
+    private boolean checkEastPosition(Spaceship spaceship) {
+        return spaceship.position.getX() >= 724;
     }
 
     //@Author Tobias Engblom
     //Checks if active spaceship is beginning to go outside south wall
-    private boolean checkSouthPosition(SpaceshipGUI spaceshipGUI) {
-        return spaceshipGUI.getYPosition() >= 536;
+    private boolean checkSouthPosition(Spaceship spaceship) {
+        return spaceship.position.getY() >= 536;
     }
 }

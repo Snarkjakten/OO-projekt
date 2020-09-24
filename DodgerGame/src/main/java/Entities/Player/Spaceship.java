@@ -2,6 +2,9 @@ package Entities.Player;
 
 import Movement.AbstractMovable;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+
+import java.io.InputStream;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable {
@@ -12,9 +15,18 @@ public class Spaceship extends AbstractMovable {
     public int left = 0; // moving left decreases horizontal axis value
     public int right = 0; // moving right increases horizontal axis value
     private boolean isActive;
+    private Image image;
 
-    public Spaceship(boolean isActive) {
+    public Spaceship(boolean isActive, double x, double y) {
+        this.image = addImageToSpaceship();
         this.isActive = isActive;
+        setPosition(x, y);
+    }
+
+    public Image addImageToSpaceship() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+        image = new Image(inputStream);
+        return image;
     }
 
     // Move self to a new position
@@ -35,6 +47,10 @@ public class Spaceship extends AbstractMovable {
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
         this.velocity = velocity.multiply(speed);
+    }
+
+    public Image getImage() {
+        return image;
     }
 
     public boolean isActive() {

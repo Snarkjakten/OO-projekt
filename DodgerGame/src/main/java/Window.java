@@ -1,11 +1,7 @@
 import Entities.Player.Spaceship;
-import Entities.Player.SpaceshipFactory;
-import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
-import javafx.application.Application;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -13,7 +9,6 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
-import java.util.ArrayList;
 import java.util.List;
 
 /*
@@ -28,9 +23,9 @@ public class Window {
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
-    SpaceshipGUI spaceshipGUI = game.getSpaceshipGUI();
-    SpaceshipGUI wrapAroundSpaceshipGUI = game.getWrapAroundSpaceshipGUI();
-    Image spaceShipImage = spaceshipGUI.getImage();
+    Spaceship spaceship = game.getSpaceship();
+    Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
+    Image spaceShipImage = game.getSpaceship().getImage();
     List<Spaceship> spaceships = game.getSpaceships();
 
     private Stage stage;
@@ -57,8 +52,8 @@ public class Window {
                 @Override
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
-                    gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
-                    gc.drawImage(spaceShipImage, wrapAroundSpaceshipGUI.getXPosition(), wrapAroundSpaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
+                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
                     game.wrapAround();
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
                     projectileGUI.getProjectile().move();

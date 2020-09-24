@@ -1,6 +1,5 @@
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
-import Entities.Player.SpaceshipGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -15,16 +14,7 @@ public class SpaceshipTest {
     @Before
     // @Author Irja Vuorela
     public void init() {
-        spaceship = SpaceshipFactory.createSpaceship(true);
-    }
-
-    @Test
-    public void spaceshipAndGUISamePosition() {
-        Spaceship spaceship = SpaceshipFactory.createSpaceship(true);
-        SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 200, 200);
-        System.out.println(spaceship.position.getX());
-        System.out.println(spaceshipGUI.getPoint().getX());
-        assertTrue(spaceship.position.getX() == spaceshipGUI.getPoint().getX() && spaceship.position.getY() == spaceshipGUI.getPoint().getY());
+        spaceship = SpaceshipFactory.createSpaceship(true, 0, 0);
     }
 
     @Test
