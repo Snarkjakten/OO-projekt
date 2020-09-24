@@ -6,7 +6,7 @@ import javafx.geometry.Point2D;
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable {
 
-    // Movement directions
+    // Keyboard state of pressed down keys
     public int up;
     public int down;
     public int left;
@@ -23,12 +23,12 @@ public class Spaceship extends AbstractMovable {
     // Move self to a new position
     // @Author Irja Vuorela
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
 
         // todo: remove print
-        System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela
@@ -39,7 +39,6 @@ public class Spaceship extends AbstractMovable {
         // Multiply direction with speed
         this.velocity = velocity.multiply(speed);
     }
-
 
     // Setters for movement directions
     public void setUp(int up) {
