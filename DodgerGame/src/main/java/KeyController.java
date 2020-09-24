@@ -1,12 +1,14 @@
 import Entities.Player.Spaceship;
 import javafx.scene.input.KeyEvent;
 
+import java.util.List;
+
 public class KeyController {
 
-    Spaceship spaceship;
+    List<Spaceship> spaceships;
 
-    KeyController(Spaceship spaceship) {
-        this.spaceship = spaceship;
+    KeyController(List<Spaceship> spaceships) {
+        this.spaceships = spaceships;
     }
 
     // When an arrow key is pressed, the ship moves in that direction
@@ -14,20 +16,28 @@ public class KeyController {
     public void handleKeyPressed(KeyEvent event) {
         switch (event.getCode()) {
             case UP:
-                spaceship.setUp(1);
-                spaceship.move();
+                for (Spaceship spaceship : spaceships) {
+                    spaceship.setUp(1);
+                    spaceship.move();
+                }
                 break;
             case DOWN:
-                spaceship.setDown(1);
-                spaceship.move();
+                for (Spaceship spaceship : spaceships) {
+                    spaceship.setDown(1);
+                    spaceship.move();
+                }
                 break;
             case LEFT:
-                spaceship.setLeft(1);
-                spaceship.move();
+                for (Spaceship spaceship : spaceships) {
+                    spaceship.setLeft(1);
+                    spaceship.move();
+                }
                 break;
             case RIGHT:
-                spaceship.setRight(1);
-                spaceship.move();
+                for (Spaceship spaceship : spaceships) {
+                    spaceship.setRight(1);
+                    spaceship.move();
+                }
                 break;
             default:
                 break;
@@ -39,15 +49,19 @@ public class KeyController {
     public void handleKeyReleased(KeyEvent event) {
         switch (event.getCode()) {
             case UP:
+                for (Spaceship spaceship : spaceships)
                 spaceship.setUp(0);
                 break;
             case DOWN:
+                for (Spaceship spaceship : spaceships)
                 spaceship.setDown(0);
                 break;
             case LEFT:
+                for (Spaceship spaceship : spaceships)
                 spaceship.setLeft(0);
                 break;
             case RIGHT:
+                for (Spaceship spaceship : spaceships)
                 spaceship.setRight(0);
                 break;
             default:

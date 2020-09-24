@@ -11,6 +11,8 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+import java.util.List;
 
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
@@ -30,9 +32,13 @@ public class Window extends Application {
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
-    Spaceship spaceship = SpaceshipFactory.createSpaceship();
+    Spaceship spaceship = SpaceshipFactory.createSpaceship(true);
+    Spaceship wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false);
     SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 368, 268);
+    SpaceshipGUI wrapAroundSpaceshipGUI = new SpaceshipGUI(wrapAroundSpaceship, 900, 900);
     Image spaceShipImage = spaceshipGUI.getImage();
+    List<Spaceship> spaceships = new ArrayList<>();
+
 
     //Sets size of Pane
     private Pane createContent() {
@@ -42,6 +48,8 @@ public class Window extends Application {
 
     @Override
     public void start(Stage stage) {
+        spaceships.add(spaceship);
+        spaceships.add(wrapAroundSpaceship);
         try {
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
@@ -50,13 +58,70 @@ public class Window extends Application {
             //Adds ImageView and Canvas to Pane
             win.getChildren().addAll(canvas);
 
-            final long startNanoTime = System.nanoTime();
-
             new AnimationTimer() {
                 @Override
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(spaceShipImage, spaceshipGUI.getXPosition(), spaceshipGUI.getYPosition(), 64, 64);
+                    gc.drawImage(spaceShipImage, wrapAroundSpaceshipGUI.getXPosition(), wrapAroundSpaceshipGUI.getYPosition(), 64, 64);
+                    if (spaceship.isActive() && wrapAroundSpaceship.isActive()) {
+                        System.out.println("BOTH ACTIVE");
+                        //TODO What happens when both ships are active and crosses the "wall"?
+                    } else if (spaceship.isActive()) {
+                        switch ((int) spaceshipGUI.getXPosition()) {
+                            case -12:
+                                wrapAroundSpaceship.setActive(true);
+                                wrapAroundSpaceshipGUI.setPosition(788, spaceshipGUI.getYPosition());
+                                break;
+                            case 724:
+                                wrapAroundSpaceship.setActive(true);
+                                wrapAroundSpaceshipGUI.setPosition(-76, spaceshipGUI.getYPosition());
+                                break;
+                            default:
+                                break;
+                        }
+                        switch ((int) spaceshipGUI.getYPosition()) {
+                            case 0:
+                                wrapAroundSpaceship.setActive(true);
+                                wrapAroundSpaceshipGUI.setPosition(spaceshipGUI.getXPosition(), 600);
+                                break;
+                            case 536:
+                                wrapAroundSpaceship.setActive(true);
+                                wrapAroundSpaceshipGUI.setPosition(spaceshipGUI.getXPosition(), -64);
+                                break;
+                            default:
+                                break;
+                        }
+                    } else if (wrapAroundSpaceship.isActive()) {
+                        switch ((int) wrapAroundSpaceshipGUI.getXPosition()) {
+                            case -12:
+                                spaceship.setActive(true);
+                                spaceshipGUI.setPosition(788, wrapAroundSpaceshipGUI.getYPosition());
+                                break;
+                            case 724:
+                                spaceship.setActive(true);
+                                spaceshipGUI.setPosition(-76, wrapAroundSpaceshipGUI.getYPosition());
+                                break;
+                            default:
+                                break;
+                        }
+                        switch ((int) wrapAroundSpaceshipGUI.getYPosition()) {
+                            case 0:
+                                spaceship.setActive(true);
+                                spaceshipGUI.setPosition(wrapAroundSpaceshipGUI.getXPosition(), 600);
+                                break;
+                            case 536:
+                                spaceship.setActive(true);
+                                spaceshipGUI.setPosition(wrapAroundSpaceshipGUI.getXPosition(), -64);
+                                break;
+                            default:
+                                break;
+                        }
+                    }
+                    if (spaceshipGUI.getXPosition() <= -76 || spaceshipGUI.getXPosition() >= 788 || spaceshipGUI.getYPosition() <= -64 || spaceshipGUI.getYPosition() >= 600)
+                        spaceship.setActive(false);
+                    else if (wrapAroundSpaceshipGUI.getXPosition() <= -76 || wrapAroundSpaceshipGUI.getXPosition() >= 788 || wrapAroundSpaceshipGUI.getYPosition() <= -64 || wrapAroundSpaceshipGUI.getYPosition() >= 600)
+                        wrapAroundSpaceship.setActive(false);
                 }
             }.start();
             //----------------------------------------------------------------------------------------------------------
@@ -69,7 +134,7 @@ public class Window extends Application {
 
             // Handle key pressed
             // @Author Irja Vuorela
-            KeyController keyController = new KeyController(spaceship);
+            KeyController keyController = new KeyController(spaceships);
             stage.getScene().setOnKeyPressed(
                     event -> keyController.handleKeyPressed(event)
             );

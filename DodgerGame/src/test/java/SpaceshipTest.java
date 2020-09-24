@@ -15,12 +15,12 @@ public class SpaceshipTest {
     @Before
     // @Author Irja Vuorela
     public void init() {
-        spaceship = SpaceshipFactory.createSpaceship();
+        spaceship = SpaceshipFactory.createSpaceship(true);
     }
 
     @Test
     public void spaceshipAndGUISamePosition() {
-        Spaceship spaceship = SpaceshipFactory.createSpaceship();
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(true);
         SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 200, 200);
         System.out.println(spaceship.position.getX());
         System.out.println(spaceshipGUI.getPoint().getX());

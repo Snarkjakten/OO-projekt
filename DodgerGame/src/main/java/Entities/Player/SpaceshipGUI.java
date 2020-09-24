@@ -31,6 +31,11 @@ public class SpaceshipGUI {
         return spaceship;
     }
 
+    public void setPosition(double xPos, double yPos) {
+        this.point = point.add(xPos, yPos);
+        spaceship.setPosition(xPos, yPos);
+    }
+
     public double getXPosition() {
         return spaceship.position.getX();
     }
