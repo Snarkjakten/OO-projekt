@@ -13,6 +13,7 @@
 
 # Generated files
 **/.idea/
+**/target/
 .idea/**/contentModel.xml
 
 # Sensitive or high-churn files
