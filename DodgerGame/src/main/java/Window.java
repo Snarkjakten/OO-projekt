@@ -26,7 +26,6 @@ public class Window {
     Spaceship spaceship = game.getSpaceship();
     Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
     Image spaceShipImage = game.getSpaceship().getImage();
-    List<Spaceship> spaceships = game.getSpaceships();
 
     private Stage stage;
 
@@ -65,7 +64,7 @@ public class Window {
 
             // Handle key pressed
             // @Author Irja Vuorela
-            KeyController keyController = new KeyController(spaceships);
+            KeyController keyController = new KeyController(game.getSpaceships());
             stage.getScene().setOnKeyPressed(
                     event -> keyController.handleKeyPressed(event)
             );

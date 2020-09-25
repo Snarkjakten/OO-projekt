@@ -8,13 +8,17 @@ import static org.junit.Assert.*;
 
 public class SpaceshipTest {
 
+    Game game;
     Spaceship spaceship;
+    Spaceship wrapAroundSpaceship;
     Point2D startPos;
 
     @Before
     // @Author Irja Vuorela
     public void init() {
+        game = Game.getInstance();
         spaceship = SpaceshipFactory.createSpaceship(true, 0, 0);
+        wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false, 10000, 10000);
     }
 
     @Test
@@ -145,5 +149,25 @@ public class SpaceshipTest {
         spaceship.velocity = new Point2D(0, 0);
         spaceship.move();
         assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
+    }
+
+    @Test
+    public void westWrapAround() {
+
+    }
+
+    @Test
+    public void northWrapAround() {
+
+    }
+
+    @Test
+    public void eastWrapAround() {
+
+    }
+
+    @Test
+    public void southWrapAround() {
+
     }
 }

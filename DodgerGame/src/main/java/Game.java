@@ -1,31 +1,30 @@
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
+import java.util.HashMap;
 
-import java.util.ArrayList;
-import java.util.List;
 
 public class Game {
     private static Game instance = null;
     private Spaceship spaceship = SpaceshipFactory.createSpaceship(true, 368, 268);
     private Spaceship wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false, 10000, 10000);
-    private List<Spaceship> spaceships = new ArrayList<>();
+    private HashMap<String, Spaceship> spaceships = new HashMap<>();
 
     private Game() {
+        initSpaceships();
     }
 
     //@Author Tobias Engblom
     protected static Game getInstance() {
         if (instance == null) {
             instance = new Game();
-            instance.initSpaceships();
         }
         return instance;
     }
 
     //@Author Tobias Engblom
     private void initSpaceships() {
-        spaceships.add(spaceship);
-        spaceships.add(wrapAroundSpaceship);
+        spaceships.put("Spaceship", spaceship);
+        spaceships.put("WrapAroundSpaceship", wrapAroundSpaceship);
     }
 
     public Spaceship getSpaceship() {
@@ -37,7 +36,7 @@ public class Game {
     }
 
     //@Author Tobias Engblom
-    protected List<Spaceship> getSpaceships() {
+    protected HashMap<String, Spaceship> getSpaceships() {
         return spaceships;
     }
 
