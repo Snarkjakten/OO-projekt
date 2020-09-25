@@ -25,6 +25,7 @@ public class LaserBeam {
     }
 
     /**
+     * @Author Olle Westerlund
      * Loops through the array and sets an image on every position.
      */
     private void initImages() {
@@ -34,7 +35,8 @@ public class LaserBeam {
     }
 
     /**
-     *
+     * @Author Olle Westerlund
+     * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
      */
@@ -44,6 +46,7 @@ public class LaserBeam {
     }
 
     /**
+     * @Author Olle Westerlund
      * Sets the horizontal and vertical position of the beam depending on isHorizontal.
      * @param position The specific value where the beam should be placed.
      */
@@ -58,6 +61,7 @@ public class LaserBeam {
     }
 
     /**
+     * @Author Olle Westerlund
      * Sets the corresponding image depending on isHorizontal and the number passed to the method.
      * @param number Which picture number the animation needs.
      * @return The correct image and size of the image.

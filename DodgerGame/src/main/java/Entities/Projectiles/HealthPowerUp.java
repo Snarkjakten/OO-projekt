@@ -11,10 +11,11 @@ public class HealthPowerUp extends Projectile{
         HealthPoint = 0.25;
     }
 
-    public double getHealthPoint() {
-        return HealthPoint;
-    }
-
+    /**
+     * The method returns the amount of health the player will gain depending on the total health pool.
+     * @param totalHealthPool The maximum amount of health the player can have.
+     * @return The amount of health the player will gain.
+     */
     public int gainHealth(int totalHealthPool) {
         return (int) (totalHealthPool * this.HealthPoint);
     }

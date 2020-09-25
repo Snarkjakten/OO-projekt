@@ -28,7 +28,7 @@ public class ProjectileTest {
     @Test
     public void testGainShield() {
         int shields = 0;
-        shields = shieldPU.getHitCapacity();
+        shields = shieldPU.gainShield();
         assertTrue(shields == 1);
     }
 

@@ -25,6 +25,7 @@ public class ProjectileGUI {
 
     /**
      * @Author Olle Westerlund
+     * The method sets the correct image depending on the specific projectile.
      * @param projectile The projectile to set the image to.
      * @return The a specific image depending on the projectile.
      */
