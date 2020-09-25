@@ -10,10 +10,10 @@ import java.io.InputStream;
 public class Spaceship extends AbstractMovable {
 
     // Movement directions
-    public int up = 0; // moving up decreases vertical axis value
-    public int down = 0; // moving down increases vertical axis value
-    public int left = 0; // moving left decreases horizontal axis value
-    public int right = 0; // moving right increases horizontal axis value
+    private int up = 0; // moving up decreases vertical axis value
+    private int down = 0; // moving down increases vertical axis value
+    private int left = 0; // moving left decreases horizontal axis value
+    private int right = 0; // moving right increases horizontal axis value
     private boolean isActive;
     private Image image;
 
@@ -23,7 +23,7 @@ public class Spaceship extends AbstractMovable {
         setPosition(x, y);
     }
 
-    public Image addImageToSpaceship() {
+    private Image addImageToSpaceship() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
         image = new Image(inputStream);
         return image;
@@ -41,7 +41,7 @@ public class Spaceship extends AbstractMovable {
     }
 
     // @Author Irja Vuorela
-    public void updateVelocity() {
+    private void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
