@@ -43,6 +43,7 @@ public class Window {
     Image health = healthGain.getImage();
     ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
     Image shieldImage = shieldGUI.getImage();
+    LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage){
         this.stage = stage;
@@ -70,7 +71,7 @@ public class Window {
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
                     gc.drawImage(health, healthGain.getHorizontalPosition(), healthGain.getVerticalPosition());
                     gc.drawImage(shieldImage, shieldGUI.getHorizontalPosition(), shieldGUI.getVerticalPosition(), 64, 64);
-                    gc.drawImage(laserMap.get(1), laser.getHorizontal(), laser.getVertical(), 248, 700);
+                    gc.drawImage(laserBeam.getFrame(time), laserBeam.getHorizontal(), laserBeam.getVertical());
                     projectileGUI.getProjectile().move();
                     healthGain.getProjectile().move();
                     shieldGUI.getProjectile().move();
