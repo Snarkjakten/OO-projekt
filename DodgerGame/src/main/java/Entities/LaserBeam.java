@@ -13,8 +13,8 @@ public class LaserBeam {
     private double vertical;
     private double duration;
     private boolean isHorizontal;
-    private double screenHorizontalLength = 800; //TODO: Get this from model
-    private double screenVerticalLength = 600; // TODO: Get this from model
+    private double screenHorizontalLength = 800; //TODO: Get this from model.
+    private double screenVerticalLength = 600; // TODO: Get this from model.
 
     public LaserBeam(double position, double duration, boolean isHorizontal) {
         this.isHorizontal = isHorizontal;
