@@ -8,10 +8,14 @@ public class HealthPowerUp extends Projectile{
 
     public HealthPowerUp() {
         super(3);
-        HealthPoint = 1.25;
+        HealthPoint = 0.25;
     }
 
     public double getHealthPoint() {
         return HealthPoint;
+    }
+
+    public int gainHealth(int totalHealthPool) {
+        return (int) (totalHealthPool * this.HealthPoint);
     }
 }

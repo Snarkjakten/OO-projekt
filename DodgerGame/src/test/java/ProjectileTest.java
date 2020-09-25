@@ -11,6 +11,8 @@ public class ProjectileTest {
     SmallAsteroid projSmallAsteroid;
     MediumAsteroid projMediumAsteroid;
     ProjectileGUI smallAsteroidGUI;
+    HealthPowerUp hpUp;
+    ShieldPowerUp shieldPU;
     Point2D startPos;
 
     @Before
@@ -19,6 +21,23 @@ public class ProjectileTest {
         projSmallAsteroid = new SmallAsteroid();
         projMediumAsteroid = new MediumAsteroid();
         smallAsteroidGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+        hpUp = new HealthPowerUp();
+        shieldPU = new ShieldPowerUp();
+    }
+
+    @Test
+    public void testGainShield() {
+        int shields = 0;
+        shields = shieldPU.getHitCapacity();
+        assertTrue(shields == 1);
+    }
+
+    @Test
+    public void testGainHealth() {
+        int totalHealth = 200;
+        int currentHealth = 100;
+        currentHealth += hpUp.gainHealth(totalHealth);
+        assertTrue(currentHealth == 150);
     }
 
     @Test
