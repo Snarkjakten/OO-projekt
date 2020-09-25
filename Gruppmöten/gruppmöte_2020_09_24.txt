@@ -1,0 +1,41 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 24 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Kolla hur långt alla har hunnit med sina assignments
+- Lösa alla konflikter för pull requests
+- ta upp frågor iniför handledning
+
+## Reports (15 min) from previous meeting
+
+- Olle Westerlund: börjat med powerups (två klara) och skapat en laserstråle som skärmar av kartan
+- Viktor Sundberg: skapat interface för kollisionshantering och påbörjat implementation av metoder 
+- Irja Vuorela: gjort simuleringen av tid till gameloopen
+- Tobias Engblom: gjort klart wraparound och flyttat över lite saker till moddellen
+- Isak Almeros: gjort game over meny och metod som launchar game over menyn
+
+## Discussion items (35 min)
+
+- hur vi ska göra med/för entiteter som dör/tas bort från skärmen 
+- klasstruktur och framtida cleanup av kod och struktur 
+- guiversion kontra grundversion av entiteter
+- diskuterade ett fel som uppstod med javafx och maven när vi stängde programmet
+- diskuterade vad som ska va klart till peer review
+
+## Outcomes and assignments (5 min)
+
+- Löste konflikterna för pull requests
+- Viktor ska göra klart kollisionshanteringen för de olika entiteterna
+- Irja ska göra klart gameloop
+- Olle ska jobba med cleanup av kod
+- Tobias ska skriva tester till wrap around och eventuellt städa kod
+- Isak ska städa i koden och skapa ett sätt att skicka in poäng i game over menyn
+
+## Wrap up
+- Alla ska medverka på handledarmöte
