@@ -23,9 +23,7 @@ public class Window {
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     Image windowBackground = new Image(inputStream);
-    Spaceship spaceship = game.getSpaceship();
-    Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
-    Image spaceShipImage = game.getSpaceship().getImage();
+    Image spaceShipImage = game.getSpaceships().get(0).getImage();
 
     private Stage stage;
 
@@ -51,8 +49,8 @@ public class Window {
                 @Override
                 public void handle(long currentNanoTime) {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
-                    gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
-                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
+                    for (Spaceship spaceship : game.getSpaceships())
+                        gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
                     game.wrapAround();
                     gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
                     projectileGUI.getProjectile().move();

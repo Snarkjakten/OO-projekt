@@ -14,12 +14,10 @@ public class Spaceship extends AbstractMovable {
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
-    private boolean isActive;
     private Image image;
 
-    public Spaceship(boolean isActive, double x, double y) {
+    public Spaceship(double x, double y) {
         this.image = addImageToSpaceship();
-        this.isActive = isActive;
         setPosition(x, y);
     }
 
@@ -51,14 +49,6 @@ public class Spaceship extends AbstractMovable {
 
     public Image getImage() {
         return image;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     // Setters for movement directions

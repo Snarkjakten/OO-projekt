@@ -17,8 +17,7 @@ public class SpaceshipTest {
     // @Author Irja Vuorela
     public void init() {
         game = Game.getInstance();
-        spaceship = SpaceshipFactory.createSpaceship(true, 0, 0);
-        wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false, 10000, 10000);
+        spaceship = SpaceshipFactory.createSpaceship(0, 0);
     }
 
     @Test
