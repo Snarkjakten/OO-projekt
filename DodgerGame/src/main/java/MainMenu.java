@@ -22,7 +22,6 @@ public class MainMenu {
     private MenuButton playBtn;
     private MenuButton highscoreBtn;
     private MenuButton quitBtn;
-    MenuButton hp;
 
     private ButtonMenu buttonMenu = new ButtonMenu();
     private Canvas title;
@@ -70,9 +69,7 @@ public class MainMenu {
             highscoreBtn = new MenuButton("HIGHSCORE");
             quitBtn = new MenuButton("QUIT");
 
-            hp = new MenuButton("HP");
-
-            menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn, hp);
+            menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn);
             getChildren().addAll(menu);
         }
     }
@@ -91,9 +88,5 @@ public class MainMenu {
 
     public Pane getRoot() {
         return root;
-    }
-
-    public MenuButton getHp() {
-        return hp;
     }
 }

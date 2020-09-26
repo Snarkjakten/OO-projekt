@@ -78,18 +78,22 @@ public class Window {
 
             timer.start();
 
+            System.out.println("hej");
+
+
             // Handle key pressed
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(spaceship);
             stage.getScene().setOnKeyPressed(
-                    event -> keyController.handleKeyPressed(event)
-            );
+                    event -> keyController.handleKeyPressed(event));
 
             // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+
+            System.out.println("hej igen");
 
             button.setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
@@ -118,5 +122,20 @@ public class Window {
 
     public void stop(){
         timer.stop();
+    }
+
+    public void keys(){
+        // Handle key pressed
+        // @Author Irja Vuorela
+        KeyController keyController = new KeyController(spaceship);
+        stage.getScene().setOnKeyPressed(
+                event -> keyController.handleKeyPressed(event)
+        );
+
+        // Handle key released
+        // @Author Irja Vuorela
+        stage.getScene().setOnKeyReleased(
+                event -> keyController.handleKeyReleased(event)
+        );
     }
 }
