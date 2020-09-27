@@ -7,7 +7,7 @@ public class SmallAsteroid extends Projectile {
     private double damage; //The number of damage this asteroid does.
 
     public SmallAsteroid() {
-        super(100);
+        super(200);
         this.damage = 20;
     }
 

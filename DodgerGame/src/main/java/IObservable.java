@@ -4,9 +4,9 @@ public interface IObservable {
      * @author Irja Vuorela
      */
 
-    void addObserver(IObserver o);
+    void addObserver(IObserver obs);
 
-    void removeObserver(IObserver o);
+    void removeObserver(IObserver obs);
 
     void notifyObservers(double x, double y);
 
