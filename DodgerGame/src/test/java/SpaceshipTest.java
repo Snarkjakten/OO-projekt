@@ -1,6 +1,5 @@
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
-import Entities.Player.SpaceshipGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,23 +8,18 @@ import static org.junit.Assert.*;
 
 public class SpaceshipTest {
 
+    Game game;
     Spaceship spaceship;
+    Spaceship wrapAroundSpaceship;
     Point2D startPos;
     double deltaTime = 0.016;
 
     @Before
     // @Author Irja Vuorela
     public void init() {
-        spaceship = SpaceshipFactory.createSpaceship();
-    }
-
-    @Test
-    public void spaceshipAndGUISamePosition() {
-        Spaceship spaceship = SpaceshipFactory.createSpaceship();
-        SpaceshipGUI spaceshipGUI = new SpaceshipGUI(spaceship, 200, 200);
-        System.out.println(spaceship.position.getX());
-        System.out.println(spaceshipGUI.getPoint().getX());
-        assertTrue(spaceship.position.getX() == spaceshipGUI.getPoint().getX() && spaceship.position.getY() == spaceshipGUI.getPoint().getY());
+        game = Game.getInstance();
+        spaceship = SpaceshipFactory.createSpaceship(true, 0, 0);
+        wrapAroundSpaceship = SpaceshipFactory.createSpaceship(false, 10000, 10000);
     }
 
     @Test
@@ -156,5 +150,25 @@ public class SpaceshipTest {
         spaceship.velocity = new Point2D(0, 0);
         spaceship.move(deltaTime);
         assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
+    }
+
+    @Test
+    public void westWrapAround() {
+
+    }
+
+    @Test
+    public void northWrapAround() {
+
+    }
+
+    @Test
+    public void eastWrapAround() {
+
+    }
+
+    @Test
+    public void southWrapAround() {
+
     }
 }
