@@ -14,7 +14,7 @@ public class Spaceship extends AbstractMovable {
     public int left;
     public int right;
 
-    public SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     // Spaceship constructor
     public Spaceship() {
@@ -44,6 +44,13 @@ public class Spaceship extends AbstractMovable {
         this.velocity = velocity.multiply(speed);
     }
 
+    public SimpleIntegerProperty getHp() {
+        return hp;
+    }
+
+    public void setHp(int hp) {
+        this.hp.set(hp);
+    }
 
     // Setters for movement directions
     public void setUp(int up) {

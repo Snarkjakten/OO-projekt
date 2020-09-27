@@ -15,12 +15,19 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.io.InputStream;
 
+/**
+ * @Author Isak Almeros
+ */
+
 public class GameOverMenu {
 
     private Pane root;
 
     private MenuButton mainMenuBtn;
     private MenuButton tryAgainBtn;
+
+    private StringBuilder sb;
+    private Text score;
 
     public GameOverMenu() throws IOException {
         // Creates a title to the page.
@@ -34,9 +41,11 @@ public class GameOverMenu {
         gc.fillText("GAME OVER", 150, 100);
         gc.strokeText("GAME OVER", 150, 100);
 
+        sb = new StringBuilder("Score: ");
+
         // Presents the score
-        Text score = new Text();
-        score.setText("Score: 3350");
+        score = new Text();
+        score.setText(sb.toString());
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         score.setFont(theFont2);
         score.setFill(Color.GRAY);
@@ -44,18 +53,6 @@ public class GameOverMenu {
         score.setTranslateX(290);
         score.setTranslateY(200);
 
-
-/*
-        GraphicsContext gc2 = title.getGraphicsContext2D();
-        gc2.setFill(Color.GRAY);
-        gc2.setStroke(Color.WHITE);
-        gc2.setLineWidth(1);
-        Font theFont3 = Font.font("Arial", FontWeight.BOLD, 30);
-        gc2.setFont(theFont3);
-        gc2.fillText("SCORE: 3350", 290, 200);
-        gc2.strokeText("SCORE: 3350", 290, 200);
-
- */
         // Menu that contains the buttons on the screen
         VBox menu = new VBox(20);
         menu.setAlignment(Pos.CENTER);
@@ -80,8 +77,6 @@ public class GameOverMenu {
         root.setPrefSize(800,600);
 
         root.getChildren().addAll(background, title, score, menu);
-
-       // gameOverScene = new Scene(root);
     }
 
     public Pane getRoot() {
@@ -94,5 +89,11 @@ public class GameOverMenu {
 
     public MenuButton getTryAgainBtn() {
         return tryAgainBtn;
+    }
+
+    // Adds score to the game over menu
+    public void addScore(int points){
+        sb.replace(0, sb.length() - 1, "Score: " + String.valueOf(points));
+        score.setText(sb.toString());
     }
 }

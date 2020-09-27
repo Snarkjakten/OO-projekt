@@ -1,6 +1,3 @@
-import javafx.beans.InvalidationListener;
-import javafx.beans.binding.IntegerBinding;
-import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -8,9 +5,7 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
 
-import java.io.IOException;
 import java.util.Optional;
-import javafx.beans.Observable;
 
 /**
  * @Author Isak Almeros
@@ -22,7 +17,7 @@ public class ViewController {
     private GameOverMenu gameOverMenu;
     private Stage stage;
 
-    SimpleIntegerProperty hp;
+    private SimpleIntegerProperty hp;
 
     public ViewController(Window window, MainMenu mainMenu, GameOverMenu gameOverMenu, Stage stage){
         this.window = window;
@@ -30,10 +25,10 @@ public class ViewController {
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
 
+        hp = window.spaceship.getHp();
+
         mainMenuButtonHandler();
         gameOverButtonHandler();
-
-        hp = window.spaceship.hp;
 /*
         hp.addListener(new InvalidationListener() {
             @Override
@@ -44,6 +39,7 @@ public class ViewController {
 
  */
 
+        // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
         ChangeListener listener = new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
@@ -53,8 +49,9 @@ public class ViewController {
                     stage.getScene().setOnKeyPressed(null);
                     stage.getScene().setOnKeyReleased(null);
 
-                    window.spaceship.hp.set(200);
-                    window.stop();
+                    window.stopAnimationTimer();
+                    int points = window.getPoints();
+                    gameOverMenu.addScore(points);
                     stage.getScene().setRoot(gameOverMenu.getRoot());
                 }
             }
