@@ -5,20 +5,14 @@ import Entities.Player.SpaceshipGUI;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
-import javafx.animation.KeyFrame;
-import javafx.animation.Timeline;
-import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
-import javafx.util.Duration;
 
 import java.io.InputStream;
-import java.sql.Time;
-import java.util.HashMap;
 
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
