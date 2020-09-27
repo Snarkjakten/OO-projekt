@@ -1,3 +1,5 @@
+import View.GameOverMenu;
+import View.MainMenu;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;

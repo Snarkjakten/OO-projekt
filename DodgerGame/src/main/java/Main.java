@@ -1,3 +1,5 @@
+import View.GameOverMenu;
+import View.MainMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
