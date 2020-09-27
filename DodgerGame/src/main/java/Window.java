@@ -95,7 +95,7 @@ public class Window implements IObservable {
                         }
                     }
 
-                    // todo: temporary projectile spawner
+                    // projectile spawner
                     // @author Irja Vuorela
                     updateCounter = updateCounter + 1;
                     if (updateCounter >= 120) {
@@ -123,13 +123,6 @@ public class Window implements IObservable {
 
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
-
-                    /* stopped working
-                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
-                    projectileGUI.getProjectile().move(deltaTime);
-                    if (projectileGUI.getProjectile().isNotOnScreen()) {
-                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
-                    } */
 
                 }
             }.start();
