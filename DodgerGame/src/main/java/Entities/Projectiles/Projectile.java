@@ -27,6 +27,7 @@ public abstract class Projectile extends AbstractMovable {
 
     /**
      * @Author Olle Westerlund
+     * The method sets a random starting position for the projectile.
      */
     private void randomPosition() {
         Random randomPos = new Random();
@@ -38,35 +39,33 @@ public abstract class Projectile extends AbstractMovable {
                 xPos = randomPos.nextDouble() * screenSizeX;
                 yPos = screenSizeY + 50;
                 this.position = new Point2D(xPos, yPos);
-                randomStartVelocity(side);
                 break;
             case 1: // Right side of the screen
                 xPos = 850;
                 yPos = randomPos.nextDouble() * screenSizeY;
                 this.position = new Point2D(xPos, yPos);
-                randomStartVelocity(side);
                 break;
             case 2: // Top of the screen
                 xPos = randomPos.nextDouble() * screenSizeX;
                 yPos = -50;
                 this.position = new Point2D(xPos, yPos);
-                randomStartVelocity(side);
                 break;
             case 3: // Left of the screen
                 xPos = -50;
                 yPos = randomPos.nextDouble() * screenSizeY;
                 this.position = new Point2D(xPos, yPos);
-                randomStartVelocity(side);
                 break;
             default:
                 System.out.println("Error in randomPosition");
                 break;
         }
+        randomStartVelocity(side);
     }
 
     /**
-     * @param side The side of the screen that the asteroid spawns on.
      * @Author Olle Westerlund
+     * The method sets a random velocity and direction for the projectile.
+     * @param side The side of the screen that the asteroid spawns on.
      */
     private void randomStartVelocity(int side) {
         double xPos = 0;
@@ -111,11 +110,12 @@ public abstract class Projectile extends AbstractMovable {
 
     /**
      * @Author Irja Vuorela
+     * @param deltaTime
      */
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
     }
 
     /**
@@ -127,6 +127,7 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
+     * The method checks if the projectile is still on the screen.
      * @Author Olle Westerlund
      * @return Boolean if the object is no longer on the screen.
      */

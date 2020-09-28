@@ -1,3 +1,5 @@
+package View;
+
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;

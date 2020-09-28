@@ -1,0 +1,48 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 24 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Fråga om vad som förväntas vara klart till peer review
+
+## Reports (15 min) from previous meeting
+
+- Första sprinten klar, uppsått mål uppnåddes
+- Olle Westerlund: börjat med powerups (två klara) och skapat en laserstråle som skärmar av kartan
+- Viktor Sundberg: skapat interface för kollisionshantering och påbörjat implementation av metoder 
+- Irja Vuorela: gjort simuleringen av tid till gameloopen
+- Tobias Engblom: gjort klart wraparound och flyttat över lite saker till moddellen
+- Isak Almeros: gjort game over meny och metod som launchar game over menyn
+
+## Discussion items (35 min)
+
+- diskuterade ifall gruppen stött på några problem under veckan 
+- testing av den kod som ligger i master på git 
+- uppdatering av RAD dokument (skisser och UML)
+- SDD första iteration
+- ett UML-digram för varje paket (fokus på MVC)
+- användning av interfaces och services
+- tips att använda facadepattern i model 
+- för få klasser just nu, sikta på 10 klasser 
+- skisser till allt, påbörjat med inte klart
+
+## Outcomes and assignments (5 min)
+
+- Löste konflikterna för pull requests
+- Viktor ska göra klart kollisionshanteringen för de olika entiteterna
+- Irja ska göra klart gameloop
+- Olle ska jobba med cleanup av kod
+- Tobias ska skriva tester till wrap around och eventuellt städa kod
+- Isak ska städa i koden och skapa ett sätt att skicka in poäng i game over menyn
+- skapa SDD
+- uppdatera RAD
+- uppdatera designmodell
+- merga all färdig kod och strukturera projektet tillsammans på måndag 
+
+## Wrap up
+- Gruppmöte på måndag 28/9 kl. 09:00

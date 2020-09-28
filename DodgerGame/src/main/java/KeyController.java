@@ -11,9 +11,10 @@ public class KeyController {
         this.spaceships = spaceships;
     }
 
-    // When an arrow key is pressed, the ship moves in that direction
+    // Sets the direction the player wants the ship to move in when the game loop updates
     // @Author Irja Vuorela
     public void handleKeyPressed(KeyEvent event) {
+<<<<<<< HEAD
         for (Spaceship spaceship : spaceships) {
             switch (event.getCode()) {
                 case UP:
@@ -31,30 +32,28 @@ public class KeyController {
                 default:
                     break;
             }
+=======
+        switch (event.getCode()) {
+            case UP:
+                spaceships.forEach((key, spaceship) -> spaceship.setUp(1));
+                break;
+            case DOWN:
+                spaceships.forEach((key, spaceship) -> spaceship.setDown(1));
+                break;
+            case LEFT:
+                spaceships.forEach((key, spaceship) -> spaceship.setLeft(1));
+                break;
+            case RIGHT:
+                spaceships.forEach((key, spaceship) -> spaceship.setRight(1));
+
+                break;
+            default:
+                break;
+>>>>>>> master
         }
     }
 
-    private void moveUp(Spaceship spaceship) {
-        spaceship.setUp(1);
-        spaceship.move();
-    }
-
-    private void moveDown(Spaceship spaceship) {
-        spaceship.setDown(1);
-        spaceship.move();
-    }
-
-    private void moveLeft(Spaceship spaceship) {
-        spaceship.setLeft(1);
-        spaceship.move();
-    }
-
-    private void moveRight(Spaceship spaceship) {
-        spaceship.setRight(1);
-        spaceship.move();
-    }
-
-    // When an arrow key is released, the ship stops moving in that direction
+    // // Sets the direction the player doesn't want the ship to move in when the game loop updates
     // @Author Irja Vuorela
     public void handleKeyReleased(KeyEvent event) {
         for (Spaceship spaceship : spaceships) {
