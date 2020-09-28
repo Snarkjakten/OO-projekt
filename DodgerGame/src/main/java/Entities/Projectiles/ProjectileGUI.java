@@ -1,6 +1,8 @@
 package Entities.Projectiles;
 
+import Entities.ICollidable;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 import java.io.InputStream;
 
@@ -8,7 +10,7 @@ import java.io.InputStream;
  * @Author Olle Westerlund
  */
 
-public class ProjectileGUI {
+public class ProjectileGUI implements ICollidable {
     private Projectile projectile;
     private Point2D point;
     private Image image;
@@ -64,5 +66,30 @@ public class ProjectileGUI {
 
     public double getVerticalPosition() {
         return projectile.position.getY();
+    }
+
+    @Override
+    public boolean isCollided(ICollidable other) {
+        return false;
+    }
+
+    @Override
+    public void onCollision(ICollidable other) {
+
+    }
+
+    @Override
+    public void effectOfCollision(ICollidable other) {
+
+    }
+
+    @Override
+    public Rectangle2D getBoundary() {
+        return null;
+    }
+
+    @Override
+    public double getDamage() {
+        return 0;
     }
 }
