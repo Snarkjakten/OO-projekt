@@ -14,25 +14,6 @@ public class KeyController {
     // Sets the direction the player wants the ship to move in when the game loop updates
     // @Author Irja Vuorela
     public void handleKeyPressed(KeyEvent event) {
-<<<<<<< HEAD
-        for (Spaceship spaceship : spaceships) {
-            switch (event.getCode()) {
-                case UP:
-                    moveUp(spaceship);
-                    break;
-                case DOWN:
-                    moveDown(spaceship);
-                    break;
-                case LEFT:
-                    moveLeft(spaceship);
-                    break;
-                case RIGHT:
-                    moveRight(spaceship);
-                    break;
-                default:
-                    break;
-            }
-=======
         switch (event.getCode()) {
             case UP:
                 spaceships.forEach((key, spaceship) -> spaceship.setUp(1));
@@ -49,7 +30,6 @@ public class KeyController {
                 break;
             default:
                 break;
->>>>>>> master
         }
     }
 
