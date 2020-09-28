@@ -146,9 +146,11 @@ public class Window implements IObservable {
                     }
 
                     for(AbstractMovable s : gameObjects) {
+                        Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 64, 64);
+                        notifyObservers(s.position.getX(), s.position.getY());
                         if(s instanceof Projectile) {
-                            Rectangle2D r1 = new Rectangle2D(s.position.getX(), s.position.getX(), 10, 10);
-                            Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getX(), 10, 10);
+                            Rectangle2D r1 = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight(), asteroidImage.getWidth());
+                            //Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getX(), 10, 10);
                             if(r1.intersects(r2)) {
                                 gameObjects.remove(s);
                                 break;
