@@ -1,4 +1,6 @@
 import Entities.Player.Spaceship;
+import Entities.Projectiles.*;
+import Movement.AbstractMovable;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
 import Entities.Projectiles.ProjectileGUI;
@@ -11,13 +13,15 @@ import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
+import java.util.ArrayList;
+
 import java.util.List;
 
 /*
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window {
+public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
@@ -35,6 +39,8 @@ public class Window {
     long startNanoTime;
     long endNanoTime;
     private int points;
+    private List<IObserver> observers;
+    private List<AbstractMovable> gameObjects;
 
     ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     Image asteroidImage = projectileGUI.getImage();
@@ -58,18 +64,81 @@ public class Window {
 
             startNanoTime = System.nanoTime();
 
+            // Game loop --------------------------------------------------------------
+
+            observers = new ArrayList<>();
+
+            // Adds spaceship (and wraparound counterpart) to list of game objects
+            gameObjects = new ArrayList<>();
+            gameObjects.add(spaceship);
+            gameObjects.add(wrapAroundSpaceship);
+            gameObjects.add(ProjectileFactory.createSmallAsteroid());
+            gameObjects.add(ProjectileFactory.createMediumAsteroid());
+
+
             animationTimer = new AnimationTimer() {
+                long currentNanoTime = System.nanoTime();
+                long previousNanoTime = currentNanoTime;
+                int updateCounter = 60;
                 @Override
                 public void handle(long currentNanoTime) {
+
+                    // Calculate time since last update
+                    // @author Irja Vuorela
+                    currentNanoTime = System.nanoTime();
+                    double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
+
+                    // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
-                    gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
-                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
-                    game.wrapAround();
-                    gc.drawImage(asteroidImage, projectileGUI.getHorizontalPosition(), projectileGUI.getVerticalPosition());
-                    projectileGUI.getProjectile().move();
-                    if (projectileGUI.getProjectile().isNotOnScreen()) {
-                        projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+
+
+                    // update positions and notify observers
+                    // @author Irja vuorela
+                    for (AbstractMovable gameObject : gameObjects) {
+                        gameObject.move(deltaTime);
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY());
+                        // todo: move to view/observer
+                        if (gameObject instanceof MediumAsteroid) {
+                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 128, 128);
+                        }
+                        if (gameObject instanceof SmallAsteroid) {
+                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
+                        }
+                        if (gameObject instanceof Spaceship) {
+                            gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
+                        }
                     }
+
+                    // projectile spawner
+                    // @author Irja Vuorela
+                    updateCounter = updateCounter + 1;
+                    if (updateCounter >= 120) {
+                        updateCounter = 0;
+                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
+                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
+                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
+                        gameObjects.add(ProjectileFactory.createMediumAsteroid());
+                    }
+
+                    // todo: find out why this is needed (wrapShip's position is wrong without it)
+                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
+
+                    /* todo: lots of errors
+                    // remove offscreen projectiles
+                    // @author Irja Vuorela
+                    for (AbstractMovable g : gameObjects) {
+                        if (g instanceof Projectile){
+                            if (((Projectile) g).isNotOnScreen()){
+                                gameObjects.remove(g);
+                            }
+                        }
+                    }
+                    */
+
+                    game.wrapAround();
+                    previousNanoTime = currentNanoTime;
+
+
                 }
             };
 
@@ -119,5 +188,23 @@ public class Window {
         endNanoTime = System.nanoTime();
         points = (int)((endNanoTime - startNanoTime)/1000000000.0);
         animationTimer.stop();
+    }
+
+    @Override
+    public void addObserver(IObserver obs) {
+        observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(IObserver obs) {
+        observers.remove(obs);
+    }
+
+    @Override
+    public void notifyObservers(double x, double y) {
+        for (IObserver obs : observers) {
+            obs.actOnEvent(x, y);
+
+        }
     }
 }
