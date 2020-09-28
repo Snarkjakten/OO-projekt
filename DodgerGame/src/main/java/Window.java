@@ -2,6 +2,7 @@ import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.animation.AnimationTimer;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -10,6 +11,7 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+
 import java.util.List;
 
 /*
@@ -50,7 +52,6 @@ public class Window implements IObservable {
             //Adds ImageView and Canvas to Pane
             win.getChildren().addAll(canvas);
 
-
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
@@ -61,6 +62,7 @@ public class Window implements IObservable {
             gameObjects.add(wrapAroundSpaceship);
             gameObjects.add(ProjectileFactory.createSmallAsteroid());
             gameObjects.add(ProjectileFactory.createMediumAsteroid());
+
 
             new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
@@ -77,6 +79,7 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
+
 
                     // update positions and notify observers
                     // @author Irja vuorela
@@ -123,6 +126,7 @@ public class Window implements IObservable {
 
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
+
 
                 }
             }.start();

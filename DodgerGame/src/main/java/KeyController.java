@@ -26,6 +26,7 @@ public class KeyController {
                 break;
             case RIGHT:
                 spaceships.forEach((key, spaceship) -> spaceship.setRight(1));
+
                 break;
             default:
                 break;
