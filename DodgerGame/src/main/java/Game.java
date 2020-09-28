@@ -1,15 +1,21 @@
+import Entities.Player.Player;
 import Entities.Player.Spaceship;
 import Entities.Player.SpaceshipFactory;
+import Movement.AbstractMovable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 
 public class Game {
+    public List<AbstractMovable> gameObjects;
+    private Spaceship newSpaceship;
     private static Game instance = null;
-    private final List<Spaceship> spaceships = new ArrayList<>();
+    private Player player;
 
     private Game() {
+        this.player = new Player();
+        gameObjects = new ArrayList<>();
         initSpaceships();
     }
 
@@ -23,48 +29,72 @@ public class Game {
 
     //@Author Tobias Engblom
     private void initSpaceships() {
-        spaceships.add(SpaceshipFactory.createSpaceship(368, 268));
+        newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
+        player.spaceships.add(newSpaceship);
+        gameObjects.add(newSpaceship);
     }
 
     //@Author Tobias Engblom
     protected List<Spaceship> getSpaceships() {
-        return spaceships;
+        return player.spaceships;
+    }
+
+    protected Player getPlayer() {
+        return player;
     }
 
     //@Author Tobias Engblom
     protected void wrapAround() {
-        for (Spaceship spaceship : spaceships) {
-            if (spaceships.size() == 1) {
+        for (Spaceship spaceship : player.spaceships) {
+            if (player.spaceships.size() == 1) {
                 if (checkWestPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(788, spaceship.position.getY()));
+                    newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkNorthPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600));
+                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkEastPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(-76, spaceship.position.getY()));
+                    newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkSouthPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64));
+                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 }
-            } else if (spaceships.size() == 2 || spaceships.size() < 4) {
+                // TODO The game updates so fast that it creates to many spaceships when crossing a border with just one spaceship.
+                // TODO Change if?
+            } else if (player.spaceships.size() < 4) {
                 if (checkWestPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(788, spaceship.position.getY()));
+                    newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkNorthPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600));
+                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkEastPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(-76, spaceship.position.getY()));
+                    newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 } else if (checkSouthPosition(spaceship)) {
-                    spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64));
+                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
+                    player.spaceships.add(newSpaceship);
+                    gameObjects.add(newSpaceship);
                     break;
                 }
             }
             if (checkInactive(spaceship)) {
-                spaceships.remove(spaceship);
+                player.spaceships.remove(spaceship);
                 break;
             }
         }
