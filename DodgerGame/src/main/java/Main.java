@@ -1,3 +1,5 @@
+import View.GameOverMenu;
+import View.MainMenu;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -12,11 +14,11 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Window window = new Window(stage);
         MainMenu mainMenu = new MainMenu();
-        new ViewController(window, mainMenu, stage);
+        GameOverMenu gameOverMenu = new GameOverMenu();
+        new ViewController(window, mainMenu, gameOverMenu, stage);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
-
         stage.setScene(mainMenuScene);
         //Removes option to change size of program window
         stage.setResizable(false);

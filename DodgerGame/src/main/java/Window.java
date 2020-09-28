@@ -2,7 +2,10 @@ import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.animation.AnimationTimer;
-
+import Entities.Projectiles.ProjectileFactory;
+import Entities.Projectiles.ProjectileGUI;
+import javafx.beans.binding.NumberBinding;
+import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -21,7 +24,7 @@ import java.util.List;
 public class Window implements IObservable {
 
     //Creates Pane
-    private final Pane win = new Pane();
+    private final Pane root = new Pane();
     Game game = Game.getInstance();
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
@@ -31,6 +34,11 @@ public class Window implements IObservable {
     Image spaceShipImage = game.getSpaceship().getImage();
 
     private Stage stage;
+    private AnimationTimer animationTimer;
+
+    long startNanoTime;
+    long endNanoTime;
+    private int points;
     private List<IObserver> observers;
     private List<AbstractMovable> gameObjects;
 
@@ -45,12 +53,16 @@ public class Window implements IObservable {
         try {
             createContent();
 
+            spaceship.setHp(200);
+            
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             //Adds ImageView and Canvas to Pane
-            win.getChildren().addAll(canvas);
+            root.getChildren().addAll(canvas);
+
+            startNanoTime = System.nanoTime();
 
             // Game loop --------------------------------------------------------------
 
@@ -64,11 +76,10 @@ public class Window implements IObservable {
             gameObjects.add(ProjectileFactory.createMediumAsteroid());
 
 
-            new AnimationTimer() {
+            animationTimer = new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
-
                 @Override
                 public void handle(long currentNanoTime) {
 
@@ -129,20 +140,28 @@ public class Window implements IObservable {
 
 
                 }
-            }.start();
+            };
+
+            animationTimer.start();
 
             // Handle key pressed
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(game.getSpaceships());
             stage.getScene().setOnKeyPressed(
-                    event -> keyController.handleKeyPressed(event)
-            );
+                    event -> keyController.handleKeyPressed(event));
 
             // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
                     event -> keyController.handleKeyReleased(event)
             );
+
+            // TODO: 2020-09-26 replace onMouseClicked with collision 
+            stage.getScene().setOnMouseClicked(event -> {
+                SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
+                NumberBinding subtraction = spaceship.getHp().subtract(damage);
+                spaceship.setHp(subtraction.intValue());
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -151,12 +170,24 @@ public class Window implements IObservable {
 
     //Sets size of Pane
     private Pane createContent() {
-        win.setPrefSize(800, 600);
-        return win;
+        root.setPrefSize(800, 600);
+        return root;
     }
 
-    public Pane getWin() {
-        return win;
+    public Pane getRoot() {
+        return root;
+    }
+
+    public int getPoints(){
+        return points;
+    }
+
+
+    // @Author Isak Almeros
+    public void stopAnimationTimer(){
+        endNanoTime = System.nanoTime();
+        points = (int)((endNanoTime - startNanoTime)/1000000000.0);
+        animationTimer.stop();
     }
 
     @Override
