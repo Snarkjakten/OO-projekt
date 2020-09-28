@@ -88,6 +88,10 @@ public class Spaceship extends AbstractMovable implements ICollidable {
         this.right = right;
     }
 
+    public Rectangle2D getBounds() {
+        return new Rectangle2D(this.position.getX(), this.position.getY(), this.image.getWidth()/2, this.image.getWidth()/2);
+    }
+
     @Override
     public boolean isCollided(ICollidable other) {
         return other.getBoundary().intersects(this.getBoundary());

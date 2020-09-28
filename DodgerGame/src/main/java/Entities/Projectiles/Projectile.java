@@ -1,7 +1,8 @@
 package Entities.Projectiles;
 
-import Movement.*;
+import Movement.AbstractMovable;
 import javafx.geometry.Point2D;
+
 import java.util.Random;
 
 /**
@@ -156,4 +157,5 @@ public abstract class Projectile extends AbstractMovable {
     public void setVertical(double vertical) {
         this.vertical = vertical;
     }
+
 }

@@ -3,10 +3,9 @@ import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.animation.AnimationTimer;
-import Entities.Projectiles.ProjectileFactory;
-import Entities.Projectiles.ProjectileGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -15,7 +14,6 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import java.util.List;
 
 /*
@@ -142,6 +140,17 @@ public class Window implements IObservable {
                         if (g instanceof Projectile){
                             if (((Projectile) g).isNotOnScreen()){
                                 gameObjects.remove(g);
+                                break;
+                            }
+                        }
+                    }
+
+                    for(AbstractMovable s : gameObjects) {
+                        if(s instanceof Projectile) {
+                            Rectangle2D r1 = new Rectangle2D(s.position.getX(), s.position.getX(), 10, 10);
+                            Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getX(), 10, 10);
+                            if(r1.intersects(r2)) {
+                                gameObjects.remove(s);
                                 break;
                             }
                         }
