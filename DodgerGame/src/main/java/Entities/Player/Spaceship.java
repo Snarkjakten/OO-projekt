@@ -90,7 +90,7 @@ public class Spaceship extends AbstractMovable implements ICollidable {
 
     @Override
     public boolean isCollided(ICollidable other) {
-        return this.getBoundary().intersects(other.getBoundary());
+        return other.getBoundary().intersects(this.getBoundary());
     }
 
     @Override

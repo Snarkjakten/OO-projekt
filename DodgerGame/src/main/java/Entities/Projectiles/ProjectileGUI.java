@@ -74,7 +74,7 @@ public class ProjectileGUI implements ICollidable {
 
     @Override
     public boolean isCollided(ICollidable other) {
-        return this.getBoundary().intersects(other.getBoundary());
+        return other.getBoundary().intersects(this.getBoundary());
     }
 
     @Override
@@ -89,7 +89,7 @@ public class ProjectileGUI implements ICollidable {
 
     @Override
     public Rectangle2D getBoundary() {
-        return new Rectangle2D(getHorizontalPosition(), getVerticalPosition(), this.image.getWidth()/2, this.image.getHeight()/2);
+        return new Rectangle2D(getHorizontalPosition(), getVerticalPosition(), getImage().getWidth()/2, getImage().getHeight()/2);
     }
 
     @Override
