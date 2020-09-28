@@ -31,15 +31,6 @@ public class ViewController {
 
         mainMenuButtonHandler();
         gameOverButtonHandler();
-/*
-        hp.addListener(new InvalidationListener() {
-            @Override
-            public void invalidated(Observable observable) {
-
-            }
-        });
-
- */
 
         // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
         ChangeListener listener = new ChangeListener() {
@@ -53,7 +44,7 @@ public class ViewController {
 
                     window.stopAnimationTimer();
                     int points = window.getPoints();
-                    gameOverMenu.addScore(points);
+                    gameOverMenu.showScore(points);
                     stage.getScene().setRoot(gameOverMenu.getRoot());
                 }
             }
@@ -67,9 +58,10 @@ public class ViewController {
         // Starts the game when clicking on "PLAY"
         mainMenu.getPlayBtn().setOnMouseClicked(event -> {
             window.init();
-            stage.getScene().setRoot(window.getWin());
+            stage.getScene().setRoot(window.getRoot());
         });
 
+        // TODO: 2020-09-27 go to highscore menu instead of game over menu
         mainMenu.getHighscoreBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(gameOverMenu.getRoot());
         });
@@ -90,7 +82,7 @@ public class ViewController {
     private void gameOverButtonHandler(){
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
             window.init();
-            stage.getScene().setRoot(window.getWin());
+            stage.getScene().setRoot(window.getRoot());
         });
 
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> {

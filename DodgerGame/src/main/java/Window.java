@@ -20,7 +20,7 @@ import java.util.List;
 public class Window {
 
     //Creates Pane
-    private final Pane win = new Pane();
+    private final Pane root = new Pane();
     Game game = Game.getInstance();
     //Gets image from resources
     InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
@@ -54,7 +54,7 @@ public class Window {
             GraphicsContext gc = canvas.getGraphicsContext2D();
 
             //Adds ImageView and Canvas to Pane
-            win.getChildren().addAll(canvas);
+            root.getChildren().addAll(canvas);
 
             startNanoTime = System.nanoTime();
 
@@ -90,12 +90,8 @@ public class Window {
             // TODO: 2020-09-26 replace onMouseClicked with collision 
             stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-
-                System.out.println(spaceship.getHp());
-
                 NumberBinding subtraction = spaceship.getHp().subtract(damage);
                 spaceship.setHp(subtraction.intValue());
-                System.out.println(spaceship.getHp());
             });
 
         } catch (Exception e) {
@@ -105,12 +101,12 @@ public class Window {
 
     //Sets size of Pane
     private Pane createContent() {
-        win.setPrefSize(800, 600);
-        return win;
+        root.setPrefSize(800, 600);
+        return root;
     }
 
-    public Pane getWin() {
-        return win;
+    public Pane getRoot() {
+        return root;
     }
 
     public int getPoints(){

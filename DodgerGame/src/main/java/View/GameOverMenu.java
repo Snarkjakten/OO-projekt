@@ -3,6 +3,7 @@ package View;
 import javafx.geometry.Insets;
 import javafx.geometry.Pos;
 import javafx.scene.Node;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -24,10 +25,9 @@ import java.io.InputStream;
 public class GameOverMenu {
 
     private Pane root;
-
     private MenuButton mainMenuBtn;
     private MenuButton tryAgainBtn;
-
+    private GameOverMenu.ButtonMenu buttonMenu;
     private StringBuilder sb;
     private Text score;
 
@@ -44,6 +44,7 @@ public class GameOverMenu {
         gc.strokeText("GAME OVER", 150, 100);
 
         sb = new StringBuilder("Score: ");
+        buttonMenu = new GameOverMenu.ButtonMenu();
 
         // Presents the score
         score = new Text();
@@ -54,17 +55,6 @@ public class GameOverMenu {
         score.setStroke(Color.WHITE);
         score.setTranslateX(290);
         score.setTranslateY(200);
-
-        // Menu that contains the buttons on the screen
-        VBox menu = new VBox(20);
-        menu.setAlignment(Pos.CENTER);
-
-        tryAgainBtn = new MenuButton("TRY AGAIN");
-        mainMenuBtn = new MenuButton("MAIN MENU");
-
-        menu.getChildren().addAll(tryAgainBtn, mainMenuBtn);
-        menu.setTranslateX(270);
-        menu.setTranslateY(250);
 
         // Adds a background to the screen.
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("bg_1_1.png");
@@ -78,7 +68,23 @@ public class GameOverMenu {
         root = new Pane();
         root.setPrefSize(800,600);
 
-        root.getChildren().addAll(background, title, score, menu);
+        root.getChildren().addAll(background, title, score, buttonMenu);
+    }
+
+    // Menu that contains the buttons on the screen
+    private class ButtonMenu extends Parent {
+        public ButtonMenu() {
+            VBox menu = new VBox(20);
+
+            menu.setTranslateX(270);
+            menu.setTranslateY(250);
+
+            tryAgainBtn = new MenuButton("TRY AGAIN");
+            mainMenuBtn = new MenuButton("MAIN MENU");
+
+            menu.getChildren().addAll(tryAgainBtn, mainMenuBtn);
+            getChildren().addAll(menu);
+        }
     }
 
     public Pane getRoot() {
@@ -94,7 +100,7 @@ public class GameOverMenu {
     }
 
     // Adds score to the game over menu
-    public void addScore(int points){
+    public void showScore(int points){
         sb.replace(0, sb.length() - 1, "Score: " + String.valueOf(points));
         score.setText(sb.toString());
     }
