@@ -78,9 +78,6 @@ public class Window implements IObservable {
             gameObjects = new ArrayList<>();
             gameObjects.add(spaceship);
             gameObjects.add(wrapAroundSpaceship);
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
-
 
             animationTimer = new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
@@ -140,20 +137,17 @@ public class Window implements IObservable {
                         gameObjects.add(ProjectileFactory.createShieldPowerUp());
                     }
 
-                    // todo: find out why this is needed (wrapShip's position is wrong without it)
-//                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
-
-                    /* todo: lots of errors
                     // remove offscreen projectiles
                     // @author Irja Vuorela
                     for (AbstractMovable g : gameObjects) {
                         if (g instanceof Projectile){
                             if (((Projectile) g).isNotOnScreen()){
                                 gameObjects.remove(g);
+                                break;
                             }
                         }
                     }
-                    */
+
 
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
