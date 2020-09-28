@@ -23,12 +23,24 @@ public class ProjectileGUI {
         this.image = addImageToProjectile(projectile);
     }
 
+    /**
+     * @Author Olle Westerlund
+     * The method sets the correct image depending on the specific projectile.
+     * @param projectile The projectile to set the image to.
+     * @return The a specific image depending on the projectile.
+     */
     public Image addImageToProjectile(Projectile projectile) {
         if (projectile instanceof SmallAsteroid) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
             image = new Image(inputStream);
         } else if (projectile instanceof MediumAsteroid) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
+            image = new Image(inputStream);
+        } else if (projectile instanceof HealthPowerUp) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
+            image = new Image(inputStream);
+        } else if (projectile instanceof ShieldPowerUp) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
             image = new Image(inputStream);
         }
         return image;

@@ -4,15 +4,10 @@ package Entities.Projectiles;
  * @Author Olle Westerlund
  */
 
-public class MediumAsteroid extends Projectile {
-    private double damage; //The number of damage this asteroids does.
+public class MediumAsteroid extends Asteroid {
 
     public MediumAsteroid() {
-        super(100);
-        this.damage = 35;
+        super(100, 35);
     }
 
-    public double getDamage() {
-        return damage;
-    }
 }
