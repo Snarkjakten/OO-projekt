@@ -16,6 +16,8 @@ public class ProjectileGUI implements ICollidable {
     private Image image;
     private double xPos;
     private double yPos;
+    private double width;
+    private double height;
 
     public ProjectileGUI(Projectile projectile) {
         this.projectile = projectile;
@@ -23,6 +25,8 @@ public class ProjectileGUI implements ICollidable {
         this.yPos = projectile.position.getY();
         this.point = new Point2D(xPos, yPos);
         this.image = addImageToProjectile(projectile);
+        this.width = this.image.getWidth();
+        this.height = this.image.getHeight();
     }
 
     /**
@@ -70,7 +74,7 @@ public class ProjectileGUI implements ICollidable {
 
     @Override
     public boolean isCollided(ICollidable other) {
-        return false;
+        return this.getBoundary().intersects(other.getBoundary());
     }
 
     @Override
@@ -85,7 +89,7 @@ public class ProjectileGUI implements ICollidable {
 
     @Override
     public Rectangle2D getBoundary() {
-        return null;
+        return new Rectangle2D(getHorizontalPosition(), getVerticalPosition(), this.image.getWidth()/2, this.image.getHeight()/2);
     }
 
     @Override

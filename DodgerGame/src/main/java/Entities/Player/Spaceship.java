@@ -90,7 +90,7 @@ public class Spaceship extends AbstractMovable implements ICollidable {
 
     @Override
     public boolean isCollided(ICollidable other) {
-        return false;
+        return this.getBoundary().intersects(other.getBoundary());
     }
 
     @Override
@@ -105,7 +105,7 @@ public class Spaceship extends AbstractMovable implements ICollidable {
 
     @Override
     public Rectangle2D getBoundary() {
-        return null;
+        return new Rectangle2D(this.position.getX(), this.position.getY(), this.image.getWidth()/2, this.image.getWidth()/2);
     }
 
     @Override
