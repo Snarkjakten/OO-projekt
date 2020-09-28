@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Game {
     private static Game instance = null;
-    private List<Spaceship> spaceships = new ArrayList<>();
+    private final List<Spaceship> spaceships = new ArrayList<>();
 
     private Game() {
         initSpaceships();
@@ -34,19 +34,24 @@ public class Game {
     //@Author Tobias Engblom
     protected void wrapAround() {
         for (Spaceship spaceship : spaceships) {
-            if (spaceships.size() == 1 || (spaceships.size() == 2 || spaceships.size() < 4)) {
+            if (spaceships.size() == 1 || ((spaceships.size() == 2 || spaceships.size() < 4) && )) {
                 if (checkWestPosition(spaceship)) {
                     spaceships.add(SpaceshipFactory.createSpaceship(788, spaceship.position.getY()));
+                    break;
                 } else if (checkNorthPosition(spaceship)) {
                     spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600));
+                    break;
                 } else if (checkEastPosition(spaceship)) {
                     spaceships.add(SpaceshipFactory.createSpaceship(-76, spaceship.position.getY()));
+                    break;
                 } else if (checkSouthPosition(spaceship)) {
                     spaceships.add(SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64));
+                    break;
                 }
             }
             if (checkInactive(spaceship)) {
                 spaceships.remove(spaceship);
+                break;
             }
         }
     }
