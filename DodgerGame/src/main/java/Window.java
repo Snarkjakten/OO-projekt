@@ -68,12 +68,16 @@ public class Window implements IObservable {
             gameObjects.add(wrapAroundSpaceship);
             gameObjects.add(ProjectileFactory.createSmallAsteroid());
             gameObjects.add(ProjectileFactory.createMediumAsteroid());
+//            gameObjects.add(ProjectileFactory.createHealthPowerUp());
+//            gameObjects.add(ProjectileFactory.createShieldPowerUp());
 
 
             new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
+
+                final long animationNanoTime = System.nanoTime();
 
                 @Override
                 public void handle(long currentNanoTime) {
@@ -82,9 +86,12 @@ public class Window implements IObservable {
                     // @author Irja Vuorela
                     currentNanoTime = System.nanoTime();
                     double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
+                    double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
+
+                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
 
                     // update positions and notify observers
@@ -100,7 +107,13 @@ public class Window implements IObservable {
                             gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
                         }
                         if (gameObject instanceof Spaceship) {
-                            gc.drawImage(spaceShipImage, spaceship.position.getX(), spaceship.position.getY(), 64, 64);
+                            gc.drawImage(spaceShipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
+                        }
+                        if (gameObject instanceof HealthPowerUp) {
+                            gc.drawImage(health, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
+                        }
+                        if (gameObject instanceof ShieldPowerUp) {
+                            gc.drawImage(shieldImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
                         }
                     }
 
@@ -113,10 +126,12 @@ public class Window implements IObservable {
                         gameObjects.add(ProjectileFactory.createSmallAsteroid());
                         gameObjects.add(ProjectileFactory.createSmallAsteroid());
                         gameObjects.add(ProjectileFactory.createMediumAsteroid());
+                        gameObjects.add(ProjectileFactory.createHealthPowerUp());
+                        gameObjects.add(ProjectileFactory.createShieldPowerUp());
                     }
 
                     // todo: find out why this is needed (wrapShip's position is wrong without it)
-                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
+//                    gc.drawImage(spaceShipImage, wrapAroundSpaceship.position.getX(), wrapAroundSpaceship.position.getY(), 64, 64);
 
                     /* todo: lots of errors
                     // remove offscreen projectiles
