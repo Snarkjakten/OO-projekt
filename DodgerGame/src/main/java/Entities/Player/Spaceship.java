@@ -32,12 +32,12 @@ public class Spaceship extends AbstractMovable {
     // Move self to a new position
     // @Author Irja Vuorela
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
 
         // todo: remove print
-        System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela

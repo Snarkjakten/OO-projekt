@@ -7,5 +7,5 @@ package Movement;
 public interface IMovable {
 
     // Move self
-    void move();
+    void move(double deltaTime);
 }
