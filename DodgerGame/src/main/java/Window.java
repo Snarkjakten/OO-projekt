@@ -100,6 +100,7 @@ public class Window implements IObservable {
 
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
+                    spaceship.onCollision(projectileGUI);
 
                     // update positions and notify observers
                     // @author Irja vuorela

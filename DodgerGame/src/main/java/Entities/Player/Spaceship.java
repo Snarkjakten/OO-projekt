@@ -95,7 +95,11 @@ public class Spaceship extends AbstractMovable implements ICollidable {
 
     @Override
     public void onCollision(ICollidable other) {
-
+        if(this.isCollided(other)){
+            System.out.println(
+                    "COLLISION DETECTED"
+            );
+        }
     }
 
     @Override
