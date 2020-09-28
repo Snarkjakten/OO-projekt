@@ -2,37 +2,46 @@ package Entities.Player;
 
 import Movement.AbstractMovable;
 import javafx.geometry.Point2D;
+import javafx.scene.image.Image;
+
+import java.io.InputStream;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable {
 
     // Movement directions
-    public int up;
-    public int down;
-    public int left;
-    public int right;
+    private int up = 0; // moving up decreases vertical axis value
+    private int down = 0; // moving down increases vertical axis value
+    private int left = 0; // moving left decreases horizontal axis value
+    private int right = 0; // moving right increases horizontal axis value
+    private boolean isActive;
+    private Image image;
 
-    // Spaceship constructor
-    public Spaceship() {
-        this.up = 0;    // moving up decreases vertical axis value
-        this.down = 0;  // moving down increases vertical axis value
-        this.left = 0;  // moving left decreases horizontal axis value
-        this.right = 0; // moving right increases horizontal axis value
+    public Spaceship(boolean isActive, double x, double y) {
+        this.image = addImageToSpaceship();
+        this.isActive = isActive;
+        setPosition(x, y);
+    }
+
+    private Image addImageToSpaceship() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+        image = new Image(inputStream);
+        return image;
     }
 
     // Move self to a new position
     // @Author Irja Vuorela
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
 
         // todo: remove print
-        System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela
-    public void updateVelocity() {
+    private void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
@@ -40,6 +49,17 @@ public class Spaceship extends AbstractMovable {
         this.velocity = velocity.multiply(speed);
     }
 
+    public Image getImage() {
+        return image;
+    }
+
+    public boolean isActive() {
+        return isActive;
+    }
+
+    public void setActive(boolean active) {
+        isActive = active;
+    }
 
     // Setters for movement directions
     public void setUp(int up) {

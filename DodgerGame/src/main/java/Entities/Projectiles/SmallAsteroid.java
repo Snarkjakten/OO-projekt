@@ -6,6 +6,6 @@ package Entities.Projectiles;
 public class SmallAsteroid extends Asteroid {
 
     public SmallAsteroid() {
-        super(5, 20);
+        super(200, 20);
     }
 }

@@ -110,11 +110,12 @@ public abstract class Projectile extends AbstractMovable {
 
     /**
      * @Author Irja Vuorela
+     * @param deltaTime
      */
     @Override
-    public void move() {
+    public void move(double deltaTime) {
         updateVelocity();
-        updatePosition();
+        updatePosition(deltaTime);
     }
 
     /**
