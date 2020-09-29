@@ -1,16 +1,14 @@
 package Entities.Player;
 
-import Entities.ICollidable;
 import Movement.AbstractMovable;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
 
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractMovable implements ICollidable {
+public class Spaceship extends AbstractMovable {
 
     // Movement directions
     private int up = 0; // moving up decreases vertical axis value
@@ -87,38 +85,5 @@ public class Spaceship extends AbstractMovable implements ICollidable {
 
     public void setRight(int right) {
         this.right = right;
-    }
-
-    public Rectangle2D getBounds() {
-        return new Rectangle2D(this.position.getX(), this.position.getY(), this.image.getWidth()/2, this.image.getWidth()/2);
-    }
-
-    @Override
-    public boolean isCollided(ICollidable other) {
-        return other.getBoundary().intersects(this.getBoundary());
-    }
-
-    @Override
-    public void onCollision(ICollidable other) {
-        if(this.isCollided(other)){
-            System.out.println(
-                    "COLLISION DETECTED"
-            );
-        }
-    }
-
-    @Override
-    public void effectOfCollision(ICollidable other) {
-
-    }
-
-    @Override
-    public Rectangle2D getBoundary() {
-        return new Rectangle2D(this.position.getX(), this.position.getY(), this.image.getWidth()/2, this.image.getWidth()/2);
-    }
-
-    @Override
-    public double getDamage() {
-        return 0;
     }
 }
