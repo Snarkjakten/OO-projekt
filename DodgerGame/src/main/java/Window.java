@@ -143,17 +143,20 @@ public class Window implements IObservable {
                         }
                     }
 
+                    /**
+                     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+                     */
 
+                    //check asteroid collision
                     for(AbstractMovable s : gameObjects) {
                         Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
                         if(s instanceof Asteroid) {
                             Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
-                            //Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getX(), 10, 10);
                             if(asteroidRec.intersects(shipRec)) {
                                 spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
                                 System.out.println(spaceship.getHp().toString());
-                                if(spaceship.getHp().isEqualTo(0).getValue()) {
+                                if(spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
                                     stage.getScene();
                                 }
                                 gameObjects.remove(s);
@@ -161,6 +164,8 @@ public class Window implements IObservable {
                             }
                         }
                     }
+
+                    //check health powerup collision
                     for(AbstractMovable s : gameObjects) {
                         Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
@@ -168,7 +173,7 @@ public class Window implements IObservable {
                             Rectangle2D healthRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
                             if(healthRec.intersects(shipRec)) {
 
-                                //Hur hanterar jag detta?
+                                //Väldigt krångliga checks
                                 if(spaceship.getHp().greaterThanOrEqualTo(HealthPowerUp.gainHealth(spaceship.getHp().intValue())).getValue()) {
                                     spaceship.setHp(200);
                                     System.out.println(spaceship.getHp().toString());
@@ -183,6 +188,7 @@ public class Window implements IObservable {
                     }
 
                     //TODO: make immune to next asteroid collision
+                    //check shield powerup collision
                     for(AbstractMovable s : gameObjects) {
                         Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
@@ -196,7 +202,7 @@ public class Window implements IObservable {
                         }
                     }
 
-
+//--------------------------------------------------------------------------------------------------------------------------------------------------------------------------
 
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
