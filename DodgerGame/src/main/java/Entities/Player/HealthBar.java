@@ -1,9 +1,9 @@
 package Entities.Player;
 
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.shape.Rectangle;
-import javafx.scene.shape.StrokeType;
+
+import java.io.InputStream;
 
 /**
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
@@ -11,10 +11,31 @@ import javafx.scene.shape.StrokeType;
 
 public class HealthBar extends Pane {
 
-    Rectangle hpBackground;
-    Rectangle hpBar;
+    public Image background;
+    public Image foreground;
+    public Image border;
+    //Rectangle hpBackground;
+    //Rectangle hpBar;
 
-    public HealthBar() {
+    public Image addBackgroundToHpBar() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBackground.png");
+        background = new Image(inputStream);
+        return background;
+    }
+
+    public Image addForegroundToHpBar() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpForeground.png");
+        foreground = new Image(inputStream);
+        return foreground;
+    }
+
+    public Image addBorderToHpBar() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBorder.png");
+        border = new Image(inputStream);
+        return border;
+    }
+
+    /*public HealthBar() {
 
         //Size of rectangles
         double height = 40;
@@ -53,6 +74,6 @@ public class HealthBar extends Pane {
     double setHp(double healthDif) {
         hpBar.setWidth((hpBar.getWidth() + (healthDif)));
         return healthDif;
-    }
+    }*/
 
 }

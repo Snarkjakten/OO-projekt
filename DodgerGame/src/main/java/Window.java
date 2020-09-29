@@ -1,4 +1,5 @@
 import Entities.LaserBeam;
+import Entities.Player.HealthBar;
 import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
@@ -47,6 +48,11 @@ public class Window implements IObservable {
     Image shieldImage = shieldGUI.getImage();
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
+    HealthBar healthBar = new HealthBar();
+    Image hpBackground = healthBar.addBackgroundToHpBar();
+    Image hpForeground = healthBar.addForegroundToHpBar();
+    Image hpBorder = healthBar.addBorderToHpBar();
+
     public Window(Stage stage) {
         this.stage = stage;
     }
@@ -93,6 +99,10 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
+
+                    gc.drawImage(hpBackground, 0, 0, 200, 40);
+                    gc.drawImage(hpForeground, 0, 0, spaceship.getHp().getValue(), 40);
+                    gc.drawImage(hpBorder, 0, 0, 200, 40);
 
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
