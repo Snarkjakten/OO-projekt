@@ -4,7 +4,7 @@ package Entities.Projectiles;
  * @Author Olle Westerlund
  */
 public class HealthPowerUp extends Projectile{
-    private int healthPoint;  // Percent of health the player gets back.
+    private static int healthPoint;  // Percent of health the player gets back.
 
     public HealthPowerUp() {
         super(400);
@@ -16,7 +16,7 @@ public class HealthPowerUp extends Projectile{
      * @param totalHealthPool The maximum amount of health the player can have.
      * @return The amount of health the player will gain.
      */
-    public int gainHealth(int totalHealthPool) {
+    public static int gainHealth(int totalHealthPool) {
         return healthPoint;
     }
 }

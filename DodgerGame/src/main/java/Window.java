@@ -3,8 +3,6 @@ import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -145,18 +143,59 @@ public class Window implements IObservable {
                         }
                     }
 
+
                     for(AbstractMovable s : gameObjects) {
-                        Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 64, 64);
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
-                        if(s instanceof Projectile) {
-                            Rectangle2D r1 = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight(), asteroidImage.getWidth());
+                        if(s instanceof Asteroid) {
+                            Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
                             //Rectangle2D r2 = new Rectangle2D(spaceship.position.getX(), spaceship.position.getX(), 10, 10);
-                            if(r1.intersects(r2)) {
+                            if(asteroidRec.intersects(shipRec)) {
+                                spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
+                                System.out.println(spaceship.getHp().toString());
+                                if(spaceship.getHp().isEqualTo(0).getValue()) {
+                                    stage.getScene();
+                                }
                                 gameObjects.remove(s);
                                 break;
                             }
                         }
                     }
+                    for(AbstractMovable s : gameObjects) {
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
+                        notifyObservers(s.position.getX(), s.position.getY());
+                        if(s instanceof HealthPowerUp) {
+                            Rectangle2D healthRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
+                            if(healthRec.intersects(shipRec)) {
+
+                                //Hur hanterar jag detta?
+                                if(spaceship.getHp().greaterThanOrEqualTo(HealthPowerUp.gainHealth(spaceship.getHp().intValue())).getValue()) {
+                                    spaceship.setHp(200);
+                                    System.out.println(spaceship.getHp().toString());
+                                } else {
+                                    spaceship.setHp(spaceship.getHp().add(HealthPowerUp.gainHealth(spaceship.getHp().intValue())).intValue());
+                                    System.out.println(spaceship.getHp().toString());
+                                }
+                                gameObjects.remove(s);
+                                break;
+                            }
+                        }
+                    }
+
+                    //TODO: make immune to next asteroid collision
+                    for(AbstractMovable s : gameObjects) {
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
+                        notifyObservers(s.position.getX(), s.position.getY());
+                        if(s instanceof ShieldPowerUp) {
+                            Rectangle2D shieldRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
+                            if(shieldRec.intersects(shipRec)) {
+                                //Do something fancy
+                                }
+                                gameObjects.remove(s);
+                                break;
+                        }
+                    }
+
 
 
                     game.wrapAround();
@@ -181,11 +220,11 @@ public class Window implements IObservable {
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
-            stage.getScene().setOnMouseClicked(event -> {
+            /*stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
                 NumberBinding subtraction = spaceship.getHp().subtract(damage);
                 spaceship.setHp(subtraction.intValue());
-            });
+            });*/
 
         } catch (Exception e) {
             e.printStackTrace();

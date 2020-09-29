@@ -59,6 +59,7 @@ public class Spaceship extends AbstractMovable implements ICollidable {
     public void setHp(int hp) {
         this.hp.set(hp);
     }
+
     public Image getImage() {
         return image;
     }
