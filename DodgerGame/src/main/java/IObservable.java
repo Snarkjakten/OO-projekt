@@ -1,3 +1,5 @@
+import View.IObserver;
+
 public interface IObservable {
 
     /**
@@ -8,6 +10,6 @@ public interface IObservable {
 
     void removeObserver(IObserver obs);
 
-    void notifyObservers(double x, double y);
+    void notifyObservers(double x, double y, Class c, double height, double width);
 
 }
