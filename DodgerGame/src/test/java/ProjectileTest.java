@@ -27,6 +27,7 @@ public class ProjectileTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testGainShield() {
         int shields = 0;
         shields = shieldPU.gainShield();
@@ -34,6 +35,7 @@ public class ProjectileTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testGainHealth() {
         int totalHealth = 200;
         int currentHealth = 100;
@@ -42,6 +44,7 @@ public class ProjectileTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testProjectileAndGuiPosition() {
         Point2D projPosition = smallAsteroidGUI.getProjectile().position;
         Point2D projGuiPosition = smallAsteroidGUI.getPoint();
@@ -58,12 +61,14 @@ public class ProjectileTest {
     */
 
     @Test
+    //@Author Olle Westerlund
     public void testAsteroidDamage() {
         assertTrue(projSmallAsteroid.getDamage() == 20);
         assertTrue(projMediumAsteroid.getDamage() == 35);
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testAsteroidIsNotOnScreen() {
         projSmallAsteroid.setPosition(-80, -80);
         assertTrue(projSmallAsteroid.isNotOnScreen());
