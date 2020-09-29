@@ -36,7 +36,7 @@ public class Spaceship extends AbstractMovable {
         updatePosition(deltaTime);
 
         // todo: remove print
-        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+        System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela

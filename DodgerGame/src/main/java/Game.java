@@ -10,6 +10,7 @@ import java.util.List;
 public class Game {
     public List<AbstractMovable> gameObjects;
     private Spaceship newSpaceship;
+    private Spaceship otherSpaceship;
     private static Game instance = null;
     private Player player;
 
@@ -70,31 +71,44 @@ public class Game {
                 }
                 // TODO The game updates so fast that it creates to many spaceships when crossing a border with just one spaceship.
                 // TODO Change if?
-            } else if (player.spaceships.size() < 4) {
-                if (checkWestPosition(spaceship)) {
-                    newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
+            } else if (player.spaceships.size() == 2) {
+                if (checkEastPosition(spaceship) && checkEastPosition(newSpaceship)) {
+                    newSpaceship = SpaceshipFactory.createSpaceship(-76, newSpaceship.position.getY());
+                    otherSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
                     player.spaceships.add(newSpaceship);
+                    player.spaceships.add(otherSpaceship);
                     gameObjects.add(newSpaceship);
+                    gameObjects.add(otherSpaceship);
                     break;
-                } else if (checkNorthPosition(spaceship)) {
-                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
+                } else if (checkNorthPosition(spaceship) && checkNorthPosition(newSpaceship)) {
+                    newSpaceship = SpaceshipFactory.createSpaceship(newSpaceship.position.getX(), 600);
+                    otherSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
                     player.spaceships.add(newSpaceship);
+                    player.spaceships.add(otherSpaceship);
                     gameObjects.add(newSpaceship);
+                    gameObjects.add(otherSpaceship);
                     break;
-                } else if (checkEastPosition(spaceship)) {
-                    newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
+                } else if (checkWestPosition(spaceship) && checkWestPosition(newSpaceship)) {
+                    newSpaceship = SpaceshipFactory.createSpaceship(788, newSpaceship.position.getY());
+                    otherSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
                     player.spaceships.add(newSpaceship);
+                    player.spaceships.add(otherSpaceship);
                     gameObjects.add(newSpaceship);
+                    gameObjects.add(otherSpaceship);
                     break;
-                } else if (checkSouthPosition(spaceship)) {
-                    newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
+                } else if (checkSouthPosition(spaceship) && checkSouthPosition(newSpaceship)) {
+                    newSpaceship = SpaceshipFactory.createSpaceship(newSpaceship.position.getX(), -64);
+                    otherSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
                     player.spaceships.add(newSpaceship);
+                    player.spaceships.add(otherSpaceship);
                     gameObjects.add(newSpaceship);
+                    gameObjects.add(otherSpaceship);
                     break;
                 }
             }
             if (checkInactive(spaceship)) {
                 player.spaceships.remove(spaceship);
+                gameObjects.remove(spaceship);
                 break;
             }
         }
@@ -103,7 +117,7 @@ public class Game {
     //@Author Tobias Engblom
     //Inactivates spaceship if it's outside the map
     private boolean checkInactive(Spaceship spaceship) {
-        return spaceship.position.getX() < -76 || spaceship.position.getX() > 788 || spaceship.position.getY() < -64 || spaceship.position.getY() > 600;
+        return spaceship.position.getX() < -78 || spaceship.position.getX() > 790 || spaceship.position.getY() < -66 || spaceship.position.getY() > 602;
     }
 
     //@Author Tobias Engblom
