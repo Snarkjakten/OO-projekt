@@ -5,7 +5,7 @@ import Movement.AbstractMovable;
 import View.IObserver;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
-import View.ProjectileGUI;
+import View.GameObjectGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
@@ -33,7 +33,7 @@ public class Window implements IObservable {
     Image windowBackground = new Image(inputStream);
     Spaceship spaceship = game.getSpaceship();
     Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
-    Image spaceShipImage = game.getSpaceship().getImage();
+//    Image spaceShipImage = game.getSpaceship().getImage();
 
     private Stage stage;
     private AnimationTimer animationTimer;
@@ -59,7 +59,7 @@ public class Window implements IObservable {
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
-            ProjectileGUI projectileGUI = new ProjectileGUI(gc);
+            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -69,7 +69,7 @@ public class Window implements IObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
-            observers.add(projectileGUI);
+            observers.add(gameObjectGUI);
 
             // Adds spaceship (and wraparound counterpart) to list of game objects
             gameObjects = new ArrayList<>();
@@ -93,8 +93,8 @@ public class Window implements IObservable {
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     // todo: move drawImage from game loop to a view with observer
-                    gc.drawImage(windowBackground, 0, 0, 800, 600);
 
+                    gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
 
@@ -103,10 +103,6 @@ public class Window implements IObservable {
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth() );
-                        // todo: move to view/observer
-                        if (gameObject instanceof Spaceship) {
-                            gc.drawImage(spaceShipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
                     }
 
                     // projectile spawner
@@ -132,12 +128,8 @@ public class Window implements IObservable {
                             }
                         }
                     }
-
-
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
-
-
                 }
             };
 

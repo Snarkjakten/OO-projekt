@@ -1,5 +1,6 @@
 package View;
 
+import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -10,19 +11,19 @@ import java.io.InputStream;
  * @Author Olle Westerlund
  */
 
-public class ProjectileGUI implements IObserver {
+public class GameObjectGUI implements IObserver {
     GraphicsContext gc;
     private Image image;
 
-    public ProjectileGUI(GraphicsContext gc) {
+    public GameObjectGUI(GraphicsContext gc) {
         this.gc = gc;
     }
 
     /**
-     * @Author Olle Westerlund
-     * The method sets the correct image depending on the specific projectile.
      * @param projectile The projectile to set the image to.
      * @return The a specific image depending on the projectile.
+     * @Author Olle Westerlund
+     * The method sets the correct image depending on the specific projectile.
      */
     private Image addImageToProjectile(Class projectile) {
         if (projectile.equals(SmallAsteroid.class)) {
@@ -36,6 +37,9 @@ public class ProjectileGUI implements IObserver {
             image = new Image(inputStream);
         } else if (projectile.equals(ShieldPowerUp.class)) {
             InputStream inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
+            image = new Image(inputStream);
+        } else if (projectile.equals(Spaceship.class)) {
+            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
             image = new Image(inputStream);
         }
         return image;

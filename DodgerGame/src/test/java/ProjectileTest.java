@@ -1,5 +1,5 @@
 import Entities.Projectiles.*;
-import View.ProjectileGUI;
+import View.GameObjectGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -11,7 +11,7 @@ public class ProjectileTest {
 
     SmallAsteroid projSmallAsteroid;
     MediumAsteroid projMediumAsteroid;
-    ProjectileGUI smallAsteroidGUI;
+    GameObjectGUI smallAsteroidGUI;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     Point2D startPos;

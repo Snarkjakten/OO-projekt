@@ -21,16 +21,13 @@ public class Spaceship extends AbstractMovable {
     private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     public Spaceship(boolean isActive, double x, double y) {
-        this.image = addImageToSpaceship();
+//        this.image = addImageToSpaceship();
         this.isActive = isActive;
+        this.height = 64;
+        this.width = 64;
         setPosition(x, y);
     }
 
-    private Image addImageToSpaceship() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
-        image = new Image(inputStream);
-        return image;
-    }
 
     // Move self to a new position
     // @Author Irja Vuorela
