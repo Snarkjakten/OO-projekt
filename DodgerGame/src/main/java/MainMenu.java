@@ -1,6 +1,3 @@
-package View;
-
-import View.MenuButton;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -11,6 +8,7 @@ import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -29,8 +27,13 @@ public class MainMenu {
     private ImageView background;
 
     private Pane root;
+    private Window window;
+    private Stage stage;
 
-    public MainMenu() throws IOException {
+    public MainMenu(Window window, Stage stage) throws IOException {
+        this.window = window;
+        this.stage = stage;
+
         // Creates a title to the main page.
         Canvas canvas = new Canvas(800, 150);
         GraphicsContext gc = canvas.getGraphicsContext2D();
@@ -70,21 +73,26 @@ public class MainMenu {
             highscoreBtn = new MenuButton("HIGHSCORE");
             quitBtn = new MenuButton("QUIT");
 
+            // Starts the game when clicking on "PLAY"
+            playBtn.setOnMouseClicked(event -> {
+                window.init();
+                stage.getScene().setRoot(window.getRoot());
+            });
+
+
+            // TODO: 2020-09-27 go to highscore menu
+            highscoreBtn.setOnMouseClicked(event -> {
+                // stage.getScene().setRoot(gameOverMenu.getRoot());
+            });
+
+            // When clicking on "QUIT"
+            quitBtn.setOnMouseClicked(event -> {
+                System.exit(0);
+            });
+
             menu.getChildren().addAll(playBtn, highscoreBtn, quitBtn);
             getChildren().addAll(menu);
         }
-    }
-
-    public MenuButton getPlayBtn() {
-        return playBtn;
-    }
-
-    public MenuButton getHighscoreBtn() {
-        return highscoreBtn;
-    }
-
-    public MenuButton getQuitBtn() {
-        return quitBtn;
     }
 
     public Pane getRoot() {

@@ -1,10 +1,4 @@
-package View;
-
-import javafx.geometry.Insets;
-import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -14,6 +8,7 @@ import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 
 import java.io.IOException;
 import java.io.InputStream;
@@ -30,8 +25,15 @@ public class GameOverMenu {
     private GameOverMenu.ButtonMenu buttonMenu;
     private StringBuilder sb;
     private Text score;
+    private Window window;
+    private MainMenu mainMenu;
+    private Stage stage;
 
-    public GameOverMenu() throws IOException {
+    public GameOverMenu(Window window, MainMenu mainMenu, Stage stage) throws IOException {
+        this.window = window;
+        this.mainMenu = mainMenu;
+        this.stage = stage;
+
         // Creates a title to the page.
         Canvas title = new Canvas(800, 200);
         GraphicsContext gc = title.getGraphicsContext2D();
@@ -82,6 +84,15 @@ public class GameOverMenu {
             tryAgainBtn = new MenuButton("TRY AGAIN");
             mainMenuBtn = new MenuButton("MAIN MENU");
 
+            tryAgainBtn.setOnMouseClicked(event -> {
+                window.init();
+                stage.getScene().setRoot(window.getRoot());
+            });
+
+            mainMenuBtn.setOnMouseClicked(event -> {
+                stage.getScene().setRoot(mainMenu.getRoot());
+            });
+
             menu.getChildren().addAll(tryAgainBtn, mainMenuBtn);
             getChildren().addAll(menu);
         }
@@ -89,14 +100,6 @@ public class GameOverMenu {
 
     public Pane getRoot() {
         return root;
-    }
-
-    public MenuButton getMainMenuBtn() {
-        return mainMenuBtn;
-    }
-
-    public MenuButton getTryAgainBtn() {
-        return tryAgainBtn;
     }
 
     // Adds score to the game over menu
