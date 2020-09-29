@@ -207,9 +207,9 @@ public class Window implements IObservable {
                             Rectangle2D shieldRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
                             if(shieldRec.intersects(shipRec)) {
                                 //Do something fancy
-                                }
                                 gameObjects.remove(s);
                                 break;
+                                }
                         }
                     }
 
