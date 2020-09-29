@@ -17,6 +17,7 @@ public class Spaceship extends AbstractMovable {
     private int right = 0; // moving right increases horizontal axis value
     private boolean isActive;
     private Image image;
+    private int currentShield = 0;
     private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     public Spaceship(boolean isActive, double x, double y) {
@@ -68,6 +69,13 @@ public class Spaceship extends AbstractMovable {
 
     public void setActive(boolean active) {
         isActive = active;
+    }
+
+    public void setCurrentShield(int shield) {
+        currentShield = shield;
+    }
+    public int getCurrentShield() {
+        return currentShield;
     }
 
     // Setters for movement directions

@@ -161,24 +161,17 @@ public class Window implements IObservable {
                     for(AbstractMovable s : gameObjects) {
                         Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
-                        if(s instanceof SmallAsteroid) {
+                        if(s instanceof Asteroid) {
                             Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
                             if(asteroidRec.intersects(shipRec)) {
-                                spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
-                                System.out.println(spaceship.getHp().toString());
-                                if(spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
-                                    stage.getScene();
-                                }
-                                gameObjects.remove(s);
-                                break;
-                            }
-                        } else if(s instanceof MediumAsteroid) {
-                            Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
-                            if(asteroidRec.intersects(shipRec)) {
-                                spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
-                                System.out.println(spaceship.getHp().toString());
-                                if(spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
-                                    stage.getScene();
+                                if(spaceship.getCurrentShield() > 0) {
+                                    spaceship.setCurrentShield(0);
+                                } else {
+                                    spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
+                                    //System.out.println(spaceship.getHp().toString());
+                                    if (spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
+                                        stage.getScene();
+                                    }
                                 }
                                 gameObjects.remove(s);
                                 break;
@@ -197,10 +190,10 @@ public class Window implements IObservable {
                                 //Väldigt krångliga checks
                                 if(spaceship.getHp().greaterThanOrEqualTo(150).getValue()) {
                                     spaceship.setHp(200);
-                                    System.out.println(spaceship.getHp().toString());
+                                    //System.out.println(spaceship.getHp().toString());
                                 } else {
                                     spaceship.setHp(HealthPowerUp.gainHealth(spaceship.getHp().intValue()));
-                                    System.out.println(spaceship.getHp().toString());
+                                    //System.out.println(spaceship.getHp().toString());
                                 }
                                 gameObjects.remove(s);
                                 break;
@@ -217,6 +210,10 @@ public class Window implements IObservable {
                             Rectangle2D shieldRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
                             if(shieldRec.intersects(shipRec)) {
                                 //Do something fancy
+                                if(spaceship.getCurrentShield() < 1) {
+                                    spaceship.setCurrentShield(1);
+                                    //System.out.println(spaceship.getCurrentShield());
+                                }
                                 gameObjects.remove(s);
                                 break;
                                 }
