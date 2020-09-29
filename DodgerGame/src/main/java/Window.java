@@ -2,6 +2,7 @@ import Entities.LaserBeam;
 import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
+import View.BackgroundView;
 import View.IObserver;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
@@ -33,7 +34,6 @@ public class Window implements IObservable {
     Image windowBackground = new Image(inputStream);
     Spaceship spaceship = game.getSpaceship();
     Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
-//    Image spaceShipImage = game.getSpaceship().getImage();
 
     private Stage stage;
     private AnimationTimer animationTimer;
@@ -43,6 +43,7 @@ public class Window implements IObservable {
     private int points;
     private List<IObserver> observers;
     private List<AbstractMovable> gameObjects;
+    private List<BackgroundView> backgrounds;
 
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
@@ -60,6 +61,7 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
+            BackgroundView backgroundView = new BackgroundView(gc);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -70,11 +72,17 @@ public class Window implements IObservable {
 
             observers = new ArrayList<>();
             observers.add(gameObjectGUI);
+            observers.add(backgroundView);
 
-            // Adds spaceship (and wraparound counterpart) to list of game objects
             gameObjects = new ArrayList<>();
             gameObjects.add(spaceship);
             gameObjects.add(wrapAroundSpaceship);
+
+            backgrounds = new ArrayList<>();
+            backgrounds.add(backgroundView);
+
+            // Adds spaceship (and wraparound counterpart) to list of game objects
+
 
             animationTimer = new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
@@ -94,7 +102,6 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
 
-                    gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
 
@@ -102,7 +109,7 @@ public class Window implements IObservable {
                     // @author Irja vuorela
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
-                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth() );
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
 
                     // projectile spawner
@@ -121,8 +128,8 @@ public class Window implements IObservable {
                     // remove offscreen projectiles
                     // @author Irja Vuorela
                     for (AbstractMovable g : gameObjects) {
-                        if (g instanceof Projectile){
-                            if (((Projectile) g).isNotOnScreen()){
+                        if (g instanceof Projectile) {
+                            if (((Projectile) g).isNotOnScreen()) {
                                 gameObjects.remove(g);
                                 break;
                             }
@@ -169,15 +176,15 @@ public class Window implements IObservable {
         return root;
     }
 
-    public int getPoints(){
+    public int getPoints() {
         return points;
     }
 
 
     // @Author Isak Almeros
-    public void stopAnimationTimer(){
+    public void stopAnimationTimer() {
         endNanoTime = System.nanoTime();
-        points = (int)((endNanoTime - startNanoTime)/1000000000.0);
+        points = (int) ((endNanoTime - startNanoTime) / 1000000000.0);
         animationTimer.stop();
     }
 
@@ -194,8 +201,7 @@ public class Window implements IObservable {
     @Override
     public void notifyObservers(double x, double y, Class c, double height, double width) {
         for (IObserver obs : observers) {
-            obs.actOnEvent(x, y, c, height, width );
-
+            obs.actOnEvent(x, y, c, height, width);
         }
     }
 }
