@@ -17,6 +17,6 @@ public class HealthPowerUp extends Projectile{
      * @return The amount of health the player will gain.
      */
     public static int gainHealth(int totalHealthPool) {
-        return healthPoint;
+        return totalHealthPool + healthPoint;
     }
 }

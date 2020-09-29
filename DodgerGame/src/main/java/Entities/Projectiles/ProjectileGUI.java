@@ -15,8 +15,6 @@ public class ProjectileGUI {
     private Image image;
     private double xPos;
     private double yPos;
-    private double width;
-    private double height;
 
     public ProjectileGUI(Projectile projectile) {
         this.projectile = projectile;
@@ -24,8 +22,6 @@ public class ProjectileGUI {
         this.yPos = projectile.position.getY();
         this.point = new Point2D(xPos, yPos);
         this.image = addImageToProjectile(projectile);
-        this.width = this.image.getWidth();
-        this.height = this.image.getHeight();
     }
 
     /**

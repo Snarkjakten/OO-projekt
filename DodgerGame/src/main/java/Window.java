@@ -151,7 +151,18 @@ public class Window implements IObservable {
                     for(AbstractMovable s : gameObjects) {
                         Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
                         notifyObservers(s.position.getX(), s.position.getY());
-                        if(s instanceof Asteroid) {
+                        if(s instanceof SmallAsteroid) {
+                            Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
+                            if(asteroidRec.intersects(shipRec)) {
+                                spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
+                                System.out.println(spaceship.getHp().toString());
+                                if(spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
+                                    stage.getScene();
+                                }
+                                gameObjects.remove(s);
+                                break;
+                            }
+                        } else if(s instanceof MediumAsteroid) {
                             Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
                             if(asteroidRec.intersects(shipRec)) {
                                 spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
@@ -174,11 +185,11 @@ public class Window implements IObservable {
                             if(healthRec.intersects(shipRec)) {
 
                                 //Väldigt krångliga checks
-                                if(spaceship.getHp().greaterThanOrEqualTo(HealthPowerUp.gainHealth(spaceship.getHp().intValue())).getValue()) {
+                                if(spaceship.getHp().greaterThanOrEqualTo(150).getValue()) {
                                     spaceship.setHp(200);
                                     System.out.println(spaceship.getHp().toString());
                                 } else {
-                                    spaceship.setHp(spaceship.getHp().add(HealthPowerUp.gainHealth(spaceship.getHp().intValue())).intValue());
+                                    spaceship.setHp(HealthPowerUp.gainHealth(spaceship.getHp().intValue()));
                                     System.out.println(spaceship.getHp().toString());
                                 }
                                 gameObjects.remove(s);
