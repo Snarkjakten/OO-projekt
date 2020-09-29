@@ -23,7 +23,7 @@ Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Vikto
 
 ## Outcomes and assignments (5 min)
 
-- städat bort GUI delarna ur gameloop
+- städat bort GUI delarna ur gameloop tillsammans i discord genom skärmdelning
 - göra SDD tillsammans på nästa möte
 - fortsätta städa koden, flytta gameloop till main etc.
 
