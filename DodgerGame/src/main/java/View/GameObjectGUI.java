@@ -26,20 +26,21 @@ public class GameObjectGUI implements IObserver {
      * The method sets the correct image depending on the specific projectile.
      */
     private Image addImageToProjectile(Class projectile) {
+        InputStream inputStream;
         if (projectile.equals(SmallAsteroid.class)) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
             image = new Image(inputStream);
         } else if (projectile.equals(MediumAsteroid.class)) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
             image = new Image(inputStream);
         } else if (projectile.equals(HealthPowerUp.class)) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
             image = new Image(inputStream);
         } else if (projectile.equals(ShieldPowerUp.class)) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
             image = new Image(inputStream);
         } else if (projectile.equals(Spaceship.class)) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+            inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
             image = new Image(inputStream);
         }
         return image;
@@ -48,7 +49,6 @@ public class GameObjectGUI implements IObserver {
     private void drawImage(double x, double y, Class c, double height, double width) {
         Image image = addImageToProjectile(c);
         gc.drawImage(image, x, y, width, height);
-        System.out.println("GameObject addImage");
     }
 
     @Override
