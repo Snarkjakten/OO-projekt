@@ -1,3 +1,4 @@
+import View.CharacterMenu;
 import View.GameOverMenu;
 import View.MainMenu;
 import javafx.application.Application;
@@ -14,8 +15,9 @@ public class Main extends Application {
     public void start(Stage stage) throws Exception {
         Window window = new Window(stage);
         MainMenu mainMenu = new MainMenu();
+        CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
-        new ViewController(window, mainMenu, gameOverMenu, stage);
+        new ViewController(window, mainMenu, characterMenu, gameOverMenu, stage);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());

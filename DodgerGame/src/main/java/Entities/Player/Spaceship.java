@@ -23,7 +23,7 @@ public class Spaceship extends AbstractMovable {
     }
 
     private Image addImageToSpaceship() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("lighter.gif");
         image = new Image(inputStream);
         return image;
     }
