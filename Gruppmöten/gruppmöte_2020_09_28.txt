@@ -1,0 +1,36 @@
+Date: 28 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Gå igenom all färdig kod och pull requests
+
+## Reports (15 min) from previous meeting
+
+- Andra sprinten klar, uppsatt mål uppnåddes
+- Olle Westerlund: städat kod och skapat abstrakt asteroidklass
+- Viktor Sundberg: fixxat fungerande kollisionsdetektion 
+- Irja Vuorela: gjort gameloop och lite observer och observable interfaces
+- Tobias Engblom: ändra kod för wraparound och snygga till kod
+- Isak Almeros: gjort metod som lyssnar på hp och startar gameover meny vid 0 samt visa upp poäng i gameover meny
+
+## Discussion items (35 min)
+
+- gått igenom tre pull requests 
+- mergat pull requests
+- löst konflikter i kod
+- diskuterat vad som behöver göras i veckan
+- diskuterat vår användning och logik av viewcontroller
+
+## Outcomes and assignments (5 min)
+
+- Löste konflikterna för pull requests
+- Viktor ska göra klart kollisionshanteringen för de olika gameobjectsen
+- Tobias fixa klart ändringen av wraparound
+- Imorgon tisdag ska vi städa kod gemensamt
+- Strukturera om för att bättre följa mvc 
+
+## Wrap up
+- Gruppmöte på tisdag 29/9 kl. 09:00
