@@ -59,7 +59,6 @@ public class Game {
                 break;
             }
         }
-        System.out.println(player.spaceships.size());
     }
 
     private void addSpaceship(Spaceship spaceship) {
