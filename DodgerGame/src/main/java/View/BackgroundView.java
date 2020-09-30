@@ -4,8 +4,8 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
-
-public class BackgroundView implements IObserver {
+//TODO: Fix so this class draws the background
+public class BackgroundView {
     GraphicsContext gc;
     Image image;
 
@@ -25,8 +25,4 @@ public class BackgroundView implements IObserver {
         System.out.println("Bg addImage");
     }
 
-    @Override
-    public void actOnEvent(double x, double y, Class c, double height, double width) {
-        drawBackground(x, y, height, width);
-    }
 }

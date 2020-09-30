@@ -61,7 +61,6 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
-            BackgroundView backgroundView = new BackgroundView(gc);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -72,15 +71,10 @@ public class Window implements IObservable {
 
             observers = new ArrayList<>();
             observers.add(gameObjectGUI);
-            observers.add(backgroundView);
 
             gameObjects = new ArrayList<>();
             gameObjects.add(spaceship);
             gameObjects.add(wrapAroundSpaceship);
-
-            backgrounds = new ArrayList<>();
-            backgrounds.add(backgroundView);
-
             // Adds spaceship (and wraparound counterpart) to list of game objects
 
 
@@ -101,7 +95,7 @@ public class Window implements IObservable {
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     // todo: move drawImage from game loop to a view with observer
-
+                    gc.drawImage(windowBackground, 0, 0, 800, 600);
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
 

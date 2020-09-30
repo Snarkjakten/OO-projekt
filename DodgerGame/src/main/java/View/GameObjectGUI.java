@@ -2,7 +2,6 @@ package View;
 
 import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
-import Movement.AbstractMovable;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
