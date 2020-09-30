@@ -40,6 +40,7 @@ public class Game {
         return player.spaceships;
     }
 
+    //@Author Tobias Engblom
     protected Player getPlayer() {
         return player;
     }
@@ -61,16 +62,19 @@ public class Game {
         }
     }
 
+    //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship) {
         player.spaceships.add(spaceship);
         gameObjects.add(spaceship);
     }
 
+    //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship, Spaceship otherSpaceship) {
         addSpaceship(spaceship);
         addSpaceship(otherSpaceship);
     }
 
+    //@Author Tobias Engblom
     private void checkWrapAround(Spaceship spaceship, Spaceship nextSpaceship) {
         if (checkWestPosition(spaceship) && checkWestPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
@@ -91,6 +95,7 @@ public class Game {
         }
     }
 
+    //@Author Tobias Engblom
     private void checkWrapAround(Spaceship spaceship) {
         if (checkWestPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
