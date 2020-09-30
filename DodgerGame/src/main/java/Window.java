@@ -38,7 +38,6 @@ public class Window implements IObservable {
 
     private long startNanoTime;
     private long endNanoTime;
-    private int points;
     private List<IObserver> observers;
     private List<AbstractMovable> gameObjects = game.gameObjects;
 
@@ -73,7 +72,7 @@ public class Window implements IObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
-            
+
             animationTimer = new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
@@ -186,14 +185,14 @@ public class Window implements IObservable {
     }
 
     public int getPoints() {
-        return points;
+        return player.getPoints();
     }
 
 
     // @Author Isak Almeros
     public void stopAnimationTimer() {
         endNanoTime = System.nanoTime();
-        points = (int) ((endNanoTime - startNanoTime) / 1000000000.0);
+        player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
         animationTimer.stop();
     }
 
