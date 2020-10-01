@@ -2,7 +2,6 @@ package Entities.Player;
 
 import Movement.AbstractMovable;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
@@ -20,14 +19,16 @@ public class Spaceship extends AbstractMovable {
     private Image image;
     private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
-    public Spaceship(boolean isActive, double x, double y) {
-//        this.image = addImageToSpaceship();
-        this.isActive = isActive;
-        this.height = 64;
-        this.width = 64;
+    public Spaceship(double x, double y) {
+        //this.image = addImageToSpaceship();
         setPosition(x, y);
     }
 
+    private Image addImageToSpaceship() {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+        image = new Image(inputStream);
+        return image;
+    }
 
     // Move self to a new position
     // @Author Irja Vuorela
@@ -48,23 +49,9 @@ public class Spaceship extends AbstractMovable {
         // Multiply direction with speed
         this.velocity = velocity.multiply(speed);
     }
-    public SimpleIntegerProperty getHp() {
-        return hp;
-    }
 
-    public void setHp(int hp) {
-        this.hp.set(hp);
-    }
     public Image getImage() {
         return image;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     // Setters for movement directions
