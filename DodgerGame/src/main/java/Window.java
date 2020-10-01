@@ -11,6 +11,9 @@ import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
+import javafx.scene.paint.Color;
+import javafx.scene.text.Font;
+import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
@@ -151,6 +154,15 @@ public class Window implements IObservable {
 
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
+
+                    endNanoTime = System.nanoTime();
+
+                    String time = String.valueOf((int)((endNanoTime - startNanoTime)/1000000000.0));
+
+                    Font font = Font.font("Arial", 50);
+                    gc.setFont(font);
+                    gc.setFill(Color.WHITE);
+                    gc.fillText(time, 10, 590);
 
 
                 }
