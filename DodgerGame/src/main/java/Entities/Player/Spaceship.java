@@ -17,13 +17,13 @@ public class Spaceship extends AbstractMovable {
     private int right = 0; // moving right increases horizontal axis value
     private Image image;
 
-    public Spaceship(double x, double y) {
-        this.image = addImageToSpaceship();
+    public Spaceship(double x, double y, String imageName) {
+        this.image = addImageToSpaceship(imageName);
         setPosition(x, y);
     }
 
-    private Image addImageToSpaceship() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("lighter.gif");
+    private Image addImageToSpaceship(String imageName) {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(imageName);
         image = new Image(inputStream);
         return image;
     }

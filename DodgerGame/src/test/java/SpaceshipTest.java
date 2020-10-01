@@ -1,5 +1,4 @@
 import Entities.Player.Spaceship;
-import Entities.Player.SpaceshipFactory;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,7 +9,6 @@ public class SpaceshipTest {
 
     Game game;
     Spaceship spaceship;
-    Spaceship wrapAroundSpaceship;
     Point2D startPos;
     double deltaTime = 0.016;
 
@@ -18,7 +16,8 @@ public class SpaceshipTest {
     // @Author Irja Vuorela
     public void init() {
         game = Game.getInstance();
-        spaceship = SpaceshipFactory.createSpaceship(0, 0);
+        game.initSpaceships();
+        spaceship = game.getSpaceships().get(0);
     }
 
     @Test
@@ -30,6 +29,7 @@ public class SpaceshipTest {
         // Negative x value to move to the left
         spaceship.velocity = new Point2D(-1, 0);
         spaceship.move(deltaTime);
+        System.out.println(spaceship.position.getX());
         assertTrue(spaceship.position.getX() < startPos.getX());
     }
 

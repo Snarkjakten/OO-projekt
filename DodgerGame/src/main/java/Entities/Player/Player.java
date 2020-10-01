@@ -25,4 +25,8 @@ public class Player {
     public void setPoints(int points) {
         this.points = points;
     }
+
+    public List<Spaceship> getSpaceships() {
+        return spaceships;
+    }
 }

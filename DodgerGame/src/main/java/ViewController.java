@@ -20,6 +20,7 @@ public class ViewController {
     private CharacterMenu characterMenu;
     private GameOverMenu gameOverMenu;
     private Stage stage;
+    private String name;
 
     private SimpleIntegerProperty hp;
 
@@ -29,6 +30,7 @@ public class ViewController {
         this.characterMenu = characterMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
+        this.name = "lighter.gif";
 
         hp = window.player.getHp();
 
@@ -84,23 +86,27 @@ public class ViewController {
     private void characterMenuButtonHandler() {
         characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
             // TODO: 2020-09-30 All spaceships should be lighter.gif
+            name = "lighter.gif";
         });
 
         characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
             // TODO: 2020-09-30 All spaceships should be turtle.png
+            name = "turtle.png";
         });
 
         characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
             // TODO: 2020-09-30 All spaceships should be thor.gif
+            name = "thor.gif";
         });
 
         characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
             // TODO: 2020-09-30 All spaceships should be ufo.gif
+            name = "ufo.gif";
         });
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
-            window.init();
+            window.init(name);
         });
 
         characterMenu.getReturnBtn().setOnMouseClicked(event -> {
@@ -111,7 +117,7 @@ public class ViewController {
     // Handles button clicks in the game over menu
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
-            window.init();
+            window.init(name);
             stage.getScene().setRoot(window.getRoot());
         });
 

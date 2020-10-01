@@ -27,11 +27,11 @@ public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private Game game = Game.getInstance();
+    private Game game;
     //Gets image from resources
     private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     private Image windowBackground = new Image(inputStream);
-    private Image spaceShipImage = game.getSpaceships().get(0).getImage();
+    private Image spaceshipImage;
 
     private Stage stage;
     private AnimationTimer animationTimer;
@@ -39,9 +39,9 @@ public class Window implements IObservable {
     private long startNanoTime;
     private long endNanoTime;
     private List<IObserver> observers;
-    private List<AbstractMovable> gameObjects = game.gameObjects;
+    private List<AbstractMovable> gameObjects;
 
-    protected Player player = game.getPlayer();
+    protected Player player;
     private ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
     private Image asteroidImage = projectileGUI.getImage();
     private ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
@@ -52,9 +52,15 @@ public class Window implements IObservable {
 
     public Window(Stage stage) {
         this.stage = stage;
+        this.game = Game.getInstance();
+        gameObjects = game.getGameObjects();
+        player = game.getPlayer();
     }
 
-    public void init() {
+    public void init(String imageName) {
+        game.setImageName(imageName);
+        game.initSpaceships();
+        spaceshipImage = game.getSpaceships().get(0).getImage();
         try {
             createContent();
 
@@ -106,7 +112,7 @@ public class Window implements IObservable {
                             gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
                         }
                         if (gameObject instanceof Spaceship) {
-                            gc.drawImage(spaceShipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
+                            gc.drawImage(spaceshipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
                         }
                         if (gameObject instanceof HealthPowerUp) {
                             gc.drawImage(health, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
