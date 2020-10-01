@@ -15,14 +15,12 @@ import java.util.Optional;
  */
 
 public class ViewController {
-    private Window window;
-    private MainMenu mainMenu;
-    private CharacterMenu characterMenu;
-    private GameOverMenu gameOverMenu;
-    private Stage stage;
+    private final Window window;
+    private final MainMenu mainMenu;
+    private final CharacterMenu characterMenu;
+    private final GameOverMenu gameOverMenu;
+    private final Stage stage;
     private String name;
-
-    private SimpleIntegerProperty hp;
 
     public ViewController(Window window, MainMenu mainMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
         this.window = window;
@@ -32,7 +30,7 @@ public class ViewController {
         this.stage = stage;
         this.name = "lighter.gif";
 
-        hp = window.player.getHp();
+        SimpleIntegerProperty hp = window.player.getHp();
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
@@ -62,9 +60,7 @@ public class ViewController {
     // Handles button clicks in the main menu
     public void mainMenuButtonHandler() {
         // Redirects player to character menu
-        mainMenu.getPlayBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(characterMenu.getRoot());
-        });
+        mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
         mainMenu.getHighscoreBtn().setOnMouseClicked(event -> {
@@ -72,9 +68,7 @@ public class ViewController {
         });
 
         // When clicking on "QUIT"
-        mainMenu.getQuitBtn().setOnMouseClicked(event -> {
-            closeProgram();
-        });
+        mainMenu.getQuitBtn().setOnMouseClicked(event -> closeProgram());
 
         // when closing window in the upper left corner
         stage.setOnCloseRequest(event -> {
@@ -109,9 +103,7 @@ public class ViewController {
             window.init(name);
         });
 
-        characterMenu.getReturnBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(mainMenu.getRoot());
-        });
+        characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
     // Handles button clicks in the game over menu
@@ -121,9 +113,7 @@ public class ViewController {
             stage.getScene().setRoot(window.getRoot());
         });
 
-        gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(mainMenu.getRoot());
-        });
+        gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
     // Opens a dialog box when pressing quit

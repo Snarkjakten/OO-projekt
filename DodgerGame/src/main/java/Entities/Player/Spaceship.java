@@ -1,7 +1,6 @@
 package Entities.Player;
 
 import Movement.AbstractMovable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
@@ -24,6 +23,7 @@ public class Spaceship extends AbstractMovable {
 
     private Image addImageToSpaceship(String imageName) {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream(imageName);
+        assert inputStream != null;
         image = new Image(inputStream);
         return image;
     }

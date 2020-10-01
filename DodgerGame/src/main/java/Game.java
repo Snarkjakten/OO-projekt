@@ -8,17 +8,16 @@ import java.util.List;
 
 
 public class Game {
-    public List<AbstractMovable> gameObjects;
+    private final List<AbstractMovable> gameObjects;
     private Spaceship newSpaceship;
-    private Spaceship otherSpaceship;
     private static Game instance = null;
-    private Player player;
+    private final Player player;
     private String imageName;
 
     private Game() {
         this.imageName = "lighter.gif";
         this.player = new Player();
-        gameObjects = new ArrayList<>();
+        this.gameObjects = new ArrayList<>();
     }
 
     //@Author Tobias Engblom
@@ -85,6 +84,7 @@ public class Game {
 
     //@Author Tobias Engblom
     private void checkWrapAround(Spaceship spaceship, Spaceship nextSpaceship) {
+        Spaceship otherSpaceship;
         if (checkWestPosition(spaceship) && checkWestPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY(), imageName);
             otherSpaceship = SpaceshipFactory.createSpaceship(788, nextSpaceship.position.getY(), imageName);
