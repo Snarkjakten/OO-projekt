@@ -27,7 +27,7 @@ public class ViewController {
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
 
-        hp = window.spaceship.getHp();
+        hp = window.player.getHp();
 
         mainMenuButtonHandler();
         gameOverButtonHandler();

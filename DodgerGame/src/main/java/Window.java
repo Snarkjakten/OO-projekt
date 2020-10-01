@@ -1,4 +1,5 @@
 import Entities.LaserBeam;
+import Entities.Player.Player;
 import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
@@ -26,30 +27,28 @@ public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
-    Game game = Game.getInstance();
+    private Game game = Game.getInstance();
     //Gets image from resources
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    Image windowBackground = new Image(inputStream);
-    Spaceship spaceship = game.getSpaceship();
-    Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
-    Image spaceShipImage = game.getSpaceship().getImage();
+    private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    private Image windowBackground = new Image(inputStream);
+    private Image spaceShipImage = game.getSpaceships().get(0).getImage();
 
     private Stage stage;
     private AnimationTimer animationTimer;
 
-    long startNanoTime;
-    long endNanoTime;
-    private int points;
+    private long startNanoTime;
+    private long endNanoTime;
     private List<IObserver> observers;
-    private List<AbstractMovable> gameObjects;
+    private List<AbstractMovable> gameObjects = game.gameObjects;
 
-    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
-    Image asteroidImage = projectileGUI.getImage();
-    ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
-    Image health = healthGain.getImage();
-    ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
-    Image shieldImage = shieldGUI.getImage();
-    LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
+    protected Player player = game.getPlayer();
+    private ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
+    private Image asteroidImage = projectileGUI.getImage();
+    private ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
+    private Image health = healthGain.getImage();
+    private ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
+    private Image shieldImage = shieldGUI.getImage();
+    private LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -59,7 +58,7 @@ public class Window implements IObservable {
         try {
             createContent();
 
-            spaceship.setHp(200);
+            player.setHp(200);
 
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
@@ -73,11 +72,6 @@ public class Window implements IObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
-
-            // Adds spaceship (and wraparound counterpart) to list of game objects
-            gameObjects = new ArrayList<>();
-            gameObjects.add(spaceship);
-            gameObjects.add(wrapAroundSpaceship);
 
             animationTimer = new AnimationTimer() {
                 long currentNanoTime = System.nanoTime();
@@ -97,9 +91,7 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
-
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
-
 
                     // update positions and notify observers
                     // @author Irja vuorela
@@ -140,8 +132,8 @@ public class Window implements IObservable {
                     // remove offscreen projectiles
                     // @author Irja Vuorela
                     for (AbstractMovable g : gameObjects) {
-                        if (g instanceof Projectile){
-                            if (((Projectile) g).isNotOnScreen()){
+                        if (g instanceof Projectile) {
+                            if (((Projectile) g).isNotOnScreen()) {
                                 gameObjects.remove(g);
                                 break;
                             }
@@ -173,8 +165,8 @@ public class Window implements IObservable {
             // TODO: 2020-09-26 replace onMouseClicked with collision
             stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-                NumberBinding subtraction = spaceship.getHp().subtract(damage);
-                spaceship.setHp(subtraction.intValue());
+                NumberBinding subtraction = player.getHp().subtract(damage);
+                player.setHp(subtraction.intValue());
             });
 
         } catch (Exception e) {
@@ -192,15 +184,15 @@ public class Window implements IObservable {
         return root;
     }
 
-    public int getPoints(){
-        return points;
+    public int getPoints() {
+        return player.getPoints();
     }
 
 
     // @Author Isak Almeros
-    public void stopAnimationTimer(){
+    public void stopAnimationTimer() {
         endNanoTime = System.nanoTime();
-        points = (int)((endNanoTime - startNanoTime)/1000000000.0);
+        player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
         animationTimer.stop();
     }
 
