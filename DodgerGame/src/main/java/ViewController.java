@@ -29,7 +29,7 @@ public class ViewController {
         this.characterMenu = characterMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
-        this.name = "lighter.gif";
+        this.name = "";
 
         SimpleIntegerProperty hp = window.player.getHp();
 
@@ -113,8 +113,10 @@ public class ViewController {
         });
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(window.getRoot());
-            window.init(name);
+            if (!name.equals("")) {
+                stage.getScene().setRoot(window.getRoot());
+                window.init(name);
+            }
         });
 
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
