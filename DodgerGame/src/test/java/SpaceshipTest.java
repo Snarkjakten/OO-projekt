@@ -16,7 +16,6 @@ public class SpaceshipTest {
     // @Author Irja Vuorela
     public void init() {
         game = Game.getInstance();
-        game.initSpaceships();
         spaceship = game.getSpaceships().get(0);
     }
 
@@ -29,7 +28,6 @@ public class SpaceshipTest {
         // Negative x value to move to the left
         spaceship.velocity = new Point2D(-1, 0);
         spaceship.move(deltaTime);
-        System.out.println(spaceship.position.getX());
         assertTrue(spaceship.position.getX() < startPos.getX());
     }
 

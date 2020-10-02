@@ -28,7 +28,7 @@ public class Game {
     }
 
     //@Author Tobias Engblom
-    protected void initSpaceships() {
+    private void initSpaceships() {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
         player.spaceships.add(newSpaceship);
         gameObjects.add(newSpaceship);
