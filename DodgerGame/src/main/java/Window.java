@@ -89,7 +89,7 @@ public class Window implements IObservable {
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
 
-                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
+                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
                     laserBeam.move(deltaTime);
 
 

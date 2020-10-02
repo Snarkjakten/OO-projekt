@@ -22,9 +22,9 @@ public class LaserBeam extends AbstractMovable {
     public LaserBeam(double duration) {
         this.frames = new Image[8];
         this.duration = duration;
-        this.speed = 300;
-        initImages();
+        this.speed = 100;
         randomStartPoint();
+        initImages();
     }
 
     @Override
@@ -43,24 +43,24 @@ public class LaserBeam extends AbstractMovable {
         int side = random.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
-                this.isHorizontal = true;
+                this.isHorizontal = false;
                 setStopPosition(0,-50);
-                this.position = new Point2D(0, screenVerticalLength + 50);
+                this.position = new Point2D(-50, screenVerticalLength + 50);
                 break;
             case 1: // Right side of the screen
-                this.isHorizontal = false;
-                setStopPosition(0,0);
-                this.position = new Point2D(screenHorizontalLength + 50, 0);
+                this.isHorizontal = true;
+                setStopPosition(-50,0);
+                this.position = new Point2D(screenHorizontalLength + 50, -50);
                 break;
             case 2: // Top of the screen
-                this.isHorizontal = true;
-                setStopPosition(0,screenVerticalLength + 50);
-                this.position = new Point2D(0, -50);
+                this.isHorizontal = false;
+                setStopPosition(0,screenVerticalLength);
+                this.position = new Point2D(-50, -50);
                 break;
             case 3: // Left of the screen
-                this.isHorizontal = false;
-                setStopPosition(screenHorizontalLength + 50, 0);
-                this.position = new Point2D(-50, 0);
+                this.isHorizontal = true;
+                setStopPosition(screenHorizontalLength, 0);
+                this.position = new Point2D(-50, -50);
                 break;
             default:
                 System.out.println("Error in randomStartPoint");
@@ -89,10 +89,7 @@ public class LaserBeam extends AbstractMovable {
         return frames[index];
     }
 
-    /**
-     * @Author Olle Westerlund
-     * Sets the horizontal and vertical position of the beam depending on isHorizontal.
-     */
+
     private void setStopPosition(double horizontal, double vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;
