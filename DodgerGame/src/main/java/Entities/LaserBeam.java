@@ -15,7 +15,7 @@ public class LaserBeam extends AbstractMovable {
     private double horizontal;
     private double vertical;
     private double duration;
-    private boolean isHorizontal;
+    private boolean isVertical;
     private double screenHorizontalLength = 800; //TODO: Get this from model.
     private double screenVerticalLength = 600; // TODO: Get this from model.
 
@@ -43,22 +43,22 @@ public class LaserBeam extends AbstractMovable {
         int side = random.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
-                this.isHorizontal = false;
+                this.isVertical = false;
                 setStopPosition(0,-50);
                 this.position = new Point2D(-50, screenVerticalLength + 50);
                 break;
             case 1: // Right side of the screen
-                this.isHorizontal = true;
+                this.isVertical = true;
                 setStopPosition(-50,0);
                 this.position = new Point2D(screenHorizontalLength + 50, -50);
                 break;
             case 2: // Top of the screen
-                this.isHorizontal = false;
+                this.isVertical = false;
                 setStopPosition(0,screenVerticalLength);
                 this.position = new Point2D(-50, -50);
                 break;
             case 3: // Left of the screen
-                this.isHorizontal = true;
+                this.isVertical = true;
                 setStopPosition(screenHorizontalLength, 0);
                 this.position = new Point2D(-50, -50);
                 break;
@@ -106,74 +106,74 @@ public class LaserBeam extends AbstractMovable {
         Image image;
         switch (number) {
             case 0:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 1:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 2:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 3:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 4:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 5:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 6:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
             case 7:
-                if (isHorizontal) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08.png");
+                if (isVertical) {
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08V.png");
                     image = new Image(inputStream, 256, 700, false, false);
                 } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08Vertical.png");
+                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08H.png");
                     image = new Image(inputStream, 900, 256, false, false);
                 }
                 return image;
