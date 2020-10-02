@@ -1,4 +1,5 @@
 import Entities.Player.Spaceship;
+import Entities.Player.SpaceshipFactory;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,7 +8,6 @@ import static org.junit.Assert.*;
 
 public class SpaceshipTest {
 
-    Game game;
     Spaceship spaceship;
     Point2D startPos;
     double deltaTime = 0.016;
@@ -15,8 +15,7 @@ public class SpaceshipTest {
     @Before
     // @Author Irja Vuorela
     public void init() {
-        game = Game.getInstance();
-        spaceship = game.getSpaceships().get(0);
+        spaceship = SpaceshipFactory.createSpaceship(0, 0);
     }
 
     @Test

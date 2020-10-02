@@ -11,7 +11,7 @@ public class Spaceship extends AbstractMovable {
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
-    private int right = 0; // moving right increases horizontal axis value
+    public int right = 0; // moving right increases horizontal axis value
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
