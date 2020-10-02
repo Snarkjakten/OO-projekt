@@ -1,0 +1,33 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 30 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Skapa SDD
+
+## Reports (15 min) from previous meeting
+
+- Tobias har fixat wraparound
+- Viktor har lagt till hpBar
+
+## Discussion items (35 min)
+
+- Skapa SDD tillsammans i google docs
+- Diskuterat buggar för bakgrund, att bilderna förstörs (returnar null) och hur wraparound uppdateras
+
+## Outcomes and assignments (5 min)
+
+- Viktor ska skapa designmodell ur intellij inför handledarmöte och refaktorera kollissionshanteringen
+- Olle ska fixa laserstråle så den blir rörlig
+- Isak lägger till poängcounter i aktivt spel
+- Tobias ska göra det möjligt att välja skepp
+- Irja ska skapa highscore sparning
+
+## Wrap up
+- Handledarmöte på torsdag 1/10 kl. 15:00
+- Nästa gruppmöte på torsdag 1/10 kl. 16:00

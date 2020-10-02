@@ -1,11 +1,12 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
-import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
+import View.BackgroundView;
+import View.IObserver;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
-import Entities.Projectiles.ProjectileGUI;
+import View.GameObjectGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
@@ -29,8 +30,8 @@ public class Window implements IObservable {
     private final Pane root = new Pane();
     private final Game game;
     //Gets image from resources
-    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    private final Image windowBackground;
+    private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    private Image windowBackground = new Image(inputStream);
 
     {
         assert inputStream != null;
@@ -44,16 +45,12 @@ public class Window implements IObservable {
 
     private long startNanoTime;
     private List<IObserver> observers;
-    private final List<AbstractMovable> gameObjects;
 
     protected Player player;
-    private final ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
-    private final Image asteroidImage = projectileGUI.getImage();
-    private final ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
-    private final Image health = healthGain.getImage();
-    private final ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
-    private final Image shieldImage = shieldGUI.getImage();
-    private final LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
+    private List<AbstractMovable> gameObjects;
+    private List<BackgroundView> backgrounds;
+
+    LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -65,7 +62,6 @@ public class Window implements IObservable {
     public void init(String imageName) {
         game.setImageName(imageName);
         game.initSpaceships();
-        spaceshipImage = game.getSpaceships().get(0).getImage();
         try {
             createContent();
 
@@ -74,6 +70,7 @@ public class Window implements IObservable {
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
+            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -83,6 +80,7 @@ public class Window implements IObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
+            observers.add(gameObjectGUI);
 
             animationTimer = new AnimationTimer() {
                 final long currentNanoTime = System.nanoTime();
@@ -102,29 +100,15 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
+
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
+
 
                     // update positions and notify observers
                     // @author Irja vuorela
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
-                        notifyObservers(gameObject.position.getX(), gameObject.position.getY());
-                        // todo: move to view/observer
-                        if (gameObject instanceof MediumAsteroid) {
-                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 128, 128);
-                        }
-                        if (gameObject instanceof SmallAsteroid) {
-                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof Spaceship) {
-                            gc.drawImage(spaceshipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof HealthPowerUp) {
-                            gc.drawImage(health, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof ShieldPowerUp) {
-                            gc.drawImage(shieldImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
 
                     // projectile spawner
@@ -150,12 +134,8 @@ public class Window implements IObservable {
                             }
                         }
                     }
-
-
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
-
-
                 }
             };
 
@@ -217,10 +197,9 @@ public class Window implements IObservable {
     }
 
     @Override
-    public void notifyObservers(double x, double y) {
+    public void notifyObservers(double x, double y, Class c, double height, double width) {
         for (IObserver obs : observers) {
-            obs.actOnEvent(x, y);
-
+            obs.actOnEvent(x, y, c, height, width);
         }
     }
 }
