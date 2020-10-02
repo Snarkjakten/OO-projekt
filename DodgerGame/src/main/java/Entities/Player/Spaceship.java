@@ -11,15 +11,13 @@ public class Spaceship extends AbstractMovable {
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
-    private int right = 0; // moving right increases horizontal axis value
-    private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    public int right = 0; // moving right increases horizontal axis value
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
         this.width = 64;
         this.height = 64;
     }
-
 
     // Move self to a new position
     // @Author Irja Vuorela
@@ -56,5 +54,14 @@ public class Spaceship extends AbstractMovable {
 
     public void setRight(int right) {
         this.right = right;
+    }
+
+    // @Author Tobias Engblom
+    // Sets this direction to the spaceships direction
+    public void setDirection(Spaceship spaceship) {
+        this.up = spaceship.up;
+        this.down = spaceship.down;
+        this.left = spaceship.left;
+        this.right = spaceship.right;
     }
 }

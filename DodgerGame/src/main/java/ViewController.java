@@ -1,3 +1,5 @@
+import View.CharacterMenu;
+import View.GameObjectGUI;
 import View.GameOverMenu;
 import View.MainMenu;
 import View.TimeView;
@@ -15,31 +17,32 @@ import java.util.Optional;
  */
 
 public class ViewController {
-    private Window window;
-    private MainMenu mainMenu;
-    private GameOverMenu gameOverMenu;
-    private Stage stage;
+    private final Window window;
+    private final MainMenu mainMenu;
+    private final CharacterMenu characterMenu;
+    private final GameOverMenu gameOverMenu;
+    private final Stage stage;
+    private String name;
 
-    private TimeView timeView;
-
-    private SimpleIntegerProperty hp;
-
-    public ViewController(Window window, MainMenu mainMenu, GameOverMenu gameOverMenu, Stage stage){
+    public ViewController(Window window, MainMenu mainMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
         this.window = window;
         this.mainMenu = mainMenu;
+        this.characterMenu = characterMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
+        this.name = "";
 
-        hp = window.player.getHp();
+        SimpleIntegerProperty hp = window.player.getHp();
 
         mainMenuButtonHandler();
+        characterMenuButtonHandler();
         gameOverButtonHandler();
 
         // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
         ChangeListener listener = new ChangeListener() {
             @Override
             public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                if ((int) newValue < 1){
+                if ((int) newValue < 1) {
 
                     stage.getScene().setOnMouseClicked(null);
                     stage.getScene().setOnKeyPressed(null);
@@ -57,12 +60,9 @@ public class ViewController {
     }
 
     // Handles button clicks in the main menu
-    public void mainMenuButtonHandler(){
-        // Starts the game when clicking on "PLAY"
-        mainMenu.getPlayBtn().setOnMouseClicked(event -> {
-            window.init();
-            stage.getScene().setRoot(window.getRoot());
-        });
+    public void mainMenuButtonHandler() {
+        // Redirects player to character menu
+        mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
         mainMenu.getHighscoreBtn().setOnMouseClicked(event -> {
@@ -70,9 +70,7 @@ public class ViewController {
         });
 
         // When clicking on "QUIT"
-        mainMenu.getQuitBtn().setOnMouseClicked(event -> {
-            closeProgram();
-        });
+        mainMenu.getQuitBtn().setOnMouseClicked(event -> closeProgram());
 
         // when closing window in the upper left corner
         stage.setOnCloseRequest(event -> {
@@ -81,20 +79,62 @@ public class ViewController {
         });
     }
 
+    // @Author Tobias Engblom
+    private void characterMenuButtonHandler() {
+        characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
+            name = "lighter.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
+
+        characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
+            name = "turtle.png";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
+
+        characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
+            name = "thor.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
+
+        characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
+            name = "ufo.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(5);
+        });
+
+        characterMenu.getStartBtn().setOnMouseClicked(event -> {
+            if (!name.equals("")) {
+                stage.getScene().setRoot(window.getRoot());
+                window.init(name);
+            }
+        });
+
+        characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
+    }
+
     // Handles button clicks in the game over menu
-    private void gameOverButtonHandler(){
+    private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
-            window.init();
+            window.init(name);
             stage.getScene().setRoot(window.getRoot());
         });
 
-        gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(mainMenu.getRoot());
-        });
+        gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
     // Opens a dialog box when pressing quit
-    private void closeProgram(){
+    private void closeProgram() {
         Alert alert = new Alert(Alert.AlertType.NONE);
         alert.setAlertType(Alert.AlertType.CONFIRMATION);
         alert.setTitle("Quit game");
