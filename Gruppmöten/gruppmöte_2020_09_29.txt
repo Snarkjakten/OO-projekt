@@ -1,0 +1,31 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 29 september 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Gå igenom och städa gameloopen i enlighet med mvc
+
+## Reports (15 min) from previous meeting
+
+- Viktor ändrat kollisionshanteringen
+- Tobias fortsatt fixa med wraparound
+
+## Discussion items (35 min)
+
+- städa gameloop
+- kolla kollisionshanteringen
+- bestämma när vi ska göra SDD
+
+## Outcomes and assignments (5 min)
+
+- städat bort GUI delarna ur gameloop tillsammans i discord genom skärmdelning
+- göra SDD tillsammans på nästa möte
+- fortsätta städa koden, flytta gameloop till main etc.
+
+## Wrap up
+- Gruppmöte på onsdag 30/9 kl. 09:00

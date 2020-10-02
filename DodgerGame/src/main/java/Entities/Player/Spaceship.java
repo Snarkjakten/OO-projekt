@@ -2,11 +2,7 @@ package Entities.Player;
 
 import Movement.AbstractMovable;
 import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ObservableValue;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
-
-import java.io.InputStream;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable {
@@ -15,21 +11,12 @@ public class Spaceship extends AbstractMovable {
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
-    private int right = 0; // moving right increases horizontal axis value
-    private boolean isActive;
-    private Image image;
-    private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    public int right = 0; // moving right increases horizontal axis value
 
-    public Spaceship(boolean isActive, double x, double y) {
-        this.image = addImageToSpaceship();
-        this.isActive = isActive;
+    public Spaceship(double x, double y) {
         setPosition(x, y);
-    }
-
-    private Image addImageToSpaceship() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
-        image = new Image(inputStream);
-        return image;
+        this.width = 64;
+        this.height = 64;
     }
 
     // Move self to a new position
@@ -40,7 +27,7 @@ public class Spaceship extends AbstractMovable {
         updatePosition(deltaTime);
 
         // todo: remove print
-        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+//         System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela
@@ -50,24 +37,6 @@ public class Spaceship extends AbstractMovable {
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
         this.velocity = velocity.multiply(speed);
-    }
-    public SimpleIntegerProperty getHp() {
-        return hp;
-    }
-
-    public void setHp(int hp) {
-        this.hp.set(hp);
-    }
-    public Image getImage() {
-        return image;
-    }
-
-    public boolean isActive() {
-        return isActive;
-    }
-
-    public void setActive(boolean active) {
-        isActive = active;
     }
 
     // Setters for movement directions
@@ -85,5 +54,14 @@ public class Spaceship extends AbstractMovable {
 
     public void setRight(int right) {
         this.right = right;
+    }
+
+    // @Author Tobias Engblom
+    // Sets this direction to the spaceships direction
+    public void setDirection(Spaceship spaceship) {
+        this.up = spaceship.up;
+        this.down = spaceship.down;
+        this.left = spaceship.left;
+        this.right = spaceship.right;
     }
 }

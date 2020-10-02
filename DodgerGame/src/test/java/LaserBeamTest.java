@@ -11,12 +11,14 @@ public class LaserBeamTest {
     LaserBeam laserVertical;
 
     @Before
+    //@Author Olle Westerlund
     public void init() {
         laserHorizontal = new LaserBeam(400, 0.1, true);
         laserVertical = new LaserBeam(300,0.1, false);
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testInitImagesHorizontal() {
         for (Image image : laserHorizontal.getImages()) {
             assertTrue(image != null);
@@ -24,6 +26,7 @@ public class LaserBeamTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testInitImagesVertical() {
         for (Image image : laserVertical.getImages()) {
             assertTrue(image != null);
@@ -31,6 +34,7 @@ public class LaserBeamTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testHorizontalPosition() {
         double xPos = laserHorizontal.getHorizontal();
         double yPos = laserHorizontal.getVertical();
@@ -38,6 +42,7 @@ public class LaserBeamTest {
     }
 
     @Test
+    //@Author Olle Westerlund
     public void testVerticalPosition() {
         double xPos = laserVertical.getHorizontal();
         double yPos = laserVertical.getVertical();

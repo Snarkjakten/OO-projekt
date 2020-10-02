@@ -1,10 +1,12 @@
 import Entities.LaserBeam;
-import Entities.Player.Spaceship;
+import Entities.Player.Player;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
+import View.BackgroundView;
+import View.IObserver;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
-import Entities.Projectiles.ProjectileGUI;
+import View.GameObjectGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
@@ -26,44 +28,42 @@ public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
-    Game game = Game.getInstance();
+    private final Game game = Game.getInstance();
     //Gets image from resources
-    InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    Image windowBackground = new Image(inputStream);
-    Spaceship spaceship = game.getSpaceship();
-    Spaceship wrapAroundSpaceship = game.getWrapAroundSpaceship();
-    Image spaceShipImage = game.getSpaceship().getImage();
+    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    private final Image windowBackground;
 
-    private Stage stage;
+    {
+        assert inputStream != null;
+        windowBackground = new Image(inputStream);
+    }
+
+    private final Stage stage;
     private AnimationTimer animationTimer;
 
-    long startNanoTime;
-    long endNanoTime;
-    private int points;
+    private long startNanoTime;
     private List<IObserver> observers;
-    private List<AbstractMovable> gameObjects;
 
-    ProjectileGUI projectileGUI = new ProjectileGUI(ProjectileFactory.createSmallAsteroid());
-    Image asteroidImage = projectileGUI.getImage();
-    ProjectileGUI healthGain = new ProjectileGUI(ProjectileFactory.createHealthPowerUp());
-    Image health = healthGain.getImage();
-    ProjectileGUI shieldGUI = new ProjectileGUI(ProjectileFactory.createShieldPowerUp());
-    Image shieldImage = shieldGUI.getImage();
+    protected Player player = game.getPlayer();
+    private final List<AbstractMovable> gameObjects = game.getGameObjects();
+    private List<BackgroundView> backgrounds;
+
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage) {
         this.stage = stage;
     }
 
-    public void init() {
+    public void init(String imageName) {
         try {
             createContent();
 
-            spaceship.setHp(200);
+            player.setHp(200);
 
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
+            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -73,14 +73,10 @@ public class Window implements IObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
-
-            // Adds spaceship (and wraparound counterpart) to list of game objects
-            gameObjects = new ArrayList<>();
-            gameObjects.add(spaceship);
-            gameObjects.add(wrapAroundSpaceship);
+            observers.add(gameObjectGUI);
 
             animationTimer = new AnimationTimer() {
-                long currentNanoTime = System.nanoTime();
+                final long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
 
@@ -105,23 +101,7 @@ public class Window implements IObservable {
                     // @author Irja vuorela
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
-                        notifyObservers(gameObject.position.getX(), gameObject.position.getY());
-                        // todo: move to view/observer
-                        if (gameObject instanceof MediumAsteroid) {
-                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 128, 128);
-                        }
-                        if (gameObject instanceof SmallAsteroid) {
-                            gc.drawImage(asteroidImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof Spaceship) {
-                            gc.drawImage(spaceShipImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof HealthPowerUp) {
-                            gc.drawImage(health, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
-                        if (gameObject instanceof ShieldPowerUp) {
-                            gc.drawImage(shieldImage, gameObject.position.getX(), gameObject.position.getY(), 64, 64);
-                        }
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
 
                     // projectile spawner
@@ -140,19 +120,15 @@ public class Window implements IObservable {
                     // remove offscreen projectiles
                     // @author Irja Vuorela
                     for (AbstractMovable g : gameObjects) {
-                        if (g instanceof Projectile){
-                            if (((Projectile) g).isNotOnScreen()){
+                        if (g instanceof Projectile) {
+                            if (((Projectile) g).isNotOnScreen()) {
                                 gameObjects.remove(g);
                                 break;
                             }
                         }
                     }
-
-
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
-
-
                 }
             };
 
@@ -162,19 +138,19 @@ public class Window implements IObservable {
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(game.getSpaceships());
             stage.getScene().setOnKeyPressed(
-                    event -> keyController.handleKeyPressed(event));
+                    keyController::handleKeyPressed);
 
             // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
-                    event -> keyController.handleKeyReleased(event)
+                    keyController::handleKeyReleased
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
             stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-                NumberBinding subtraction = spaceship.getHp().subtract(damage);
-                spaceship.setHp(subtraction.intValue());
+                NumberBinding subtraction = player.getHp().subtract(damage);
+                player.setHp(subtraction.intValue());
             });
 
         } catch (Exception e) {
@@ -183,24 +159,23 @@ public class Window implements IObservable {
     }
 
     //Sets size of Pane
-    private Pane createContent() {
+    private void createContent() {
         root.setPrefSize(800, 600);
-        return root;
     }
 
     public Pane getRoot() {
         return root;
     }
 
-    public int getPoints(){
-        return points;
+    public int getPoints() {
+        return player.getPoints();
     }
 
 
     // @Author Isak Almeros
-    public void stopAnimationTimer(){
-        endNanoTime = System.nanoTime();
-        points = (int)((endNanoTime - startNanoTime)/1000000000.0);
+    public void stopAnimationTimer() {
+        long endNanoTime = System.nanoTime();
+        player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
         animationTimer.stop();
     }
 
@@ -215,10 +190,9 @@ public class Window implements IObservable {
     }
 
     @Override
-    public void notifyObservers(double x, double y) {
+    public void notifyObservers(double x, double y, Class c, double height, double width) {
         for (IObserver obs : observers) {
-            obs.actOnEvent(x, y);
-
+            obs.actOnEvent(x, y, c, height, width);
         }
     }
 }
