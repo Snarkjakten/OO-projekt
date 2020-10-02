@@ -30,15 +30,13 @@ public class Window implements IObservable {
     private final Pane root = new Pane();
     private final Game game;
     //Gets image from resources
-    private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    private Image windowBackground = new Image(inputStream);
+    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    private final Image windowBackground;
 
     {
         assert inputStream != null;
         windowBackground = new Image(inputStream);
     }
-
-    private Image spaceshipImage;
 
     private final Stage stage;
     private AnimationTimer animationTimer;
@@ -47,7 +45,7 @@ public class Window implements IObservable {
     private List<IObserver> observers;
 
     protected Player player;
-    private List<AbstractMovable> gameObjects;
+    private final List<AbstractMovable> gameObjects;
     private List<BackgroundView> backgrounds;
 
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);

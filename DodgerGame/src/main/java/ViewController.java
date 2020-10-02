@@ -77,22 +77,15 @@ public class ViewController {
         });
     }
 
+    // @Author Tobias Engblom
     private void characterMenuButtonHandler() {
-        characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
-            name = "lighter.gif";
-        });
+        characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> name = "lighter.gif");
 
-        characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
-            name = "turtle.png";
-        });
+        characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> name = "turtle.png");
 
-        characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
-            name = "thor.gif";
-        });
+        characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> name = "thor.gif");
 
-        characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
-            name = "ufo.gif";
-        });
+        characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> name = "ufo.gif");
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
