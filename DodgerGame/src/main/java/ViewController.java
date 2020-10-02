@@ -80,13 +80,37 @@ public class ViewController {
 
     // @Author Tobias Engblom
     private void characterMenuButtonHandler() {
-        characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> name = "lighter.gif");
+        characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
+            name = "lighter.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
 
-        characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> name = "turtle.png");
+        characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
+            name = "turtle.png";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
 
-        characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> name = "thor.gif");
+        characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
+            name = "thor.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(5);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(1);
+        });
 
-        characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> name = "ufo.gif");
+        characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
+            name = "ufo.gif";
+            characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
+            characterMenu.getSpaceshipUfoBtn().getButtonBackground().setStrokeWidth(5);
+        });
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());

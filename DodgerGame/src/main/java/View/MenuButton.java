@@ -1,7 +1,6 @@
 package View;
 
 import javafx.geometry.Pos;
-import javafx.scene.Node;
 import javafx.scene.effect.DropShadow;
 import javafx.scene.effect.Glow;
 import javafx.scene.image.Image;
@@ -16,6 +15,7 @@ import javafx.scene.text.Text;
  */
 
 public class MenuButton extends StackPane {
+    private final Rectangle background;
     private Text text;
     private ImageView character;
 
@@ -24,7 +24,7 @@ public class MenuButton extends StackPane {
         this.character.setFitWidth(64);
         this.character.setFitHeight(64);
 
-        Rectangle background = new Rectangle(100, 100);
+        background = new Rectangle(100, 100);
         background.setFill(Color.DARKBLUE);
         background.setStroke(Color.WHITE);
 
@@ -57,16 +57,14 @@ public class MenuButton extends StackPane {
             setEffect(drop);
         });
 
-        setOnMouseReleased(event -> {
-            setEffect(null);
-        });
+        setOnMouseReleased(event -> setEffect(null));
     }
 
     public MenuButton(String name) {
         text = new Text(name);
         text.setFill(Color.WHITE);
 
-        Rectangle background = new Rectangle(250, 40);
+        background = new Rectangle(250, 40);
         background.setFill(Color.DARKBLUE);
         background.setStroke(Color.WHITE);
 
@@ -98,5 +96,9 @@ public class MenuButton extends StackPane {
         // Sets effect when pressing button
         setOnMousePressed(event -> setEffect(drop));
         setOnMouseReleased(event -> setEffect(null));
+    }
+
+    public Rectangle getButtonBackground() {
+        return this.background;
     }
 }
