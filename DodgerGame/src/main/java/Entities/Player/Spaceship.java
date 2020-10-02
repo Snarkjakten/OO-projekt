@@ -16,19 +16,19 @@ public class Spaceship extends AbstractMovable {
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
     private boolean isActive;
-    private Image image;
+//    private Image image;
     private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     public Spaceship(double x, double y) {
-        //this.image = addImageToSpaceship();
+//        this.image = addImageToSpaceship();
         setPosition(x, y);
     }
 
-    private Image addImageToSpaceship() {
-        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
-        image = new Image(inputStream);
-        return image;
-    }
+//    private Image addImageToSpaceship() {
+//        InputStream inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
+//        image = new Image(inputStream);
+//        return image;
+//    }
 
     // Move self to a new position
     // @Author Irja Vuorela
@@ -38,7 +38,7 @@ public class Spaceship extends AbstractMovable {
         updatePosition(deltaTime);
 
         // todo: remove print
-        // System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
+//         System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
     // @Author Irja Vuorela
@@ -50,9 +50,9 @@ public class Spaceship extends AbstractMovable {
         this.velocity = velocity.multiply(speed);
     }
 
-    public Image getImage() {
-        return image;
-    }
+//    public Image getImage() {
+//        return image;
+//    }
 
     // Setters for movement directions
     public void setUp(int up) {

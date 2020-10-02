@@ -33,7 +33,7 @@ public class Window implements IObservable {
     //Gets image from resources
     private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     private Image windowBackground = new Image(inputStream);
-    private Image spaceShipImage = game.getSpaceships().get(0).getImage();
+//    private Image spaceShipImage = game.getSpaceships().get(0).getImage();
 
     private Stage stage;
     private AnimationTimer animationTimer;
@@ -41,10 +41,10 @@ public class Window implements IObservable {
     private long startNanoTime;
     private long endNanoTime;
     private List<IObserver> observers;
+    protected Player player = game.getPlayer();
     private List<AbstractMovable> gameObjects = game.gameObjects;
     private List<BackgroundView> backgrounds;
 
-    protected Player player = game.getPlayer();
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage) {
