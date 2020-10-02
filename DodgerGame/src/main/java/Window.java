@@ -48,7 +48,7 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
+    LaserBeam laserBeam = new LaserBeam(0.1);
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -94,7 +94,8 @@ public class Window implements IObservable {
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
 
-                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
+                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
+                    laserBeam.move(deltaTime);
 
 
                     // update positions and notify observers
