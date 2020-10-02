@@ -17,9 +17,7 @@ När HP är noll är spelet över och spelaren får poäng efter hur länge hen 
 Om spelaren avslutar spelet genom menyn så får spelaren inga poäng.
 Spelet sparar en lokal lista med high scores.
 
-Give  some  background  and  explain  the  purpose  of  this  application.   Describe  the
-functionality of the application.  Describe the stakeholders of the project, highlight
-who will benefit from/use this particular application.
+
 1.1  Definitions, acronyms, and abbreviations
 HP: Health points - Ett värde som visar hur många gånger en spelare kan ta skada.
 High score: Topplista med de bästa omgångarna som en spelare har haft.
@@ -28,8 +26,6 @@ Karaktär: Entitet som spelaren styr.
 Game Over: Spelarens HP når noll och spelomgången tar därmed slut.
 Wraparound: Spelet har inga väggar. När man åker utanför spelkartan flyttas man till motsatt sida och fortsätter i nuvarande färdriktning. (ex Snake)
 
-Create a word list to avoid confusion and give a definition of every abbreviation you
-use in the document.
 
 2  Requirements
 2.1  User Stories
@@ -42,13 +38,13 @@ Som spelare vill jag kunna se min karaktär så att jag vet var jag befinner mig
 ### Functional
 -  Kan jag se bilden av min karaktär?
 -  Ligger bilden på samma plats som karaktären befinner sig?
-
 ### Non-functional
 Availability:
 -  Kan jag alltid se min karaktär under spelets gång?
 -  Är det alltid samma karaktär som syns?
 Security:
 -  Kan någon annan ändra bilden för min karaktär under spelets gång?
+
 Story Identifier: 2
 Story Name: Synlig spelplan
 ## Description
@@ -61,6 +57,7 @@ Ligger bilden på samma plats som spelplanen?
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 3
 Story Name: Flyttbar karaktär
 ## Description
@@ -77,6 +74,7 @@ Availability:
 - Kan jag alltid styra min karaktär?
 Security:
 - Kan någon annan komma åt och styra min karaktär.
+
 Story Identifier: 4
 Story Name: Wraparound
 ## Description
@@ -88,6 +86,7 @@ Som spelare vill jag att min karaktär dyker upp på motsatt sida av spelplanen 
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 5
 Story Name: Rörliga asteroider
 ## Description
@@ -100,6 +99,7 @@ Som spelare vill jag att asteroiderna rör sig över kartan, så att spelet blir
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 6
 Story Name: Kollision med asteroid
 ## Description
@@ -111,6 +111,7 @@ Som spelare vill jag att projektilen försvinner vid en kollision med spelaren, 
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 7
 Story Name: Synlig HP
 ## Description
@@ -122,6 +123,7 @@ Som spelare vill jag kunna se hur mycket HP jag har för att kunna se hur bra ja
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 8
 Story Name: Game Over
 ## Description
@@ -132,9 +134,9 @@ Som spelare vill jag få game over när min HP når 0, så att spelet avslutas n
 -  Stämmer värdet för spelarens poäng när spelet är slut?
 ### Non-functional
 Availability:
-
 Security:
 Kan poängen för spelaren ändras efter att spelet är slut?
+
 Story Identifier: 9
 Story Name: Synlig tid
 ## Description
@@ -147,9 +149,8 @@ Som spelare vill jag kunna se hur mycket tid som har gått när jag spelar, så 
 ### Non-functional
 Availability:
 - Kan jag alltid se timern så länge som spelet pågår?
-
-
 Security:
+
 Story Identifier: 10
 Story Name: Meny
 ## Description
@@ -165,6 +166,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 11
 Story Name: Postgame meny
 ## Description
@@ -183,6 +185,7 @@ Avslutas spelet om jag klickar på Avsluta-knappen?
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 12
 Story Name: Valbar karaktär
 ## Description
@@ -196,6 +199,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 13
 Story Name: Varierade fiender
 ## Description
@@ -208,6 +212,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 14
 Story Name: Avsluta spelet
 ## Description
@@ -216,10 +221,10 @@ Som spelare vill jag kunna avsluta spelet när jag vill, ifall jag hinner ledsna
 List all acceptance criteria; you should be able to test/confirm these.
 ### Functional
 -  Kan jag när som helst avsluta spelet?
--  
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 15
 Story Name: Pausa
 ## Description
@@ -232,6 +237,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 16
 Story Name: Lista powerups
 ## Description
@@ -244,7 +250,6 @@ List all acceptance criteria; you should be able to test/confirm these.
 - Slutar jag se de power-ups jag inte längre har?
 ### Non-functional
 Availability:
-
 Security:
 
 Story Identifier: 17
@@ -260,6 +265,7 @@ Kan jag höra ett ljud som signalerar förlust av HP när jag kolliderar med en 
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 18
 Story Name: Highscore
 ## Description
@@ -272,6 +278,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 19
 Story Name: Svårighetsgrader
 ## Description
@@ -284,6 +291,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 20
 Story Name: Temporär sköld
 ## Description
@@ -296,6 +304,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 21
 Story Name: Bakgrundsmusik
 ## Description
@@ -308,6 +317,7 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
+
 Story Identifier: 22
 Story Name: Synligt resultat
 ## Description
@@ -320,18 +330,6 @@ List all acceptance criteria; you should be able to test/confirm these.
 ### Non-functional
 -  availability...
 -  security…
-
-Use the template from the course website and list all user stories here.  It is fine to
-have them in an spreadsheet (or other applications, such as Trello) at first, but they
-must end up here as well.
-These user stories should describe what the user will be able to do. Write the user
-stories in language of the customer, and give them a unique ID. List the user stories
-in order of priority.
-You need to annotate an user story whether or not it is implemented.  We need to
-know which user stories are implemented,  such that we can check this during the
-oral presentation.
-
-
 
 2.2  Definition of Done
 
