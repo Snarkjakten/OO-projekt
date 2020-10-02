@@ -27,6 +27,10 @@ public class Game {
         return instance;
     }
 
+    protected static void setInstance(Game game) {
+        instance = game;
+    }
+
     //@Author Tobias Engblom
     protected void initSpaceships() {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
