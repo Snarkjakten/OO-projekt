@@ -27,6 +27,7 @@ public class Game {
         return instance;
     }
 
+    //@Author Tobias Engblom
     protected static void setInstance(Game game) {
         instance = game;
     }
@@ -88,18 +89,26 @@ public class Game {
         if (checkWestPosition(spaceship) && checkWestPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
             otherSpaceship = SpaceshipFactory.createSpaceship(788, nextSpaceship.position.getY());
+            newSpaceship.setDirection(spaceship);
+            otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
         } else if (checkNorthPosition(spaceship) && checkNorthPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
             otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), 600);
+            newSpaceship.setDirection(spaceship);
+            otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
         } else if (checkEastPosition(spaceship) && checkEastPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
             otherSpaceship = SpaceshipFactory.createSpaceship(-76, nextSpaceship.position.getY());
+            newSpaceship.setDirection(spaceship);
+            otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
         } else if (checkSouthPosition(spaceship) && checkSouthPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
             otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), -64);
+            newSpaceship.setDirection(spaceship);
+            otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
         }
     }
@@ -108,15 +117,19 @@ public class Game {
     private void checkWrapAround(Spaceship spaceship) {
         if (checkWestPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
+            newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
         } else if (checkNorthPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
+            newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
         } else if (checkEastPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
+            newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
         } else if (checkSouthPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
+            newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
         }
     }

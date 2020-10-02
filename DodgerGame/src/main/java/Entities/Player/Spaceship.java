@@ -55,4 +55,13 @@ public class Spaceship extends AbstractMovable {
     public void setRight(int right) {
         this.right = right;
     }
+
+    // @Author Tobias Engblom
+    // Sets this direction to the spaceships direction
+    public void setDirection(Spaceship spaceship) {
+        this.up = spaceship.up;
+        this.down = spaceship.down;
+        this.left = spaceship.left;
+        this.right = spaceship.right;
+    }
 }
