@@ -90,6 +90,7 @@ public class Window implements IObservable {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
 
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
+                    laserBeam.move(deltaTime);
 
 
                     // update positions and notify observers
