@@ -20,26 +20,26 @@ public class GameObjectGUI implements IObserver {
     }
 
     /**
-     * @param projectile The projectile to set the image to.
-     * @return The a specific image depending on the projectile.
+     * @param gameObject The gameObject to set the image to.
+     * @return The a specific image depending on the gameObject.
      * @Author Olle Westerlund
-     * The method sets the correct image depending on the specific projectile.
+     * The method sets the correct image depending on the specific gameObject.
      */
-    private Image addImageToProjectile(Class projectile) {
+    private Image addImageToProjectile(Class gameObject) {
         InputStream inputStream;
-        if (projectile.equals(SmallAsteroid.class)) {
+        if (gameObject.equals(SmallAsteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
             image = new Image(inputStream);
-        } else if (projectile.equals(MediumAsteroid.class)) {
+        } else if (gameObject.equals(MediumAsteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
             image = new Image(inputStream);
-        } else if (projectile.equals(HealthPowerUp.class)) {
+        } else if (gameObject.equals(HealthPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
             image = new Image(inputStream);
-        } else if (projectile.equals(ShieldPowerUp.class)) {
+        } else if (gameObject.equals(ShieldPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
             image = new Image(inputStream);
-        } else if (projectile.equals(Spaceship.class)) {
+        } else if (gameObject.equals(Spaceship.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("spaceship.gif");
             image = new Image(inputStream);
         }
@@ -48,6 +48,8 @@ public class GameObjectGUI implements IObserver {
 
     private void drawImage(double x, double y, Class c, double height, double width) {
         Image image = addImageToProjectile(c);
+        if (c.equals(Spaceship.class)) {
+        }
         gc.drawImage(image, x, y, width, height);
     }
 

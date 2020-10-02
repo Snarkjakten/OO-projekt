@@ -1,6 +1,5 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
-import Entities.Player.Spaceship;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import View.BackgroundView;
@@ -33,7 +32,6 @@ public class Window implements IObservable {
     //Gets image from resources
     private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     private Image windowBackground = new Image(inputStream);
-//    private Image spaceShipImage = game.getSpaceships().get(0).getImage();
 
     private Stage stage;
     private AnimationTimer animationTimer;
