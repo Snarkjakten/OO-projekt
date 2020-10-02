@@ -79,22 +79,18 @@ public class ViewController {
 
     private void characterMenuButtonHandler() {
         characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
-            // TODO: 2020-09-30 All spaceships should be lighter.gif
             name = "lighter.gif";
         });
 
         characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
-            // TODO: 2020-09-30 All spaceships should be turtle.png
             name = "turtle.png";
         });
 
         characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
-            // TODO: 2020-09-30 All spaceships should be thor.gif
             name = "thor.gif";
         });
 
         characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
-            // TODO: 2020-09-30 All spaceships should be ufo.gif
             name = "ufo.gif";
         });
 
