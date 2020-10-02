@@ -43,7 +43,7 @@ public class Window implements IObservable {
     private List<AbstractMovable> gameObjects = game.gameObjects;
     private List<BackgroundView> backgrounds;
 
-    LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
+    LaserBeam laserBeam = new LaserBeam(0.1);
 
     public Window(Stage stage) {
         this.stage = stage;

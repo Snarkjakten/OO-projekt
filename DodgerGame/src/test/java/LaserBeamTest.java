@@ -13,8 +13,8 @@ public class LaserBeamTest {
     @Before
     //@Author Olle Westerlund
     public void init() {
-        laserHorizontal = new LaserBeam(400, 0.1, true);
-        laserVertical = new LaserBeam(300,0.1, false);
+        laserHorizontal = new LaserBeam( 0.1);
+        laserVertical = new LaserBeam(0.1);
     }
 
     @Test

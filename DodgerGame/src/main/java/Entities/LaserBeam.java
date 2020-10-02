@@ -1,13 +1,16 @@
 package Entities;
 
+import Movement.AbstractMovable;
+import javafx.geometry.Point2D;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
+import java.util.Random;
 
 /**
  * @Author Olle Westerlund
  */
-public class LaserBeam {
+public class LaserBeam extends AbstractMovable {
     private Image[] frames;
     private double horizontal;
     private double vertical;
@@ -16,12 +19,42 @@ public class LaserBeam {
     private double screenHorizontalLength = 800; //TODO: Get this from model.
     private double screenVerticalLength = 600; // TODO: Get this from model.
 
-    public LaserBeam(double position, double duration, boolean isHorizontal) {
-        this.isHorizontal = isHorizontal;
-        setPosition(position);
+    public LaserBeam(double duration) {
         this.frames = new Image[8];
         this.duration = duration;
         initImages();
+        randomDirection();
+    }
+
+    @Override
+    public void move(double deltaTime) {
+        super.move(deltaTime);
+    }
+
+    private void randomDirection() {
+        Random random = new Random();
+        int side = random.nextInt(4);
+        switch (side) {
+            case 0: // Bottom of the screen
+                this.isHorizontal = true;
+                this.position = new Point2D(0, screenVerticalLength + 50);
+                break;
+            case 1: // Right side of the screen
+                this.isHorizontal = false;
+                this.position = new Point2D(screenHorizontalLength + 50, 0);
+                break;
+            case 2: // Top of the screen
+                this.isHorizontal = true;
+                this.position = new Point2D(0, -50);
+                break;
+            case 3: // Left of the screen
+                this.isHorizontal = false;
+                this.position = new Point2D(-50, 0);
+                break;
+            default:
+                System.out.println("Error in randomDirection");
+                break;
+        }
     }
 
     /**
