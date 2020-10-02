@@ -1,14 +1,13 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
-import Entities.Projectiles.*;
+import Entities.Projectiles.Projectile;
+import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.BackgroundView;
+import View.GameObjectGUI;
+import View.HealthBar;
 import View.IObserver;
 import javafx.animation.AnimationTimer;
-import Entities.Projectiles.ProjectileFactory;
-import View.GameObjectGUI;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,7 +16,6 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import java.util.List;
 
 /*
@@ -32,6 +30,11 @@ public class Window implements IObservable {
     //Gets image from resources
     private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     private final Image windowBackground;
+
+    HealthBar healthBar = new HealthBar();
+    Image hpBackground = healthBar.addBackgroundToHpBar();
+    Image hpForeground = healthBar.addForegroundToHpBar();
+    Image hpBorder = healthBar.addBorderToHpBar();
 
     {
         assert inputStream != null;
@@ -94,8 +97,17 @@ public class Window implements IObservable {
                     // todo: move drawImage from game loop to a view with observer
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
 
+
+                    gc.drawImage(hpBackground, 0, 0, 200, 40);
+                    gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().doubleValue(), 40);
+                    gc.drawImage(hpBorder, 0, 0, 200, 40);
+
+
+
+
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
                     laserBeam.move(deltaTime);
+
 
 
                     // update positions and notify observers
@@ -104,6 +116,7 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
+
 
                     // projectile spawner
                     // @author Irja Vuorela
@@ -148,11 +161,11 @@ public class Window implements IObservable {
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
-            stage.getScene().setOnMouseClicked(event -> {
+            /*stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
                 NumberBinding subtraction = player.getHp().subtract(damage);
                 player.setHp(subtraction.intValue());
-            });
+            });*/
 
         } catch (Exception e) {
             e.printStackTrace();
