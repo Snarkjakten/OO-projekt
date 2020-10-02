@@ -28,11 +28,6 @@ public class Game {
     }
 
     //@Author Tobias Engblom
-    protected static void setInstance(Game game) {
-        instance = game;
-    }
-
-    //@Author Tobias Engblom
     protected void initSpaceships() {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
         player.spaceships.add(newSpaceship);

@@ -177,7 +177,6 @@ public class Window implements IObservable {
         long endNanoTime = System.nanoTime();
         player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
         animationTimer.stop();
-        Game.setInstance(null);
     }
 
     @Override
