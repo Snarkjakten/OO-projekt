@@ -3,12 +3,12 @@ import Entities.Player.Player;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import View.BackgroundView;
+import View.GameObjectGUI;
 import View.IObserver;
 import javafx.animation.AnimationTimer;
-import Entities.Projectiles.ProjectileFactory;
-import View.GameObjectGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
+import javafx.geometry.Rectangle2D;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -17,7 +17,6 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-
 import java.util.List;
 
 /*
@@ -102,6 +101,68 @@ public class Window implements IObservable {
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
+                    }
+
+                    for(AbstractMovable s : gameObjects) {
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
+                        notifyObservers(s.position.getX(), s.position.getY());
+                        if(s instanceof Asteroid) {
+                            Rectangle2D asteroidRec = new Rectangle2D(s.position.getX(), s.position.getY(), asteroidImage.getHeight() -20, asteroidImage.getWidth() -20);
+                            if(asteroidRec.intersects(shipRec)) {
+                                if(spaceship.getCurrentShield() > 0) {
+                                    spaceship.setCurrentShield(0);
+                                } else {
+                                    spaceship.setHp(spaceship.getHp().subtract(Asteroid.getDamage()).intValue());
+                                    System.out.println(spaceship.getHp().toString());
+                                    if (spaceship.getHp().lessThanOrEqualTo(0).getValue()) {
+                                        stage.getScene();
+                                    }
+                                }
+                                gameObjects.remove(s);
+                                break;
+                            }
+                        }
+                    }
+
+                    //check health powerup collision
+                    for(AbstractMovable s : gameObjects) {
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
+                        notifyObservers(s.position.getXif(s instanceof HealthPowerUp)(), s.position.getY());
+                         {
+                            Rectangle2D healthRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
+                            if(healthRec.intersects(shipRec)) {
+
+                                //Väldigt krångliga checks
+                                if(spaceship.getHp().greaterThanOrEqualTo(150).getValue()) {
+                                    spaceship.setHp(200);
+                                    //System.out.println(spaceship.getHp().toString());
+                                } else {
+                                    spaceship.setHp(HealthPowerUp.gainHealth(spaceship.getHp().intValue()));
+                                    //System.out.println(spaceship.getHp().toString());
+                                }
+                                gameObjects.remove(s);
+                                break;
+                            }
+                        }
+                    }
+
+                    //TODO: make immune to next asteroid collision
+                    //check shield powerup collision
+                    for(AbstractMovable s : gameObjects) {
+                        Rectangle2D shipRec = new Rectangle2D(spaceship.position.getX(), spaceship.position.getY(), 56, 32);
+                        notifyObservers(s.position.getX(), s.position.getY());
+                        if(s instanceof ShieldPowerUp) {
+                            Rectangle2D shieldRec = new Rectangle2D(s.position.getX(), s.position.getY(), health.getHeight() -20, health.getWidth() -20);
+                            if(shieldRec.intersects(shipRec)) {
+                                //Do something fancy
+                                if(spaceship.getCurrentShield() < 1) {
+                                    spaceship.setCurrentShield(1);
+                                    //System.out.println(spaceship.getCurrentShield());
+                                }
+                                gameObjects.remove(s);
+                                break;
+                                }
+                        }
                     }
 
                     // projectile spawner
