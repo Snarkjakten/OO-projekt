@@ -1,5 +1,6 @@
 import View.GameOverMenu;
 import View.MainMenu;
+import View.TimeView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +19,8 @@ public class ViewController {
     private MainMenu mainMenu;
     private GameOverMenu gameOverMenu;
     private Stage stage;
+
+    private TimeView timeView;
 
     private SimpleIntegerProperty hp;
 

@@ -53,6 +53,8 @@ public class Window implements IObservable {
     private Image shieldImage = shieldGUI.getImage();
     private LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
+    private SimpleIntegerProperty time = new SimpleIntegerProperty();
+
     public Window(Stage stage) {
         this.stage = stage;
     }
@@ -147,14 +149,16 @@ public class Window implements IObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                    endNanoTime = System.nanoTime();
+                   // endNanoTime = System.nanoTime();
 
-                    String time = String.valueOf((int)((endNanoTime - startNanoTime)/1000000000.0));
+                    String time = String.valueOf(calculateTime());
 
                     Font font = Font.font("Arial", 50);
                     gc.setFont(font);
                     gc.setFill(Color.WHITE);
                     gc.fillText(time, 10, 590);
+
+
 
 
                 }
@@ -203,9 +207,14 @@ public class Window implements IObservable {
 
     // @Author Isak Almeros
     public void stopAnimationTimer() {
-        endNanoTime = System.nanoTime();
-        player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
+        int points = calculateTime();
+        player.setPoints(points);
         animationTimer.stop();
+    }
+
+    public int calculateTime(){
+        endNanoTime = System.nanoTime();
+        return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
     }
 
     @Override
