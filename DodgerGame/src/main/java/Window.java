@@ -28,19 +28,24 @@ public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private Game game = Game.getInstance();
+    private final Game game = Game.getInstance();
     //Gets image from resources
-    private InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    private Image windowBackground = new Image(inputStream);
+    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+    private final Image windowBackground;
 
-    private Stage stage;
+    {
+        assert inputStream != null;
+        windowBackground = new Image(inputStream);
+    }
+
+    private final Stage stage;
     private AnimationTimer animationTimer;
 
     private long startNanoTime;
-    private long endNanoTime;
     private List<IObserver> observers;
+
     protected Player player = game.getPlayer();
-    private List<AbstractMovable> gameObjects = game.gameObjects;
+    private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
     LaserBeam laserBeam = new LaserBeam(0.1);
@@ -49,7 +54,7 @@ public class Window implements IObservable {
         this.stage = stage;
     }
 
-    public void init() {
+    public void init(String imageName) {
         try {
             createContent();
 
@@ -58,7 +63,7 @@ public class Window implements IObservable {
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
-            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
+            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -71,7 +76,7 @@ public class Window implements IObservable {
             observers.add(gameObjectGUI);
 
             animationTimer = new AnimationTimer() {
-                long currentNanoTime = System.nanoTime();
+                final long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
 
@@ -134,12 +139,12 @@ public class Window implements IObservable {
             // @Author Irja Vuorela
             KeyController keyController = new KeyController(game.getSpaceships());
             stage.getScene().setOnKeyPressed(
-                    event -> keyController.handleKeyPressed(event));
+                    keyController::handleKeyPressed);
 
             // Handle key released
             // @Author Irja Vuorela
             stage.getScene().setOnKeyReleased(
-                    event -> keyController.handleKeyReleased(event)
+                    keyController::handleKeyReleased
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
@@ -155,9 +160,8 @@ public class Window implements IObservable {
     }
 
     //Sets size of Pane
-    private Pane createContent() {
+    private void createContent() {
         root.setPrefSize(800, 600);
-        return root;
     }
 
     public Pane getRoot() {
@@ -171,7 +175,7 @@ public class Window implements IObservable {
 
     // @Author Isak Almeros
     public void stopAnimationTimer() {
-        endNanoTime = System.nanoTime();
+        long endNanoTime = System.nanoTime();
         player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
         animationTimer.stop();
     }

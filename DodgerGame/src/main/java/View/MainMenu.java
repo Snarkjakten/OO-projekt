@@ -1,6 +1,5 @@
 package View;
 
-import View.MenuButton;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -53,7 +52,7 @@ public class MainMenu {
         background.setFitHeight(600);
 
         root = new Pane();
-        root.setPrefSize(800,600);
+        root.setPrefSize(800, 600);
 
         root.getChildren().addAll(background, buttonMenu, title);
     }

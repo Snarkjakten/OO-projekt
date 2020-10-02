@@ -7,7 +7,7 @@ import java.util.List;
 
 public class Player {
     public List<Spaceship> spaceships = new ArrayList<>();
-    private SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
     private int points;
 
     public void setHp(int hp) {
@@ -24,5 +24,9 @@ public class Player {
 
     public void setPoints(int points) {
         this.points = points;
+    }
+
+    public List<Spaceship> getSpaceships() {
+        return spaceships;
     }
 }
