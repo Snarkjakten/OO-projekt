@@ -2,11 +2,9 @@ import Entities.LaserBeam;
 import Entities.Player.Player;
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
-import View.BackgroundView;
-import View.IObserver;
+import View.*;
 import javafx.animation.AnimationTimer;
 import Entities.Projectiles.ProjectileFactory;
-import View.GameObjectGUI;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
@@ -46,6 +44,7 @@ public class Window implements IObservable {
 
     private long startNanoTime;
     private List<IObserver> observers;
+    private List<TimeObserver> timeObservers;
 
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
@@ -70,6 +69,8 @@ public class Window implements IObservable {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
+            TimeView timeView = new TimeView(gc);
+
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
 
@@ -79,6 +80,9 @@ public class Window implements IObservable {
 
             observers = new ArrayList<>();
             observers.add(gameObjectGUI);
+
+            timeObservers = new ArrayList<>();
+            timeObservers.add(timeView);
 
             animationTimer = new AnimationTimer() {
                 final long currentNanoTime = System.nanoTime();
@@ -135,16 +139,11 @@ public class Window implements IObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                   // endNanoTime = System.nanoTime();
+                    int time = calculateTime();
 
-                    String time = String.valueOf(calculateTime());
-
-                    Font font = Font.font("Arial", 50);
-                    gc.setFont(font);
-                    gc.setFill(Color.WHITE);
-                    gc.fillText(time, 10, 590);
-
-
+                    for (TimeObserver obs : timeObservers) {
+                        notifyTimeObeservers(time);
+                    }
                 }
             };
 
@@ -190,8 +189,7 @@ public class Window implements IObservable {
 
     // @Author Isak Almeros
     public void stopAnimationTimer() {
-        long endNanoTime = System.nanoTime();
-        player.setPoints((int) ((endNanoTime - startNanoTime) / 1000000000.0));
+        player.setPoints(calculateTime());
         animationTimer.stop();
     }
 
@@ -214,6 +212,12 @@ public class Window implements IObservable {
     public void notifyObservers(double x, double y, Class c, double height, double width) {
         for (IObserver obs : observers) {
             obs.actOnEvent(x, y, c, height, width);
+        }
+    }
+
+    public void notifyTimeObeservers(int time) {
+        for (TimeObserver obs : timeObservers) {
+            obs.actOnEvent(time);
         }
     }
 }
