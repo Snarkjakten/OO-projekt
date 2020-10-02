@@ -1,0 +1,36 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 2 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Fråga om vi ska ha olika små asteroidklasser eller slå ihop dom.
+- Fråga om vi skulle spara viewcontrollern i en variabel eller låta den ligga i bakgrunden.
+- Fråga om vad som förväntas i fråga om designmodell/klassdiagram för SDD.
+
+
+## Reports (15 min) from previous meeting
+
+- Viktor, Irja, Tobias och Olle har letat buggar i koden.
+- Tobias har kommit långt på sin uppgift från förra mötet.
+- Isak har lagt till grund för tidräknare.
+
+## Discussion items (35 min)
+
+- Vi diskuterade de tre frågorna vi bar med oss in i mötet.
+- Vi diskuterade hur pass redo gruppen är för peer review.
+- Vi ställde två frågor om buggar.
+- Kodstruktur och refaktorering av gameloop och window klassen.
+
+## Outcomes and assignments (5 min)
+
+- Gruppen ska gemensamt göra klart SDD inför peer review
+- Gruppen ska gemensamt städa klart kod inför peer review
+- Gruppen ska gemensamt försöka lösa buggar i nyaste koden
+
+## Wrap up
+- Gruppmöte tisdag 6/10 kl. 10:00
