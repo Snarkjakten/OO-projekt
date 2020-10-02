@@ -7,6 +7,8 @@ import javafx.geometry.Point2D;
  */
 
 public abstract class AbstractMovable implements IMovable {
+    protected double height;
+    protected double width;
 
     // Position (x, y)
     public Point2D position = new Point2D(0, 0);
@@ -32,5 +34,13 @@ public abstract class AbstractMovable implements IMovable {
     // @Author Tobias Engblom
     public void setPosition(double xPos, double yPos) {
         position = new Point2D(xPos, yPos);
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public double getWidth() {
+        return width;
     }
 }

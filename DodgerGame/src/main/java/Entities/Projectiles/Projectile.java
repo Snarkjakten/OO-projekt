@@ -15,8 +15,10 @@ public abstract class Projectile extends AbstractMovable {
     private double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
     private double screenSizeY = 600;   // TODO: Remember to get this from model not hard code.
 
-    public Projectile(double speed) {
+    public Projectile(double speed, double height, double width) {
         this.speed = speed;
+        this.height = height;
+        this.width = width;
         randomPosition();
     }
 
@@ -156,4 +158,6 @@ public abstract class Projectile extends AbstractMovable {
     public void setVertical(double vertical) {
         this.vertical = vertical;
     }
+
+
 }
