@@ -8,8 +8,6 @@ import View.GameObjectGUI;
 import View.HealthBar;
 import View.IObserver;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -100,8 +98,9 @@ public class Window implements IObservable {
                     gc.drawImage(windowBackground, 0, 0, 800, 600);
 
                     gc.drawImage(hpBackground, 0, 0, 200, 40);
-                    gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().getValue(), 40);
+                    gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().doubleValue(), 40);
                     gc.drawImage(hpBorder, 0, 0, 200, 40);
+                    System.out.println(game.getPlayer().getHp().toString());
 
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.getHorizontal(), laserBeam.getVertical());
 
@@ -157,11 +156,11 @@ public class Window implements IObservable {
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
-            stage.getScene().setOnMouseClicked(event -> {
+            /*stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
                 NumberBinding subtraction = player.getHp().subtract(damage);
                 player.setHp(subtraction.intValue());
-            });
+            });*/
 
         } catch (Exception e) {
             e.printStackTrace();
