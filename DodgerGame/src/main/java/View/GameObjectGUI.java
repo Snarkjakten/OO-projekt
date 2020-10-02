@@ -14,9 +14,11 @@ import java.io.InputStream;
 public class GameObjectGUI implements IObserver {
     GraphicsContext gc;
     private Image image;
+    private final String spaceshipImageName;
 
-    public GameObjectGUI(GraphicsContext gc) {
+    public GameObjectGUI(GraphicsContext gc, String spaceshipImageName) {
         this.gc = gc;
+        this.spaceshipImageName = spaceshipImageName;
     }
 
     /**
@@ -29,18 +31,23 @@ public class GameObjectGUI implements IObserver {
         InputStream inputStream;
         if (gameObject.equals(SmallAsteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
+            assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(MediumAsteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
+            assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(HealthPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("repair.png");
+            assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(ShieldPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream("shieldPowerUp.png");
+            assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(Spaceship.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream("lighter.gif");
+            inputStream = getClass().getClassLoader().getResourceAsStream(spaceshipImageName);
+            assert inputStream != null;
             image = new Image(inputStream);
         }
         return image;
@@ -48,8 +55,6 @@ public class GameObjectGUI implements IObserver {
 
     private void drawImage(double x, double y, Class c, double height, double width) {
         Image image = addImageToProjectile(c);
-        if (c.equals(Spaceship.class)) {
-        }
         gc.drawImage(image, x, y, width, height);
     }
 

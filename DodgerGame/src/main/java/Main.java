@@ -1,4 +1,5 @@
 import View.CharacterMenu;
+import View.GameObjectGUI;
 import View.GameOverMenu;
 import View.MainMenu;
 import javafx.application.Application;

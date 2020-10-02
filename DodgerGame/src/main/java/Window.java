@@ -28,7 +28,7 @@ public class Window implements IObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private final Game game;
+    private final Game game = Game.getInstance();
     //Gets image from resources
     private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
     private final Image windowBackground;
@@ -44,22 +44,17 @@ public class Window implements IObservable {
     private long startNanoTime;
     private List<IObserver> observers;
 
-    protected Player player;
-    private final List<AbstractMovable> gameObjects;
+    protected Player player = game.getPlayer();
+    private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
     LaserBeam laserBeam = new LaserBeam(300, 0.1, true);
 
     public Window(Stage stage) {
         this.stage = stage;
-        this.game = Game.getInstance();
-        gameObjects = game.getGameObjects();
-        player = game.getPlayer();
     }
 
     public void init(String imageName) {
-        game.setImageName(imageName);
-        game.initSpaceships();
         try {
             createContent();
 
@@ -68,7 +63,7 @@ public class Window implements IObservable {
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
-            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc);
+            GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);

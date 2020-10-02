@@ -12,12 +12,11 @@ public class Game {
     private Spaceship newSpaceship;
     private static Game instance = null;
     private final Player player;
-    private String imageName;
 
     private Game() {
-        this.imageName = "lighter.gif";
         this.player = new Player();
         this.gameObjects = new ArrayList<>();
+        initSpaceships();
     }
 
     //@Author Tobias Engblom
@@ -45,12 +44,9 @@ public class Game {
         return this.player;
     }
 
+    //@Author Tobias Engblom
     protected List<AbstractMovable> getGameObjects() {
         return this.gameObjects;
-    }
-
-    public void setImageName(String imageName) {
-        this.imageName = imageName;
     }
 
     //@Author Tobias Engblom
