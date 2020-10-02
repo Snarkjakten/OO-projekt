@@ -7,47 +7,25 @@ import static org.junit.Assert.assertTrue;
 
 public class LaserBeamTest {
 
-    LaserBeam laserHorizontal;
-    LaserBeam laserVertical;
+    LaserBeam laser;
 
     @Before
     //@Author Olle Westerlund
     public void init() {
-        laserHorizontal = new LaserBeam(400, 0.1, true);
-        laserVertical = new LaserBeam(300,0.1, false);
+        laser = new LaserBeam( 0.1);
     }
 
     @Test
-    //@Author Olle Westerlund
-    public void testInitImagesHorizontal() {
-        for (Image image : laserHorizontal.getImages()) {
+    public void testInitImages() {
+        for (Image image : laser.getImages()) {
             assertTrue(image != null);
         }
     }
 
     @Test
-    //@Author Olle Westerlund
-    public void testInitImagesVertical() {
-        for (Image image : laserVertical.getImages()) {
-            assertTrue(image != null);
-        }
+    public void testGetFrame() {
+        Image image = laser.getFrame(0.6);
+        assertTrue(image != null);
     }
-
-    @Test
-    //@Author Olle Westerlund
-    public void testHorizontalPosition() {
-        double xPos = laserHorizontal.getHorizontal();
-        double yPos = laserHorizontal.getVertical();
-        assertTrue((xPos == 400 - (256/2)) && yPos == -50);
-    }
-
-    @Test
-    //@Author Olle Westerlund
-    public void testVerticalPosition() {
-        double xPos = laserVertical.getHorizontal();
-        double yPos = laserVertical.getVertical();
-        assertTrue((xPos == -50) && yPos == (300 - 256/2));
-    }
-
 
 }
