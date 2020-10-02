@@ -38,6 +38,10 @@ public class LaserBeam extends AbstractMovable {
         this.velocity = velocity.multiply(this.speed);
     }
 
+    /**
+     * @Author Olle Westerlund
+     * The method sets a starting side and then sets the position to go to.
+     */
     private void randomStartPoint() {
         Random random = new Random();
         int side = random.nextInt(4);
