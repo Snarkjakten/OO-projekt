@@ -1,7 +1,10 @@
 package Entities.Player;
 
+import Entities.Projectiles.HealthPowerUp;
+import Entities.Projectiles.MediumAsteroid;
+import Entities.Projectiles.ShieldPowerUp;
+import Entities.Projectiles.SmallAsteroid;
 import Movement.AbstractMovable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player
@@ -12,6 +15,7 @@ public class Spaceship extends AbstractMovable {
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     public int right = 0; // moving right increases horizontal axis value
+    private static int currentShield = 0;
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
@@ -63,5 +67,41 @@ public class Spaceship extends AbstractMovable {
         this.down = spaceship.down;
         this.left = spaceship.left;
         this.right = spaceship.right;
+    }
+
+    public static void setCurrentShield(int shield) {
+        currentShield = shield;
+    }
+
+    public static int getCurrentShield() {
+        return currentShield;
+    }
+
+    @Override
+    public void actOnCollision(Class c){
+        if (c.equals(SmallAsteroid.class)) {
+            if(currentShield < 1) {
+                Player.setHp(Player.getHp().subtract(SmallAsteroid.getDamage()).getValue());
+            } else {
+                setCurrentShield(0);
+            }
+        }
+        if (c.equals(MediumAsteroid.class) && currentShield < 1) {
+            if(currentShield < 1) {
+                Player.setHp(Player.getHp().subtract(MediumAsteroid.getDamage()).getValue());
+            } else {
+                setCurrentShield(0);
+            }
+        }
+        if (c.equals(ShieldPowerUp.class) && currentShield < 1) {
+            setCurrentShield(1);
+        }
+        if (c.equals(HealthPowerUp.class)) {
+            if (Player.getHp().greaterThanOrEqualTo(150).getValue()) {
+                Player.setHp(200);
+            } else {
+                Player.setHp(+50);
+            }
+        }
     }
 }

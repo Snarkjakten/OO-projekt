@@ -1,5 +1,7 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
+import Entities.Player.Spaceship;
+import Entities.Projectiles.CollisionHandler;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
@@ -116,6 +118,43 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
+
+                    /**
+                     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+                     */
+                    List<AbstractMovable> toBeRemoved;
+                    toBeRemoved = new ArrayList<>();
+                    List<AbstractMovable> nonSpaceshipsToBeRemoved;
+                    nonSpaceshipsToBeRemoved = new ArrayList<>();
+
+                    CollisionHandler collisionHandler = new CollisionHandler();
+
+                    for (AbstractMovable gameObject : gameObjects) {
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
+                        for(AbstractMovable a : gameObjects){
+                            if(collisionHandler.checkCollision(gameObject, a)){
+                                gameObject.setCollided(true);
+                                a.setCollided(true);
+                                toBeRemoved.add(gameObject);
+                                toBeRemoved.add(a);
+                                collisionHandler.collide(a, gameObject);
+                            }
+                        }
+                        // remove offscreen projectiles
+                        // @author Irja Vuorela
+                    }
+                    for(AbstractMovable a : toBeRemoved){
+                        if(!(a instanceof Spaceship)){
+                            nonSpaceshipsToBeRemoved.add(a);
+                        }
+                    }
+
+                    if (nonSpaceshipsToBeRemoved.size() != 0) {
+                        gameObjects.removeAll(nonSpaceshipsToBeRemoved);
+                        toBeRemoved.clear();
+                    }
+                    System.out.println(Spaceship.getCurrentShield());
+                    //End of collision handling -----------------------------------
 
 
                     // projectile spawner

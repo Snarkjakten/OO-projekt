@@ -7,14 +7,14 @@ import java.util.List;
 
 public class Player {
     public List<Spaceship> spaceships = new ArrayList<>();
-    private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    private static final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
     private int points;
 
-    public void setHp(int hp) {
-        this.hp.set(hp);
+    public static void setHp(int hp) {
+        Player.hp.set(hp);
     }
 
-    public SimpleIntegerProperty getHp() {
+    public static SimpleIntegerProperty getHp() {
         return hp;
     }
 
