@@ -65,7 +65,7 @@ public class LaserBeam extends AbstractMovable {
         }
     }
 
-    private void setStopPosition(double horizontal, double vertical) {
+    public void setStopPosition(double horizontal, double vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;
     }
