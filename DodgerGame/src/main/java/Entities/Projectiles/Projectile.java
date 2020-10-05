@@ -9,7 +9,6 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractMovable {
-    private double speed;         // Speed of the projectile.
     private double horizontal;    // positive value: right, negative value: left
     private double vertical;      // positive value: up, negative value: down
     private double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
@@ -137,10 +136,6 @@ public abstract class Projectile extends AbstractMovable {
         boolean isStillOnX = (position.getX() > -70 && position.getX() < (screenSizeX + 70));
         boolean isStillOnY = (position.getY() > -70 && position.getY() < (screenSizeY + 70));
         return (!isStillOnX || !isStillOnY);
-    }
-
-    public double getSpeed() {
-        return speed;
     }
 
     public double getHorizontal() {

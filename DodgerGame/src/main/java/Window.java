@@ -123,10 +123,9 @@ public class Window implements IObservable {
                     updateCounter = updateCounter + 1;
                     if (updateCounter >= 120) {
                         updateCounter = 0;
-                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                        gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                        gameObjects.add(ProjectileFactory.createMediumAsteroid());
+                        gameObjects.add(ProjectileFactory.createAsteroid());
+                        gameObjects.add(ProjectileFactory.createAsteroid());
+                        gameObjects.add(ProjectileFactory.createAsteroid());
                         gameObjects.add(ProjectileFactory.createHealthPowerUp());
                         gameObjects.add(ProjectileFactory.createShieldPowerUp());
                     }
