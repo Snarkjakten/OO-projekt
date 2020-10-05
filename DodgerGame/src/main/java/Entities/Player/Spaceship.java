@@ -86,7 +86,7 @@ public class Spaceship extends AbstractMovable {
                 setCurrentShield(0);
             }
         }
-        if (c.equals(MediumAsteroid.class) && currentShield < 1) {
+        if (c.equals(MediumAsteroid.class)) {
             if(currentShield < 1) {
                 Player.setHp(Player.getHp().subtract(MediumAsteroid.getDamage()).getValue());
             } else {
@@ -100,7 +100,7 @@ public class Spaceship extends AbstractMovable {
             if (Player.getHp().greaterThanOrEqualTo(150).getValue()) {
                 Player.setHp(200);
             } else {
-                Player.setHp(+50);
+                Player.setHp(Player.getHp().getValue() + 50);
             }
         }
     }
