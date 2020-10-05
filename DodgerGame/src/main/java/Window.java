@@ -12,6 +12,7 @@ import View.BackgroundView;
 import View.GameObjectGUI;
 import View.HealthBar;
 import View.IObserver;
+import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -23,6 +24,7 @@ import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
+import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -61,7 +63,7 @@ public class Window implements IObservable {
 
     LaserBeam laserBeam = new LaserBeam(0.1);
 
-    private SimpleIntegerProperty time = new SimpleIntegerProperty();
+    private Boolean restartScheduled = false;
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -71,14 +73,14 @@ public class Window implements IObservable {
         try {
             createContent();
 
-            player.setHp(200);
-
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
             TimeView timeView = new TimeView(gc);
+            timeObservers = new ArrayList<>();
+            timeObservers.add(timeView);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -90,18 +92,39 @@ public class Window implements IObservable {
             observers = new ArrayList<>();
             observers.add(gameObjectGUI);
 
-            timeObservers = new ArrayList<>();
-            timeObservers.add(timeView);
-
             animationTimer = new AnimationTimer() {
                 final long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
 
-                final long animationNanoTime = System.nanoTime();
+                 long animationNanoTime = System.nanoTime();
 
                 @Override
                 public void handle(long currentNanoTime) {
+
+                    if(restartScheduled) {
+                        System.out.println("restart");
+                        player.setHp(200);
+
+                        List<AbstractMovable> toBeRemoved = new ArrayList<>();
+
+                        for(AbstractMovable gameObject : gameObjects) {
+                            if (gameObject instanceof Projectile) {
+                                toBeRemoved.add(gameObject);
+                            }
+                        }
+
+                        gameObjects.removeAll(toBeRemoved);
+
+                        gameObjects.get(0).setPosition(368,268);
+
+                        if (game.getSpaceships().size() > 1) {
+                            gameObjects.remove(1);
+                            game.getSpaceships().remove(1);
+                        }
+
+                        restartScheduled = false;
+                    }
 
                     // Calculate time since last update
                     // @author Irja Vuorela
@@ -159,15 +182,10 @@ public class Window implements IObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                    int time = calculateTime();
-
-                    for (TimeObserver obs : timeObservers) {
-                        notifyTimeObeservers(time);
-                    }
+                    int passedTime = calculatePassedTime();
+                    notifyTimeObeservers(passedTime);
                 }
             };
-
-            animationTimer.start();
 
             // Handle key pressed
             // @Author Irja Vuorela
@@ -182,11 +200,11 @@ public class Window implements IObservable {
             );
 
             // TODO: 2020-09-26 replace onMouseClicked with collision
-            /*stage.getScene().setOnMouseClicked(event -> {
+            stage.getScene().setOnMouseClicked(event -> {
                 SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
                 NumberBinding subtraction = player.getHp().subtract(damage);
                 player.setHp(subtraction.intValue());
-            });*/
+            });
 
         } catch (Exception e) {
             e.printStackTrace();
@@ -206,14 +224,21 @@ public class Window implements IObservable {
         return player.getPoints();
     }
 
-
-    // @Author Isak Almeros
-    public void stopAnimationTimer() {
-        player.setPoints(calculateTime());
-        animationTimer.stop();
+    public void setPoints() {
+        player.setPoints(calculatePassedTime());
     }
 
-    public int calculateTime(){
+    public void startAnimationTimer() {
+        animationTimer.start();
+    }
+
+    public void stopAnimationTimer() {
+        animationTimer.stop();
+        restartScheduled = true;
+    }
+
+    // Calculates passed time in the game in seconds
+    public int calculatePassedTime(){
         long endNanoTime = System.nanoTime();
         return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
     }

@@ -48,6 +48,7 @@ public class ViewController {
                     stage.getScene().setOnKeyPressed(null);
                     stage.getScene().setOnKeyReleased(null);
 
+                    window.setPoints();
                     window.stopAnimationTimer();
                     int points = window.getPoints();
                     gameOverMenu.showScore(points);
@@ -117,6 +118,7 @@ public class ViewController {
             if (!name.equals("")) {
                 stage.getScene().setRoot(window.getRoot());
                 window.init(name);
+                window.startAnimationTimer(); // TODO: 2020-10-04 kanske ta bort
             }
         });
 
@@ -127,6 +129,7 @@ public class ViewController {
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
             window.init(name);
+            window.startAnimationTimer();
             stage.getScene().setRoot(window.getRoot());
         });
 

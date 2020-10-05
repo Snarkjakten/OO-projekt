@@ -10,16 +10,39 @@ import javafx.scene.text.Font;
 
 public class TimeView implements TimeObserver {
     private GraphicsContext gc;
+    private StringBuilder sb = new StringBuilder("00:00");
 
     public TimeView(GraphicsContext gc){
         this.gc = gc;
-    }
 
-    private void drawImage(int time){
         Font font = Font.font("Arial", 50);
         gc.setFont(font);
         gc.setFill(Color.WHITE);
-        gc.fillText(String.valueOf(time), 10, 590);
+    }
+
+    private void drawImage(int seconds){
+        int s = seconds % 60;
+        int minute = seconds / 60;
+        int m = minute % 60;
+        int h = minute / 60;
+
+        if(m < 10 && s < 10) {
+            sb.replace(0, sb.capacity() - 1, "0" + m + ":" + "0" + s);
+        }
+
+        else if (m < 10 && s >= 10) {
+            sb.replace(0, sb.capacity() - 1, "0" + m + ":" + s);
+        }
+
+        else if (m >= 10 && s < 10) {
+            sb.replace(0, sb.capacity() - 1,  m + ":" + "0" + s);
+        }
+
+        else  {
+            sb.replace(0, sb.capacity() - 1,  m + ":" + s);
+        }
+
+        gc.fillText(sb.toString(), 20, 590);
     }
 
     public void actOnEvent(int time) {
