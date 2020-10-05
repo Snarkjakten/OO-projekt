@@ -140,9 +140,8 @@ public class Window implements IObservable {
                                 collisionHandler.collide(a, gameObject);
                             }
                         }
-                        // remove offscreen projectiles
-                        // @author Irja Vuorela
                     }
+
                     for(AbstractMovable a : toBeRemoved){
                         if(!(a instanceof Spaceship)){
                             nonSpaceshipsToBeRemoved.add(a);
