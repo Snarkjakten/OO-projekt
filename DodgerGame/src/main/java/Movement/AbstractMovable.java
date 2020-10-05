@@ -15,7 +15,7 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     boolean collided = false;
 
     public void setHitbox(double x, double y, double width, double height){
-        this.hitbox = new Rectangle2D(x, y, width, height);
+        this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
     }
 
     public Rectangle2D getHitbox(){

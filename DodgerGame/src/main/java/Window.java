@@ -132,7 +132,7 @@ public class Window implements IObservable {
                     for (AbstractMovable gameObject : gameObjects) {
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                         for(AbstractMovable a : gameObjects){
-                            if(collisionHandler.checkCollision(gameObject, a)){
+                            if(collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()){
                                 gameObject.setCollided(true);
                                 a.setCollided(true);
                                 toBeRemoved.add(gameObject);
@@ -141,6 +141,7 @@ public class Window implements IObservable {
                             }
                         }
                     }
+                    System.out.println(Player.getHp());
 
                     for(AbstractMovable a : toBeRemoved){
                         if(!(a instanceof Spaceship)){
@@ -152,7 +153,7 @@ public class Window implements IObservable {
                         gameObjects.removeAll(nonSpaceshipsToBeRemoved);
                         toBeRemoved.clear();
                     }
-                    System.out.println(Spaceship.getCurrentShield());
+                    //System.out.println(Spaceship.getCurrentShield());
                     //End of collision handling -----------------------------------
 
 

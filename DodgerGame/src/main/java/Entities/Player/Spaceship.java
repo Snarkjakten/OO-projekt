@@ -103,5 +103,6 @@ public class Spaceship extends AbstractMovable {
                 Player.setHp(Player.getHp().getValue() + 50);
             }
         }
+        this.setCollided(false);
     }
 }
