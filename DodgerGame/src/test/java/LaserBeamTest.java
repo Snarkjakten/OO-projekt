@@ -1,4 +1,5 @@
 import Entities.LaserBeam;
+import View.LaserGUI;
 import javafx.scene.image.Image;
 import org.junit.Before;
 import org.junit.Test;
@@ -7,25 +8,12 @@ import static org.junit.Assert.assertTrue;
 
 public class LaserBeamTest {
 
-    LaserBeam laser;
+    LaserBeam laserBeam;
 
     @Before
     //@Author Olle Westerlund
     public void init() {
-        laser = new LaserBeam( 0.1);
-    }
-
-    @Test
-    public void testInitImages() {
-        for (Image image : laser.getImages()) {
-            assertTrue(image != null);
-        }
-    }
-
-    @Test
-    public void testGetFrame() {
-        Image image = laser.getFrame(0.6);
-        assertTrue(image != null);
+        laserBeam = new LaserBeam();
     }
 
 }
