@@ -69,6 +69,11 @@ public class Spaceship extends AbstractMovable {
         this.right = spaceship.right;
     }
 
+    /**
+     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * @param shield
+     */
+
     public static void setCurrentShield(int shield) {
         currentShield = shield;
     }
@@ -77,6 +82,11 @@ public class Spaceship extends AbstractMovable {
         return currentShield;
     }
 
+    /**
+     * Acts upon the collision based on instance of projectile
+     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * @param c
+     */
     @Override
     public void actOnCollision(Class c){
         if (c.equals(SmallAsteroid.class)) {

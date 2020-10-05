@@ -120,8 +120,12 @@ public class Window implements IObservable {
                     }
 
                     /**
+                     * Creates lists to store objects to be removed
+                     * Sets boolean collided to true for reading single impact
+                     * Calls collide method on items collided
                      * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
                      */
+
                     List<AbstractMovable> toBeRemoved;
                     toBeRemoved = new ArrayList<>();
                     List<AbstractMovable> nonSpaceshipsToBeRemoved;
@@ -141,7 +145,6 @@ public class Window implements IObservable {
                             }
                         }
                     }
-                    System.out.println(Player.getHp());
 
                     for(AbstractMovable a : toBeRemoved){
                         if(!(a instanceof Spaceship)){
@@ -153,7 +156,7 @@ public class Window implements IObservable {
                         gameObjects.removeAll(nonSpaceshipsToBeRemoved);
                         toBeRemoved.clear();
                     }
-                    //System.out.println(Spaceship.getCurrentShield());
+
                     //End of collision handling -----------------------------------
 
 
