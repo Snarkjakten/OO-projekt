@@ -4,7 +4,6 @@ import java.util.Random;
 
 public class Asteroid extends Projectile {
     private int damage;
-    private String type;
 
     public Asteroid() {
         super(50, 28, 28);
@@ -23,17 +22,11 @@ public class Asteroid extends Projectile {
             this.height = 64;
             this.width = 64;
             this.speed = 200;
-            this.type = "small";
         } else {
             this.damage = 35;
             this.height = 128;
             this.width = 128;
             this.speed = 100;
-            this.type = "medium";
         }
-    }
-
-    public String getType() {
-        return type;
     }
 }
