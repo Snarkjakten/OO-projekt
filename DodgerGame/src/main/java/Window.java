@@ -73,12 +73,14 @@ public class Window implements IObservable {
         try {
             createContent();
 
+            player.setHp(200);
+
             // @Author Tobias Engblom
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
 
-            TimeView timeView = new TimeView(gc);
+            TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
             timeObservers.add(timeView);
 
@@ -102,9 +104,9 @@ public class Window implements IObservable {
                 @Override
                 public void handle(long currentNanoTime) {
 
-                    if(restartScheduled) {
-                        System.out.println("restart");
-                        player.setHp(200);
+                    // Removes projectiles and resets the spaceships positions when the game is restarted
+                    // @Author Isak Almeros
+                    if (restartScheduled) {
 
                         List<AbstractMovable> toBeRemoved = new ArrayList<>();
 
@@ -118,7 +120,7 @@ public class Window implements IObservable {
 
                         gameObjects.get(0).setPosition(368,268);
 
-                        if (game.getSpaceships().size() > 1) {
+                        if (gameObjects.size() > 1) {
                             gameObjects.remove(1);
                             game.getSpaceships().remove(1);
                         }

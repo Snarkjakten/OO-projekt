@@ -22,24 +22,16 @@ public class TimeView implements TimeObserver {
 
     private void drawImage(int seconds){
         int s = seconds % 60;
-        int minute = seconds / 60;
-        int m = minute % 60;
-        int h = minute / 60;
+        int m = seconds / 60;
 
         if(m < 10 && s < 10) {
-            sb.replace(0, sb.capacity() - 1, "0" + m + ":" + "0" + s);
-        }
-
-        else if (m < 10 && s >= 10) {
-            sb.replace(0, sb.capacity() - 1, "0" + m + ":" + s);
-        }
-
-        else if (m >= 10 && s < 10) {
-            sb.replace(0, sb.capacity() - 1,  m + ":" + "0" + s);
-        }
-
-        else  {
-            sb.replace(0, sb.capacity() - 1,  m + ":" + s);
+            sb.replace(0, sb.capacity(), "0" + m + ":" + "0" + s + "hej");
+        } else if (m < 10 && s >= 10) {
+            sb.replace(0, sb.capacity(), "0" + m + ":" + s);
+        } else if (m >= 10 && s < 10) {
+            sb.replace(0, sb.capacity(),  m + ":" + "0" + s);
+        } else  {
+            sb.replace(0, sb.capacity(),  m + ":" + s);
         }
 
         gc.fillText(sb.toString(), 20, 590);
