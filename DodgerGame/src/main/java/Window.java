@@ -184,8 +184,8 @@ public class Window implements IObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                    int passedTime = calculatePassedTime();
-                    notifyTimeObeservers(passedTime);
+                    int elapsedTime = calculateElapsedTime();
+                    notifyTimeObeservers(elapsedTime);
                 }
             };
 
@@ -227,7 +227,7 @@ public class Window implements IObservable {
     }
 
     public void setPoints() {
-        player.setPoints(calculatePassedTime());
+        player.setPoints(calculateElapsedTime());
     }
 
     public void startAnimationTimer() {
@@ -239,8 +239,8 @@ public class Window implements IObservable {
         restartScheduled = true;
     }
 
-    // Calculates passed time in the game in seconds
-    public int calculatePassedTime(){
+    // Calculates elapsed time in the game in seconds
+    public int calculateElapsedTime(){
         long endNanoTime = System.nanoTime();
         return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
     }

@@ -25,7 +25,7 @@ public class TimeView implements TimeObserver {
         int m = seconds / 60;
 
         if(m < 10 && s < 10) {
-            sb.replace(0, sb.capacity(), "0" + m + ":" + "0" + s + "hej");
+            sb.replace(0, sb.capacity(), "0" + m + ":" + "0" + s);
         } else if (m < 10 && s >= 10) {
             sb.replace(0, sb.capacity(), "0" + m + ":" + s);
         } else if (m >= 10 && s < 10) {
