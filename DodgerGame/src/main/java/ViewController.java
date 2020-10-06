@@ -2,6 +2,7 @@ import View.CharacterMenu;
 import View.GameObjectGUI;
 import View.GameOverMenu;
 import View.MainMenu;
+import View.TimeView;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -47,6 +48,7 @@ public class ViewController {
                     stage.getScene().setOnKeyPressed(null);
                     stage.getScene().setOnKeyReleased(null);
 
+                    window.setPoints();
                     window.stopAnimationTimer();
                     int points = window.getPoints();
                     gameOverMenu.showScore(points);
@@ -116,6 +118,7 @@ public class ViewController {
             if (!name.equals("")) {
                 stage.getScene().setRoot(window.getRoot());
                 window.init(name);
+                window.startAnimationTimer();
             }
         });
 
@@ -126,6 +129,7 @@ public class ViewController {
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
             window.init(name);
+            window.startAnimationTimer();
             stage.getScene().setRoot(window.getRoot());
         });
 
