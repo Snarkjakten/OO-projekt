@@ -3,10 +3,7 @@ import Entities.Player.Player;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
-import View.BackgroundView;
-import View.GameObjectGUI;
-import View.HealthBar;
-import View.IObserver;
+import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -51,7 +48,8 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    private LaserBeam laserBeam = new LaserBeam(0.1);
+    LaserBeam laserBeam = new LaserBeam();
+
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -67,6 +65,7 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
+            LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -107,6 +106,7 @@ public class Window implements IObservable {
 
                     gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
                     laserBeam.move(deltaTime);
+                    laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
 
 
 
