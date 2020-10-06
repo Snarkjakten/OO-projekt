@@ -5,26 +5,20 @@ import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.*;
 import javafx.animation.AnimationTimer;
-import Entities.Projectiles.ProjectileFactory;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import View.BackgroundView;
 import View.GameObjectGUI;
 import View.HealthBar;
 import View.IObserver;
-import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
-import javafx.scene.paint.Color;
-import javafx.scene.text.Font;
-import javafx.scene.text.FontWeight;
 import javafx.stage.Stage;
 
 import java.io.InputStream;
 import java.util.ArrayList;
-import java.util.Iterator;
 import java.util.List;
 
 /*
@@ -61,7 +55,8 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    LaserBeam laserBeam = new LaserBeam(0.1);
+    LaserBeam laserBeam = new LaserBeam();
+
 
     private Boolean restartScheduled = false;
 
@@ -79,6 +74,7 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
+            LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -108,15 +104,15 @@ public class Window implements IObservable {
                     // @Author Isak Almeros
                     if (restartScheduled) {
 
-                        List<AbstractMovable> toBeRemoved = new ArrayList<>();
+                        List<AbstractMovable> removeProjectiles = new ArrayList<>();
 
                         for(AbstractMovable gameObject : gameObjects) {
                             if (gameObject instanceof Projectile) {
-                                toBeRemoved.add(gameObject);
+                                removeProjectiles.add(gameObject);
                             }
                         }
 
-                        gameObjects.removeAll(toBeRemoved);
+                        gameObjects.removeAll(removeProjectiles);
 
                         gameObjects.get(0).setPosition(368,268);
 
@@ -144,9 +140,8 @@ public class Window implements IObservable {
 
 
 
-
-                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
                     laserBeam.move(deltaTime);
+                    laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
 
 
 
