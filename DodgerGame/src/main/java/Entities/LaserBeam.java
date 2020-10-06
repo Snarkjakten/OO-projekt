@@ -12,11 +12,13 @@ public class LaserBeam extends AbstractMovable {
     private double horizontal;
     private double vertical;
     private boolean isVertical;
+    private int damage;
     private double screenHorizontalLength = 800; //TODO: Get this from model.
     private double screenVerticalLength = 600; // TODO: Get this from model.
 
     public LaserBeam() {
         this.speed = 100;
+        this.damage = 100;
         randomStartPoint();
     }
 
@@ -68,6 +70,10 @@ public class LaserBeam extends AbstractMovable {
     public void setStopPosition(double horizontal, double vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;
+    }
+
+    public int getDamage() {
+        return damage;
     }
 
     public double getHorizontal() {
