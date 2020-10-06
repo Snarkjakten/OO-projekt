@@ -48,7 +48,7 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    LaserBeam laserBeam = new LaserBeam();
+    private LaserBeam laserBeam = new LaserBeam();
 
 
     public Window(Stage stage) {
@@ -103,8 +103,6 @@ public class Window implements IObservable {
 
 
 
-
-                    gc.drawImage(laserBeam.getFrame(animationTime), laserBeam.position.getX(), laserBeam.position.getY());
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
 
