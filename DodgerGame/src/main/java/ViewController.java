@@ -118,7 +118,7 @@ public class ViewController {
             if (!name.equals("")) {
                 stage.getScene().setRoot(window.getRoot());
                 window.init(name);
-                window.startAnimationTimer(); // TODO: 2020-10-04 kanske ta bort
+                window.startAnimationTimer();
             }
         });
 

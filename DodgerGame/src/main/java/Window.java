@@ -55,7 +55,7 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    LaserBeam laserBeam = new LaserBeam();
+    private LaserBeam laserBeam = new LaserBeam();
 
 
     private Boolean restartScheduled = false;
