@@ -12,7 +12,7 @@ import java.io.InputStream;
  */
 
 public class GameObjectGUI implements IObserver {
-    GraphicsContext gc;
+    private GraphicsContext gc;
     private Image image;
     private final String spaceshipImageName;
 
