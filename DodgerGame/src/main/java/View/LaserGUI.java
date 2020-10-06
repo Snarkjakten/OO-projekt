@@ -9,7 +9,7 @@ import java.io.InputStream;
  * @Author Olle Westerlund
  */
 public class LaserGUI {
-    GraphicsContext gc;
+    private GraphicsContext gc;
     private Image[] frames;
     private boolean isVertical;
     private double duration;
@@ -136,7 +136,7 @@ public class LaserGUI {
         }
     }
 
-    private Image[] getImages() {
+    public Image[] getImages() {
         return frames;
     }
 
