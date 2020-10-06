@@ -40,7 +40,7 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     public void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
-        this.hitbox = new Rectangle2D(position.getX(), position.getY(), this.width, this.height);
+        this.hitbox = new Rectangle2D(position.getX(), position.getY(), this.width * .75, this.height * .75);
     }
 
     // Setter for self position

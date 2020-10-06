@@ -137,10 +137,12 @@ public class Window implements IObservable {
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                         for(AbstractMovable a : gameObjects){
                             if(collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()){
-                                gameObject.setCollided(true);
-                                a.setCollided(true);
-                                toBeRemoved.add(gameObject);
-                                toBeRemoved.add(a);
+                                if(a instanceof Spaceship || gameObject instanceof Spaceship) {
+                                    gameObject.setCollided(true);
+                                    a.setCollided(true);
+                                    toBeRemoved.add(gameObject);
+                                    toBeRemoved.add(a);
+                                }
                                 collisionHandler.collide(a, gameObject);
                             }
                         }
