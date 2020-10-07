@@ -12,10 +12,10 @@ public class Main extends Application {
     @Override
     public void start(Stage stage) throws Exception {
         Window window = new Window(stage);
-        MainMenu mainMenu = new MainMenu();
-        CharacterMenu characterMenu = new CharacterMenu();
-        PauseMenu pauseMenu = new PauseMenu();
-        GameOverMenu gameOverMenu = new GameOverMenu();
+        MainMenu mainMenu = MenuFactory.createMainMenu();
+        CharacterMenu characterMenu = MenuFactory.createCharacterMenu();
+        PauseMenu pauseMenu = MenuFactory.createPauseMenu();
+        GameOverMenu gameOverMenu = MenuFactory.createGameOverMenu();
         new ViewController(window, mainMenu, characterMenu, pauseMenu, gameOverMenu, stage);
         stage.setTitle("Space Dodger");
 
