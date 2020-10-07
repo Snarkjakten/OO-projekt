@@ -120,12 +120,8 @@ public class Window implements IObservable {
                     backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
                     healthBar.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
-
-
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
-
-
 
                     // update positions and notify observers
                     // @author Irja vuorela
@@ -133,7 +129,6 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
-
 
                     // projectile spawner
                     // @author Irja Vuorela
