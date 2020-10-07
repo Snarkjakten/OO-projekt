@@ -9,9 +9,11 @@ public class Player {
     public List<Spaceship> spaceships = new ArrayList<>();
     private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
     private int points;
+    private int nrOfShields;
 
     public void setHp(int hp) {
         this.hp.set(hp);
+        this.nrOfShields = 1;
     }
 
     public SimpleIntegerProperty getHp() {
@@ -28,5 +30,9 @@ public class Player {
 
     public List<Spaceship> getSpaceships() {
         return spaceships;
+    }
+
+    public int getNrOfShields() {
+        return nrOfShields;
     }
 }
