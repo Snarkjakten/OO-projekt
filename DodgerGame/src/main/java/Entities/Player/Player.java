@@ -6,14 +6,19 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    private List<Spaceship> spaceships = new ArrayList<>();
+    private List<Spaceship> spaceships;
     private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
     private int points;
     private int nrOfShields;
 
+    public Player() {
+        this.spaceships = new ArrayList<>();
+        this.nrOfShields = 1; //TODO: Set to 0 when collision is added. Just for show atm.
+        this.points = 0;
+    }
+
     public void setHp(int hp) {
         this.hp.set(hp);
-        this.nrOfShields = 1;
     }
 
     public SimpleIntegerProperty getHp() {
