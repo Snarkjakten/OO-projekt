@@ -28,9 +28,6 @@ public class KeyController {
                 case RIGHT:
                     spaceship.setRight(1);
                     break;
-                case ESCAPE:
-                    //pauseGame();
-                    break;
                 default:
                     break;
             }

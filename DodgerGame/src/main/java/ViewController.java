@@ -126,7 +126,9 @@ public class ViewController {
 
     private void pauseMenuButtonHandler() {
         pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
-
+            window.init(name);
+            window.startAnimationTimer();
+            stage.getScene().setRoot(window.getRoot());
         });
 
         pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
@@ -136,7 +138,8 @@ public class ViewController {
         });
 
         pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
-
+            window.stopAnimationTimer();
+            stage.getScene().setRoot(mainMenu.getRoot());
         });
 
         pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {

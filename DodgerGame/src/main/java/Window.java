@@ -4,7 +4,6 @@ import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.*;
-import javafx.animation.AnimationTimer;
 import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import View.BackgroundView;
@@ -21,8 +20,8 @@ import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
-/*
- * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+/**
+ * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
 public class Window implements IObservable {
@@ -45,7 +44,7 @@ public class Window implements IObservable {
     }
 
     private final Stage stage;
-    private AnimationTimer animationTimer;
+    private PausableAnimationTimer pausableAnimationTimer;
 
     private long startNanoTime;
     private List<IObserver> observers;
@@ -55,10 +54,7 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    private LaserBeam laserBeam = new LaserBeam();
-
-
-    private Boolean restartScheduled = false;
+    private final LaserBeam laserBeam = new LaserBeam();
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -74,7 +70,7 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
-            LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
+            LaserGUI laserGUI = new LaserGUI(gc, 0.1, laserBeam.isVertical());
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -90,23 +86,24 @@ public class Window implements IObservable {
             observers = new ArrayList<>();
             observers.add(gameObjectGUI);
 
-            animationTimer = new AnimationTimer() {
+            pausableAnimationTimer = new PausableAnimationTimer() {
                 final long currentNanoTime = System.nanoTime();
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
 
-                 long animationNanoTime = System.nanoTime();
+                final long animationNanoTime = System.nanoTime();
 
                 @Override
-                public void handle(long currentNanoTime) {
+                public void tick(long currentNanoTime) {
 
                     // Removes projectiles and resets the spaceships positions when the game is restarted
                     // @Author Isak Almeros
-                    if (restartScheduled) {
+                    //TODO Change this if case
+                    if (pausableAnimationTimer.isRestartScheduled()) {
 
                         List<AbstractMovable> removeProjectiles = new ArrayList<>();
 
-                        for(AbstractMovable gameObject : gameObjects) {
+                        for (AbstractMovable gameObject : gameObjects) {
                             if (gameObject instanceof Projectile) {
                                 removeProjectiles.add(gameObject);
                             }
@@ -114,14 +111,12 @@ public class Window implements IObservable {
 
                         gameObjects.removeAll(removeProjectiles);
 
-                        gameObjects.get(0).setPosition(368,268);
+                        gameObjects.get(0).setPosition(368, 268);
 
                         if (gameObjects.size() > 1) {
                             gameObjects.remove(1);
                             game.getSpaceships().remove(1);
                         }
-
-                        restartScheduled = false;
                     }
 
                     // Calculate time since last update
@@ -139,10 +134,8 @@ public class Window implements IObservable {
                     gc.drawImage(hpBorder, 0, 0, 200, 40);
 
 
-
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
-
 
 
                     // update positions and notify observers
@@ -226,16 +219,19 @@ public class Window implements IObservable {
     }
 
     public void startAnimationTimer() {
-        animationTimer.start();
+        pausableAnimationTimer.start();
     }
 
     public void stopAnimationTimer() {
-        animationTimer.stop();
-        restartScheduled = true;
+        pausableAnimationTimer.stop();
+    }
+
+    public void pauseAnimationTimer() {
+        pausableAnimationTimer.pause();
     }
 
     // Calculates elapsed time in the game in seconds
-    public int calculateElapsedTime(){
+    public int calculateElapsedTime() {
         long endNanoTime = System.nanoTime();
         return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
     }
