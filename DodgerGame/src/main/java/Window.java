@@ -115,8 +115,6 @@ public class Window implements IObservable {
                     double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
-                    // todo: move drawImage from game loop to a view with observer
-
                     backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
                     healthBar.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
