@@ -29,12 +29,6 @@ public class Window implements IObservable {
     //Creates Pane
     private final Pane root = new Pane();
     private final Game game = Game.getInstance();
-
-    HealthBar healthBar = new HealthBar();
-    Image hpBackground = healthBar.addBackgroundToHpBar();
-    Image hpForeground = healthBar.addForegroundToHpBar();
-    Image hpBorder = healthBar.addBorderToHpBar();
-
     private final Stage stage;
     private AnimationTimer animationTimer;
 
@@ -46,7 +40,6 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
 
     private LaserBeam laserBeam = new LaserBeam();
-
 
     private Boolean restartScheduled = false;
 
@@ -66,6 +59,7 @@ public class Window implements IObservable {
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
             LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
             BackgroundView backgroundView = new BackgroundView(gc);
+            HealthBar healthBar = new HealthBar(gc);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -123,10 +117,8 @@ public class Window implements IObservable {
 
                     // todo: move drawImage from game loop to a view with observer
 
-                    backgroundView.drawBackground(0, 0, 600, 800,0);
-                    gc.drawImage(hpBackground, 0, 0, 200, 40);
-                    gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().doubleValue(), 40);
-                    gc.drawImage(hpBorder, 0, 0, 200, 40);
+                    backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
+                    healthBar.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
 
 

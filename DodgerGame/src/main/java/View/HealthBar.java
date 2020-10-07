@@ -1,5 +1,6 @@
 package View;
 
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 
@@ -9,29 +10,44 @@ import java.io.InputStream;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class HealthBar extends Pane {
+public class HealthBar {
+    private GraphicsContext gc;
+    private Image background;
+    private Image foreground;
+    private Image border;
 
-    public Image background;
-    public Image foreground;
-    public Image border;
-    //Rectangle hpBackground;
-    //Rectangle hpBar;
+    public HealthBar(GraphicsContext gc) {
+        this.gc = gc;
+        initImages();
+    }
 
-    public Image addBackgroundToHpBar() {
+    private void initImages() {
+        this.background = addBackgroundToHpBar();
+        this.foreground = addForegroundToHpBar();
+        this.border = addBorderToHpBar();
+    }
+
+    private Image addBackgroundToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBackground.png");
         background = new Image(inputStream);
         return background;
     }
 
-    public Image addForegroundToHpBar() {
+    private Image addForegroundToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpForeground.png");
         foreground = new Image(inputStream);
         return foreground;
     }
 
-    public Image addBorderToHpBar() {
+    private Image addBorderToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBorder.png");
         border = new Image(inputStream);
         return border;
+    }
+
+    public void drawHealthBar(double remainingHp) {
+        gc.drawImage(background, 0, 0, 200, 40);
+        gc.drawImage(foreground, 0, 0, remainingHp, 40);
+        gc.drawImage(border, 0, 0, 200, 40);
     }
 }
