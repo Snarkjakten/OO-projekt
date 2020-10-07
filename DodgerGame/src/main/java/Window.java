@@ -56,6 +56,7 @@ public class Window implements IObservable {
     private List<BackgroundView> backgrounds;
 
     private LaserBeam laserBeam = new LaserBeam();
+    private double animationDuration = 0.1;
 
 
     private Boolean restartScheduled = false;
@@ -74,8 +75,8 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
-            LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
-            PowerUpGUI powerUpGUI = new PowerUpGUI(gc, 0.1);
+            LaserGUI laserGUI = new LaserGUI(gc,animationDuration, laserBeam.isVertical());
+            PowerUpGUI powerUpGUI = new PowerUpGUI(gc, animationDuration);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();

@@ -6,7 +6,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 public class LaserGUI {
     private GraphicsContext gc;
@@ -27,7 +27,7 @@ public class LaserGUI {
     }
 
     /**
-     * @Author Olle Westerlund
+     * @author Olle Westerlund
      * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
@@ -38,7 +38,7 @@ public class LaserGUI {
     }
 
     /**
-     * @Author Olle Westerlund
+     * @author Olle Westerlund
      * Loops through the array and sets an image on every position.
      */
     private void initImages() {
@@ -48,7 +48,7 @@ public class LaserGUI {
     }
 
     /**
-     * @Author Olle Westerlund
+     * @author Olle Westerlund
      * Sets the corresponding image depending on isHorizontal and the number passed to the method.
      * @param number Which picture number the animation needs.
      * @return The correct image and size of the image.
