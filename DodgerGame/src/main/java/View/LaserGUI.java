@@ -56,87 +56,17 @@ public class LaserGUI {
     private Image setImage(int number) {
         InputStream inputStream;
         Image image;
-        switch (number) {
-            case 0:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser01H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 1:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser02H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 2:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser03H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 3:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser04H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 4:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser05H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 5:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser06H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 6:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser07H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            case 7:
-                if (isVertical) {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08V.png");
-                    image = new Image(inputStream, 256, 700, false, false);
-                } else {
-                    inputStream = getClass().getClassLoader().getResourceAsStream("LaserBeam/laser08H.png");
-                    image = new Image(inputStream, 900, 256, false, false);
-                }
-                return image;
-            default:
-                System.out.println("Failed to set image to laser");
-                return null;
+        String url;
+        int imageNumber = number + 1;
+        if (isVertical) {
+            url = "LaserBeam/laser0" + imageNumber + "V.png";
+            inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            image = new Image(inputStream, 256, 700, false, false);
+        } else {
+            url = "LaserBeam/laser0" + imageNumber + "H.png";
+            inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            image = new Image(inputStream, 900, 256, false, false);
         }
+        return image;
     }
-
-    public Image[] getImages() {
-        return frames;
-    }
-
 }
