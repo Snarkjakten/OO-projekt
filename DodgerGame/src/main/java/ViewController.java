@@ -130,7 +130,9 @@ public class ViewController {
         });
 
         pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
-
+            window.init(name);
+            window.startAnimationTimer();
+            stage.getScene().setRoot(window.getRoot());
         });
 
         pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
@@ -138,7 +140,7 @@ public class ViewController {
         });
 
         pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {
-
+            closeProgram();
         });
     }
 
