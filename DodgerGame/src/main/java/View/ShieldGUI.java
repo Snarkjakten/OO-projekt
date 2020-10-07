@@ -10,12 +10,12 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class PowerUpGUI {
+public class ShieldGUI {
     private GraphicsContext gc;
     private Image[] frames;
     private double duration;
 
-    public PowerUpGUI(GraphicsContext gc, double duration) {
+    public ShieldGUI(GraphicsContext gc, double duration) {
         this.gc = gc;
         this.duration = duration;
         this.frames = new Image[20];
