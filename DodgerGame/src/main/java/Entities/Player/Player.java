@@ -6,7 +6,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class Player {
-    public List<Spaceship> spaceships = new ArrayList<>();
+    private List<Spaceship> spaceships = new ArrayList<>();
     private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
     private int points;
     private int nrOfShields;
