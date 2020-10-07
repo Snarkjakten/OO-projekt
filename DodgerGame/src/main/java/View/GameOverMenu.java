@@ -21,10 +21,8 @@ public class GameOverMenu extends AbstractMenu {
 
     public GameOverMenu() throws IOException {
         // Creates a title to the page.
-        Font theFont = Font.font("Arial", FontWeight.BOLD, 80);
-        getGc().setFont(theFont);
-        getGc().fillText("GAME OVER", 150, 100);
-        getGc().strokeText("GAME OVER", 150, 100);
+        getGc().fillText("GAME OVER", 95, 100);
+        getGc().strokeText("GAME OVER", 95, 100);
 
         ButtonMenu buttonMenu = new ButtonMenu(20);
 
