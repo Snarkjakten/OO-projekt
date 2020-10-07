@@ -1,40 +1,32 @@
 package View;
 
-import javafx.scene.Parent;
-import javafx.scene.layout.VBox;
-
 
 import java.io.IOException;
 
-
+// @Author Tobias Engblom
 public class PauseMenu extends AbstractMenu {
-    private MenuButton resumeGameBtn;
-    private MenuButton restartGameBtn;
-    private MenuButton mainMenuBtn;
-    private MenuButton quitGameBtn;
+    private final MenuButton resumeGameBtn;
+    private final MenuButton restartGameBtn;
+    private final MenuButton mainMenuBtn;
+    private final MenuButton quitGameBtn;
 
     public PauseMenu() throws IOException {
         getGc().fillText("Characters", 160, 100);
         getGc().strokeText("Characters", 160, 100);
 
-        ButtonMenu buttonMenu = new ButtonMenu();
+        ButtonMenu buttonMenu = new ButtonMenu(20);
+
+        buttonMenu.getvBox().setTranslateX(200);
+        buttonMenu.getvBox().setTranslateY(300);
+
+        resumeGameBtn = new MenuButton("RESUME");
+        restartGameBtn = new MenuButton("RESTART");
+        mainMenuBtn = new MenuButton("MAIN MENU");
+        quitGameBtn = new MenuButton("QUIT");
+
+        buttonMenu.getvBox().getChildren().addAll(resumeGameBtn, restartGameBtn, mainMenuBtn, quitGameBtn);
+
         getRoot().getChildren().addAll(getTitle(), buttonMenu);
-    }
-
-    private class ButtonMenu extends Parent {
-        public ButtonMenu() {
-            VBox pauseMenu = new VBox(20);
-
-            pauseMenu.setTranslateX(200);
-            pauseMenu.setTranslateY(300);
-
-            resumeGameBtn = new MenuButton("RESUME");
-            restartGameBtn = new MenuButton("RESTART");
-            mainMenuBtn = new MenuButton("MAIN MENU");
-            quitGameBtn = new MenuButton("QUIT");
-
-            getChildren().addAll(pauseMenu);
-        }
     }
 
     public MenuButton getResumeGameBtn() {

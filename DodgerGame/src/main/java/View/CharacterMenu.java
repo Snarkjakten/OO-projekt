@@ -1,60 +1,53 @@
 package View;
 
-import javafx.scene.Parent;
+
 import javafx.scene.image.Image;
-import javafx.scene.layout.HBox;
-import javafx.scene.layout.VBox;
+
 
 import java.io.IOException;
 import java.io.InputStream;
 
+// @Author Tobias Engblom
 public class CharacterMenu extends AbstractMenu {
 
-    private MenuButton spaceshipLighterBtn;
-    private MenuButton spaceshipTurtleBtn;
-    private MenuButton spaceshipThorBtn;
-    private MenuButton spaceshipUfoBtn;
-    private MenuButton startBtn;
-    private MenuButton returnBtn;
+    private final MenuButton spaceshipLighterBtn;
+    private final MenuButton spaceshipTurtleBtn;
+    private final MenuButton spaceshipThorBtn;
+    private final MenuButton spaceshipUfoBtn;
+    private final MenuButton startBtn;
+    private final MenuButton returnBtn;
 
     public CharacterMenu() throws IOException {
         // Creates a title to the Character page.
         getGc().fillText("Characters", 160, 100);
         getGc().strokeText("Characters", 160, 100);
 
-        ButtonMenu buttonMenu = new ButtonMenu();
+        ButtonMenu buttonMenu = new ButtonMenu(20);
+
+        buttonMenu.gethBox().setTranslateX(165);
+        buttonMenu.gethBox().setTranslateY(200);
+
+        buttonMenu.getvBox().setTranslateX(270);
+        buttonMenu.getvBox().setTranslateY(340);
+
+        spaceshipLighterBtn = new MenuButton(generateImage("lighter.gif"));
+        spaceshipTurtleBtn = new MenuButton(generateImage("turtle.png"));
+        spaceshipThorBtn = new MenuButton(generateImage("thor.gif"));
+        spaceshipUfoBtn = new MenuButton(generateImage("ufo.gif"));
+
+        startBtn = new MenuButton("START");
+        returnBtn = new MenuButton("BACK");
+
+        buttonMenu.gethBox().getChildren().addAll(spaceshipLighterBtn, spaceshipTurtleBtn, spaceshipThorBtn, spaceshipUfoBtn);
+        buttonMenu.getvBox().getChildren().addAll(startBtn, returnBtn);
+
         getRoot().getChildren().addAll(getTitle(), buttonMenu);
     }
 
-    private class ButtonMenu extends Parent {
-        public ButtonMenu() {
-            HBox characters = new HBox(20);
-            VBox startMenu = new VBox(20);
-
-            characters.setTranslateX(165);
-            characters.setTranslateY(200);
-
-            startMenu.setTranslateX(270);
-            startMenu.setTranslateY(340);
-
-            spaceshipLighterBtn = new MenuButton(generateImage("lighter.gif"));
-            spaceshipTurtleBtn = new MenuButton(generateImage("turtle.png"));
-            spaceshipThorBtn = new MenuButton(generateImage("thor.gif"));
-            spaceshipUfoBtn = new MenuButton(generateImage("ufo.gif"));
-
-            startBtn = new MenuButton("START");
-            returnBtn = new MenuButton("BACK");
-
-            characters.getChildren().addAll(spaceshipLighterBtn, spaceshipTurtleBtn, spaceshipThorBtn, spaceshipUfoBtn);
-            startMenu.getChildren().addAll(startBtn, returnBtn);
-            getChildren().addAll(characters, startMenu);
-        }
-
-        private Image generateImage(String name) {
-            InputStream inputStream = getClass().getClassLoader().getResourceAsStream(name);
-            assert inputStream != null;
-            return new Image(inputStream);
-        }
+    private Image generateImage(String name) {
+        InputStream inputStream = getClass().getClassLoader().getResourceAsStream(name);
+        assert inputStream != null;
+        return new Image(inputStream);
     }
 
     public MenuButton getSpaceshipLighterBtn() {

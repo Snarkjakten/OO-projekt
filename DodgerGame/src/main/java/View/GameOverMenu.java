@@ -1,8 +1,6 @@
 package View;
 
 
-import javafx.scene.Parent;
-import javafx.scene.layout.*;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -16,8 +14,8 @@ import java.io.IOException;
 
 public class GameOverMenu extends AbstractMenu {
 
-    private MenuButton mainMenuBtn;
-    private MenuButton tryAgainBtn;
+    private final MenuButton mainMenuBtn;
+    private final MenuButton tryAgainBtn;
     private final StringBuilder sb;
     private final Text score;
 
@@ -28,8 +26,17 @@ public class GameOverMenu extends AbstractMenu {
         getGc().fillText("GAME OVER", 150, 100);
         getGc().strokeText("GAME OVER", 150, 100);
 
+        ButtonMenu buttonMenu = new ButtonMenu(20);
+
+        buttonMenu.getvBox().setTranslateX(270);
+        buttonMenu.getvBox().setTranslateY(250);
+
+        tryAgainBtn = new MenuButton("TRY AGAIN");
+        mainMenuBtn = new MenuButton("MAIN MENU");
+
+        buttonMenu.getvBox().getChildren().addAll(tryAgainBtn, mainMenuBtn);
+
         sb = new StringBuilder("Score: ");
-        ButtonMenu buttonMenu = new ButtonMenu();
 
         // Presents the score
         score = new Text();
@@ -42,22 +49,6 @@ public class GameOverMenu extends AbstractMenu {
         score.setTranslateY(200);
 
         getRoot().getChildren().addAll(getTitle(), score, buttonMenu);
-    }
-
-    // Menu that contains the buttons on the screen
-    private class ButtonMenu extends Parent {
-        public ButtonMenu() {
-            VBox menu = new VBox(20);
-
-            menu.setTranslateX(270);
-            menu.setTranslateY(250);
-
-            tryAgainBtn = new MenuButton("TRY AGAIN");
-            mainMenuBtn = new MenuButton("MAIN MENU");
-
-            menu.getChildren().addAll(tryAgainBtn, mainMenuBtn);
-            getChildren().addAll(menu);
-        }
     }
 
     public MenuButton getMainMenuBtn() {
