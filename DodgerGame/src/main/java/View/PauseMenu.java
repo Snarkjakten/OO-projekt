@@ -3,7 +3,9 @@ package View;
 
 import java.io.IOException;
 
-// @Author Tobias Engblom
+/**
+ * @author Tobias Engblom
+ */
 public class PauseMenu extends AbstractMenu {
     private final MenuButton resumeGameBtn;
     private final MenuButton restartGameBtn;

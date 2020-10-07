@@ -5,6 +5,9 @@ import javafx.beans.property.SimpleIntegerProperty;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * @author Tobias Engblom
+ */
 public class Player {
     public List<Spaceship> spaceships = new ArrayList<>();
     private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);

@@ -1,7 +1,6 @@
 package Entities.Player;
 
 import Movement.AbstractMovable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player

@@ -4,7 +4,9 @@ import javafx.scene.Parent;
 import javafx.scene.layout.HBox;
 import javafx.scene.layout.VBox;
 
-// @Author Tobias Engblom
+/**
+ * @author Tobias Engblom
+ */
 public class ButtonMenu extends Parent {
     private final HBox hBox;
     private final VBox vBox;

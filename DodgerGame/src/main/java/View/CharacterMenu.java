@@ -7,7 +7,9 @@ import javafx.scene.image.Image;
 import java.io.IOException;
 import java.io.InputStream;
 
-// @Author Tobias Engblom
+/**
+ * @author Tobias Engblom
+ */
 public class CharacterMenu extends AbstractMenu {
 
     private final MenuButton spaceshipLighterBtn;
