@@ -17,7 +17,6 @@ import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -30,19 +29,11 @@ public class Window implements IObservable {
     //Creates Pane
     private final Pane root = new Pane();
     private final Game game = Game.getInstance();
-    //Gets image from resources
-    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    private final Image windowBackground;
 
     HealthBar healthBar = new HealthBar();
     Image hpBackground = healthBar.addBackgroundToHpBar();
     Image hpForeground = healthBar.addForegroundToHpBar();
     Image hpBorder = healthBar.addBorderToHpBar();
-
-    {
-        assert inputStream != null;
-        windowBackground = new Image(inputStream);
-    }
 
     private final Stage stage;
     private AnimationTimer animationTimer;
@@ -53,7 +44,6 @@ public class Window implements IObservable {
 
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
-    private List<BackgroundView> backgrounds;
 
     private LaserBeam laserBeam = new LaserBeam();
 
@@ -75,6 +65,7 @@ public class Window implements IObservable {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
             LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
+            BackgroundView backgroundView = new BackgroundView(gc);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -131,9 +122,8 @@ public class Window implements IObservable {
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     // todo: move drawImage from game loop to a view with observer
-                    gc.drawImage(windowBackground, 0, 0, 800, 600);
 
-
+                    backgroundView.drawBackground(0, 0, 600, 800,0);
                     gc.drawImage(hpBackground, 0, 0, 200, 40);
                     gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().doubleValue(), 40);
                     gc.drawImage(hpBorder, 0, 0, 200, 40);
