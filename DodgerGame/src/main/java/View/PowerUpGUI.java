@@ -8,24 +8,41 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 public class PowerUpGUI {
-    GraphicsContext gc;
-    Image image;
+    private GraphicsContext gc;
+    private Image[] frames;
+    private double duration;
 
-    public PowerUpGUI(GraphicsContext gc) {
+    public PowerUpGUI(GraphicsContext gc, double duration) {
         this.gc = gc;
+        this.duration = duration;
+        this.frames = new Image[20];
+        initImages();
+
     }
 
-    private Image setImage() {
+    private void initImages() {
+        for (int i = 0; i < frames.length; i++) {
+            frames[i] = setImage(i);
+        }
+    }
+
+    private Image setImage(int number) {
         InputStream inputStream;
-        inputStream = getClass().getClassLoader().getResourceAsStream("shield.png");
-        assert inputStream != null;
+        Image image;
+        String url = "shield/shield" + number + ".png";
+        inputStream = getClass().getClassLoader().getResourceAsStream(url);
         image = new Image(inputStream);
         return image;
     }
 
-    public void drawImage(Player player) {
+    private Image getFrame(double time) {
+        int index = (int) ((time % (frames.length * duration)) / duration);
+        return frames[index];
+    }
+
+    public void drawImage(Player player, double animationTime) {
         if (player.getNrOfShields() > 0) {
-            Image image = setImage();
+            Image image = getFrame(animationTime);
             for (Spaceship ship : player.getSpaceships()) {
                 double xPos = ship.position.getX() - 7;
                 double yPos = ship.position.getY() - 7;

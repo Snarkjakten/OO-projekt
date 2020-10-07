@@ -42,7 +42,7 @@ public class LaserGUI {
      * Loops through the array and sets an image on every position.
      */
     private void initImages() {
-        for (int i = 0; i < 8; i++) {
+        for (int i = 0; i < frames.length; i++) {
             frames[i] = setImage(i);
         }
     }

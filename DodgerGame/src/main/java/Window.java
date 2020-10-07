@@ -75,7 +75,7 @@ public class Window implements IObservable {
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
             LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
-            PowerUpGUI powerUpGUI = new PowerUpGUI(gc);
+            PowerUpGUI powerUpGUI = new PowerUpGUI(gc, 0.1);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -152,7 +152,7 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
-                    powerUpGUI.drawImage(player);
+                    powerUpGUI.drawImage(player, animationTime);
 
 
                     // projectile spawner
