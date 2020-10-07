@@ -1,8 +1,4 @@
-import View.CharacterMenu;
-import View.GameObjectGUI;
-import View.GameOverMenu;
-import View.MainMenu;
-import View.TimeView;
+import View.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -20,14 +16,16 @@ public class ViewController {
     private final Window window;
     private final MainMenu mainMenu;
     private final CharacterMenu characterMenu;
+    private final PauseMenu pauseMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private String name;
 
-    public ViewController(Window window, MainMenu mainMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
+    public ViewController(Window window, MainMenu mainMenu, CharacterMenu characterMenu, PauseMenu pauseMenu, GameOverMenu gameOverMenu, Stage stage) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.characterMenu = characterMenu;
+        this.pauseMenu = pauseMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
         this.name = "";
@@ -36,6 +34,7 @@ public class ViewController {
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
+        pauseMenuButtonHandler();
         gameOverButtonHandler();
 
         // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
@@ -123,6 +122,24 @@ public class ViewController {
         });
 
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
+    }
+
+    private void pauseMenuButtonHandler() {
+        pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
+
+        });
+
+        pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
+
+        });
+
+        pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
+
+        });
+
+        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {
+
+        });
     }
 
     // Handles button clicks in the game over menu
