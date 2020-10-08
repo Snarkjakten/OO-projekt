@@ -2,6 +2,7 @@ package Entities.Player;
 
 import Entities.Projectiles.*;
 import Movement.AbstractMovable;
+import View.SoundHandler;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player
@@ -75,6 +76,8 @@ public class Spaceship extends AbstractMovable {
     public void actOnCollision(AbstractMovable c, Player player){
         if (c instanceof Asteroid) {
             Asteroid asteroid = (Asteroid) c;
+            SoundHandler s = new SoundHandler();
+            s.soundFx("src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav");
             if(player.getNrOfShields() < 1) {
                 player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
             } else {

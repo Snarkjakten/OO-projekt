@@ -27,7 +27,7 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.show();
 
-        String backgroundMusicPath = "src/main/resources/277325__shadydave__time-break.wav";
+        String backgroundMusicPath = "src/main/resources/277325__shadydave__time-break (1).wav";
         SoundHandler soundHandler = new SoundHandler();
         soundHandler.soundPlayer(backgroundMusicPath);
     }
