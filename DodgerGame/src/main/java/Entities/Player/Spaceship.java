@@ -72,11 +72,13 @@ public class Spaceship extends AbstractMovable {
      * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      * @param c
      */
+
+    SoundHandler s = new SoundHandler();
+
     @Override
     public void actOnCollision(AbstractMovable c, Player player){
         if (c instanceof Asteroid) {
             Asteroid asteroid = (Asteroid) c;
-            SoundHandler s = new SoundHandler();
             s.soundFx("src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav");
             if(player.getNrOfShields() < 1) {
                 player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
@@ -85,9 +87,11 @@ public class Spaceship extends AbstractMovable {
             }
         }
         if (c instanceof ShieldPowerUp && player.getNrOfShields() == 0) {
+            s.soundFx("src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav");
             player.setNrOfShields(1);
         }
         if (c instanceof HealthPowerUp) {
+            s.soundFx("src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav");
             if (player.getHp().greaterThanOrEqualTo(150).getValue()) {
                 player.setHp(200);
             } else {
