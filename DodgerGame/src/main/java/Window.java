@@ -54,7 +54,9 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
     private List<BackgroundView> backgrounds;
 
-    private final LaserBeam laserBeam = new LaserBeam();
+
+    private LaserBeam laserBeam = new LaserBeam();
+    private double animationDuration = 0.1;
 
     public Window(Stage stage) {
         this.stage = stage;
@@ -70,7 +72,9 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
-            LaserGUI laserGUI = new LaserGUI(gc, 0.1, laserBeam.isVertical());
+
+            LaserGUI laserGUI = new LaserGUI(gc, animationDuration, laserBeam.isVertical());
+            ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -144,6 +148,7 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
+                    shieldGUI.drawImage(player, animationTime);
 
 
                     // projectile spawner
