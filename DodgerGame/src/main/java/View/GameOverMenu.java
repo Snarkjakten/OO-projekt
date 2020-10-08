@@ -53,7 +53,7 @@ public class GameOverMenu {
         score.setFont(theFont2);
         score.setFill(Color.GRAY);
         score.setStroke(Color.WHITE);
-        score.setTranslateX(290);
+        score.setTranslateX(310);
         score.setTranslateY(200);
 
         // Adds a background to the screen.
