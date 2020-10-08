@@ -13,7 +13,6 @@ import View.HealthBar;
 import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
@@ -105,7 +104,6 @@ public class Window implements IObservable {
                             gameObjects.remove(1);
                             game.getSpaceships().remove(1);
                         }
-
                         restartScheduled = false;
                     }
 
