@@ -4,25 +4,34 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
-//TODO: Fix so this class draws the background
+import java.util.ArrayList;
+
+/**
+ * @author Olle Westerlund
+ */
 public class BackgroundView {
-    GraphicsContext gc;
-    Image image;
+    private GraphicsContext gc;
+    private ArrayList<Image> backgroundImages;
 
     public BackgroundView(GraphicsContext gc) {
         this.gc = gc;
+        this.backgroundImages = new ArrayList<>();
+        initImages();
     }
 
-    private Image addImageToBackground() {
+    private void initImages() {
+        backgroundImages.add(addBackgroundImage());
+    }
+
+    private Image addBackgroundImage() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-        image = new Image(inputStream);
+        Image image = new Image(inputStream);
         return image;
     }
 
-    private void drawBackground(double x, double y, double height, double width) {
-        Image image = addImageToBackground();
+    public void drawBackground(double x, double y, double height, double width, int backgroundNr) {
+        Image image = backgroundImages.get(backgroundNr);
         gc.drawImage(image, x, y, width, height);
-        System.out.println("Bg addImage");
     }
 
 }
