@@ -1,0 +1,38 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 8 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Gå igenom pull requests.
+
+
+## Reports (15 min) from previous meeting
+
+- Viktor har påbörjat en soundHandler klass med logik för bakgrundsmusik
+- Olle har fixat sköldanimation och flyttat ut viewdelarna från game loopen.
+- Tobias har skapat en pausningsbar animationTimer och en abstrakt klass för menyerna, skapat en menu factory och en buttonMeny klass
+- Isak har gjort en debuff som åker runt på skärmen.
+- Irja har researchat filhantering inför sparande av high scores.
+
+## Discussion items (35 min)
+
+- Cirkelberoendet mellan player och spaceship i kollisionshanteringen
+
+## Outcomes and assignments (5 min)
+
+- Mergat två pull requests.
+- Kommit fram till en lösning till kollisionshanteringen genom att vi går runt cirkelberoendet med observers
+- Isak ska fortsätta med debuff.
+- Irja ska fortsätta med high score.
+- Olle, Tobias och Viktor ska fixa kollisionshanteringen.
+- Tobias ska flytta game loop till main.
+- Viktor ska fortsätta med ljudet.
+- Olle ska ge olika funktionalitet till skeppen man kan välja.
+
+## Wrap up
+Nästa möte måndag 12 oktober kl. 09.00
