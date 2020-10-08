@@ -15,7 +15,7 @@ public class Player {
 
     public Player() {
         this.spaceships = new ArrayList<>();
-        this.nrOfShields = 0; 
+        this.nrOfShields = 0;
         this.points = 0;
     }
 
