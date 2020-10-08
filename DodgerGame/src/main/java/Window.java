@@ -7,12 +7,6 @@ import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.*;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
-import View.BackgroundView;
-import View.GameObjectGUI;
-import View.HealthBarGUI;
-import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -155,7 +149,7 @@ public class Window implements IObservable {
                                     toBeRemoved.add(gameObject);
                                     toBeRemoved.add(a);
                                 }
-                                collisionHandler.collide(a, gameObject);
+                                collisionHandler.collide(a, gameObject, player);
                             }
                         }
                     }

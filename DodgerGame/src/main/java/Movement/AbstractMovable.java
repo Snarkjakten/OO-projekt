@@ -1,5 +1,6 @@
 package Movement;
 
+import Entities.Player.Player;
 import Entities.Projectiles.ICollidable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -72,7 +73,7 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    public void actOnCollision(Class c){
+    public void actOnCollision(AbstractMovable c, Player player){
         //gameObjects.remove(this);
     }
     //-------------------------------------------------------

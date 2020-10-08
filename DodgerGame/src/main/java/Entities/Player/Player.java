@@ -7,23 +7,23 @@ import java.util.List;
 
 public class Player {
 
-    public List<Spaceship> spaceships;
-    private static final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
+    private List<Spaceship> spaceships;
+    private final SimpleIntegerProperty hp = new SimpleIntegerProperty(200);
 
     private int points;
     private int nrOfShields;
 
     public Player() {
         this.spaceships = new ArrayList<>();
-        this.nrOfShields = 1; //TODO: Set to 0 when collision is added. Just for show atm.
+        this.nrOfShields = 0; 
         this.points = 0;
     }
 
-    public static void setHp(int hp) {
-        Player.hp.set(hp);
+    public void setHp(int hp) {
+        this.hp.set(hp);
     }
 
-    public static SimpleIntegerProperty getHp() {
+    public SimpleIntegerProperty getHp() {
         return hp;
     }
 
@@ -42,4 +42,6 @@ public class Player {
     public int getNrOfShields() {
         return nrOfShields;
     }
+
+    public void setNrOfShields(int shields) { this.nrOfShields = shields; }
 }

@@ -1,9 +1,6 @@
 package Entities.Player;
 
-import Entities.Projectiles.HealthPowerUp;
-import Entities.Projectiles.MediumAsteroid;
-import Entities.Projectiles.ShieldPowerUp;
-import Entities.Projectiles.SmallAsteroid;
+import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.geometry.Point2D;
 
@@ -15,7 +12,6 @@ public class Spaceship extends AbstractMovable {
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     public int right = 0; // moving right increases horizontal axis value
-    private static int currentShield = 0;
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
@@ -69,18 +65,6 @@ public class Spaceship extends AbstractMovable {
         this.right = spaceship.right;
     }
 
-    /**
-     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
-     * @param shield
-     */
-
-    public static void setCurrentShield(int shield) {
-        currentShield = shield;
-    }
-
-    public static int getCurrentShield() {
-        return currentShield;
-    }
 
     /**
      * Acts upon the collision based on instance of projectile
@@ -88,29 +72,23 @@ public class Spaceship extends AbstractMovable {
      * @param c
      */
     @Override
-    public void actOnCollision(Class c){
-        if (c.equals(SmallAsteroid.class)) {
-            if(currentShield < 1) {
-                Player.setHp(Player.getHp().subtract(SmallAsteroid.getDamage()).getValue());
+    public void actOnCollision(AbstractMovable c, Player player){
+        if (c instanceof Asteroid) {
+            Asteroid asteroid = (Asteroid) c;
+            if(player.getNrOfShields() < 1) {
+                player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
             } else {
-                setCurrentShield(0);
+                player.setNrOfShields(0);
             }
         }
-        if (c.equals(MediumAsteroid.class)) {
-            if(currentShield < 1) {
-                Player.setHp(Player.getHp().subtract(MediumAsteroid.getDamage()).getValue());
-            } else {
-                setCurrentShield(0);
-            }
+        if (c instanceof ShieldPowerUp && player.getNrOfShields() == 0) {
+            player.setNrOfShields(1);
         }
-        if (c.equals(ShieldPowerUp.class) && currentShield < 1) {
-            setCurrentShield(1);
-        }
-        if (c.equals(HealthPowerUp.class)) {
-            if (Player.getHp().greaterThanOrEqualTo(150).getValue()) {
-                Player.setHp(200);
+        if (c instanceof HealthPowerUp) {
+            if (player.getHp().greaterThanOrEqualTo(150).getValue()) {
+                player.setHp(200);
             } else {
-                Player.setHp(Player.getHp().getValue() + 50);
+                player.setHp(player.getHp().getValue() + 50);
             }
         }
         this.setCollided(false);
