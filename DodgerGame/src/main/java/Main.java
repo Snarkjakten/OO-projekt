@@ -1,7 +1,7 @@
 import View.CharacterMenu;
-import View.GameObjectGUI;
 import View.GameOverMenu;
 import View.MainMenu;
+import View.SoundHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -26,6 +26,10 @@ public class Main extends Application {
         //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();
+
+        String backgroundMusicPath = "src/main/resources/277325__shadydave__time-break.wav";
+        SoundHandler soundHandler = new SoundHandler();
+        soundHandler.soundPlayer(backgroundMusicPath);
     }
 
     public static void main(String[] args) {
