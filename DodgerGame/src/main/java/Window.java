@@ -204,13 +204,6 @@ public class Window implements IObservable {
                     keyController::handleKeyReleased
             );
 
-            // TODO: 2020-09-26 replace onMouseClicked with collision
-            /*stage.getScene().setOnMouseClicked(event -> {
-                SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-                NumberBinding subtraction = player.getHp().subtract(damage);
-                player.setHp(subtraction.intValue());
-            });*/
-
         } catch (Exception e) {
             e.printStackTrace();
         }
