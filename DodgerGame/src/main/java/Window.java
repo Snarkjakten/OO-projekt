@@ -8,15 +8,13 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import View.BackgroundView;
 import View.GameObjectGUI;
-import View.HealthBar;
+import View.HealthBarGUI;
 import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -29,20 +27,6 @@ public class Window implements IObservable {
     //Creates Pane
     private final Pane root = new Pane();
     private final Game game = Game.getInstance();
-    //Gets image from resources
-    private final InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
-    private final Image windowBackground;
-
-    HealthBar healthBar = new HealthBar();
-    Image hpBackground = healthBar.addBackgroundToHpBar();
-    Image hpForeground = healthBar.addForegroundToHpBar();
-    Image hpBorder = healthBar.addBorderToHpBar();
-
-    {
-        assert inputStream != null;
-        windowBackground = new Image(inputStream);
-    }
-
     private final Stage stage;
     protected PausableAnimationTimer pausableAnimationTimer;
 
@@ -52,7 +36,6 @@ public class Window implements IObservable {
 
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
-    private List<BackgroundView> backgrounds;
 
 
     private LaserBeam laserBeam = new LaserBeam();
@@ -75,6 +58,8 @@ public class Window implements IObservable {
 
             LaserGUI laserGUI = new LaserGUI(gc, animationDuration, laserBeam.isVertical());
             ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
+            BackgroundView backgroundView = new BackgroundView(gc);
+            HealthBarGUI healthBarGUI = new HealthBarGUI(gc);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -129,18 +114,12 @@ public class Window implements IObservable {
                     double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
-                    // todo: move drawImage from game loop to a view with observer
-                    gc.drawImage(windowBackground, 0, 0, 800, 600);
 
-
-                    gc.drawImage(hpBackground, 0, 0, 200, 40);
-                    gc.drawImage(hpForeground, 0, 0, game.getPlayer().getHp().doubleValue(), 40);
-                    gc.drawImage(hpBorder, 0, 0, 200, 40);
-
+                    backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
+                    healthBarGUI.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
-
 
                     // update positions and notify observers
                     // @author Irja vuorela
@@ -149,7 +128,6 @@ public class Window implements IObservable {
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
                     shieldGUI.drawImage(player, animationTime);
-
 
                     // projectile spawner
                     // @author Irja Vuorela
