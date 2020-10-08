@@ -9,15 +9,13 @@ import javafx.beans.binding.NumberBinding;
 import javafx.beans.property.SimpleIntegerProperty;
 import View.BackgroundView;
 import View.GameObjectGUI;
-import View.HealthBar;
+import View.HealthBarGUI;
 import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
-import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
-import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -61,6 +59,8 @@ public class Window implements IObservable {
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
             LaserGUI laserGUI = new LaserGUI(gc,animationDuration, laserBeam.isVertical());
             ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
+            BackgroundView backgroundView = new BackgroundView(gc);
+            HealthBarGUI healthBarGUI = new HealthBarGUI(gc);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -117,7 +117,7 @@ public class Window implements IObservable {
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
-                    healthBar.drawHealthBar(game.getPlayer().getHp().doubleValue());
+                    healthBarGUI.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());

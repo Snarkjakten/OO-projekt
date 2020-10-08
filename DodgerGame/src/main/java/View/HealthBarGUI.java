@@ -2,7 +2,6 @@ package View;
 
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 
 import java.io.InputStream;
 
@@ -10,13 +9,13 @@ import java.io.InputStream;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class HealthBar {
+public class HealthBarGUI {
     private GraphicsContext gc;
     private Image background;
     private Image foreground;
     private Image border;
 
-    public HealthBar(GraphicsContext gc) {
+    public HealthBarGUI(GraphicsContext gc) {
         this.gc = gc;
         initImages();
     }
