@@ -13,9 +13,11 @@ import View.HealthBar;
 import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
+import javafx.scene.image.Image;
 import javafx.scene.layout.Pane;
 import javafx.stage.Stage;
 
+import java.io.InputStream;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -39,6 +41,7 @@ public class Window implements IObservable {
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
 
     private LaserBeam laserBeam = new LaserBeam();
+    private double animationDuration = 0.1;
 
     private Boolean restartScheduled = false;
 
@@ -56,9 +59,8 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
-            LaserGUI laserGUI = new LaserGUI(gc,0.1, laserBeam.isVertical());
-            BackgroundView backgroundView = new BackgroundView(gc);
-            HealthBar healthBar = new HealthBar(gc);
+            LaserGUI laserGUI = new LaserGUI(gc,animationDuration, laserBeam.isVertical());
+            ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
 
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
@@ -104,6 +106,7 @@ public class Window implements IObservable {
                             gameObjects.remove(1);
                             game.getSpaceships().remove(1);
                         }
+
                         restartScheduled = false;
                     }
 
@@ -125,6 +128,7 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
+                    shieldGUI.drawImage(player, animationTime);
 
                     // projectile spawner
                     // @author Irja Vuorela

@@ -30,7 +30,7 @@ public class Game {
     //@Author Tobias Engblom
     private void initSpaceships() {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
-        player.spaceships.add(newSpaceship);
+        player.getSpaceships().add(newSpaceship);
         gameObjects.add(newSpaceship);
     }
 
@@ -51,15 +51,15 @@ public class Game {
 
     //@Author Tobias Engblom
     protected void wrapAround() {
-        Spaceship spaceship = player.spaceships.get(0);
-        if (player.spaceships.size() == 1) {
+        Spaceship spaceship = player.getSpaceships().get(0);
+        if (player.getSpaceships().size() == 1) {
             checkWrapAround(spaceship);
-        } else if (player.spaceships.size() == 2) {
-            checkWrapAround(spaceship, player.spaceships.get(1));
+        } else if (player.getSpaceships().size() == 2) {
+            checkWrapAround(spaceship, player.getSpaceships().get(1));
         }
-        for (Spaceship spaceship2 : player.spaceships) {
+        for (Spaceship spaceship2 : player.getSpaceships()) {
             if (checkInactive(spaceship2)) {
-                player.spaceships.remove(spaceship2);
+                player.getSpaceships().remove(spaceship2);
                 gameObjects.remove(spaceship2);
                 break;
             }
@@ -68,7 +68,7 @@ public class Game {
 
     //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship) {
-        player.spaceships.add(spaceship);
+        player.getSpaceships().add(spaceship);
         gameObjects.add(spaceship);
     }
 
