@@ -14,6 +14,8 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
     boolean collided = false;
 
+    //Currently unused
+    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
     public void setHitbox(double x, double y, double width, double height){
         this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
     }
@@ -21,6 +23,8 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     public Rectangle2D getHitbox(){
         return hitbox;
     }
+
+    //------------------------------------------------------
 
     // Position (x, y)
     public Point2D position = new Point2D(0, 0);
@@ -57,6 +61,7 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
         return width;
     }
 
+    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
     @Override
     public boolean getCollided() {
         return this.collided;
@@ -70,4 +75,5 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     public void actOnCollision(Class c){
         //gameObjects.remove(this);
     }
+    //-------------------------------------------------------
 }
