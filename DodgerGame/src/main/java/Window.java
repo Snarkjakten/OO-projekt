@@ -1,5 +1,6 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
+import Entities.Projectiles.Debuff;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
@@ -164,6 +165,7 @@ public class Window implements IObservable {
                         gameObjects.add(ProjectileFactory.createMediumAsteroid());
                         gameObjects.add(ProjectileFactory.createHealthPowerUp());
                         gameObjects.add(ProjectileFactory.createShieldPowerUp());
+                        gameObjects.add(ProjectileFactory.createDebuff());
                     }
 
                     // remove offscreen projectiles
@@ -182,6 +184,7 @@ public class Window implements IObservable {
                     int elapsedTime = calculateElapsedTime();
                     notifyTimeObeservers(elapsedTime);
                 }
+
             };
 
             // Handle key pressed
