@@ -44,7 +44,7 @@ public class Window implements IObservable {
     }
 
     private final Stage stage;
-    private PausableAnimationTimer pausableAnimationTimer;
+    protected PausableAnimationTimer pausableAnimationTimer;
 
     private long startNanoTime;
     private List<IObserver> observers;

@@ -74,6 +74,7 @@ public class ViewController {
 
         // when closing window in the upper left corner
         stage.setOnCloseRequest(event -> {
+            window.pauseAnimationTimer();
             event.consume();
             closeProgram();
         });
@@ -175,6 +176,10 @@ public class ViewController {
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
             System.exit(0);
+        } else {
+            if (window.pausableAnimationTimer.isActive()) {
+                window.pausableAnimationTimer.play();
+            }
         }
     }
 }
