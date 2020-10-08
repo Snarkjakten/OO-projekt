@@ -1,17 +1,12 @@
 import Entities.LaserBeam;
 import Entities.Player.Player;
-import Entities.Projectiles.Debuff;
+import Entities.Player.Spaceship;
+import Entities.Projectiles.CollisionHandler;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.*;
 import javafx.animation.AnimationTimer;
-import javafx.beans.binding.NumberBinding;
-import javafx.beans.property.SimpleIntegerProperty;
-import View.BackgroundView;
-import View.GameObjectGUI;
-import View.HealthBarGUI;
-import View.IObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -92,7 +87,9 @@ public class Window implements IObservable {
                     if (restartScheduled) {
 
                         List<AbstractMovable> removeProjectiles = new ArrayList<>();
+                        List<AbstractMovable> removeSpaceships = new ArrayList<>();
 
+                        // Removes projectiles
                         for(AbstractMovable gameObject : gameObjects) {
                             if (gameObject instanceof Projectile) {
                                 removeProjectiles.add(gameObject);
@@ -101,12 +98,21 @@ public class Window implements IObservable {
 
                         gameObjects.removeAll(removeProjectiles);
 
-                        gameObjects.get(0).setPosition(368,268);
-
-                        if (gameObjects.size() > 1) {
-                            gameObjects.remove(1);
-                            game.getSpaceships().remove(1);
+                        // Removes wraparaound spaceships
+                        for(int i = 1; i < gameObjects.size(); i++) {
+                            removeSpaceships.add(gameObjects.get(i));
                         }
+
+                        gameObjects.removeAll(removeSpaceships);
+                        game.getSpaceships().removeAll(removeSpaceships);
+
+                        // Resets spaceships positions
+                        game.getSpaceships().get(0).setPosition(368, 268);
+
+                        game.getSpaceships().get(0).setDown(0);
+                        game.getSpaceships().get(0).setUp(0);
+                        game.getSpaceships().get(0).setLeft(0);
+                        game.getSpaceships().get(0).setRight(0);
 
                         restartScheduled = false;
                     }
@@ -129,7 +135,51 @@ public class Window implements IObservable {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
+
+                    /**
+                     * Creates lists to store objects to be removed
+                     * Sets boolean collided to true for reading single impact
+                     * Calls collide method on items collided
+                     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+                     */
+
+                    List<AbstractMovable> toBeRemoved;
+                    toBeRemoved = new ArrayList<>();
+                    List<AbstractMovable> nonSpaceshipsToBeRemoved;
+                    nonSpaceshipsToBeRemoved = new ArrayList<>();
+
+                    CollisionHandler collisionHandler = new CollisionHandler();
+
+                    for (AbstractMovable gameObject : gameObjects) {
+                        notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
+                        for(AbstractMovable a : gameObjects){
+                            if(collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()){
+                                if(a instanceof Spaceship || gameObject instanceof Spaceship) {
+                                    gameObject.setCollided(true);
+                                    a.setCollided(true);
+                                    toBeRemoved.add(gameObject);
+                                    toBeRemoved.add(a);
+                                }
+                                collisionHandler.collide(a, gameObject, player);
+                            }
+                        }
+                    }
+
+                    for(AbstractMovable a : toBeRemoved){
+                        if(!(a instanceof Spaceship)){
+                            nonSpaceshipsToBeRemoved.add(a);
+                        }
+                    }
+
+                    if (nonSpaceshipsToBeRemoved.size() != 0) {
+                        gameObjects.removeAll(nonSpaceshipsToBeRemoved);
+                        toBeRemoved.clear();
+                    }
+
+                    //End of collision handling -----------------------------------
+
                     shieldGUI.drawImage(player, animationTime);
+
 
                     // projectile spawner
                     // @author Irja Vuorela
@@ -175,13 +225,6 @@ public class Window implements IObservable {
             stage.getScene().setOnKeyReleased(
                     keyController::handleKeyReleased
             );
-
-            // TODO: 2020-09-26 replace onMouseClicked with collision
-            stage.getScene().setOnMouseClicked(event -> {
-                SimpleIntegerProperty damage = new SimpleIntegerProperty(100);
-                NumberBinding subtraction = player.getHp().subtract(damage);
-                player.setHp(subtraction.intValue());
-            });
 
         } catch (Exception e) {
             e.printStackTrace();

@@ -1,7 +1,7 @@
 package Entities.Player;
 
+import Entities.Projectiles.*;
 import Movement.AbstractMovable;
-import javafx.beans.property.SimpleIntegerProperty;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player
@@ -63,5 +63,34 @@ public class Spaceship extends AbstractMovable {
         this.down = spaceship.down;
         this.left = spaceship.left;
         this.right = spaceship.right;
+    }
+
+
+    /**
+     * Acts upon the collision based on instance of projectile
+     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * @param c
+     */
+    @Override
+    public void actOnCollision(AbstractMovable c, Player player){
+        if (c instanceof Asteroid) {
+            Asteroid asteroid = (Asteroid) c;
+            if(player.getNrOfShields() < 1) {
+                player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
+            } else {
+                player.setNrOfShields(0);
+            }
+        }
+        if (c instanceof ShieldPowerUp && player.getNrOfShields() == 0) {
+            player.setNrOfShields(1);
+        }
+        if (c instanceof HealthPowerUp) {
+            if (player.getHp().greaterThanOrEqualTo(150).getValue()) {
+                player.setHp(200);
+            } else {
+                player.setHp(player.getHp().getValue() + 50);
+            }
+        }
+        this.setCollided(false);
     }
 }

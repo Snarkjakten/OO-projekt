@@ -1,14 +1,31 @@
 package Movement;
 
+import Entities.Player.Player;
+import Entities.Projectiles.ICollidable;
 import javafx.geometry.Point2D;
+import javafx.geometry.Rectangle2D;
 
 /**
  * @Author Irja Vuorela
  */
 
-public abstract class AbstractMovable implements IMovable {
+public abstract class AbstractMovable implements IMovable, ICollidable {
     protected double height;
     protected double width;
+    protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
+    boolean collided = false;
+
+    //Currently unused
+    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
+    public void setHitbox(double x, double y, double width, double height){
+        this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
+    }
+
+    public Rectangle2D getHitbox(){
+        return hitbox;
+    }
+
+    //------------------------------------------------------
 
     // Position (x, y)
     public Point2D position = new Point2D(0, 0);
@@ -28,6 +45,7 @@ public abstract class AbstractMovable implements IMovable {
     public void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
+        this.hitbox = new Rectangle2D(position.getX(), position.getY(), this.width * .75, this.height * .75);
     }
 
     // Setter for self position
@@ -43,4 +61,20 @@ public abstract class AbstractMovable implements IMovable {
     public double getWidth() {
         return width;
     }
+
+    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
+    @Override
+    public boolean getCollided() {
+        return this.collided;
+    }
+
+    @Override
+    public void setCollided(boolean b) {
+        this.collided = b;
+    }
+
+    public void actOnCollision(AbstractMovable c, Player player){
+        //gameObjects.remove(this);
+    }
+    //-------------------------------------------------------
 }
