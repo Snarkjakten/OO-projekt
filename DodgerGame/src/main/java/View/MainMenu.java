@@ -4,7 +4,7 @@ package View;
 import java.io.IOException;
 
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 public class MainMenu extends AbstractMenu {
 

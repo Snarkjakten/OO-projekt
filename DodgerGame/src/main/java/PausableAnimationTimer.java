@@ -6,7 +6,7 @@ public abstract class PausableAnimationTimer extends AnimationTimer {
 
     private long pauseStart;
     private long animationStart;
-    private DoubleProperty animationDuration = new SimpleDoubleProperty(0L);
+    private final DoubleProperty animationDuration = new SimpleDoubleProperty(0L);
 
     private boolean isPaused;
     private boolean isActive;
