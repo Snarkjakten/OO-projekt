@@ -64,6 +64,7 @@ public class ProjectileTest {
     @Test
     //@Author Olle Westerlund
     public void testAsteroidDamage() {
+        System.out.println(projSmallAsteroid.getDamage());
         assertTrue(projSmallAsteroid.getDamage() == 20);
         assertTrue(projMediumAsteroid.getDamage() == 35);
     }
