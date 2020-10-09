@@ -97,6 +97,7 @@ public class Window implements IObservable {
                         gameObjects.removeAll(removeProjectiles);
 
                         gameObjects.get(0).setPosition(368,268);
+                        game.getSpaceships().get(0).resetDirection();
 
                         if (gameObjects.size() > 1) {
                             gameObjects.remove(1);

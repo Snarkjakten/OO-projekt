@@ -102,6 +102,13 @@ public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
         this.setCollided(false);
     }
 
+    public void resetDirection() {
+        this.up = 0;
+        this.down = 0;
+        this.left = 0;
+        this.right = 0;
+    }
+
     @Override
     public void notifyObserver(String event, int amount) {
         for (IObserve obs : observers) {
