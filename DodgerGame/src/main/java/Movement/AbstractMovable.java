@@ -73,7 +73,7 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    public void actOnCollision(AbstractMovable c, Player player){
+    public void actOnCollision(AbstractMovable c){
         //gameObjects.remove(this);
     }
     //-------------------------------------------------------

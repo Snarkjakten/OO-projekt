@@ -15,9 +15,9 @@ public class CollisionHandler {
         return g.getHitbox().intersects(a.getHitbox()) && a != g;
     }
 
-    public void collide(AbstractMovable g, AbstractMovable a, Player player) {
-        g.actOnCollision(a, player);
-        a.actOnCollision(g, player);
+    public void collide(AbstractMovable g, AbstractMovable a) {
+        g.actOnCollision(a);
+        a.actOnCollision(g);
 
 
     }

@@ -149,7 +149,7 @@ public class Window implements IObservable {
                                     toBeRemoved.add(gameObject);
                                     toBeRemoved.add(a);
                                 }
-                                collisionHandler.collide(a, gameObject, player);
+                                collisionHandler.collide(a, gameObject);
                             }
                         }
                     }

@@ -5,19 +5,24 @@ import Movement.AbstractMovable;
 import View.SoundHandler;
 import javafx.geometry.Point2D;
 
+import java.util.ArrayList;
+import java.util.List;
+
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractMovable {
+public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
 
     // Movement directions
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
+    private List<IObserve> observers;
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
         this.width = 64;
         this.height = 64;
+        this.observers = new ArrayList<>();
     }
 
     // Move self to a new position
@@ -69,6 +74,7 @@ public class Spaceship extends AbstractMovable {
 
     /**
      * Acts upon the collision based on instance of projectile
+     *
      * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      * @param c
      */
@@ -76,28 +82,40 @@ public class Spaceship extends AbstractMovable {
     SoundHandler s = new SoundHandler();
 
     @Override
-    public void actOnCollision(AbstractMovable c, Player player){
+    public void actOnCollision(AbstractMovable c) {
+        int amount = 0;
+        String event = "";
         if (c instanceof Asteroid) {
-            Asteroid asteroid = (Asteroid) c;
             s.soundFx("src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav");
-            if(player.getNrOfShields() < 1) {
-                player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
-            } else {
-                player.looseShield();
-            }
-        }
-        if (c instanceof ShieldPowerUp) {
+            amount = ((Asteroid) c).getDamage();
+            event = "asteroid";
+        } else if (c instanceof ShieldPowerUp) {
             s.soundFx("src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav");
-            player.gainShield();
-        }
-        if (c instanceof HealthPowerUp) {
+            event = "shield";
+            amount = 1;
+        } else if (c instanceof HealthPowerUp) {
             s.soundFx("src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav");
-            if (player.getHp().greaterThanOrEqualTo(150).getValue()) {
-                player.setHp(200);
-            } else {
-                player.setHp(player.getHp().getValue() + 50);
-            }
+            amount = ((HealthPowerUp) c).gainHealth(200);
+            event = "health";
         }
+        notifyObserver(event, amount);
         this.setCollided(false);
+    }
+
+    @Override
+    public void notifyObserver(String event, int amount) {
+        for (IObserve obs : observers) {
+            obs.actOnEvent(event, amount);
+        }
+    }
+
+    @Override
+    public void addObserver(IObserve obs) {
+        this.observers.add(obs);
+    }
+
+    @Override
+    public void removeObserver(IObserve obs) {
+        this.observers.remove(obs);
     }
 }
