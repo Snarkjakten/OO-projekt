@@ -43,5 +43,15 @@ public class Player {
         return nrOfShields;
     }
 
-    public void setNrOfShields(int shields) { this.nrOfShields = shields; }
+    public void gainShield() {
+        this.nrOfShields += 1;
+    }
+
+    public void looseShield() {
+        if (this.nrOfShields > 0) {
+            this.nrOfShields -= 1;
+        } else {
+            this.nrOfShields = 0;
+        }
+    }
 }

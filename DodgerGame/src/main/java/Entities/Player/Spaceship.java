@@ -12,7 +12,7 @@ public class Spaceship extends AbstractMovable {
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
-    public int right = 0; // moving right increases horizontal axis value
+    private int right = 0; // moving right increases horizontal axis value
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
@@ -83,12 +83,12 @@ public class Spaceship extends AbstractMovable {
             if(player.getNrOfShields() < 1) {
                 player.setHp(player.getHp().subtract(asteroid.getDamage()).getValue());
             } else {
-                player.setNrOfShields(0);
+                player.looseShield();
             }
         }
-        if (c instanceof ShieldPowerUp && player.getNrOfShields() == 0) {
+        if (c instanceof ShieldPowerUp) {
             s.soundFx("src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav");
-            player.setNrOfShields(1);
+            player.gainShield();
         }
         if (c instanceof HealthPowerUp) {
             s.soundFx("src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav");
