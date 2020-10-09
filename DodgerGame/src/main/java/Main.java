@@ -24,6 +24,13 @@ public class Main extends Application {
         //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();
+
+        PausableAnimationTimer pausableAnimationTimer = new PausableAnimationTimer() {
+            @Override
+            public void tick(long currentNanoTime) {
+
+            }
+        };
     }
 
     public static void main(String[] args) {
