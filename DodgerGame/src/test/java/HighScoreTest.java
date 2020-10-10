@@ -37,7 +37,6 @@ public class HighScoreTest {
      */
     @Test
     public void scoreAdded() {
-        int score = 1;
         highScoreHandler.handleScore(20);
         assertTrue(highScoreHandler.getScoresFromFile(fileName).get(0) == 20);
     }
