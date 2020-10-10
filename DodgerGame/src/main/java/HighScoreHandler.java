@@ -1,0 +1,171 @@
+/**
+ * @author Irja Vuorela
+ * <p>
+ * HighScore adds the player's score in a text file if it's among the top scores in that file.
+ */
+
+import java.io.*;
+import java.util.ArrayList;
+import java.util.Scanner;
+
+/**
+ * Handles score keeping
+ */
+
+public class HighScoreHandler {
+
+    String fileName = "HighScores.txt";
+    ArrayList<Integer> topScores = new ArrayList<>();
+    int nrOfTopScores = 10; // Defined number of top scores
+
+    /**
+     * Saves a player's score in a text file with the best times.
+     *
+     * @param score is the player's score
+     */
+    void handleScore(int score) {
+        createFile(fileName);
+        topScores = getScoresFromFile(fileName);
+        addToTopScores(score, topScores, nrOfTopScores);
+        writeToFile(topScores, fileName);
+    }
+
+    /**
+     * Create a file if it doesn't already exist.
+     *
+     * @author Irja Vuorela
+     */
+    void createFile(String fileName) {
+        try {
+            File file = new File(fileName);
+            if (file.createNewFile()) {
+                System.out.println("Created " + file.getName());
+            }
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * Create a list where each line in the file is an element (each score in the file).
+     *
+     * @param fileName name of the text file.
+     * @return list of top scores.
+     * @author Irja Vuorela
+     */
+    ArrayList<Integer> getScoresFromFile(String fileName) {
+        ArrayList<Integer> scores = new ArrayList<>();
+        try {
+            File file = new File(fileName);
+            Scanner input = new Scanner(file);
+
+            while (input.hasNextLine()) {
+                scores.add(Integer.parseInt(input.nextLine()));
+            }
+        } catch (FileNotFoundException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+        return scores;
+    }
+
+    /**
+     * Write a list of scores to a text file with each score on a new line.
+     *
+     * @param scores   list of scores
+     * @param fileName name of the file
+     * @author Irja Vuorela
+     */
+    void writeToFile(ArrayList<Integer> scores, String fileName) {
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(this.fileName));
+            for (Integer score : scores) {
+                writer.write(score.toString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
+        }
+    }
+
+    /**
+     * @param score     The player's score.
+     * @param topScores List of top scores.
+     * @return true if score is a top score.
+     * @author Irja Vuorela
+     */
+    boolean isTopScore(int score, ArrayList<Integer> topScores) {
+
+        // True if the list isn't filled yet.
+        if (topScores.size() < nrOfTopScores) {
+            return true;
+        }
+        // True if score is better than the worst top score
+        else if (topScores.get(nrOfTopScores - 1) < score) {
+            return true;
+        } else return false;
+    }
+
+    /**
+     * Checks if top score, inserts it in the correct position among the top scores and trims the list if needed.
+     *
+     * @param score         the player's score.
+     * @param topScores     the best scores.
+     * @param nrOfTopScores
+     * @author Irja Vuorela
+     */
+    void addToTopScores(int score, ArrayList<Integer> topScores, int nrOfTopScores) {
+        if (isTopScore(score, topScores)) {
+            insertSorted(score, topScores);
+            trimScoresList(topScores, nrOfTopScores);
+        }
+    }
+
+    /**
+     * Inserts the score in the correct position among sorted scores.
+     *
+     * @param score  the player's score
+     * @param scores the top scores (assumed sorted highest first).
+     * @author Irja Vuorela
+     */
+    void insertSorted(int score, ArrayList<Integer> scores) {
+        if (!scores.isEmpty()) {
+            for (int i = 0; i < scores.size(); i++) {
+                if (scores.get(i) > score) {
+                    continue;
+                }
+                int temp = scores.get(i);
+                scores.set(i, score);
+                score = temp;
+            }
+        }
+        scores.add(score);
+    }
+
+    /**
+     * Remove excess scores from list of top scores.
+     *
+     * @param scores        list of top scores
+     * @param nrOfTopScores
+     * @Irja Vuorela
+     */
+    void trimScoresList(ArrayList scores, int nrOfTopScores) {
+        if (nrOfTopScores > 1) {
+            while (scores.size() > nrOfTopScores) {
+                scores.remove(scores.size() - 1);
+            }
+        }
+    }
+
+    /**
+     * @return the number of top scores for the list of top scores.
+     * @author Irja vuorela
+     */
+    int getNrOfTopScores() {
+        return this.nrOfTopScores;
+    }
+}

@@ -67,7 +67,7 @@ public class ViewController {
 
         // TODO: 2020-09-27 go to highscore menu
         mainMenu.getHighscoreBtn().setOnMouseClicked(event -> {
-            // stage.getScene().setRoot(gameOverMenu.getRoot());
+           //  stage.getScene().setRoot(gameOverMenu.getRoot());
         });
 
         // When clicking on "QUIT"
