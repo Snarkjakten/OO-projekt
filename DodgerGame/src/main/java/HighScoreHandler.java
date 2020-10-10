@@ -71,24 +71,17 @@ public class HighScoreHandler {
     }
 
     /**
-     * Write a list of scores to a text file with each score on a new line.
+     * Checks if top score, inserts it in the correct position among the top scores and trims the list if needed.
      *
-     * @param scores   list of scores
-     * @param fileName name of the file
+     * @param score         the player's score.
+     * @param topScores     the best scores.
+     * @param nrOfTopScores
      * @author Irja Vuorela
      */
-    void writeToFile(ArrayList<Integer> scores, String fileName) {
-        BufferedWriter writer;
-        try {
-            writer = new BufferedWriter(new FileWriter(this.fileName));
-            for (Integer score : scores) {
-                writer.write(score.toString());
-                writer.newLine();
-            }
-            writer.close();
-        } catch (IOException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+    void addToTopScores(int score, ArrayList<Integer> topScores, int nrOfTopScores) {
+        if (isTopScore(score, topScores)) {
+            insertSorted(score, topScores);
+            trimScoresList(topScores, nrOfTopScores);
         }
     }
 
@@ -108,21 +101,6 @@ public class HighScoreHandler {
         else if (topScores.get(nrOfTopScores - 1) < score) {
             return true;
         } else return false;
-    }
-
-    /**
-     * Checks if top score, inserts it in the correct position among the top scores and trims the list if needed.
-     *
-     * @param score         the player's score.
-     * @param topScores     the best scores.
-     * @param nrOfTopScores
-     * @author Irja Vuorela
-     */
-    void addToTopScores(int score, ArrayList<Integer> topScores, int nrOfTopScores) {
-        if (isTopScore(score, topScores)) {
-            insertSorted(score, topScores);
-            trimScoresList(topScores, nrOfTopScores);
-        }
     }
 
     /**
@@ -158,6 +136,28 @@ public class HighScoreHandler {
             while (scores.size() > nrOfTopScores) {
                 scores.remove(scores.size() - 1);
             }
+        }
+    }
+
+    /**
+     * Write a list of scores to a text file with each score on a new line.
+     *
+     * @param scores   list of scores
+     * @param fileName name of the file
+     * @author Irja Vuorela
+     */
+    void writeToFile(ArrayList<Integer> scores, String fileName) {
+        BufferedWriter writer;
+        try {
+            writer = new BufferedWriter(new FileWriter(this.fileName));
+            for (Integer score : scores) {
+                writer.write(score.toString());
+                writer.newLine();
+            }
+            writer.close();
+        } catch (IOException e) {
+            System.out.println("An error occurred.");
+            e.printStackTrace();
         }
     }
 
