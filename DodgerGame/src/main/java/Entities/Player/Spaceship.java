@@ -11,6 +11,11 @@ import java.util.List;
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
 
+    //Filepaths for soundFX files
+    String asteroidSound = "src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav";
+    String shieldSound = "src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav";
+    String healthSound = "src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav";
+
     // Movement directions
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
@@ -86,15 +91,15 @@ public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
         int amount = 0;
         String event = "";
         if (c instanceof Asteroid) {
-            s.soundFx("src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav");
+            s.soundFx(asteroidSound, 0.1);
             amount = ((Asteroid) c).getDamage();
             event = "asteroid";
         } else if (c instanceof ShieldPowerUp) {
-            s.soundFx("src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav");
+            s.soundFx(shieldSound, 0.1);
             event = "shield";
             amount = 1;
         } else if (c instanceof HealthPowerUp) {
-            s.soundFx("src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav");
+            s.soundFx(healthSound, 0.1);
             amount = ((HealthPowerUp) c).gainHealth(200);
             event = "health";
         }

@@ -29,7 +29,7 @@ public class Main extends Application {
 
         String backgroundMusicPath = "src/main/resources/277325__shadydave__time-break (1).wav";
         SoundHandler soundHandler = new SoundHandler();
-        soundHandler.soundPlayer(backgroundMusicPath);
+        soundHandler.soundPlayer(backgroundMusicPath, 0.25);
     }
 
     public static void main(String[] args) {
