@@ -90,8 +90,6 @@ public class Game {
             addSpaceship(newSpaceship, otherSpaceship);
             newSpaceship.addObserver(player);
             otherSpaceship.addObserver(player);
-            newSpaceship.addObserver(player);
-            otherSpaceship.addObserver(player);
         } else if (checkNorthPosition(spaceship) && checkNorthPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
             otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), 600);
