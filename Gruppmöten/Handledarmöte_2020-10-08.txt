@@ -1,0 +1,27 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 8 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Frågor kring kollisionshanteringen
+- Storlek på projektet.
+
+
+## Discussion items (35 min)
+
+- Cirkelberoendet mellan player och spaceship i kollisionshanteringen.
+- Domämmodell, designmodell, storlek på projektet.
+
+## Outcomes and assignments (5 min)
+
+- Prioritera user stories som utökar domänmodellen för nästa sprint.
+- Rätta till bilder till modellerna i RAD och SDD.
+
+## Wrap up
+Nästa gruppmöte måndag 12 oktober kl. 09.00
+Nästa handledarmöte torsdag 15 oktober kl. 15.00
