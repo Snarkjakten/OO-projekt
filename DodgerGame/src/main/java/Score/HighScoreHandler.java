@@ -66,7 +66,6 @@ public class HighScoreHandler {
                 scores.add(Integer.parseInt(input.nextLine()));
             }
         } catch (FileNotFoundException e) {
-            System.out.println(fileName + " does not exist");
             List<Integer> emptyList = new ArrayList<>();
             return emptyList;
         }
