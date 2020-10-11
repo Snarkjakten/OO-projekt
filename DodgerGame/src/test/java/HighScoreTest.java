@@ -42,7 +42,7 @@ public class HighScoreTest {
     }
 
     /**
-     * Tests if the scores text file doesn't exceed the defined number of top scores.
+     * Tests that the scores text file doesn't exceed the defined number of top scores.
      *
      * @author Irja Vuorela
      */
@@ -85,8 +85,6 @@ public class HighScoreTest {
         sortedList.add(31);
         sortedList.add(20);
         sortedList.add(3);
-        System.out.println("sortedlist: " + sortedList);
-        System.out.println("topscores: " + topScores);
         assertTrue(sortedList.equals(topScores));
     }
 }
