@@ -26,7 +26,6 @@ public class HighScoreHandler {
      */
     public void handleScore(int score) {
         createFile(fileName);
-        System.out.println(new File(fileName).getAbsolutePath());
         topScores = getScoresFromFile(fileName);
         addToTopScores(score, topScores, nrOfTopScores);
         writeToFile(topScores, fileName);
@@ -41,7 +40,9 @@ public class HighScoreHandler {
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
-                System.out.println("Created " + file.getName());
+                System.out.println("Created " + file.getName() + " at:");
+                System.out.println(file.getAbsolutePath());
+
             }
         } catch (IOException e) {
             System.out.println("An error occurred.");
@@ -65,9 +66,9 @@ public class HighScoreHandler {
 
             while (input.hasNextLine()) {
                 scores.add(Integer.parseInt(input.nextLine()));
+
             }
         } catch (FileNotFoundException e) {
-            System.out.println("file not found");
             List<Integer> emptyList = new ArrayList<>();
             return emptyList;
         }
