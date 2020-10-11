@@ -13,8 +13,6 @@ import java.util.ArrayList;
 
 public class HighScoreHandlerTest {
     HighScoreHandler highScoreHandler = new HighScoreHandler();
-    ArrayList<Integer> topScores = new ArrayList<>();
-    ArrayList<Integer> emptyList = new ArrayList<>();
     String fileName = "HighScores.txt";
     int nrOfTopScores = highScoreHandler.getNrOfTopScores();
 
@@ -25,9 +23,7 @@ public class HighScoreHandlerTest {
      */
     @Before
     public void init() {
-        highScoreHandler.createFile(fileName);
-        highScoreHandler.writeToFile(emptyList, fileName);
-        topScores = emptyList;
+        highScoreHandler.clearScores(fileName);
     }
 
     /**
@@ -55,23 +51,23 @@ public class HighScoreHandlerTest {
     }
 
     /**
-     * Tests if the list is still sorted after using insertSorted().
+     * Tests if the list is still sorted correctly.
      *
      * @author Irja Vuorela
      */
     @Test
-    public void insertSortedTest() {
-        highScoreHandler.insertSorted(1, topScores);
-        highScoreHandler.insertSorted(2, topScores);
-        highScoreHandler.insertSorted(0, topScores);
-        highScoreHandler.insertSorted(1, topScores);
-        highScoreHandler.insertSorted(11, topScores);
+    public void isSorted() {
+        highScoreHandler.handleScore(1);
+        highScoreHandler.handleScore(2);
+        highScoreHandler.handleScore(0);
+        highScoreHandler.handleScore(1);
+        highScoreHandler.handleScore(11);
         ArrayList<Integer> sortedList = new ArrayList<>();
         sortedList.add(11);
         sortedList.add(2);
         sortedList.add(1);
         sortedList.add(1);
         sortedList.add(0);
-        assertTrue(sortedList.equals(topScores));
+        assertTrue(sortedList.equals(highScoreHandler.getScoresFromFile(fileName)));
     }
 }

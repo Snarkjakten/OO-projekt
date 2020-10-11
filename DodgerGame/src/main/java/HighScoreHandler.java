@@ -23,7 +23,7 @@ public class HighScoreHandler {
      *
      * @param score is the player's score
      */
-    void handleScore(int score) {
+    protected void handleScore(int score) {
         createFile(fileName);
         topScores = getScoresFromFile(fileName);
         addToTopScores(score, topScores, nrOfTopScores);
@@ -35,7 +35,7 @@ public class HighScoreHandler {
      *
      * @author Irja Vuorela
      */
-    void createFile(String fileName) {
+    private void createFile(String fileName) {
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
@@ -54,7 +54,7 @@ public class HighScoreHandler {
      * @return list of top scores.
      * @author Irja Vuorela
      */
-    ArrayList<Integer> getScoresFromFile(String fileName) {
+    public ArrayList<Integer> getScoresFromFile(String fileName) {
         ArrayList<Integer> scores = new ArrayList<>();
         try {
             File file = new File(fileName);
@@ -78,7 +78,7 @@ public class HighScoreHandler {
      * @param nrOfTopScores
      * @author Irja Vuorela
      */
-    void addToTopScores(int score, ArrayList<Integer> topScores, int nrOfTopScores) {
+    private void addToTopScores(int score, ArrayList<Integer> topScores, int nrOfTopScores) {
         if (isTopScore(score, topScores)) {
             insertSorted(score, topScores);
             trimScoresList(topScores, nrOfTopScores);
@@ -91,7 +91,7 @@ public class HighScoreHandler {
      * @return true if score is a top score.
      * @author Irja Vuorela
      */
-    boolean isTopScore(int score, ArrayList<Integer> topScores) {
+    public boolean isTopScore(int score, ArrayList<Integer> topScores) {
 
         // True if the list isn't filled yet.
         if (topScores.size() < nrOfTopScores) {
@@ -110,7 +110,7 @@ public class HighScoreHandler {
      * @param scores the top scores (assumed sorted highest first).
      * @author Irja Vuorela
      */
-    protected void insertSorted(int score, ArrayList<Integer> scores) {
+    private void insertSorted(int score, ArrayList<Integer> scores) {
         if (!scores.isEmpty()) {
             for (int i = 0; i < scores.size(); i++) {
                 if (scores.get(i) > score) {
@@ -131,7 +131,7 @@ public class HighScoreHandler {
      * @param nrOfTopScores
      * @Irja Vuorela
      */
-    void trimScoresList(ArrayList scores, int nrOfTopScores) {
+    private void trimScoresList(ArrayList scores, int nrOfTopScores) {
         if (nrOfTopScores > 1) {
             while (scores.size() > nrOfTopScores) {
                 scores.remove(scores.size() - 1);
@@ -146,7 +146,7 @@ public class HighScoreHandler {
      * @param fileName name of the file
      * @author Irja Vuorela
      */
-    void writeToFile(ArrayList<Integer> scores, String fileName) {
+    private void writeToFile(ArrayList<Integer> scores, String fileName) {
         BufferedWriter writer;
         try {
             writer = new BufferedWriter(new FileWriter(this.fileName));
@@ -165,7 +165,12 @@ public class HighScoreHandler {
      * @return the number of top scores for the list of top scores.
      * @author Irja vuorela
      */
-    int getNrOfTopScores() {
+    public int getNrOfTopScores() {
         return this.nrOfTopScores;
+    }
+
+    public void clearScores(String fileName){
+        ArrayList<Integer> emptyList = new ArrayList<>();
+        writeToFile(emptyList, fileName);
     }
 }
