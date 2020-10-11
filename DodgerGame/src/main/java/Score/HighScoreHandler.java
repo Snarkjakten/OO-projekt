@@ -55,7 +55,7 @@ public class HighScoreHandler {
      * @return list of top scores.
      * @author Irja Vuorela
      */
-    public ArrayList<Integer> getScoresFromFile(String fileName) {
+    public List<Integer> getScoresFromFile(String fileName) {
         ArrayList<Integer> scores = new ArrayList<>();
         try {
             File file = new File(fileName);
@@ -65,8 +65,9 @@ public class HighScoreHandler {
                 scores.add(Integer.parseInt(input.nextLine()));
             }
         } catch (FileNotFoundException e) {
-            System.out.println("An error occurred.");
-            e.printStackTrace();
+            System.out.println(fileName + " does not exist");
+            List<Integer> emptyList = new ArrayList<>();
+            return emptyList;
         }
         return scores;
     }

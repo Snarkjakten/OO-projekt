@@ -134,10 +134,6 @@ public class Window implements IObservable {
                      */
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
-                        // todo: temp for testing
-                        if (player.getHp().getValue() <= 100) {
-                            player.setPoints(10);
-                            scoreHandler.handleScore(player.getPoints()); }
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
                     shieldGUI.drawImage(player, animationTime);
