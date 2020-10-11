@@ -50,9 +50,10 @@ public class HighScoreHandler {
 
     /**
      * Create a list where each line in the file is an element (each score in the file).
+     * The list will be empty if the file doesn't exist
      *
      * @param fileName name of the text file.
-     * @return list of top scores.
+     * @return list of top scores
      * @author Irja Vuorela
      */
     public List<Integer> getScoresFromFile(String fileName) {
@@ -132,7 +133,7 @@ public class HighScoreHandler {
      * Remove excess scores from list of top scores.
      *
      * @param scores        list of top scores
-     * @param nrOfTopScores
+     * @param nrOfTopScores the total number of top scores allowed in the list
      * @Irja Vuorela
      */
     private void trimScoresList(List scores, int nrOfTopScores) {
@@ -165,7 +166,6 @@ public class HighScoreHandler {
         }
     }
 
-
     /**
      * @return the number of top scores for the list of top scores.
      * @author Irja vuorela
@@ -184,6 +184,12 @@ public class HighScoreHandler {
         writeToFile(emptyList, fileName);
     }
 
+    /**
+     * getter for name of the file for the saved top scores
+     *
+     * @return name of the high scores filename
+     * @author Irja Vuorela
+     */
     public String getFileName() {
         return this.fileName;
     }
