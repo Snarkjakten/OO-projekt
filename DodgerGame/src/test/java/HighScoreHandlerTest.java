@@ -16,7 +16,7 @@ import Score.HighScoreHandler;
 
 public class HighScoreHandlerTest {
     HighScoreHandler highScoreHandler = new HighScoreHandler();
-    String fileName = "HighScores.txt";
+    String fileName = ".//HighScores.txt";
     int nrOfTopScores = highScoreHandler.getNrOfTopScores();
 
     /**

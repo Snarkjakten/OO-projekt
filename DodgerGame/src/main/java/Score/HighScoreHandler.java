@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class HighScoreHandler {
 
-    String fileName = "HighScores.txt";
+    String fileName = "HighScores.txt"; // include the file extension
     List<Integer> topScores = new ArrayList<>();
     int nrOfTopScores = 10; // Defined number of top scores
 
@@ -26,6 +26,7 @@ public class HighScoreHandler {
      */
     public void handleScore(int score) {
         createFile(fileName);
+        System.out.println(new File(fileName).getAbsolutePath());
         topScores = getScoresFromFile(fileName);
         addToTopScores(score, topScores, nrOfTopScores);
         writeToFile(topScores, fileName);
@@ -66,6 +67,7 @@ public class HighScoreHandler {
                 scores.add(Integer.parseInt(input.nextLine()));
             }
         } catch (FileNotFoundException e) {
+            System.out.println("file not found");
             List<Integer> emptyList = new ArrayList<>();
             return emptyList;
         }
@@ -192,4 +194,6 @@ public class HighScoreHandler {
     public String getFileName() {
         return this.fileName;
     }
+
+
 }

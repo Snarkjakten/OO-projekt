@@ -46,7 +46,7 @@ public class HighScoreMenu {
         // Presents the scores
         scores = new Text();
         HighScoreHandler hs = new HighScoreHandler();
-        scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
+        scores.setText(presentableScores(hs.getScoresFromFile("DodgerGame/" + hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         scores.setFont(theFont2);
         scores.setFill(Color.GRAY);
@@ -101,7 +101,6 @@ public class HighScoreMenu {
      * @author Irja Vuorela
      */
     public String presentableScores(List<Integer> scores) {
-
         if (scores.isEmpty()) {
             return "No high scores yet!";
         } else {
