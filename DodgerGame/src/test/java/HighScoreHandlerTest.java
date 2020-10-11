@@ -1,4 +1,5 @@
 
+import Score.HighScoreHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
@@ -6,7 +7,9 @@ import org.junit.Test;
 import static org.junit.Assert.*;
 
 import java.util.ArrayList;
+import java.util.List;
 
+import Score.HighScoreHandler;
 /**
  * @author Irja Vuorela
  */
@@ -63,7 +66,7 @@ public class HighScoreHandlerTest {
         highScoreHandler.handleScore(0);
         highScoreHandler.handleScore(1);
         highScoreHandler.handleScore(11);
-        ArrayList<Integer> sortedList = new ArrayList<>();
+        List<Integer> sortedList = new ArrayList<>();
         sortedList.add(11);
         sortedList.add(2);
         sortedList.add(1);

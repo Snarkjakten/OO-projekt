@@ -78,7 +78,7 @@ public class MainMenu {
         return playBtn;
     }
 
-    public MenuButton getHighscoreBtn() {
+    public MenuButton getHighScoreBtn() {
         return highscoreBtn;
     }
 

@@ -3,6 +3,7 @@ import Entities.Player.Player;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
+import Score.HighScoreHandler;
 import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.NumberBinding;
@@ -34,6 +35,8 @@ public class Window implements IObservable {
     private long startNanoTime;
     private List<IObserver> observers;
     private List<TimeObserver> timeObservers;
+
+    private HighScoreHandler scoreHandler = new HighScoreHandler();
 
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
@@ -86,6 +89,7 @@ public class Window implements IObservable {
                 @Override
                 public void handle(long currentNanoTime) {
 
+
                     // Removes projectiles and resets the spaceships positions when the game is restarted
                     // @Author Isak Almeros
                     if (restartScheduled) {
@@ -130,6 +134,10 @@ public class Window implements IObservable {
                      */
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
+                        // todo: temp for testing
+                        if (player.getHp().getValue() <= 100) {
+                            player.setPoints(10);
+                            scoreHandler.handleScore(player.getPoints()); }
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
                     shieldGUI.drawImage(player, animationTime);
@@ -206,10 +214,12 @@ public class Window implements IObservable {
         return root;
     }
 
+    // todo:
     public int getPoints() {
         return player.getPoints();
     }
 
+    // todo:
     public void setPoints() {
         player.setPoints(calculateElapsedTime());
     }
