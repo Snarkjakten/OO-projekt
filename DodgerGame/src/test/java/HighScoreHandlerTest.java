@@ -11,7 +11,7 @@ import java.util.ArrayList;
  * @author Irja Vuorela
  */
 
-public class HighScoreTest {
+public class HighScoreHandlerTest {
     HighScoreHandler highScoreHandler = new HighScoreHandler();
     ArrayList<Integer> topScores = new ArrayList<>();
     ArrayList<Integer> emptyList = new ArrayList<>();

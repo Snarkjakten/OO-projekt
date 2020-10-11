@@ -31,7 +31,7 @@ public abstract class AbstractMovable implements IMovable {
      *
      * @Author Irja Vuorela
      */
-    public void updatePosition(double deltaTime) {
+    protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
     }

@@ -110,7 +110,7 @@ public class HighScoreHandler {
      * @param scores the top scores (assumed sorted highest first).
      * @author Irja Vuorela
      */
-    void insertSorted(int score, ArrayList<Integer> scores) {
+    protected void insertSorted(int score, ArrayList<Integer> scores) {
         if (!scores.isEmpty()) {
             for (int i = 0; i < scores.size(); i++) {
                 if (scores.get(i) > score) {
