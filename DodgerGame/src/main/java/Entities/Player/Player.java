@@ -79,6 +79,8 @@ public class Player implements IObserve {
                     setHp(getHp().getValue() + amount);
                 }
                 break;
+            default:
+                break;
         }
     }
 }
