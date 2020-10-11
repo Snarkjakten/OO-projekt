@@ -43,7 +43,7 @@ public class HighScoreMenu {
         // Presents the scores
         scores = new Text();
         HighScoreHandler hs = new HighScoreHandler();
-        scores.setText(showScores(hs.getScoresFromFile(hs.getFileName())));
+        scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         scores.setFont(theFont2);
         scores.setFill(Color.GRAY);
@@ -91,12 +91,12 @@ public class HighScoreMenu {
 
 
     /**
-     *
+     * Turns list of scores into a presentable format for this view to use.
      * @param scores list of scores
      * @return scores as a string with a new line per score.
      * @author Irja Vuorela
      */
-    public String showScores(List<Integer> scores){
+    public String presentableScores(List<Integer> scores){
       StringBuilder sb = new StringBuilder();
       int i = 1;
       for (int s : scores){
