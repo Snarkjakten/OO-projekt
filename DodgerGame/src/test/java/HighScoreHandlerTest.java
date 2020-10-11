@@ -22,6 +22,7 @@ public class HighScoreHandlerTest {
      * @author Irja Vuorela
      */
     @Before
+    @After
     public void init() {
         highScoreHandler.clearScores(fileName);
     }
@@ -38,7 +39,7 @@ public class HighScoreHandlerTest {
     }
 
     /**
-     * Tests that the number of scores in the text file doesn't exceed the defined number of top scores.
+     * Tests that the number of scores in the text file is correct when attempting to exceed the defined number of top scores.
      *
      * @author Irja Vuorela
      */
@@ -51,7 +52,7 @@ public class HighScoreHandlerTest {
     }
 
     /**
-     * Tests if the list is still sorted correctly.
+     * Tests if the list is sorted correctly.
      *
      * @author Irja Vuorela
      */
