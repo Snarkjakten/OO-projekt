@@ -86,6 +86,8 @@ public class HighScoreHandler {
     }
 
     /**
+     * Checks if a score is high enough to be a top score.
+     *
      * @param score     The player's score.
      * @param topScores List of top scores.
      * @return true if score is a top score.
@@ -169,7 +171,12 @@ public class HighScoreHandler {
         return this.nrOfTopScores;
     }
 
-    public void clearScores(String fileName){
+    /**
+     * Clears the text file from scores.
+     *
+     * @param fileName the name of the file
+     */
+    protected void clearScores(String fileName) {
         ArrayList<Integer> emptyList = new ArrayList<>();
         writeToFile(emptyList, fileName);
     }

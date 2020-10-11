@@ -79,6 +79,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position to the left
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -92,6 +93,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position to the right
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -105,6 +107,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position up
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -118,6 +121,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position down
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -131,6 +135,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position up and right diagonally
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -144,6 +149,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position up and left diagonally
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -157,6 +163,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position down and right diagonally
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -170,6 +177,7 @@ public class ProjectileTest {
 
     /**
      * Tests if a projectile can move its position down and left diagonally
+     *
      * @author Irja Vuorela
      */
     @Test
@@ -183,6 +191,7 @@ public class ProjectileTest {
 
     /**
      * Tests if the projectile's position is left unchanged when attempting to move while its velocity is zero
+     *
      * @author Irja Vuorela
      */
     @Test
