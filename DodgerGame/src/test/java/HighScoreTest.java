@@ -42,7 +42,7 @@ public class HighScoreTest {
     }
 
     /**
-     * Tests that the scores text file doesn't exceed the defined number of top scores.
+     * Tests that the number of scores in the text file doesn't exceed the defined number of top scores.
      *
      * @author Irja Vuorela
      */
@@ -61,30 +61,17 @@ public class HighScoreTest {
      */
     @Test
     public void insertSortedTest() {
-        highScoreHandler.addToTopScores(1, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(20, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(78, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(31, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(0, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(1, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(46, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(50, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(3, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(785, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(378, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(278, topScores, nrOfTopScores);
-        highScoreHandler.addToTopScores(178, topScores, nrOfTopScores);
+        highScoreHandler.insertSorted(1, topScores);
+        highScoreHandler.insertSorted(2, topScores);
+        highScoreHandler.insertSorted(0, topScores);
+        highScoreHandler.insertSorted(1, topScores);
+        highScoreHandler.insertSorted(11, topScores);
         ArrayList<Integer> sortedList = new ArrayList<>();
-        sortedList.add(785);
-        sortedList.add(378);
-        sortedList.add(278);
-        sortedList.add(178);
-        sortedList.add(78);
-        sortedList.add(50);
-        sortedList.add(46);
-        sortedList.add(31);
-        sortedList.add(20);
-        sortedList.add(3);
+        sortedList.add(11);
+        sortedList.add(2);
+        sortedList.add(1);
+        sortedList.add(1);
+        sortedList.add(0);
         assertTrue(sortedList.equals(topScores));
     }
 }
