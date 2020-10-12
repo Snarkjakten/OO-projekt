@@ -4,19 +4,17 @@ import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;
 
-import static org.junit.Assert.*;
-
 import java.util.ArrayList;
 import java.util.List;
 
-import Score.HighScoreHandler;
+import static org.junit.Assert.assertTrue;
 /**
  * @author Irja Vuorela
  */
 
 public class HighScoreHandlerTest {
     HighScoreHandler highScoreHandler = new HighScoreHandler();
-    String fileName = ".//HighScores.txt";
+    String fileName = highScoreHandler.getFileName();
     int nrOfTopScores = highScoreHandler.getNrOfTopScores();
 
     /**

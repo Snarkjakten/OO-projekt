@@ -15,7 +15,7 @@ import java.util.Scanner;
 
 public class HighScoreHandler {
 
-    String fileName = "HighScores.txt"; // include the file extension
+    String fileName = "src/main/resources/HighScores.txt"; // include the file extension
     List<Integer> topScores = new ArrayList<>();
     int nrOfTopScores = 10; // Defined number of top scores
 
