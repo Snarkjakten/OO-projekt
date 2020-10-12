@@ -1,0 +1,33 @@
+# Meeting agenda 
+
+Group: 13 TheDodgers
+Date: Måndag 12 oktober
+Chair:
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+## Objectives
+- Gå igenom pull requests
+
+
+## Reports
+- Irja har gjort en HighScoreHandler som sparar spelarens bästa poäng och en vy till den i spelmenyn.
+- Olle har börjat titta på olika skepp och asteroidtyper
+- Isak har gjort en slow-debuff
+- Viktor har gjort ljudeffekter och volym.
+- Viktor, Tobias och Olle har skrivit om kollisionshanteringen observerPattern och löste player-spaceship-cirkelberoendet 
+- Tobias har börjat titta på att flytta game loop från window
+
+## Discussion items
+- Att vi använder två olika system av observers (egna + changelistener)
+- att vi vill sluta hårdkoda window size
+- Koden följer fortfarande inte MVC och behöver städas
+ 
+
+## Outcomes and assignments
+- Viktor ska skriva tester till kollisionerna och eventuellt ljud
+- Vi ska städa koden tillsammans imorgon
+- besluta nästa sprint imorgon
+  
+
+## Wrap up
+Nästa möte tisdag 13 okt kl. 10.00
