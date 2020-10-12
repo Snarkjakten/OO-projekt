@@ -50,7 +50,7 @@ public class Player implements IObserve {
         this.nrOfShields += 1;
     }
 
-    public void looseShield() {
+    public void loseShield() {
         if (this.nrOfShields > 0) {
             this.nrOfShields -= 1;
         } else {
@@ -64,7 +64,7 @@ public class Player implements IObserve {
         switch (event) {
             case "asteroid":
                 if (nrOfShields > 0) {
-                    looseShield();
+                    loseShield();
                 } else {
                     this.setHp(getHp().getValue() - amount);
                 }
