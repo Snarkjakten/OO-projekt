@@ -68,6 +68,10 @@ public class Game {
 
     //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship) {
+        if(player.getDebuffed() == true) {
+            spaceship.speed = 100;
+        }
+
         player.getSpaceships().add(spaceship);
         gameObjects.add(spaceship);
     }

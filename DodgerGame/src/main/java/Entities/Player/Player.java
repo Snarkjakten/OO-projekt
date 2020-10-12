@@ -13,11 +13,21 @@ public class Player {
     private int points;
     private int nrOfShields;
 
+    private Boolean debuffed = false;
+
+    public long debuffedTime;
+
     public Player() {
         this.spaceships = new ArrayList<>();
         this.nrOfShields = 0;
         this.points = 0;
     }
+
+    public Boolean getDebuffed(){
+        return debuffed;
+    }
+
+    public void setDebuffed(Boolean isDebuffed) {this.debuffed = isDebuffed; }
 
     public void setHp(int hp) {
         this.hp.set(hp);

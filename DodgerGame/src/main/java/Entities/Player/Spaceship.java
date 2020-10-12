@@ -4,6 +4,8 @@ import Entities.Projectiles.*;
 import Movement.AbstractMovable;
 import javafx.geometry.Point2D;
 
+import java.util.List;
+
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable {
 
@@ -11,7 +13,7 @@ public class Spaceship extends AbstractMovable {
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
-    public int right = 0; // moving right increases horizontal axis value
+    private int right = 0; // moving right increases horizontal axis value
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
@@ -90,6 +92,17 @@ public class Spaceship extends AbstractMovable {
             } else {
                 player.setHp(player.getHp().getValue() + 50);
             }
+        }
+        if (c instanceof Debuff) {
+            List<Spaceship> spaceships = player.getSpaceships();
+
+            // If there are wraparound spaceships
+            for (Spaceship spaceship : spaceships) {
+                spaceship.speed = 100;
+            }
+
+            player.debuffedTime = System.nanoTime();
+            player.setDebuffed(true);
         }
         this.setCollided(false);
     }

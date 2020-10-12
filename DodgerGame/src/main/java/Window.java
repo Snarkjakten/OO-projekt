@@ -86,6 +86,9 @@ public class Window implements IObservable {
                     // @Author Isak Almeros
                     if (restartScheduled) {
 
+                        // If spaceship was debuffed when the last game ended
+                        game.getSpaceships().get(0).speed = 250;
+
                         List<AbstractMovable> removeProjectiles = new ArrayList<>();
                         List<AbstractMovable> removeSpaceships = new ArrayList<>();
 
@@ -115,6 +118,18 @@ public class Window implements IObservable {
                         game.getSpaceships().get(0).setRight(0);
 
                         restartScheduled = false;
+                    }
+
+                    // If ten seconds has passed since player was debuffed
+                    if(player.getDebuffed() && calculateElapsedTime2(player.debuffedTime) == 10) {
+                        List<Spaceship> spaceships = player.getSpaceships();
+
+                        for(Spaceship spaceship : spaceships) {
+                            spaceship.speed = 250;
+                        }
+
+                        player.setDebuffed(false);
+
                     }
 
                     // Calculate time since last update
@@ -208,7 +223,7 @@ public class Window implements IObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                    int elapsedTime = calculateElapsedTime();
+                    int elapsedTime = calculateElapsedTime2(startNanoTime);
                     notifyTimeObeservers(elapsedTime);
                 }
 
@@ -245,7 +260,7 @@ public class Window implements IObservable {
     }
 
     public void setPoints() {
-        player.setPoints(calculateElapsedTime());
+        player.setPoints(calculateElapsedTime2(startNanoTime));
     }
 
     public void startAnimationTimer() {
@@ -261,6 +276,17 @@ public class Window implements IObservable {
     public int calculateElapsedTime(){
         long endNanoTime = System.nanoTime();
         return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
+    }
+
+    // Calculates time since being debuffed
+    public int calculateTimeSinceDebuffed(){
+        long currentNanoTime = System.nanoTime();
+        return (int) ((currentNanoTime - player.debuffedTime) / 1000000000.0);
+    }
+
+    public int calculateElapsedTime2(long startTime) {
+         long currentNanoTime = System.nanoTime();
+         return (int) ((currentNanoTime - startTime) / 1000000000.0);
     }
 
     @Override
