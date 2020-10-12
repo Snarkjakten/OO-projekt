@@ -1,6 +1,5 @@
 package Entities.Projectiles;
 
-import Entities.Player.Player;
 import Movement.AbstractMovable;
 
 /**
@@ -18,7 +17,5 @@ public class CollisionHandler {
     public void collide(AbstractMovable g, AbstractMovable a) {
         g.actOnCollision(a);
         a.actOnCollision(g);
-
-
     }
 }
