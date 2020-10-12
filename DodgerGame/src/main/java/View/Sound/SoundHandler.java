@@ -1,4 +1,9 @@
-package View;
+package View.Sound;
+
+import Entities.Projectiles.HealthPowerUp;
+import Entities.Projectiles.MediumAsteroid;
+import Entities.Projectiles.ShieldPowerUp;
+import Entities.Projectiles.SmallAsteroid;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -10,27 +15,28 @@ import java.io.File;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class SoundHandler {
+public class SoundHandler implements ISoundObserve {
+
+    private double volume = 0.01;
 
     //Plays backgroundmusic on loop
-    public void soundPlayer(String soundFilePath, double vol) {
+    public void musicPlayer(String musicFilepath) {
 
         try {
-            File soundPath = new File(soundFilePath);
+            File soundPath = new File(musicFilepath);
 
             if(soundPath.exists()) {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(soundPath);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInput);
-                seVolume(0.01, clip);
+                calculateDbVolume(volume, clip);
                 clip.start();
                 clip.loop(Clip.LOOP_CONTINUOUSLY);
-            } else {
-                System.out.println("Music file missing");
             }
 
         } catch(Exception e) {
             e.printStackTrace();
+            System.out.println("Background music file missing");
         }
     }
 
@@ -44,21 +50,37 @@ public class SoundHandler {
                 AudioInputStream audioInput = AudioSystem.getAudioInputStream(fxPath);
                 Clip clip = AudioSystem.getClip();
                 clip.open(audioInput);
-                seVolume(vol, clip);
+                calculateDbVolume(vol, clip);
                 clip.start();
-            } else {
-                System.out.println("Fx file missing");
             }
 
         } catch(Exception e) {
             e.printStackTrace();
+            System.out.println("Fx file missing");
         }
     }
 
     //Calculates a double to decibel range and sets volume
-    private static void seVolume(double vol, Clip clip){
+    private static void calculateDbVolume(double vol, Clip clip){
         FloatControl gain = (FloatControl)clip.getControl(FloatControl.Type.MASTER_GAIN);
         float decibel = (float) (Math.log(vol) / Math.log(10) * 20);
         gain.setValue(decibel);
+    }
+
+    @Override
+    public void actOnEvent(Class c) {
+        String soundFilepath = null;
+
+        if (c.equals(SmallAsteroid.class) || c.equals(MediumAsteroid.class)) { //TODO: change to Asteroid.class when asteroids are combined
+            soundFilepath = GameObjectsSounds.getAsteroidSound();
+        } else if (c.equals(ShieldPowerUp.class)) {
+            soundFilepath = GameObjectsSounds.getShieldSound();
+        } else if (c.equals(HealthPowerUp.class)) {
+            soundFilepath = GameObjectsSounds.getHealthSound();
+        }
+
+        if(soundFilepath != null) {
+            soundFx(soundFilepath, volume);
+        }
     }
 }

@@ -1,7 +1,8 @@
 import View.CharacterMenu;
 import View.GameOverMenu;
 import View.MainMenu;
-import View.SoundHandler;
+import View.Sound.GameObjectsSounds;
+import View.Sound.SoundHandler;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
@@ -27,9 +28,8 @@ public class Main extends Application {
         stage.setResizable(false);
         stage.show();
 
-        String backgroundMusicPath = "src/main/resources/277325__shadydave__time-break (1).wav";
         SoundHandler soundHandler = new SoundHandler();
-        soundHandler.soundPlayer(backgroundMusicPath, 0.25);
+        soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
     }
 
     public static void main(String[] args) {

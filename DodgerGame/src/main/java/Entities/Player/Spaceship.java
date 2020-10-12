@@ -1,8 +1,10 @@
 package Entities.Player;
 
-import Entities.Projectiles.*;
+import Entities.Projectiles.Asteroid;
+import Entities.Projectiles.HealthPowerUp;
+import Entities.Projectiles.ShieldPowerUp;
 import Movement.AbstractMovable;
-import View.SoundHandler;
+import View.Sound.ISoundObserve;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -11,23 +13,20 @@ import java.util.List;
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
 
-    //Filepaths for soundFX files
-    String asteroidSound = "src/main/resources/448226__inspectorj__explosion-8-bit-01 (2).wav";
-    String shieldSound = "src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav";
-    String healthSound = "src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav";
-
     // Movement directions
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
     private List<IObserve> observers;
+    private List<ISoundObserve> soundObservers;
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
         this.width = 64;
         this.height = 64;
         this.observers = new ArrayList<>();
+        this.soundObservers = new ArrayList<>();
     }
 
     // Move self to a new position
@@ -84,27 +83,22 @@ public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
      * @param c
      */
 
-    SoundHandler s = new SoundHandler();
-
     @Override
     public void actOnCollision(AbstractMovable c) {
         int amount = 0;
         String event = "";
         if (c instanceof Asteroid) {
-            s.soundFx(asteroidSound, 0.1);
             amount = ((Asteroid) c).getDamage();
             event = "asteroid";
         } else if (c instanceof ShieldPowerUp) {
-            s.soundFx(shieldSound, 0.1);
             event = "shield";
             amount = 1;
         } else if (c instanceof HealthPowerUp) {
-            s.soundFx(healthSound, 0.1);
             amount = ((HealthPowerUp) c).gainHealth(200);
             event = "health";
         }
         notifyObserver(event, amount);
-        this.setCollided(false);
+        c.setCollided(true);
     }
 
     public void resetDirection() {
@@ -130,4 +124,5 @@ public class Spaceship extends AbstractMovable implements ISpaceshipObservable {
     public void removeObserver(IObserve obs) {
         this.observers.remove(obs);
     }
+
 }

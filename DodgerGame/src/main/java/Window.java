@@ -6,6 +6,9 @@ import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
 import View.*;
+import View.Sound.ISoundObservable;
+import View.Sound.ISoundObserve;
+import View.Sound.SoundHandler;
 import javafx.animation.AnimationTimer;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,7 +22,7 @@ import java.util.List;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window implements IObservable {
+public class Window implements IObservable, ISoundObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
@@ -30,6 +33,9 @@ public class Window implements IObservable {
     private long startNanoTime;
     private List<IObserver> observers;
     private List<TimeObserver> timeObservers;
+    private List<ISoundObserve> soundObservers;
+
+    SoundHandler soundHandler = new SoundHandler();
 
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
@@ -61,6 +67,9 @@ public class Window implements IObservable {
             TimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
             timeObservers.add(timeView);
+
+            soundObservers = new ArrayList<>();
+            soundObservers.add(soundHandler);
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -135,8 +144,6 @@ public class Window implements IObservable {
 
                     List<AbstractMovable> toBeRemoved;
                     toBeRemoved = new ArrayList<>();
-                    List<AbstractMovable> nonSpaceshipsToBeRemoved;
-                    nonSpaceshipsToBeRemoved = new ArrayList<>();
 
                     CollisionHandler collisionHandler = new CollisionHandler();
 
@@ -144,10 +151,11 @@ public class Window implements IObservable {
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                         for(AbstractMovable a : gameObjects){
                             if(collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()){
-                                if(a instanceof Spaceship || gameObject instanceof Spaceship) {
-                                    gameObject.setCollided(true);
-                                    a.setCollided(true);
+                                if(a instanceof Spaceship) {
+                                    notifySoundObservers(gameObject.getClass());
                                     toBeRemoved.add(gameObject);
+                                } else if(gameObject instanceof Spaceship){
+                                    notifySoundObservers(a.getClass());
                                     toBeRemoved.add(a);
                                 }
                                 collisionHandler.collide(a, gameObject);
@@ -156,14 +164,7 @@ public class Window implements IObservable {
                     }
 
                     for(AbstractMovable a : toBeRemoved){
-                        if(!(a instanceof Spaceship)){
-                            nonSpaceshipsToBeRemoved.add(a);
-                        }
-                    }
-
-                    if (nonSpaceshipsToBeRemoved.size() != 0) {
-                        gameObjects.removeAll(nonSpaceshipsToBeRemoved);
-                        toBeRemoved.clear();
+                        gameObjects.remove(a);
                     }
 
                     //End of collision handling -----------------------------------
@@ -271,6 +272,23 @@ public class Window implements IObservable {
     public void notifyTimeObeservers(int time) {
         for (TimeObserver obs : timeObservers) {
             obs.actOnEvent(time);
+        }
+    }
+
+    @Override
+    public void removeSoundObserver(ISoundObserve iso) {
+        this.soundObservers.remove(iso);
+    }
+
+    @Override
+    public void addSoundObserver(ISoundObserve iso) {
+        this.soundObservers.add(iso);
+    }
+
+    @Override
+    public void notifySoundObservers(Class c) {
+        for (ISoundObserve iso : soundObservers) {
+            iso.actOnEvent(c);
         }
     }
 }

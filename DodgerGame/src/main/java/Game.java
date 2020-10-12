@@ -33,6 +33,7 @@ public class Game {
         newSpaceship.addObserver(player);
         player.getSpaceships().add(newSpaceship);
         gameObjects.add(newSpaceship);
+        //newSpaceship.addSoundObserver();
     }
 
     //@Author Tobias Engblom
