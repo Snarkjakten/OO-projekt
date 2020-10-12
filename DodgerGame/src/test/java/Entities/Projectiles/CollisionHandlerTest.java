@@ -30,15 +30,16 @@ public class CollisionHandlerTest {
     }
 
     @Test
-    public void testSetHitbox() {
+    public void testSetGetHitbox() {
         projSmallAsteroid.setHitbox(0,0,10,10);
         Assert.assertEquals(projSmallAsteroid.getHitbox(), new Rectangle2D(0, 0, 10 * 0.75, 10 * 0.75));
     }
 
     @Test
-    public void testCollided() {
+    public void testSetCollided() {
         projSmallAsteroid.setCollided(true);
         Assert.assertTrue(projSmallAsteroid.getCollided());
+        projSmallAsteroid.setCollided(false);
     }
 
     @Test
@@ -49,9 +50,22 @@ public class CollisionHandlerTest {
     }
 
     @Test
-    public void doesNotIntersect() {
+    public void doesNotCollide() {
         spaceship.setHitbox(200,200,10,10);
         projSmallAsteroid.setHitbox(10,10,10,10);
         Assert.assertFalse(collisionHandler.checkCollision(projSmallAsteroid, spaceship));
+    }
+
+    @Test
+    public void testSpaceshipCollide() {
+        collisionHandler.collide(projMediumAsteroid, spaceship);
+        Assert.assertTrue(projMediumAsteroid.getCollided());
+        projMediumAsteroid.setCollided(false);
+    }
+
+    @Test
+    public void testProjectileCollide() {
+        collisionHandler.collide(projMediumAsteroid, hpUp);
+        Assert.assertFalse(projMediumAsteroid.getCollided());
     }
 }
