@@ -3,6 +3,7 @@ import Entities.Player.Player;
 import Entities.Projectiles.Projectile;
 import Entities.Projectiles.ProjectileFactory;
 import Movement.AbstractMovable;
+import Score.HighScoreHandler;
 import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.beans.binding.NumberBinding;
@@ -35,6 +36,8 @@ public class Window implements IObservable {
     private List<IObserver> observers;
     private List<TimeObserver> timeObservers;
 
+    private HighScoreHandler scoreHandler = new HighScoreHandler();
+
     protected Player player = game.getPlayer();
     private final List<AbstractMovable> gameObjects = game.getGameObjects();
 
@@ -57,7 +60,7 @@ public class Window implements IObservable {
             Canvas canvas = new Canvas(800, 600);
             GraphicsContext gc = canvas.getGraphicsContext2D();
             GameObjectGUI gameObjectGUI = new GameObjectGUI(gc, imageName);
-            LaserGUI laserGUI = new LaserGUI(gc,animationDuration, laserBeam.isVertical());
+            LaserGUI laserGUI = new LaserGUI(gc, animationDuration, laserBeam.isVertical());
             ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
             BackgroundView backgroundView = new BackgroundView(gc);
             HealthBarGUI healthBarGUI = new HealthBarGUI(gc);
@@ -81,10 +84,11 @@ public class Window implements IObservable {
                 long previousNanoTime = currentNanoTime;
                 int updateCounter = 60;
 
-                 long animationNanoTime = System.nanoTime();
+                long animationNanoTime = System.nanoTime();
 
                 @Override
                 public void handle(long currentNanoTime) {
+
 
                     // Removes projectiles and resets the spaceships positions when the game is restarted
                     // @Author Isak Almeros
@@ -92,7 +96,7 @@ public class Window implements IObservable {
 
                         List<AbstractMovable> removeProjectiles = new ArrayList<>();
 
-                        for(AbstractMovable gameObject : gameObjects) {
+                        for (AbstractMovable gameObject : gameObjects) {
                             if (gameObject instanceof Projectile) {
                                 removeProjectiles.add(gameObject);
                             }
@@ -100,7 +104,7 @@ public class Window implements IObservable {
 
                         gameObjects.removeAll(removeProjectiles);
 
-                        gameObjects.get(0).setPosition(368,268);
+                        gameObjects.get(0).setPosition(368, 268);
 
                         if (gameObjects.size() > 1) {
                             gameObjects.remove(1);
@@ -110,28 +114,34 @@ public class Window implements IObservable {
                         restartScheduled = false;
                     }
 
-                    // Calculate time since last update
-                    // @author Irja Vuorela
+                    /**
+                     * Calculates time since last update
+                     * @author Irja Vuorela
+                     */
                     currentNanoTime = System.nanoTime();
                     double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
-                    backgroundView.drawBackground(0, 0, 600, 800,0); // TODO: Get height and width from model
+                    backgroundView.drawBackground(0, 0, 600, 800, 0); // TODO: Get height and width from model
                     healthBarGUI.drawHealthBar(game.getPlayer().getHp().doubleValue());
 
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
 
-                    // update positions and notify observers
-                    // @author Irja vuorela
+                    /**
+                     * update positions and notify observers
+                     * @author Irja vuorela
+                     */
                     for (AbstractMovable gameObject : gameObjects) {
                         gameObject.move(deltaTime);
                         notifyObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     }
                     shieldGUI.drawImage(player, animationTime);
 
-                    // projectile spawner
-                    // @author Irja Vuorela
+                    /**
+                     * projectile spawner
+                     * @author Irja Vuorela
+                     */
                     updateCounter = updateCounter + 1;
                     if (updateCounter >= 120) {
                         updateCounter = 0;
@@ -143,8 +153,10 @@ public class Window implements IObservable {
                         gameObjects.add(ProjectileFactory.createShieldPowerUp());
                     }
 
-                    // remove offscreen projectiles
-                    // @author Irja Vuorela
+                    /**
+                     * removes offscreen projectiles
+                     * @author Irja Vuorela
+                     */
                     for (AbstractMovable g : gameObjects) {
                         if (g instanceof Projectile) {
                             if (((Projectile) g).isNotOnScreen()) {
@@ -161,14 +173,18 @@ public class Window implements IObservable {
                 }
             };
 
-            // Handle key pressed
-            // @Author Irja Vuorela
+            /**
+             * Handle key pressed
+             * @Author Irja Vuorela
+             */
             KeyController keyController = new KeyController(game.getSpaceships());
             stage.getScene().setOnKeyPressed(
                     keyController::handleKeyPressed);
 
-            // Handle key released
-            // @Author Irja Vuorela
+            /**
+             * Handle key released
+             * @Author Irja Vuorela
+             */
             stage.getScene().setOnKeyReleased(
                     keyController::handleKeyReleased
             );
@@ -194,10 +210,12 @@ public class Window implements IObservable {
         return root;
     }
 
+    // todo:
     public int getPoints() {
         return player.getPoints();
     }
 
+    // todo:
     public void setPoints() {
         player.setPoints(calculateElapsedTime());
     }
@@ -212,16 +230,22 @@ public class Window implements IObservable {
     }
 
     // Calculates elapsed time in the game in seconds
-    public int calculateElapsedTime(){
+    public int calculateElapsedTime() {
         long endNanoTime = System.nanoTime();
         return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
     }
 
+    /**
+     * @author Irja Vuorela
+     */
     @Override
     public void addObserver(IObserver obs) {
         observers.add(obs);
     }
 
+    /**
+     * @author Irja Vuorela
+     */
     @Override
     public void removeObserver(IObserver obs) {
         observers.remove(obs);

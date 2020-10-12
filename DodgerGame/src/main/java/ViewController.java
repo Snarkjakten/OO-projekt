@@ -1,8 +1,4 @@
-import View.CharacterMenu;
-import View.GameObjectGUI;
-import View.GameOverMenu;
-import View.MainMenu;
-import View.TimeView;
+import View.*;
 import javafx.beans.property.SimpleIntegerProperty;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -19,14 +15,16 @@ import java.util.Optional;
 public class ViewController {
     private final Window window;
     private final MainMenu mainMenu;
+    private final HighScoreMenu highScoreMenu;
     private final CharacterMenu characterMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private String name;
 
-    public ViewController(Window window, MainMenu mainMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
+    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
         this.window = window;
         this.mainMenu = mainMenu;
+        this.highScoreMenu = highScoreMenu;
         this.characterMenu = characterMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
@@ -37,6 +35,7 @@ public class ViewController {
         mainMenuButtonHandler();
         characterMenuButtonHandler();
         gameOverButtonHandler();
+        highScoreButtonHandler();
 
         // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
         ChangeListener listener = new ChangeListener() {
@@ -66,8 +65,8 @@ public class ViewController {
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
-        mainMenu.getHighscoreBtn().setOnMouseClicked(event -> {
-            // stage.getScene().setRoot(gameOverMenu.getRoot());
+        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
+            stage.getScene().setRoot(highScoreMenu.getRoot());
         });
 
         // When clicking on "QUIT"
@@ -78,6 +77,10 @@ public class ViewController {
             event.consume();
             closeProgram();
         });
+    }
+
+    private void highScoreButtonHandler(){
+        highScoreMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
     // @Author Tobias Engblom
@@ -155,4 +158,5 @@ public class ViewController {
             System.exit(0);
         }
     }
+
 }
