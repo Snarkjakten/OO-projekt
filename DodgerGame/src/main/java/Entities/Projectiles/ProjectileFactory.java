@@ -22,8 +22,8 @@ public abstract class ProjectileFactory {
         return new ShieldPowerUp();
     }
 
-    public static Debuff createDebuff() {
-        return new Debuff();
+    public static SlowDebuff createDebuff() {
+        return new SlowDebuff();
     }
 
 }

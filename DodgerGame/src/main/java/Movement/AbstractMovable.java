@@ -1,6 +1,5 @@
 package Movement;
 
-import Entities.Player.Player;
 import Entities.Projectiles.ICollidable;
 import javafx.geometry.Point2D;
 import javafx.geometry.Rectangle2D;
@@ -34,18 +33,34 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
     // Movement speed
     public double speed = 250;
 
-    // Move self to a new position
-    // @Author Irja Vuorela
+    /**
+     * Move self to a new position
+     *
+     * @Author Irja Vuorela
+     */
     public void move(double deltaTime) {
         updatePosition(deltaTime);
     }
 
-    // Update the position of a movable object
-    // @Author Irja Vuorela
-    public void updatePosition(double deltaTime) {
+    /**
+     * Update the position of a movable object
+     *
+     * @Author Irja Vuorela
+     */
+    protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
         this.hitbox = new Rectangle2D(position.getX(), position.getY(), this.width * .75, this.height * .75);
+    }
+
+    /**
+     * Getter for position
+     * @return position
+     * @author Irja Vuorela
+     */
+    @Override
+    public Point2D getPosition() {
+        return this.position;
     }
 
     // Setter for self position
@@ -73,8 +88,8 @@ public abstract class AbstractMovable implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    public void actOnCollision(AbstractMovable c, Player player){
-        //gameObjects.remove(this);
-    }
+    @Override
+    public void actOnCollision(AbstractMovable c){ }
+
     //-------------------------------------------------------
 }
