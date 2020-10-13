@@ -8,7 +8,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 
 public class GameObjectGUI implements IObserver {
@@ -22,10 +22,10 @@ public class GameObjectGUI implements IObserver {
     }
 
     /**
-     * @param gameObject The gameObject to set the image to.
-     * @return The a specific image depending on the gameObject.
-     * @Author Olle Westerlund
      * The method sets the correct image depending on the specific gameObject.
+     * @param gameObject The game object to set the image to.
+     * @return The a specific image depending on the gameObject.
+     * @author Olle Westerlund
      */
     private Image addImageToProjectile(Class gameObject) {
         InputStream inputStream;
