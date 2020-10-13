@@ -19,18 +19,22 @@ public class Spaceship extends AbstractMovable {
         this.height = 64;
     }
 
-    // Move self to a new position
-    // @Author Irja Vuorela
+    /**
+     * Move self to a new position
+     *
+     * @Author Irja Vuorela
+     */
     @Override
     public void move(double deltaTime) {
         updateVelocity();
         updatePosition(deltaTime);
-
-        // todo: remove print
-//         System.out.println("Spaceship moved to (" + position.getX() + ", " + position.getY() + ")");
     }
 
-    // @Author Irja Vuorela
+    /**
+     * Updates velocity
+     *
+     * @Author Irja Vuorela
+     */
     private void updateVelocity() {
         // Stop if moving in two opposite directions simultaneously
         // Normalize velocity (keep same direction and turn into a unit vector)

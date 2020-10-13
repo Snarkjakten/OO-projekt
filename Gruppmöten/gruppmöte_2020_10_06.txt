@@ -1,0 +1,43 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 6 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+
+## Objectives (5 min) 
+
+- Gå igenom pull requests
+- Diskutera vad vill vill ha för typer av kollisisoner
+- Diskutera vad som ska göras under veckans sprint
+- Diskutera hur vi vill genomföra peer review
+
+
+## Reports (15 min) from previous meeting
+
+- Viktor har löst kollisionsbuggarna/errors
+- Olle har refaktorerat laser beam, även klar med asteroiderna
+- Isak har gjort klart tidräknare i spelet (poängräknare) och så att man kan starta om spelet
+- Irja har påbörjat highscore
+- Tobias har fixat så man kan välja karaktär i en meny innan spelet startar
+
+## Discussion items (35 min)
+
+- Vi diskuterade olika typer av kollisioner och form av hitbox
+- Vi diskuterade hur vi vill göra peer review
+- Vi diskuterade villka bilder vi ska använda till asteroiderna
+- Vi diskuterade veckans sprint och vad som ska göras
+- Vi diskuterade användning av patterns
+
+## Outcomes and assignments (5 min)
+
+- Gruppen ska göra peer review tillsammans efter mötet
+- Viktor ska fixa ljudeffekter för kollisioner och bakgrundsmusik
+- Irja ska fortsätta med highscore
+- Olle ska fixa grafik för sköldpowerup
+- Tobias ska lösa pause funktion
+- Isak ska skapa nya projektil "debuff"
+
+## Wrap up
+- Peer review efter mötet

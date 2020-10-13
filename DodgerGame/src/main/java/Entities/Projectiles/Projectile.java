@@ -110,8 +110,9 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
+     * Moves self to a new position
      * @Author Irja Vuorela
-     * @param deltaTime
+     * @param deltaTime is the time elapsed since the last update
      */
     @Override
     public void move(double deltaTime) {
@@ -120,6 +121,7 @@ public abstract class Projectile extends AbstractMovable {
     }
 
     /**
+     * Updates velocity
      * @Author Irja Vuorela
      */
     public void updateVelocity() {
