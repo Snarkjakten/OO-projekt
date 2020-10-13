@@ -12,6 +12,7 @@ public class Game {
     private Spaceship newSpaceship;
     private static Game instance = null;
     private final Player player;
+    private boolean isGameOver = false;
 
     private Game() {
         this.player = new Player();
@@ -171,5 +172,13 @@ public class Game {
     //Checks if active spaceship is beginning to go outside south wall
     private boolean checkSouthPosition(Spaceship spaceship) {
         return spaceship.position.getY() >= 536;
+    }
+
+    public boolean getIsGameOver() {
+        return isGameOver;
+    }
+
+    public void setGameOver(boolean gameOver) {
+        isGameOver = gameOver;
     }
 }

@@ -8,9 +8,11 @@ import javafx.scene.text.Font;
  * @Author Isak almeros
  */
 
-public class TimeView implements TimeObserver {
+public class TimeView implements ITimeObserver {
     private GraphicsContext gc;
     private StringBuilder sb = new StringBuilder("00:00");
+    private long seconds;
+    private long minutes;
 
     public TimeView(GraphicsContext gc){
         this.gc = gc;
@@ -20,24 +22,28 @@ public class TimeView implements TimeObserver {
         gc.setFill(Color.WHITE);
     }
 
-    private void drawImage(int seconds){
-        int s = seconds % 60;
-        int m = seconds / 60;
+    private void calcuateTime(long time){
+        long sec = time / 1000000000;
+        this.seconds = sec % 60;
+        this.minutes = sec / 60;
+    }
 
-        if(m < 10 && s < 10) {
-            sb.replace(0, sb.capacity(), "0" + m + ":" + "0" + s);
-        } else if (m < 10 && s >= 10) {
-            sb.replace(0, sb.capacity(), "0" + m + ":" + s);
-        } else if (m >= 10 && s < 10) {
-            sb.replace(0, sb.capacity(),  m + ":" + "0" + s);
+    private void drawImage(){
+        if(minutes < 10 && seconds < 10) {
+            sb.replace(0, sb.capacity(), "0" + minutes + ":" + "0" + seconds);
+        } else if (minutes < 10) {
+            sb.replace(0, sb.capacity(), "0" + minutes + ":" + seconds);
+        } else if (seconds < 10) {
+            sb.replace(0, sb.capacity(),  minutes + ":" + "0" + seconds);
         } else  {
-            sb.replace(0, sb.capacity(),  m + ":" + s);
+            sb.replace(0, sb.capacity(),  minutes + ":" + seconds);
         }
 
         gc.fillText(sb.toString(), 20, 590);
     }
 
-    public void actOnEvent(int time) {
-        drawImage(time);
+    public void actOnEvent(long time) {
+        calcuateTime(time);
+        drawImage();
     }
 }

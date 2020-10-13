@@ -1,15 +1,13 @@
 package Entities.Player;
 
-import javafx.beans.property.SimpleIntegerProperty;
-
 import java.util.ArrayList;
 import java.util.List;
 
 public class Player implements IObserve {
 
-    private final int maxHp;
+    private int maxHp;
     private List<Spaceship> spaceships;
-    private final SimpleIntegerProperty hp;
+    private int hp;
 
     private int points;
     private int nrOfShields;
@@ -19,14 +17,14 @@ public class Player implements IObserve {
         this.nrOfShields = 0;
         this.points = 0;
         maxHp = 200;
-        this.hp = new SimpleIntegerProperty(maxHp);
+        this.hp = maxHp;
     }
 
     public void setHp(int hp) {
-        this.hp.set(hp);
+        this.hp = hp;
     }
 
-    public SimpleIntegerProperty getHp() {
+    public int getHp() {
         return hp;
     }
 
@@ -66,17 +64,17 @@ public class Player implements IObserve {
                 if (nrOfShields > 0) {
                     loseShield();
                 } else {
-                    this.setHp(getHp().getValue() - amount);
+                    this.setHp(getHp() - amount);
                 }
                 break;
             case "shield":
                 gainShield();
                 break;
             case "health":
-                if (getHp().getValue() + amount > maxHp) {
+                if (getHp() + amount > maxHp) {
                     setHp(maxHp);
                 } else {
-                    setHp(getHp().getValue() + amount);
+                    setHp(getHp() + amount);
                 }
                 break;
             default:

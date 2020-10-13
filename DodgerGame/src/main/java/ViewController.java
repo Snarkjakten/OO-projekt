@@ -1,7 +1,4 @@
 import View.*;
-import javafx.beans.property.SimpleIntegerProperty;
-import javafx.beans.value.ChangeListener;
-import javafx.beans.value.ObservableValue;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -12,7 +9,7 @@ import java.util.Optional;
  * @Author Isak Almeros
  */
 
-public class ViewController {
+public class ViewController implements IGameOverObserver {
     private final Window window;
     private final MainMenu mainMenu;
     private final HighScoreMenu highScoreMenu;
@@ -30,33 +27,10 @@ public class ViewController {
         this.stage = stage;
         this.name = "";
 
-        SimpleIntegerProperty hp = window.player.getHp();
-
         mainMenuButtonHandler();
         characterMenuButtonHandler();
         gameOverButtonHandler();
         highScoreButtonHandler();
-
-        // Listens to changes in hp and stops animationtimer when hp reaches 0, and switches to the game over menu
-        ChangeListener listener = new ChangeListener() {
-            @Override
-            public void changed(ObservableValue observableValue, Object oldValue, Object newValue) {
-                if ((int) newValue < 1) {
-
-                    stage.getScene().setOnMouseClicked(null);
-                    stage.getScene().setOnKeyPressed(null);
-                    stage.getScene().setOnKeyReleased(null);
-
-                    window.setPoints();
-                    window.stopAnimationTimer();
-                    int points = window.getPoints();
-                    gameOverMenu.showScore(points);
-                    stage.getScene().setRoot(gameOverMenu.getRoot());
-                }
-            }
-        };
-
-        hp.addListener(listener);
     }
 
     // Handles button clicks in the main menu
@@ -159,4 +133,12 @@ public class ViewController {
         }
     }
 
+    @Override
+    public void actOnEvent(boolean isGameOver) {
+        if(isGameOver) {
+            int points = 100;
+            gameOverMenu.showScore(points);
+            stage.getScene().setRoot(gameOverMenu.getRoot());
+        }
+    }
 }

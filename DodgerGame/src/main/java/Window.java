@@ -23,7 +23,7 @@ import java.util.List;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window implements IObservable, ISoundObservable {
+public class Window implements IObservable, ISoundObservable, IHealthObservable, ITimeObservable {
 
     //Creates Pane
     private final Pane root = new Pane();
@@ -33,8 +33,10 @@ public class Window implements IObservable, ISoundObservable {
 
     private long startNanoTime;
     private List<IObserver> observers;
-    private List<TimeObserver> timeObservers;
+    private List<ITimeObserver> timeObservers;
     private List<ISoundObserve> soundObservers;
+    private List<IHealthObserver> healthObservers;
+    private List<IGameOverObserver> gameOverObservers;
 
     SoundHandler soundHandler = new SoundHandler();
 
@@ -66,13 +68,22 @@ public class Window implements IObservable, ISoundObservable {
             ShieldGUI shieldGUI = new ShieldGUI(gc, animationDuration);
             BackgroundView backgroundView = new BackgroundView(gc);
             HealthBarGUI healthBarGUI = new HealthBarGUI(gc);
+            //TODO: add viewcontroller when moved
 
-            TimeObserver timeView = new TimeView(gc);
+            ITimeObserver timeView = new TimeView(gc);
             timeObservers = new ArrayList<>();
-            timeObservers.add(timeView);
+            addObserver(timeView);
 
             soundObservers = new ArrayList<>();
-            soundObservers.add(soundHandler);
+            addObserver(soundHandler);
+
+            healthObservers = new ArrayList<>();
+            addObserver(healthBarGUI);
+
+            //TODO: see above
+            /*gameOverObservers = new ArrayList<>();
+            addObserver();*/
+
 
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
@@ -82,7 +93,7 @@ public class Window implements IObservable, ISoundObservable {
             // Game loop --------------------------------------------------------------
 
             observers = new ArrayList<>();
-            observers.add(gameObjectGUI);
+            addObserver(gameObjectGUI);
 
             animationTimer = new AnimationTimer() {
                 final long currentNanoTime = System.nanoTime();
@@ -129,7 +140,7 @@ public class Window implements IObservable, ISoundObservable {
                     double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                     backgroundView.drawBackground(0, 0, 600, 800, 0); // TODO: Get height and width from model
-                    healthBarGUI.drawHealthBar(game.getPlayer().getHp().doubleValue());
+
 
                     laserBeam.move(deltaTime);
                     laserGUI.drawLaser(animationTime, laserBeam.position.getX(), laserBeam.position.getY());
@@ -211,8 +222,11 @@ public class Window implements IObservable, ISoundObservable {
                     game.wrapAround();
                     previousNanoTime = currentNanoTime;
 
-                    int elapsedTime = calculateElapsedTime();
-                    notifyTimeObeservers(elapsedTime);
+                    long elapsedTime = calculateElapsedTime();
+                    notifyTimeObservers(elapsedTime);
+                    notifyHealthObservers(player.getHp());
+
+                    endGame();
                 }
             };
 
@@ -246,16 +260,6 @@ public class Window implements IObservable, ISoundObservable {
         return root;
     }
 
-    // todo:
-    public int getPoints() {
-        return player.getPoints();
-    }
-
-    // todo:
-    public void setPoints() {
-        player.setPoints(calculateElapsedTime());
-    }
-
     public void startAnimationTimer() {
         animationTimer.start();
     }
@@ -265,10 +269,10 @@ public class Window implements IObservable, ISoundObservable {
         restartScheduled = true;
     }
 
-    // Calculates elapsed time in the game in seconds
-    public int calculateElapsedTime() {
+    // Calculates elapsed time
+    public long calculateElapsedTime() {
         long endNanoTime = System.nanoTime();
-        return (int) ((endNanoTime - startNanoTime) / 1000000000.0);
+        return endNanoTime - startNanoTime;
     }
 
     /**
@@ -294,19 +298,13 @@ public class Window implements IObservable, ISoundObservable {
         }
     }
 
-    public void notifyTimeObeservers(int time) {
-        for (TimeObserver obs : timeObservers) {
-            obs.actOnEvent(time);
-        }
-    }
-
     @Override
-    public void removeSoundObserver(ISoundObserve iso) {
+    public void removeObserver(ISoundObserve iso) {
         this.soundObservers.remove(iso);
     }
 
     @Override
-    public void addSoundObserver(ISoundObserve iso) {
+    public void addObserver(ISoundObserve iso) {
         this.soundObservers.add(iso);
     }
 
@@ -314,6 +312,46 @@ public class Window implements IObservable, ISoundObservable {
     public void notifySoundObservers(Class c) {
         for (ISoundObserve iso : soundObservers) {
             iso.actOnEvent(c);
+        }
+    }
+
+    @Override
+    public void notifyHealthObservers(int health) {
+        for(IHealthObserver iho : healthObservers) {
+            iho.actOnEvent(health);
+        }
+    }
+
+    @Override
+    public void addObserver(IHealthObserver iho) {
+        this.healthObservers.add(iho);
+    }
+
+    @Override
+    public void removeObserver(IHealthObserver iho) {
+        this.healthObservers.remove(iho);
+    }
+
+    @Override
+    public void notifyTimeObservers(long time) {
+        for (ITimeObserver obs : timeObservers) {
+            obs.actOnEvent(time);
+        }
+    }
+
+    @Override
+    public void addObserver(ITimeObserver ito) {
+        this.timeObservers.add(ito);
+    }
+
+    @Override
+    public void removeObserver(ITimeObserver ito) {
+        this.timeObservers.remove(ito);
+    }
+
+    private void endGame() {
+        if(player.getHp() <= 0) {
+            game.setGameOver(true);
         }
     }
 }
