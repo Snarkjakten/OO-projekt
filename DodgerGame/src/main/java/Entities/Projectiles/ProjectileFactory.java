@@ -1,7 +1,8 @@
 package Entities.Projectiles;
 
 /**
- * @Author Olle Westerlund
+ * A factory class that creates the different projectiles.
+ * @author Olle Westerlund
  */
 
 public abstract class ProjectileFactory {

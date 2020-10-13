@@ -1,5 +1,4 @@
 import Entities.Projectiles.*;
-import View.GameObjectGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -21,43 +20,58 @@ public class ProjectileTest {
     @Before
     public void init() {
         projAsteroid = new Asteroid();
-//        smallAsteroidGUI = new ProjectileGUI();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
     }
 
+    /**
+     * Test that the shield power up gives one shield when pick up.
+     * @author Olle Westerlund
+     */
     @Test
-    //@Author Olle Westerlund
     public void testGainShield() {
         int shields = 0;
         shields = shieldPU.gainShield();
         assertTrue(shields == 1);
     }
 
+    /**
+     * Test that the health power up gives the right amount of health.
+     * @author Olle Westerlund
+     */
     @Test
-    //@Author Olle Westerlund
     public void testGainHealth() {
-        int totalHealth = 200;
         int currentHealth = 100;
-        currentHealth += hpUp.gainHealth(totalHealth);
+        currentHealth += hpUp.gainHealth();
         assertTrue(currentHealth == 150);
     }
 
 
+    /**
+     * Test that the asteroid has a speed when spawned.
+     * @author Olle Westerlund
+     */
     @Test
     public void testAsteroidSpeed() {
         assertTrue(projAsteroid.speed > 0 );
     }
 
-//    @Test
-//    //@Author Olle Westerlund
-//    public void testAsteroidDamage() {
-//        assertTrue(projSmallAsteroid.getDamage() == 20);
-//        assertTrue(projMediumAsteroid.getDamage() == 35);
-//    }
-
+    /**
+     * Test that asteroid does damage
+     * @author Olle Westerlund
+     */
     @Test
-    //@Author Olle Westerlund
+    public void testAsteroidDamage() {
+        int startHealth = 200;
+        int healthAfterHit = startHealth - projAsteroid.getDamage();
+        assertTrue(startHealth > healthAfterHit);
+    }
+
+    /**
+     * Test if the asteroid is no longer on the map.
+     * @author Olle Westerlund
+     */
+    @Test
     public void testAsteroidIsNotOnScreen() {
         projAsteroid.setPosition(-80, -80);
         assertTrue(projAsteroid.isNotOnScreen());

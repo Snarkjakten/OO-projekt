@@ -2,6 +2,9 @@ package Entities.Projectiles;
 
 import java.util.Random;
 
+/**
+ * @author Olle Westerlund
+ */
 public class Asteroid extends Projectile {
     private int damage;
 
@@ -14,6 +17,11 @@ public class Asteroid extends Projectile {
         return damage;
     }
 
+    /**
+     * Creates one of two random asteroids, a smaller, faster one or a bigger, slower
+     * with more damage. About one of three is a bigger one and about two of three is
+     * a smaller one.
+     */
     private void initAsteroid() {
         Random random = new Random();
         int type = random.nextInt(99);

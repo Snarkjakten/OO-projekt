@@ -30,7 +30,7 @@ public class GameObjectGUI implements IObserver {
     private Image addImageToProjectile(Class gameObject) {
         InputStream inputStream;
         if (gameObject.equals(Asteroid.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream("smallAsteroid.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream("mediumAsteroid.png");
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(HealthPowerUp.class)) {
