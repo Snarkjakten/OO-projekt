@@ -1,9 +1,10 @@
 package View.Sound;
 
-import Entities.Projectiles.HealthPowerUp;
-import Entities.Projectiles.MediumAsteroid;
-import Entities.Projectiles.ShieldPowerUp;
-import Entities.Projectiles.SmallAsteroid;
+import Game.Entities.Projectiles.HealthPowerUp;
+import Game.Entities.Projectiles.MediumAsteroid;
+import Game.Entities.Projectiles.ShieldPowerUp;
+import Game.Entities.Projectiles.SmallAsteroid;
+import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

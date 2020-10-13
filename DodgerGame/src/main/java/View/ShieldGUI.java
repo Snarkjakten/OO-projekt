@@ -1,7 +1,7 @@
 package View;
 
-import Entities.Player.Player;
-import Entities.Player.Spaceship;
+import Game.Entities.Player.Player;
+import Game.Entities.Player.Spaceship;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -15,9 +15,9 @@ public class ShieldGUI {
     private Image[] frames;
     private double duration;
 
-    public ShieldGUI(GraphicsContext gc, double duration) {
+    public ShieldGUI(GraphicsContext gc) {
         this.gc = gc;
-        this.duration = duration;
+        this.duration = 0.1;
         this.frames = new Image[20];
         initImages();
 

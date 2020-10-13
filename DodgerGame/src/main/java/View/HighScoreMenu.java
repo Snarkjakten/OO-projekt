@@ -1,6 +1,6 @@
 package View;
 
-import Score.HighScoreHandler;
+import Game.HighScoreHandler;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

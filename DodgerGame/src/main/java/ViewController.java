@@ -1,4 +1,9 @@
-import View.*;
+import Interfaces.IGameOverObserver;
+import View.CharacterMenu;
+import View.GameOverMenu;
+import View.HighScoreMenu;
+import View.MainMenu;
+import javafx.animation.AnimationTimer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -16,16 +21,18 @@ public class ViewController implements IGameOverObserver {
     private final CharacterMenu characterMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
-    private String name;
+    private int spaceshipChoice;
+    AnimationTimer gameLoop;
 
-    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage) {
+    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage, AnimationTimer gameLoop) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
         this.characterMenu = characterMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
-        this.name = "";
+        this.spaceshipChoice = 0;
+        this.gameLoop = gameLoop;
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
@@ -60,7 +67,7 @@ public class ViewController implements IGameOverObserver {
     // @Author Tobias Engblom
     private void characterMenuButtonHandler() {
         characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
-            name = "lighter.gif";
+            spaceshipChoice = 1;
             characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(5);
             characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
@@ -68,7 +75,7 @@ public class ViewController implements IGameOverObserver {
         });
 
         characterMenu.getSpaceshipTurtleBtn().setOnMouseClicked(event -> {
-            name = "turtle.png";
+            spaceshipChoice = 2;
             characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(5);
             characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
@@ -76,7 +83,7 @@ public class ViewController implements IGameOverObserver {
         });
 
         characterMenu.getSpaceshipThorBtn().setOnMouseClicked(event -> {
-            name = "thor.gif";
+            spaceshipChoice = 3;
             characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(5);
@@ -84,7 +91,7 @@ public class ViewController implements IGameOverObserver {
         });
 
         characterMenu.getSpaceshipUfoBtn().setOnMouseClicked(event -> {
-            name = "ufo.gif";
+            spaceshipChoice = 4;
             characterMenu.getSpaceshipLighterBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipTurtleBtn().getButtonBackground().setStrokeWidth(1);
             characterMenu.getSpaceshipThorBtn().getButtonBackground().setStrokeWidth(1);
@@ -92,10 +99,9 @@ public class ViewController implements IGameOverObserver {
         });
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
-            if (!name.equals("")) {
+            if (spaceshipChoice != 0) {
                 stage.getScene().setRoot(window.getRoot());
-                window.init(name);
-                window.startAnimationTimer();
+                gameLoop.start();
             }
         });
 
@@ -105,8 +111,7 @@ public class ViewController implements IGameOverObserver {
     // Handles button clicks in the game over menu
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
-            window.init(name);
-            window.startAnimationTimer();
+            gameLoop.start();
             stage.getScene().setRoot(window.getRoot());
         });
 
@@ -136,9 +141,14 @@ public class ViewController implements IGameOverObserver {
     @Override
     public void actOnEvent(boolean isGameOver) {
         if(isGameOver) {
+            //TODO: change this
             int points = 100;
             gameOverMenu.showScore(points);
             stage.getScene().setRoot(gameOverMenu.getRoot());
         }
+    }
+
+    public int getSpaceshipChoice() {
+        return spaceshipChoice;
     }
 }
