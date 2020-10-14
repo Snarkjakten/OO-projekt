@@ -1,8 +1,5 @@
 import Interfaces.IGameOverObserver;
-import View.CharacterMenu;
-import View.GameOverMenu;
-import View.HighScoreMenu;
-import View.MainMenu;
+import View.*;
 import javafx.animation.AnimationTimer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
@@ -22,9 +19,11 @@ public class ViewController implements IGameOverObserver {
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private int spaceshipChoice;
+    private GameObjectGUI gameObjectGUI;
     AnimationTimer gameLoop;
 
-    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu, GameOverMenu gameOverMenu, Stage stage, AnimationTimer gameLoop) {
+    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
+                          GameOverMenu gameOverMenu, Stage stage, AnimationTimer gameLoop, GameObjectGUI gameObjectGUI) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
@@ -33,6 +32,7 @@ public class ViewController implements IGameOverObserver {
         this.stage = stage;
         this.spaceshipChoice = 0;
         this.gameLoop = gameLoop;
+        this.gameObjectGUI = gameObjectGUI;
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
@@ -100,6 +100,7 @@ public class ViewController implements IGameOverObserver {
 
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
             if (spaceshipChoice != 0) {
+                gameObjectGUI.chooseSpaceshipImage(spaceshipChoice);
                 stage.getScene().setRoot(window.getRoot());
                 gameLoop.start();
                 window.init();

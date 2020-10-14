@@ -26,12 +26,11 @@ public class GameObjectGUI implements IGameObjectObserver {
     private static final String shieldFilePath = "repair.png";
     private static final String hpFilePath = "shieldPowerUp.png";
 
-    public GameObjectGUI(GraphicsContext gc, int spaceshipChoice) {
+    public GameObjectGUI(GraphicsContext gc) {
         this.gc = gc;
-        chooseSpaceshipImage(spaceshipChoice);
     }
 
-    private void chooseSpaceshipImage(int spaceshipChoice) {
+    public void chooseSpaceshipImage(int spaceshipChoice) {
         if(spaceshipChoice == 1){
             spaceshipImageName = firstChoice;
         } else if(spaceshipChoice == 2) {

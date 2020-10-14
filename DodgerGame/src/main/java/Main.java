@@ -151,8 +151,8 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
                 previousNanoTime = currentNanoTime;
             }
         };
-
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu , characterMenu, gameOverMenu, stage, gameLoop);
+        GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu , characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
@@ -165,7 +165,6 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
         //@Author tobbe
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
-        GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext, vc.getSpaceshipChoice());
         addObserver(gameObjectGUI);
         addObserver(window);
         addObserver(vc);
