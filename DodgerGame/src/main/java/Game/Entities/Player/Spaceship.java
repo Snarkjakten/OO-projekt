@@ -4,31 +4,21 @@ import Game.Entities.Projectiles.Asteroid;
 import Game.Entities.Projectiles.HealthPowerUp;
 import Game.Entities.Projectiles.ShieldPowerUp;
 import Game.Movement.AbstractGameObject;
-import Interfaces.IObserve;
-import Interfaces.ISoundObserve;
-import Interfaces.ISpaceshipObservable;
 import javafx.geometry.Point2D;
 
-import java.util.ArrayList;
-import java.util.List;
-
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractGameObject implements ISpaceshipObservable {
+public class Spaceship extends AbstractGameObject {
 
     // Game.Movement directions
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
-    private List<IObserve> observers;
-    private List<ISoundObserve> soundObservers;
 
     public Spaceship(double x, double y) {
         setPosition(x, y);
         this.width = 64;
         this.height = 64;
-        this.observers = new ArrayList<>();
-        this.soundObservers = new ArrayList<>();
     }
 
     /**
@@ -85,25 +75,12 @@ public class Spaceship extends AbstractGameObject implements ISpaceshipObservabl
     /**
      * Acts upon the collision based on instance of projectile
      *
-     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      * @param c
+     * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
 
     @Override
     public void actOnCollision(AbstractGameObject c) {
-        int amount = 0;
-        String event = "";
-        if (c instanceof Asteroid) {
-            amount = ((Asteroid) c).getDamage();
-            event = "asteroid";
-        } else if (c instanceof ShieldPowerUp) {
-            event = "shield";
-            amount = 1;
-        } else if (c instanceof HealthPowerUp) {
-            amount = ((HealthPowerUp) c).gainHealth(200);
-            event = "health";
-        }
-        notifyObserver(event, amount);
         c.setCollided(true);
     }
 
@@ -113,22 +90,4 @@ public class Spaceship extends AbstractGameObject implements ISpaceshipObservabl
         this.left = 0;
         this.right = 0;
     }
-
-    @Override
-    public void notifyObserver(String event, int amount) {
-        for (IObserve obs : observers) {
-            obs.actOnEvent(event, amount);
-        }
-    }
-
-    @Override
-    public void addObserver(IObserve obs) {
-        this.observers.add(obs);
-    }
-
-    @Override
-    public void removeObserver(IObserve obs) {
-        this.observers.remove(obs);
-    }
-
 }

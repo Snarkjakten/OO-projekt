@@ -1,13 +1,15 @@
 package Game.Entities.Player;
 
-import Interfaces.IObserve;
-import Interfaces.IPlayerObservable;
-import Interfaces.IPlayerObserver;
+import Game.Entities.Projectiles.Asteroid;
+import Game.Entities.Projectiles.HealthPowerUp;
+import Game.Entities.Projectiles.ShieldPowerUp;
+import Game.Movement.AbstractGameObject;
+import Interfaces.ICollisionObserver;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements IObserve {
+public class Player implements ICollisionObserver {
 
     private int maxHp;
     private List<Spaceship> spaceships;
@@ -22,6 +24,14 @@ public class Player implements IObserve {
         this.points = 0;
         maxHp = 200;
         this.hp = maxHp;
+    }
+
+    public Player(List<Spaceship> spaceships, int nrOfShields, int points, int hp) {
+        this.spaceships = spaceships;
+        this.nrOfShields = nrOfShields;
+        this.points = points;
+        maxHp = 200;
+        this.hp = hp;
     }
 
     public void setHp(int hp) {
@@ -70,27 +80,21 @@ public class Player implements IObserve {
 
 
     @Override
-    public void actOnEvent(String event, int amount) {
-        switch (event) {
-            case "asteroid":
-                if (nrOfShields > 0) {
-                    loseShield();
-                } else {
-                    this.setHp(getHp() - amount);
-                }
-                break;
-            case "shield":
-                gainShield();
-                break;
-            case "health":
-                if (getHp() + amount > maxHp) {
-                    setHp(maxHp);
-                } else {
-                    setHp(getHp() + amount);
-                }
-                break;
-            default:
-                break;
+    public void actOnEvent(AbstractGameObject gameObject) {
+        if (gameObject instanceof Asteroid) {
+            if (nrOfShields > 0) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+            }
+        } else if (gameObject instanceof ShieldPowerUp) {
+            gainShield();
+        } else if (gameObject instanceof HealthPowerUp) {
+            if (getHp() + ((HealthPowerUp) gameObject).getHealth() > maxHp) {
+                setHp(maxHp);
+            } else {
+                setHp(getHp() + ((HealthPowerUp) gameObject).getHealth());
+            }
         }
     }
 }

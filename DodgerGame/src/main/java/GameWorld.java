@@ -46,7 +46,6 @@ public class GameWorld {
     //@Author Tobias Engblom
     private void initSpaceships() {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
-        newSpaceship.addObserver(player);
         player.getSpaceships().add(newSpaceship);
         gameObjects.add(newSpaceship);
         //newSpaceship.addSoundObserver();
@@ -105,32 +104,24 @@ public class GameWorld {
             newSpaceship.setDirection(spaceship);
             otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
-            newSpaceship.addObserver(player);
-            otherSpaceship.addObserver(player);
         } else if (checkNorthPosition(spaceship) && checkNorthPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
             otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), 600);
             newSpaceship.setDirection(spaceship);
             otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
-            newSpaceship.addObserver(player);
-            otherSpaceship.addObserver(player);
         } else if (checkEastPosition(spaceship) && checkEastPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
             otherSpaceship = SpaceshipFactory.createSpaceship(-76, nextSpaceship.position.getY());
             newSpaceship.setDirection(spaceship);
             otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
-            newSpaceship.addObserver(player);
-            otherSpaceship.addObserver(player);
         } else if (checkSouthPosition(spaceship) && checkSouthPosition(nextSpaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
             otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), -64);
             newSpaceship.setDirection(spaceship);
             otherSpaceship.setDirection(nextSpaceship);
             addSpaceship(newSpaceship, otherSpaceship);
-            newSpaceship.addObserver(player);
-            otherSpaceship.addObserver(player);
         }
     }
 
@@ -140,22 +131,18 @@ public class GameWorld {
             newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
             newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
-            newSpaceship.addObserver(player);
         } else if (checkNorthPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
             newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
-            newSpaceship.addObserver(player);
         } else if (checkEastPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
             newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
-            newSpaceship.addObserver(player);
         } else if (checkSouthPosition(spaceship)) {
             newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
             newSpaceship.setDirection(spaceship);
             addSpaceship(newSpaceship);
-            newSpaceship.addObserver(player);
         }
     }
 
