@@ -1,7 +1,5 @@
-import Entities.LaserBeam;
-import View.LaserGUI;
+import Game.Entities.Projectiles.LaserBeam;
 import javafx.geometry.Point2D;
-import javafx.scene.image.Image;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
