@@ -70,6 +70,10 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             public void handle(long currentNanoTime) {
                 checkGameWorld();
 
+                if (gameWorld.getPlayer().getSlowDebuffed()) {
+                    checkSlowDebuffed();
+                }
+
                 /**
                  * Calculates time since last update
                  * @author Irja Vuorela
@@ -133,6 +137,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     gameObjects.add(ProjectileFactory.createMediumAsteroid());
                     gameObjects.add(ProjectileFactory.createHealthPowerUp());
                     gameObjects.add(ProjectileFactory.createShieldPowerUp());
+                    gameObjects.add(ProjectileFactory.createDebuff());
                 }
 
                 /**
@@ -149,7 +154,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 gameWorld.wrapAround();
 
-                long elapsedTime = calculateElapsedTime();
+                long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
                 endGame();
@@ -198,7 +203,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     public void checkSlowDebuffed() {
-        if(gameWorld.getPlayer().getSlowDebuffed() == true && gameWorld.getPlayer().getSlowDebuffedTime() == 10) {
+        long slowDebuffedTime = gameWorld.getPlayer().getSlowDebuffedTime();
+        int timeSinceSlowDebuffed = (int) calculateElapsedTime(slowDebuffedTime)/ 1000000000;
+
+        System.out.println(timeSinceSlowDebuffed);
+
+        if(timeSinceSlowDebuffed == 10) {
             List<Spaceship> spaceships = gameWorld.getPlayer().getSpaceships();
 
             for(Spaceship spaceship : spaceships) {
@@ -208,6 +218,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             gameWorld.getPlayer().setSlowDebuffed(false);
         }
     }
+
 
     //@Author Isak
     public void stopAnimationTimer() {
@@ -303,9 +314,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     // Calculates elapsed time
-    public long calculateElapsedTime() {
-        long endNanoTime = System.nanoTime();
-        return endNanoTime - startNanoTime;
+    public long calculateElapsedTime(long startNanoTime) {
+        long currentNanoTime = System.nanoTime();
+        return currentNanoTime - startNanoTime;
     }
 
     @Override
