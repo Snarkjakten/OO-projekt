@@ -7,7 +7,7 @@ package Game.Entities.Projectiles;
 public class MediumAsteroid extends Asteroid {
 
     public MediumAsteroid() {
-        super(100, 200, 128, 128);
+        super(100, 35, 128, 128);
     }
 
 }

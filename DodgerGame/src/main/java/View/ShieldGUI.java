@@ -2,6 +2,8 @@ package View;
 
 import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
+import Interfaces.IPlayerObserver;
+import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -10,10 +12,11 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class ShieldGUI {
+public class ShieldGUI implements IPlayerObserver, ITimeObserver {
     private GraphicsContext gc;
     private Image[] frames;
     private double duration;
+    private double animationTime;
 
     public ShieldGUI(GraphicsContext gc) {
         this.gc = gc;
@@ -64,9 +67,8 @@ public class ShieldGUI {
      * @author Olle Westerlund
      * Draws the image on the players position if the player has a shield.
      * @param player The current player.
-     * @param animationTime The current time for the animation
      */
-    public void drawImage(Player player, double animationTime) {
+    private void drawImage(Player player) {
         if (player.getNrOfShields() > 0) {
             Image image = getFrame(animationTime);
             for (Spaceship ship : player.getSpaceships()) {
@@ -77,5 +79,15 @@ public class ShieldGUI {
                 gc.drawImage(image, xPos, yPos, height, width);
             }
         }
+    }
+
+    @Override
+    public void actOnEvent(Player player) {
+        drawImage(player);
+    }
+
+    @Override
+    public void actOnEvent(long time, double deltaTime) {
+        this.animationTime = deltaTime;
     }
 }

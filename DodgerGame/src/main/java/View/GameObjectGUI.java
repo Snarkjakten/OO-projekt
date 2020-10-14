@@ -13,7 +13,7 @@ import java.io.InputStream;
  */
 
 public class GameObjectGUI implements IGameObjectObserver {
-    GraphicsContext gc;
+    private GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
 
@@ -23,7 +23,7 @@ public class GameObjectGUI implements IGameObjectObserver {
     private static final String fourthChoice = "lighter.gif";
     private static final String smallAsteroidFilePath = "smallAsteroid.png";
     private static final String mediumAsteroidFilePath = "mediumAsteroid.png";
-    private static final String shieldFilePath = "repair.png";
+    private static final String shieldFilePath = "healthPowerUp.png";
     private static final String hpFilePath = "shieldPowerUp.png";
 
     public GameObjectGUI(GraphicsContext gc) {
