@@ -71,10 +71,10 @@ public class CharacterMenu {
             startMenu.setTranslateX(270);
             startMenu.setTranslateY(340);
 
-            spaceshipLighterBtn = new MenuButton(generateImage("lighter.gif"));
-            spaceshipTurtleBtn = new MenuButton(generateImage("turtle.png"));
-            spaceshipThorBtn = new MenuButton(generateImage("thor.gif"));
-            spaceshipUfoBtn = new MenuButton(generateImage("ufo.gif"));
+            spaceshipLighterBtn = new MenuButton(generateImage(GameObjectGUI.getFirstChoice()));
+            spaceshipTurtleBtn = new MenuButton(generateImage(GameObjectGUI.getSecondChoice()));
+            spaceshipThorBtn = new MenuButton(generateImage(GameObjectGUI.getThirdChoice()));
+            spaceshipUfoBtn = new MenuButton(generateImage(GameObjectGUI.getFourthChoice()));
 
             startBtn = new MenuButton("START");
             returnBtn = new MenuButton("BACK");
