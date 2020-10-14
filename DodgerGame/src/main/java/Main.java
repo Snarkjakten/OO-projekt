@@ -167,7 +167,6 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext, vc.getSpaceshipChoice());
         addObserver(gameObjectGUI);
-        addObserver(window);
         addObserver(vc);
 
         BackgroundView backgroundView = new BackgroundView(graphicsContext);

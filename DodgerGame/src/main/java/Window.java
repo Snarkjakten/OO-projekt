@@ -1,4 +1,4 @@
-import Interfaces.IGameOverObserver;
+
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -8,7 +8,7 @@ import javafx.stage.Stage;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window implements IGameOverObserver {
+public class Window {
 
     //Creates Pane
     private final Pane root = new Pane();
@@ -65,12 +65,5 @@ public class Window implements IGameOverObserver {
 
     public GraphicsContext getGraphicsContext() {
         return gc;
-    }
-
-    @Override
-    public void actOnEvent(boolean isGameOver) {
-        if(isGameOver) {
-            gameWorld = GameWorld.getInstance();
-        }
     }
 }
