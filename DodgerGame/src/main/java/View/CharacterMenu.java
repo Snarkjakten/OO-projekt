@@ -32,13 +32,13 @@ public class CharacterMenu extends AbstractMenu {
         buttonMenu.getvBox().setTranslateX(270);
         buttonMenu.getvBox().setTranslateY(340);
 
-        spaceshipLighterBtn = new MenuButton(generateImage("lighter.gif"));
-        spaceshipTurtleBtn = new MenuButton(generateImage("turtle.png"));
-        spaceshipThorBtn = new MenuButton(generateImage("thor.gif"));
-        spaceshipUfoBtn = new MenuButton(generateImage("ufo.gif"));
 
         startBtn = new MenuButton("START");
         returnBtn = new MenuButton("BACK");
+        spaceshipLighterBtn = new MenuButton(generateImage(GameObjectGUI.getFirstChoice()));
+        spaceshipTurtleBtn = new MenuButton(generateImage(GameObjectGUI.getSecondChoice()));
+        spaceshipThorBtn = new MenuButton(generateImage(GameObjectGUI.getThirdChoice()));
+        spaceshipUfoBtn = new MenuButton(generateImage(GameObjectGUI.getFourthChoice()));
 
         buttonMenu.gethBox().getChildren().addAll(spaceshipLighterBtn, spaceshipTurtleBtn, spaceshipThorBtn, spaceshipUfoBtn);
         buttonMenu.getvBox().getChildren().addAll(startBtn, returnBtn);

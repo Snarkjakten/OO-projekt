@@ -1,5 +1,7 @@
 package View;
 
+import Game.Entities.Player.Player;
+import Interfaces.IPlayerObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -9,7 +11,7 @@ import java.io.InputStream;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class HealthBarGUI {
+public class HealthBarGUI implements IPlayerObserver {
     private GraphicsContext gc;
     private Image background;
     private Image foreground;
@@ -44,9 +46,14 @@ public class HealthBarGUI {
         return border;
     }
 
-    public void drawHealthBar(double remainingHp) {
+    private void drawHealthBar(double remainingHp) {
         gc.drawImage(background, 0, 0, 200, 40);
         gc.drawImage(foreground, 0, 0, remainingHp, 40);
         gc.drawImage(border, 0, 0, 200, 40);
+    }
+
+    @Override
+    public void actOnEvent(Player player) {
+        drawHealthBar(player.getHp());
     }
 }

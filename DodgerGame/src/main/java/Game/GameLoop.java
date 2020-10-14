@@ -1,28 +1,23 @@
+package Game;
+
 import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
 import Game.Entities.Projectiles.Projectile;
 import Game.Entities.Projectiles.ProjectileFactory;
-import Game.HighScoreHandler;
 import Game.Movement.AbstractGameObject;
 import Game.Movement.CollisionHandler;
 import Interfaces.*;
-import View.*;
-import View.Sound.GameObjectsSounds;
-import View.Sound.SoundHandler;
-import javafx.application.Application;
-import javafx.scene.Scene;
-import javafx.scene.canvas.GraphicsContext;
-import javafx.stage.Stage;
+import javafx.animation.AnimationTimer;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends Application implements ICollisionObservable, IGameObjectObservable, IGameOverObservable, IPlayerObservable, IPlayingFieldObservable, ISoundObservable, ITimeObservable {
+public class GameLoop {
 
-    private GameWorld gameWorld;
-    private PausableAnimationTimer gameLoop;
+    /*
+    private AnimationTimer gameLoop;
+    private long startNanoTime;
 
-    private List<AbstractGameObject> gameObjects;
     private List<IGameObjectObserver> gameObjectObservers;
     private List<ITimeObserver> timeObservers;
     private List<ISoundObserve> soundObservers;
@@ -31,46 +26,48 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private List<IPlayerObserver> playerObservers;
     private List<ICollisionObserver> collisionObservers;
 
-    private final SoundHandler soundHandler = new SoundHandler();
-    private final HighScoreHandler scoreHandler = new HighScoreHandler();
+     */
+    /*
+    public GameLoop(IGameOverObserver gameObjectGUI) {
+        gameOverObservers = new ArrayList<>();
+        gameObjectObservers = new ArrayList<>();
+        playingFieldObservers = new ArrayList<>();
+        collisionObservers = new ArrayList<>();
+        timeObservers = new ArrayList<>();
+        soundObservers = new ArrayList<>();
+        playerObservers = new ArrayList<>();
 
-    private long startNanoTime;
+        addObserver(gameObjectGUI);
+        addObserver(window);
+        addObserver(vc);
+        addTimeObserver(timeView);
+        addTimeObserver(shieldGUI);
+        addPlayerObserver(shieldGUI);
+        addPlayerObserver(healthBarGUI);
+        addCollisionObserver(gameWorld.getPlayer());
+        addObserver(soundHandler);
+        addObserver(backgroundView);
 
-    @Override
-    public void start(Stage stage) throws Exception {
-        gameWorld = GameWorld.getInstance();
-        gameObjects = gameWorld.getGameObjects();
-        Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
-        GraphicsContext graphicsContext = window.getGraphicsContext();
-        MainMenu mainMenu = new MainMenu();
-        HighScoreMenu highScoreMenu = new HighScoreMenu();
-        CharacterMenu characterMenu = new CharacterMenu();
-        GameOverMenu gameOverMenu = new GameOverMenu();
-        PauseMenu pauseMenu = new PauseMenu();
+     */
 
-        GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
-        HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
-        ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
-        BackgroundView backgroundView = new BackgroundView(graphicsContext);
-        ITimeObserver timeView = new TimeView(graphicsContext);
-        startNanoTime = System.nanoTime(); //TODO Fix time bug
-
-        gameLoop = new PausableAnimationTimer() {
+    /*
+        gameLoop = new AnimationTimer() {
 
             final long currentNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
             int updateCounter = 60;
 
-            final long animationNanoTime = System.nanoTime();
+            long animationNanoTime = System.nanoTime();
 
             @Override
-            public void tick(long currentNanoTime) {
+            public void handle(long currentNanoTime) {
                 checkGameWorld();
 
                 /**
                  * Calculates time since last update
                  * @author Irja Vuorela
                  */
+    /*
                 currentNanoTime = System.nanoTime();
                 double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
                 double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
@@ -81,6 +78,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * update positions and notify observers
                  * @author Irja vuorela
                  */
+    /*
                 for (AbstractGameObject gameObject : gameObjects) {
                     gameObject.move(deltaTime);
                     notifyGameObjectObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
@@ -120,7 +118,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * projectile spawner
                  * @author Irja Vuorela
                  */
-
+    /*
                 updateCounter = updateCounter + 1;
                 if (updateCounter >= 120) {
                     updateCounter = 0;
@@ -136,6 +134,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * removes offscreen projectiles
                  * @author Irja Vuorela
                  */
+    /*
                 for (AbstractGameObject g : gameObjects) {
                     if (g instanceof Projectile) {
                         if (((Projectile) g).isNotOnScreen()) {
@@ -153,67 +152,21 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 previousNanoTime = currentNanoTime;
             }
         };
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);
-        stage.setTitle("Space Dodger");
-
-        Scene mainMenuScene = new Scene(mainMenu.getRoot());
-        stage.setScene(mainMenuScene);
-        //Removes option to change size of program window
-        stage.setResizable(false);
-        stage.show();
-        window.init();
-        //@Author tobbe
-        gameOverObservers = new ArrayList<>();
-        gameObjectObservers = new ArrayList<>();
-        playingFieldObservers = new ArrayList<>();
-        collisionObservers = new ArrayList<>();
-        timeObservers = new ArrayList<>();
-        soundObservers = new ArrayList<>();
-        playerObservers = new ArrayList<>();
-
-        addObserver(gameObjectGUI);
-        addObserver(window);
-        addObserver(vc);
-        addTimeObserver(timeView);
-        addTimeObserver(shieldGUI);
-        addPlayerObserver(shieldGUI);
-        addPlayerObserver(healthBarGUI);
-        addCollisionObserver(gameWorld.getPlayer());
-        addObserver(soundHandler);
-        addObserver(backgroundView);
-
-        soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
-
     }
 
-    public static void main(String[] args) {
-        launch(args);
-    }
-
-    public void checkGameWorld() {
-        this.gameWorld = GameWorld.getInstance();
-    }
-
-    public void startAnimationTimer() {
+    public void startGameLoop() {
+        startNanoTime = System.nanoTime();
         gameLoop.start();
     }
 
-    //@Author Isak
-    public void stopAnimationTimer() {
+    public void stopGameLoop() {
         gameLoop.stop();
-    }
-
-    public void pauseAnimationTimer() {
-        gameLoop.pause();
-    }
-
-    public void playAnimationTimer() {
-        gameLoop.play();
     }
 
     /**
      * @author Irja Vuorela
      */
+    /*
     @Override
     public void addObserver(IGameObjectObserver obs) {
         gameObjectObservers.add(obs);
@@ -222,6 +175,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     /**
      * @author Irja Vuorela
      */
+    /*
     @Override
     public void removeObserver(IGameObjectObserver obs) {
         gameObjectObservers.remove(obs);
@@ -350,7 +304,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
      */
-
+/*
     @Override
     public void notifyCollisionObservers(AbstractGameObject gameObject) {
         for (ICollisionObserver obs : collisionObservers) {
@@ -367,4 +321,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     public void removeCollisionObserver(ICollisionObserver obs) {
         this.collisionObservers.remove(obs);
     }
+
+ */
 }

@@ -1,5 +1,5 @@
-import Entities.Player.Spaceship;
-import Entities.Player.SpaceshipFactory;
+import Game.Entities.Player.Spaceship;
+import Game.Entities.Player.SpaceshipFactory;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,15 +12,20 @@ public class SpaceshipTest {
     Point2D startPos;
     double deltaTime = 0.016;
 
+    /**
+     * creates a spaceship for testing
+     */
     @Before
-    // @Author Irja Vuorela
     public void init() {
         spaceship = SpaceshipFactory.createSpaceship(0, 0);
     }
 
+    /**
+     * Tests if the spaceship can move its position to the left
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position to the left?
-    // @Author Irja Vuorela
     public void SpaceshipMovedLeft() {
         startPos = spaceship.position;
         spaceship.setLeft(1);
@@ -30,9 +35,12 @@ public class SpaceshipTest {
         assertTrue(spaceship.position.getX() < startPos.getX());
     }
 
+    /**
+     * Tests if the spaceship can move its position to the right
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position to the right?
-    // @Author Irja Vuorela
     public void SpaceshipMovedRight() {
         startPos = spaceship.position;
         spaceship.setRight(1);
@@ -42,9 +50,12 @@ public class SpaceshipTest {
         assertTrue(spaceship.position.getX() > startPos.getX());
     }
 
+    /**
+     * Tests if the spaceship can move its position up
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position up?
-    // @Author Irja Vuorela
     public void SpaceshipMovedUp() {
         startPos = spaceship.position;
         spaceship.setUp(1);
@@ -54,9 +65,12 @@ public class SpaceshipTest {
         assertTrue(spaceship.position.getY() < startPos.getY());
     }
 
+    /**
+     * Tests if the spaceship can move its position down
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position down?
-    // @Author Irja Vuorela
     public void SpaceshipMovedDown() {
         startPos = spaceship.position;
         spaceship.setDown(1);
@@ -66,9 +80,12 @@ public class SpaceshipTest {
         assertTrue(spaceship.position.getY() > startPos.getY());
     }
 
+    /**
+     * Tests if the spaceship can move its position up and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position up and right diagonally?
-    // @Author Irja Vuorela
     public void SpaceshipMovedUpAndRight() {
         startPos = spaceship.position;
         spaceship.setUp(1);
@@ -78,9 +95,12 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() > startPos.getX()) && (spaceship.position.getY() < startPos.getY()));
     }
 
+    /**
+     * Tests if the spaceship can move its position up and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position up and left diagonally?
-    // @Author Irja Vuorela
     public void SpaceshipMovedUpAndLeft() {
         startPos = spaceship.position;
         spaceship.setUp(1);
@@ -90,9 +110,13 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() < startPos.getX()) && (spaceship.position.getY() < startPos.getY()));
     }
 
+    /**
+     * /**
+     * Tests if the spaceship can move its position down and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position down and right diagonally?
-    // @Author Irja Vuorela
     public void SpaceshipMovedDownAndRight() {
         startPos = spaceship.position;
         spaceship.setDown(1);
@@ -102,9 +126,12 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() > startPos.getX()) && (spaceship.position.getY() > startPos.getY()));
     }
 
+    /**
+     * Tests if the spaceship can move its position down and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the ship's position down and left diagonally?
-    // @Author Irja Vuorela
     public void SpaceshipMovedDownAndLeft() {
         startPos = spaceship.position;
         spaceship.setDown(1);
@@ -114,9 +141,12 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() < startPos.getX()) && (spaceship.position.getY() > startPos.getY()));
     }
 
+    /**
+     * Tests if the spaceship stays in place when attempting to move left and right simultaneously
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() leave the ship's position unchanged when attempting to move left and right simultaneously?
-    // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenLeftAndRight() {
         startPos = spaceship.position;
         spaceship.setLeft(1);
@@ -126,9 +156,12 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
     }
 
+    /**
+     * Tests if the spaceship stays in place when attempting to move up and down simultaneously
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() leave the ship's position unchanged when attempting to move up and down simultaneously?
-    // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenUpAndDown() {
         startPos = spaceship.position;
         spaceship.setUp(1);
@@ -138,9 +171,12 @@ public class SpaceshipTest {
         assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
     }
 
+    /**
+     * Tests if the spaceship stays in place when its velocity is zero
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() leave the ship's position unchanged when its velocity is zero?
-    // @Author Irja Vuorela
     public void SpaceshipNotMovingWhenVelocityZero() {
         startPos = spaceship.position;
         spaceship.velocity = new Point2D(0, 0);

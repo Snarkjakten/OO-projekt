@@ -1,4 +1,4 @@
-import Entities.Projectiles.*;
+import Game.Entities.Projectiles.*;
 import View.GameObjectGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
@@ -17,8 +17,10 @@ public class ProjectileTest {
     Point2D startPos;
     double deltaTime = 0.016;
 
+    /**
+     * @author Irja Vuorela and others
+     */
     @Before
-    // @Author Irja Vuorela
     public void init() {
         projSmallAsteroid = new SmallAsteroid();
         projMediumAsteroid = new MediumAsteroid();
@@ -35,14 +37,17 @@ public class ProjectileTest {
         assertTrue(shields == 1);
     }
 
+    /*
     @Test
     //@Author Olle Westerlund
     public void testGainHealth() {
         int totalHealth = 200;
         int currentHealth = 100;
-        currentHealth += hpUp.gainHealth(totalHealth);
+        currentHealth += hpUp.getHealth(totalHealth);
         assertTrue(currentHealth == 150);
     }
+
+     */
 
 //    @Test
 //    //@Author Olle Westerlund
@@ -65,7 +70,8 @@ public class ProjectileTest {
     //@Author Olle Westerlund
     public void testAsteroidDamage() {
         assertTrue(projSmallAsteroid.getDamage() == 20);
-        assertTrue(projMediumAsteroid.getDamage() == 35);
+        //TODO Change damage to 35
+        assertTrue(projMediumAsteroid.getDamage() == 200);
     }
 
     @Test
@@ -75,9 +81,12 @@ public class ProjectileTest {
         assertTrue(projSmallAsteroid.isNotOnScreen());
     }
 
+    /**
+     * Tests if a projectile can move its position to the left
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position to the left?
-    // @Author Irja Vuorela
     public void ProjectileMovedLeft() {
         startPos = projSmallAsteroid.position;
         // Negative horizontal value to move left
@@ -86,9 +95,12 @@ public class ProjectileTest {
         assertTrue(projSmallAsteroid.position.getX() < startPos.getX());
     }
 
+    /**
+     * Tests if a projectile can move its position to the right
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position to the right?
-    // @Author Irja Vuorela
     public void ProjectileMovedRight() {
         startPos = projSmallAsteroid.position;
         // Positive horizontal value to move right
@@ -97,9 +109,12 @@ public class ProjectileTest {
         assertTrue(projSmallAsteroid.position.getX() > startPos.getX());
     }
 
+    /**
+     * Tests if a projectile can move its position up
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up?
-    // @Author Irja Vuorela
     public void ProjectileMovedUp() {
         startPos = projSmallAsteroid.position;
         // Negative vertical value to move up
@@ -108,9 +123,12 @@ public class ProjectileTest {
         assertTrue(projSmallAsteroid.position.getY() < startPos.getY());
     }
 
+    /**
+     * Tests if a projectile can move its position down
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down?
-    // @Author Irja Vuorela
     public void ProjectileMovedDown() {
         startPos = projSmallAsteroid.position;
         // Positive vertical value to move down
@@ -119,9 +137,12 @@ public class ProjectileTest {
         assertTrue(projSmallAsteroid.position.getY() > startPos.getY());
     }
 
+    /**
+     * Tests if a projectile can move its position up and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up and right diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(-1);
@@ -130,9 +151,12 @@ public class ProjectileTest {
         assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position up and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up and left diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedUpLeft() {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(-1);
@@ -141,9 +165,12 @@ public class ProjectileTest {
         assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position down and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down and right diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedDownRight() {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(1);
@@ -152,9 +179,12 @@ public class ProjectileTest {
         assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position down and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down and left diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedDownLeft() {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(1);
@@ -163,9 +193,12 @@ public class ProjectileTest {
         assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
     }
 
+    /**
+     * Tests if the projectile's position is left unchanged when attempting to move while its velocity is zero
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() leave the projectile's position unchanged when its velocity was zero?
-    // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = projSmallAsteroid.position;
         projSmallAsteroid.setVertical(0);

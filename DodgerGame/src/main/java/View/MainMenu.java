@@ -34,7 +34,7 @@ public class MainMenu extends AbstractMenu {
         return playBtn;
     }
 
-    public MenuButton getHighscoreBtn() {
+    public MenuButton getHighScoreBtn() {
         return highscoreBtn;
     }
 
