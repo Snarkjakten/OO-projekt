@@ -12,7 +12,7 @@ public class Window implements IGameOverObserver {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private GameWorld gameWorld = GameWorld.getInstance();
+    private GameWorld gameWorld = GameWorld.getInstance();;
     private final Stage stage;
     private Canvas canvas;
     private GraphicsContext gc;
@@ -25,6 +25,7 @@ public class Window implements IGameOverObserver {
 
     public void init() {
         try {
+            root.getChildren().clear();
             createContent();
 
             //Adds ImageView and Canvas to Pane

@@ -19,9 +19,9 @@ import java.util.List;
 
 public class Main extends Application implements IPlayingFieldObservable, IGameObjectObservable, ISoundObservable, IHealthObservable, ITimeObservable, IGameOverObservable {
 
-    private GameWorld gameWorld  = GameWorld.getInstance();
+    private GameWorld gameWorld;
 
-    private final List<AbstractGameObject> gameObjects = gameWorld.getGameObjects();
+    private List<AbstractGameObject> gameObjects;
 
     private SoundHandler soundHandler = new SoundHandler();
     private HighScoreHandler scoreHandler = new HighScoreHandler();
@@ -41,6 +41,8 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
 
     @Override
     public void start(Stage stage) throws Exception {
+        gameWorld = GameWorld.getInstance();
+        gameObjects = gameWorld.getGameObjects();
         Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         graphicsContext = window.getGraphicsContext();
         MainMenu mainMenu = new MainMenu();
@@ -276,10 +278,12 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
     private void endGame() { //TODO: Broken plz fix
         if(gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
-            gameLoop.stop();
-            GameWorld.createNewGameWorld();
-            gameWorld = GameWorld.getInstance();
             notifyGameOverObservers(gameWorld.getIsGameOver());
+            gameObjects.clear();
+            gameWorld.createNewGameWorld();
+            gameWorld = GameWorld.getInstance();
+            gameLoop.stop();
+
         }
     }
 

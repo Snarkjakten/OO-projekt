@@ -11,7 +11,7 @@ public class GameWorld {
     private final List<AbstractGameObject> gameObjects;
     private Spaceship newSpaceship;
     private static GameWorld instance = null;
-    private final Player player;
+    private Player player;
     private boolean isGameOver;
 
     private final double playingFieldWidth = 800;
@@ -24,8 +24,15 @@ public class GameWorld {
         initSpaceships();
     }
 
-    public static void createNewGameWorld(){
-        instance = new GameWorld();
+    public void createNewGameWorld(){
+        reset();
+
+    }
+    private void reset() {
+        this.isGameOver = false;
+        this.player = new Player();
+        this.gameObjects.clear();
+        initSpaceships();
     }
 
     //@Author Tobias Engblom

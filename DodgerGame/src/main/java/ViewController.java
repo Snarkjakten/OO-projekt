@@ -102,6 +102,7 @@ public class ViewController implements IGameOverObserver {
             if (spaceshipChoice != 0) {
                 stage.getScene().setRoot(window.getRoot());
                 gameLoop.start();
+                window.init();
             }
         });
 
@@ -113,6 +114,7 @@ public class ViewController implements IGameOverObserver {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
             gameLoop.start();
             stage.getScene().setRoot(window.getRoot());
+            window.init();
         });
 
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
