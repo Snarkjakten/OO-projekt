@@ -1,3 +1,4 @@
+import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
 import Game.Entities.Projectiles.Projectile;
 import Game.Entities.Projectiles.ProjectileFactory;
@@ -17,7 +18,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends Application implements IPlayingFieldObservable, IGameObjectObservable, ISoundObservable, IHealthObservable, ITimeObservable, IGameOverObservable {
+public class Main extends Application implements IPlayingFieldObservable, IGameObjectObservable, ISoundObservable, IHealthObservable, ITimeObservable, IGameOverObservable, IPlayerObservable{
 
     private GameWorld gameWorld;
 
@@ -28,7 +29,6 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
 
     private GraphicsContext graphicsContext;
 
-    boolean restartScheduled = false;
 
     private AnimationTimer gameLoop;
     private long startNanoTime;
@@ -38,6 +38,7 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
     private List<IHealthObserver> healthObservers;
     private List<IGameOverObserver> gameOverObservers;
     private List<IPlayingFieldObserver> playingFieldObservers;
+    private List<IPlayerObserver> playerObservers;
 
     @Override
     public void start(Stage stage) throws Exception {
@@ -107,6 +108,7 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
                         }
                     }
                 }
+                notifyPlayerObservers(gameWorld.getPlayer());
 
                 for(AbstractGameObject a : toBeRemoved){
                     gameObjects.remove(a);
@@ -144,15 +146,15 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
                 gameWorld.wrapAround();
 
                 long elapsedTime = calculateElapsedTime();
-                notifyTimeObservers(elapsedTime);
+                notifyTimeObservers(elapsedTime, animationTime);
                 notifyHealthObservers(gameWorld.getPlayer().getHp());
 
                 endGame();
                 previousNanoTime = currentNanoTime;
             }
         };
-
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu , characterMenu, gameOverMenu, stage, gameLoop);
+        GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu , characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI);
         stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
@@ -161,11 +163,9 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
         stage.setResizable(false);
         stage.show();
         window.init();
-
         //@Author tobbe
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
-        GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext, vc.getSpaceshipChoice());
         addObserver(gameObjectGUI);
         addObserver(vc);
 
@@ -174,7 +174,11 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
 
         ITimeObserver timeView = new TimeView(graphicsContext);
         timeObservers = new ArrayList<>();
-        addObserver(timeView);
+        addTimeObserver(timeView);
+        addTimeObserver(shieldGUI);
+
+        playerObservers = new ArrayList<>();
+        addPlayerObserver(shieldGUI);
 
         soundObservers = new ArrayList<>();
         addObserver(soundHandler);
@@ -258,14 +262,14 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
     }
 
     @Override
-    public void notifyTimeObservers(long time) {
+    public void notifyTimeObservers(long time, double deltaTime) {
         for (ITimeObserver obs : timeObservers) {
-            obs.actOnEvent(time);
+            obs.actOnEvent(time, deltaTime);
         }
     }
 
     @Override
-    public void addObserver(ITimeObserver obs) {
+    public void addTimeObserver(ITimeObserver obs) {
         this.timeObservers.add(obs);
     }
 
@@ -324,5 +328,32 @@ public class Main extends Application implements IPlayingFieldObservable, IGameO
     @Override
     public void removeObserver(IGameOverObserver obs) {
         this.gameOverObservers.remove(obs);
+    }
+
+    @Override
+    public void addPlayerObserver(IPlayerObserver obs) {
+        playerObservers.add(obs);
+    }
+
+    @Override
+    public void removePlayerObserver(IPlayerObserver obs) {
+        playerObservers.remove(obs);
+    }
+
+    @Override
+    public void notifyPlayerObservers(Player player) {
+        Player copyOfPlayer = copyPlayer(player);
+        for (IPlayerObserver obs : playerObservers) {
+            obs.actOnEvent(copyOfPlayer);
+        }
+    }
+
+    private Player copyPlayer(Player object) {
+        Player copyOfPlayer = new Player();
+        copyOfPlayer.setHp(object.getHp());
+        copyOfPlayer.setPoints(object.getPoints());
+        copyOfPlayer.setNrOfShields(object.getNrOfShields());
+        copyOfPlayer.setSpaceships(object.getSpaceships());
+        return copyOfPlayer;
     }
 }

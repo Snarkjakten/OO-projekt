@@ -43,7 +43,7 @@ public class TimeView implements ITimeObserver {
         gc.fillText(sb.toString(), 20, 590);
     }
 
-    public void actOnEvent(long time) {
+    public void actOnEvent(long time, double deltaTime) {
         calcuateTime(time);
         drawImage();
     }

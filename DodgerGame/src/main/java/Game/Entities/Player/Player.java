@@ -1,6 +1,8 @@
 package Game.Entities.Player;
 
 import Interfaces.IObserve;
+import Interfaces.IPlayerObservable;
+import Interfaces.IPlayerObserver;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -40,6 +42,14 @@ public class Player implements IObserve {
 
     public List<Spaceship> getSpaceships() {
         return spaceships;
+    }
+
+    public void setSpaceships(List<Spaceship> spaceships) {
+        this.spaceships = spaceships;
+    }
+
+    public void setNrOfShields(int nrOfShields) {
+        this.nrOfShields = nrOfShields;
     }
 
     public int getNrOfShields() {

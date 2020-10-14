@@ -12,7 +12,7 @@ public class Window {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private GameWorld gameWorld = GameWorld.getInstance();;
+    private GameWorld gameWorld = GameWorld.getInstance();
     private final Stage stage;
     private Canvas canvas;
     private GraphicsContext gc;

@@ -7,7 +7,7 @@ public class HealthPowerUp extends Projectile{
     private int healthPoint;  // Percent of health the player gets back.
 
     public HealthPowerUp() {
-        super(400, 32,32);
+        super(400, 64,64);
         healthPoint = 50;
     }
 

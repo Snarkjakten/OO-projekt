@@ -2,5 +2,5 @@ package Interfaces;
 
 public interface ITimeObserver {
 
-    void actOnEvent(long time);
+    void actOnEvent(long time, double deltaTime);
 }
