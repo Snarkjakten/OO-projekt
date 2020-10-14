@@ -29,23 +29,6 @@ public class Window implements IGameOverObserver {
             createContent();
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
-
-            /**
-             * Handle key pressed
-             * @author Irja Vuorela
-             */
-            KeyController keyController = new KeyController(gameWorld.getSpaceships());
-            stage.getScene().setOnKeyPressed(
-                    keyController::handleKeyPressed);
-
-            /**
-             * Handle key released
-             * @author Irja Vuorela
-             */
-            stage.getScene().setOnKeyReleased(
-                    keyController::handleKeyReleased
-            );
-
         } catch (
                 Exception e) {
             e.printStackTrace();

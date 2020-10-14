@@ -161,6 +161,23 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();
+
+        /**
+         * Handle key pressed
+         * @author Irja Vuorela
+         */
+        KeyController keyController = new KeyController(stage, gameWorld.getSpaceships(), gameLoop, pauseMenu);
+        stage.getScene().setOnKeyPressed(
+                keyController::handleKeyPressed);
+
+        /**
+         * Handle key released
+         * @author Irja Vuorela
+         */
+        stage.getScene().setOnKeyReleased(
+                keyController::handleKeyReleased
+        );
+
         window.init();
         //@Author tobbe
         gameOverObservers = new ArrayList<>();

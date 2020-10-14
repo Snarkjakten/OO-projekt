@@ -1,14 +1,22 @@
 import Game.Entities.Player.Spaceship;
+import View.PauseMenu;
 import javafx.scene.input.KeyEvent;
+import javafx.stage.Stage;
 
 import java.util.List;
 
 public class KeyController {
 
-    List<Spaceship> spaceships;
+    private final Stage stage;
+    private final List<Spaceship> spaceships;
+    private final PausableAnimationTimer gameLoop;
+    private final PauseMenu pauseMenu;
 
-    KeyController(List<Spaceship> spaceships) {
+    KeyController(Stage stage, List<Spaceship> spaceships, PausableAnimationTimer gameLoop, PauseMenu pauseMenu) {
         this.spaceships = spaceships;
+        this.gameLoop = gameLoop;
+        this.stage = stage;
+        this.pauseMenu = pauseMenu;
     }
 
     // Sets the direction the player wants the ship to move in when the game loop updates
@@ -27,6 +35,10 @@ public class KeyController {
                     break;
                 case RIGHT:
                     spaceship.setRight(1);
+                    break;
+                case ESCAPE:
+                    gameLoop.pause();
+                    stage.getScene().setRoot(pauseMenu.getRoot());
                     break;
                 default:
                     break;

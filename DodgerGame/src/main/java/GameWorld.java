@@ -26,7 +26,6 @@ public class GameWorld {
 
     public void createNewGameWorld(){
         reset();
-
     }
     private void reset() {
         this.isGameOver = false;

@@ -1,6 +1,5 @@
 import View.*;
 import Interfaces.IGameOverObserver;
-import javafx.animation.AnimationTimer;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
@@ -117,14 +116,19 @@ public class ViewController implements IGameOverObserver {
     private void pauseMenuButtonHandler() {
         pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
+            gameLoop.play();
         });
 
         pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
+            gameLoop.stop();
+            gameLoop.start();
+            window.init();
         });
 
         pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(mainMenu.getRoot());
+            gameLoop.stop();
         });
 
         pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {
