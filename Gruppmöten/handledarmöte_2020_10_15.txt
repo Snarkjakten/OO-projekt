@@ -20,10 +20,11 @@ Discussion items
 - Presentationen
 
 Outcomes and assignments
-- Isak: scorecalculator och göra klart debuff
+- Isak: scorecalculator och ändringar på debuff
 - Viktor och Irja: wavemanager
-- Tobias: Jobba på hitboxar
+- Tobias: Jobba på hitboxar och pausfunktionalitet. 
+- Olle: Bryta ut inre metoder ur gameloopen som ska vara i gameWorld. 
 
 Wrap up
-- Oliver fråga om Point-2D i modellen är OK. 
-- Får man broadcasta data till observers. Om inte, så får vi göra om alla observers. Vore bra att få svar på snart. Hör med Oliver imorgon och se om han fått svar. 
+- Oliver ska fråga om Point-2D i modellen är OK. 
+- Får man broadcasta data till observers? Om inte, så får vi göra om alla observers. 
