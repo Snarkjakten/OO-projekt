@@ -1,11 +1,9 @@
 import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.Projectile;
-import Game.Entities.Projectiles.ProjectileFactory;
-import Game.GameLoop;
 import Game.HighScoreHandler;
 import Game.Movement.AbstractGameObject;
 import Game.Movement.CollisionHandler;
+import Game.WaveManager;
 import Interfaces.*;
 import View.*;
 import View.Sound.GameObjectsSounds;
@@ -32,6 +30,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private List<IPlayingFieldObserver> playingFieldObservers;
     private List<IPlayerObserver> playerObservers;
     private List<ICollisionObserver> collisionObservers;
+    private List<AbstractGameObject> projectileWave;
 
     private SoundHandler soundHandler = new SoundHandler();
     private HighScoreHandler scoreHandler = new HighScoreHandler();
@@ -50,6 +49,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         HighScoreMenu highScoreMenu = new HighScoreMenu();
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
+        WaveManager waveManager = new WaveManager();
 
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
@@ -119,34 +119,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                /**
-                 * projectile spawner
-                 * @author Irja Vuorela
-                 */
+                waveManager.projectileSpawner(calculateElapsedTime(), gameObjects);
 
-                updateCounter = updateCounter + 1;
-                if (updateCounter >= 120) {
-                    updateCounter = 0;
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createMediumAsteroid());
-                    gameObjects.add(ProjectileFactory.createHealthPowerUp());
-                    gameObjects.add(ProjectileFactory.createShieldPowerUp());
-                }
-
-                /**
-                 * removes offscreen projectiles
-                 * @author Irja Vuorela
-                 */
-                for (AbstractGameObject g : gameObjects) {
-                    if (g instanceof Projectile) {
-                        if (((Projectile) g).isNotOnScreen()) {
-                            gameObjects.remove(g);
-                            break;
-                        }
-                    }
-                }
                 gameWorld.wrapAround();
 
                 long elapsedTime = calculateElapsedTime();
