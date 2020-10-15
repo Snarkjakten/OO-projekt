@@ -138,7 +138,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     gameObjects.add(ProjectileFactory.createMediumAsteroid());
                     gameObjects.add(ProjectileFactory.createHealthPowerUp());
                     gameObjects.add(ProjectileFactory.createShieldPowerUp());
-                    gameObjects.add(ProjectileFactory.createDebuff());
+                    gameObjects.add(ProjectileFactory.createSlowDebuff());
                 }
 
                 /**
