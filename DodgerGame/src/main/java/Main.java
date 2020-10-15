@@ -260,7 +260,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         this.timeObservers.remove(obs);
     }
 
-    private void endGame() { //TODO: Broken plz fix
+    private void endGame() {
         if (gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
             notifyGameOverObservers(gameWorld.getIsGameOver());

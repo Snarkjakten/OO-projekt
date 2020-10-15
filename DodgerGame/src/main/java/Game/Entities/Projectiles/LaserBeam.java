@@ -1,5 +1,6 @@
 package Game.Entities.Projectiles;
 
+import Game.GameWorld;
 import Game.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
@@ -13,8 +14,8 @@ public class LaserBeam extends AbstractGameObject {
     private double vertical;
     private boolean isVertical;
     private int damage;
-    private double horizontalMapSize = 800; //TODO: Get this from model.
-    private double verticalMapSize = 600; // TODO: Get this from model.
+    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public LaserBeam() {
         this.speed = 100;

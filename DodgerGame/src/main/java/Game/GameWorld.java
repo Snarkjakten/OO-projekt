@@ -16,8 +16,8 @@ public class GameWorld {
     private Player player;
     private boolean isGameOver;
 
-    private final double playingFieldWidth = 800;
-    private final double playingFieldHeight = 600;
+    private static final double playingFieldWidth = 800;
+    private static final double playingFieldHeight = 600;
 
     private GameWorld() {
         this.isGameOver = false;
