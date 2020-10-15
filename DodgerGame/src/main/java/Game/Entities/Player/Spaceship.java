@@ -1,8 +1,5 @@
 package Game.Entities.Player;
 
-import Game.Entities.Projectiles.Asteroid;
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.ShieldPowerUp;
 import Game.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 

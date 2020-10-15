@@ -13,8 +13,7 @@ import org.junit.Test;
 
 public class CollisionHandlerTest {
 
-    SmallAsteroid projSmallAsteroid;
-    MediumAsteroid projMediumAsteroid;
+    Asteroid asteroid;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     Spaceship spaceship;
@@ -23,8 +22,7 @@ public class CollisionHandlerTest {
 
     @Before
     public void init(){
-        projSmallAsteroid = new SmallAsteroid();
-        projMediumAsteroid = new MediumAsteroid();
+        asteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
         spaceship = new Spaceship(368, 248);
@@ -32,41 +30,41 @@ public class CollisionHandlerTest {
 
     @Test
     public void testSetGetHitbox() {
-        projSmallAsteroid.setHitbox(0,0,10,10);
-        Assert.assertEquals(projSmallAsteroid.getHitbox(), new Rectangle2D(0, 0, 10 * 0.75, 10 * 0.75));
+        asteroid.setHitbox(0,0,10,10);
+        Assert.assertEquals(asteroid.getHitbox(), new Rectangle2D(0, 0, 10 * 0.75, 10 * 0.75));
     }
 
     @Test
     public void testSetCollided() {
-        projSmallAsteroid.setCollided(true);
-        Assert.assertTrue(projSmallAsteroid.getCollided());
-        projSmallAsteroid.setCollided(false);
+        asteroid.setCollided(true);
+        Assert.assertTrue(asteroid.getCollided());
+        asteroid.setCollided(false);
     }
 
     @Test
     public void testCheckCollisions() {
         spaceship.setHitbox(10,10,10,10);
-        projSmallAsteroid.setHitbox(10,10,10,10);
-        Assert.assertTrue(collisionHandler.checkCollision(projSmallAsteroid, spaceship));
+        asteroid.setHitbox(10,10,10,10);
+        Assert.assertTrue(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
     @Test
     public void doesNotCollide() {
         spaceship.setHitbox(200,200,10,10);
-        projSmallAsteroid.setHitbox(10,10,10,10);
-        Assert.assertFalse(collisionHandler.checkCollision(projSmallAsteroid, spaceship));
+        asteroid.setHitbox(10,10,10,10);
+        Assert.assertFalse(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
     @Test
     public void testSpaceshipCollide() {
-        collisionHandler.collide(projMediumAsteroid, spaceship);
-        Assert.assertTrue(projMediumAsteroid.getCollided());
-        projMediumAsteroid.setCollided(false);
+        collisionHandler.collide(asteroid, spaceship);
+        Assert.assertTrue(asteroid.getCollided());
+        asteroid.setCollided(false);
     }
 
     @Test
     public void testProjectileCollide() {
-        collisionHandler.collide(projMediumAsteroid, hpUp);
-        Assert.assertFalse(projMediumAsteroid.getCollided());
+        collisionHandler.collide(asteroid, hpUp);
+        Assert.assertFalse(asteroid.getCollided());
     }
 }

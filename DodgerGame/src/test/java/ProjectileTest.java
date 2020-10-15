@@ -1,5 +1,4 @@
-import Entities.Projectiles.*;
-import View.GameObjectGUI;
+import Game.Entities.Projectiles.*;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -32,29 +31,20 @@ public class ProjectileTest {
     @Test
     public void testGainShield() {
         int shields = 0;
-        shields = shieldPU.gainShield();
-        assertTrue(shields == 1);
+        int shieldsAfterPowerUp = shields + shieldPU.gainShield();
+        assertTrue(shieldsAfterPowerUp > shields);
     }
 
     /**
-     * Test that the health power up gives the right amount of health.
+     * Test that the health power up increases the health.
      * @author Olle Westerlund
      */
     @Test
     public void testGainHealth() {
         int currentHealth = 100;
-        currentHealth += hpUp.gainHealth();
-        assertTrue(currentHealth == 150);
+        int healthAfterHeal = currentHealth + hpUp.getHealth();
+        assertTrue(healthAfterHeal > currentHealth);
     }
-
-//    @Test
-//    //@Author Olle Westerlund
-//    public void testProjectileAndGuiPosition() {
-//        Point2D projPosition = smallAsteroidGUI.getProjectile().position;
-//        Point2D projGuiPosition = smallAsteroidGUI.getPoint();
-//        assertTrue(projPosition.getX() == projGuiPosition.getX() &&
-//                   projPosition.getY() == projGuiPosition.getY());
-//    }
 
     /**
      * Test that the asteroid has a speed when spawned.
@@ -62,9 +52,9 @@ public class ProjectileTest {
      */
     @Test
     public void testAsteroidSpeed() {
-        assertTrue(projAsteroid.speed > 0 );
+        assertTrue(projAsteroid.getSpeed() > 0 );
     }
-    */
+
 
     /**
      * Test that asteroid does damage

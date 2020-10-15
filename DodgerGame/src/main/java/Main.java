@@ -2,7 +2,6 @@ import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
 import Game.Entities.Projectiles.Projectile;
 import Game.Entities.Projectiles.ProjectileFactory;
-import Game.GameLoop;
 import Game.HighScoreHandler;
 import Game.Movement.AbstractGameObject;
 import Game.Movement.CollisionHandler;
@@ -127,10 +126,10 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 updateCounter = updateCounter + 1;
                 if (updateCounter >= 120) {
                     updateCounter = 0;
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createMediumAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
                     gameObjects.add(ProjectileFactory.createHealthPowerUp());
                     gameObjects.add(ProjectileFactory.createShieldPowerUp());
                 }

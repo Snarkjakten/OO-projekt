@@ -1,6 +1,6 @@
-package Entities.Projectiles;
+package Game.Entities.Projectiles;
 
-import Movement.*;
+import Game.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 import java.util.Random;
 
@@ -9,7 +9,7 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-    private double speed;         // Speed of the projectile.
+    protected double speed;         // Speed of the projectile.
     private double horizontal;    // positive value: right, negative value: left
     private double vertical;      // positive value: up, negative value: down
     private double horizontalMapSize = 800;   // TODO: Remember to get this from model not hard code.
@@ -144,5 +144,7 @@ public abstract class Projectile extends AbstractGameObject {
         this.vertical = vertical;
     }
 
-
+    public double getSpeed() {
+        return speed;
+    }
 }
