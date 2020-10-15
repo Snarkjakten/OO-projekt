@@ -209,7 +209,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         long slowDebuffedTime = gameWorld.getPlayer().getSlowDebuffedTime();
         int timeSinceSlowDebuffed = (int) (calculateElapsedTime(slowDebuffedTime) / 1000000000);
 
-        if(timeSinceSlowDebuffed == 10) {
+        if(timeSinceSlowDebuffed >= 10) {
             List<Spaceship> spaceships = gameWorld.getPlayer().getSpaceships();
 
             for(Spaceship spaceship : spaceships) {
