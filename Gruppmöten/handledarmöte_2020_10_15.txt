@@ -20,12 +20,12 @@ Discussion items
 - Presentationen
 
 Outcomes and assignments
-- Isak: scorecalculator och ändringar på debuff
-- Viktor och Irja: wavemanager
-- Tobias: Jobba på hitboxar och pausfunktionalitet. 
+- Isak: Scorecalculator och ändringar på debuff
+- Viktor och Irja: Wavemanager
+- Tobias: Fortsätta jobba på hitboxar och pausfunktionalitet. 
 - Olle: Bryta ut inre metoder ur gameloopen som ska vara i gameWorld. 
 
 Wrap up
 - Oliver ska fråga om Point-2D i modellen är OK. 
 - Får man broadcasta data till observers? Om inte, så får vi göra om alla observers. 
-- Nästa möte imorgon 16/9 kl 09:00
+- Nästa möte imorgon 16/10 kl 09:00
