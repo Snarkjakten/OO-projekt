@@ -123,6 +123,7 @@ public class ViewController implements IGameOverObserver {
         pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
             gameLoop.stop();
+            // TODO Need to use endGame()
             gameLoop.start();
             window.init();
         });
@@ -130,6 +131,7 @@ public class ViewController implements IGameOverObserver {
         pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(mainMenu.getRoot());
             gameLoop.stop();
+            // TODO Need to use endGame()
         });
 
         pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {

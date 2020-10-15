@@ -1,21 +1,25 @@
 import Game.Entities.Player.Spaceship;
+import Interfaces.IGameOverObserver;
+import Interfaces.IGameWorldObserver;
 import View.PauseMenu;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 
 import java.util.List;
 
-public class KeyController {
+public class KeyController implements IGameWorldObserver {
 
     private final Stage stage;
-    private final List<Spaceship> spaceships;
+    private GameWorld gameWorld;
+    private List<Spaceship> spaceships;
     private final PausableAnimationTimer gameLoop;
     private final PauseMenu pauseMenu;
 
-    KeyController(Stage stage, List<Spaceship> spaceships, PausableAnimationTimer gameLoop, PauseMenu pauseMenu) {
-        this.spaceships = spaceships;
+    KeyController(Stage stage, PausableAnimationTimer gameLoop, PauseMenu pauseMenu) {
         this.gameLoop = gameLoop;
         this.stage = stage;
+        this.gameWorld = GameWorld.getInstance();
+        this.spaceships = gameWorld.getSpaceships();
         this.pauseMenu = pauseMenu;
     }
 
@@ -67,5 +71,11 @@ public class KeyController {
                     break;
             }
         }
+    }
+
+    @Override
+    public void actOnEvent() {
+        gameWorld = GameWorld.getInstance();
+        spaceships = gameWorld.getSpaceships();
     }
 }

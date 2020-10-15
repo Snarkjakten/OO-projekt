@@ -8,19 +8,16 @@ import javafx.stage.Stage;
  * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window implements IGameOverObserver {
+public class Window {
 
     //Creates Pane
     private final Pane root = new Pane();
-    private GameWorld gameWorld = GameWorld.getInstance();
-    private final Stage stage;
     private Canvas canvas;
     private GraphicsContext gc;
 
-    public Window(Stage stage, double width, double height) {
+    public Window(double width, double height) {
         this.canvas = new Canvas(width, height);
         this.gc = canvas.getGraphicsContext2D();
-        this.stage = stage;
     }
 
     public void init() {
@@ -46,12 +43,5 @@ public class Window implements IGameOverObserver {
 
     public GraphicsContext getGraphicsContext() {
         return gc;
-    }
-
-    @Override
-    public void actOnEvent(boolean isGameOver) {
-        if (isGameOver) {
-            gameWorld = GameWorld.getInstance();
-        }
     }
 }

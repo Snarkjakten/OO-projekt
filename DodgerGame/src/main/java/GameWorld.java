@@ -47,7 +47,6 @@ public class GameWorld {
         newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
         player.getSpaceships().add(newSpaceship);
         gameObjects.add(newSpaceship);
-        //newSpaceship.addSoundObserver();
     }
 
     //@Author Tobias Engblom

@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends Application implements ICollisionObservable, IGameObjectObservable, IGameOverObservable, IPlayerObservable, IPlayingFieldObservable, ISoundObservable, ITimeObservable {
+public class Main extends Application implements ICollisionObservable, IGameObjectObservable, IGameOverObservable, IPlayerObservable, IPlayingFieldObservable, ISoundObservable, ITimeObservable, IGameWorldObservable {
 
     private GameWorld gameWorld;
     private PausableAnimationTimer gameLoop;
@@ -30,6 +30,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private List<IPlayingFieldObserver> playingFieldObservers;
     private List<IPlayerObserver> playerObservers;
     private List<ICollisionObserver> collisionObservers;
+    private List<IGameWorldObserver> gameWorldObservers;
 
     private final SoundHandler soundHandler = new SoundHandler();
     private final HighScoreHandler scoreHandler = new HighScoreHandler();
@@ -38,7 +39,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
         gameObjects = gameWorld.getGameObjects();
-        Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
+        Window window = new Window(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         GraphicsContext graphicsContext = window.getGraphicsContext();
         MainMenu mainMenu = new MainMenu();
         HighScoreMenu highScoreMenu = new HighScoreMenu();
@@ -163,7 +164,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
          * Handle key pressed
          * @author Irja Vuorela
          */
-        KeyController keyController = new KeyController(stage, gameWorld.getSpaceships(), gameLoop, pauseMenu);
+        KeyController keyController = new KeyController(stage, gameLoop, pauseMenu);
         stage.getScene().setOnKeyPressed(
                 keyController::handleKeyPressed);
 
@@ -184,9 +185,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         timeObservers = new ArrayList<>();
         soundObservers = new ArrayList<>();
         playerObservers = new ArrayList<>();
+        gameWorldObservers = new ArrayList<>();
 
         addObserver(gameObjectGUI);
-        addObserver(window);
         addObserver(vc);
         addTimeObserver(timeView);
         addTimeObserver(shieldGUI);
@@ -195,6 +196,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addCollisionObserver(gameWorld.getPlayer());
         addObserver(soundHandler);
         addObserver(backgroundView);
+        addGameWorldObserver(keyController);
 
         soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
     }
@@ -289,6 +291,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             collisionObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
+            notifyGameWorldObservers();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
         }
@@ -379,5 +382,21 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void removeCollisionObserver(ICollisionObserver obs) {
         this.collisionObservers.remove(obs);
+    }
+
+    @Override
+    public void notifyGameWorldObservers() {
+        for (IGameWorldObserver obs : gameWorldObservers)
+            obs.actOnEvent();
+    }
+
+    @Override
+    public void addGameWorldObserver(IGameWorldObserver obs) {
+        this.gameWorldObservers.add(obs);
+    }
+
+    @Override
+    public void removeGameWorldObserver(IGameWorldObserver obs) {
+        this.gameWorldObservers.add(obs);
     }
 }
