@@ -70,6 +70,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             public void handle(long currentNanoTime) {
                 checkGameWorld();
 
+                // Isak Almeros
                 if (gameWorld.getPlayer().getSlowDebuffed()) {
                     checkSlowDebuffed();
                 }
@@ -202,11 +203,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         this.gameWorld = GameWorld.getInstance();
     }
 
+    // Isak Almeros
+    // Resets spaceships speed if 10 seconds has passed since being slowdebuffed
     public void checkSlowDebuffed() {
         long slowDebuffedTime = gameWorld.getPlayer().getSlowDebuffedTime();
-        int timeSinceSlowDebuffed = (int) calculateElapsedTime(slowDebuffedTime)/ 1000000000;
-
-        System.out.println(timeSinceSlowDebuffed);
+        int timeSinceSlowDebuffed = (int) (calculateElapsedTime(slowDebuffedTime) / 1000000000);
 
         if(timeSinceSlowDebuffed == 10) {
             List<Spaceship> spaceships = gameWorld.getPlayer().getSpaceships();
@@ -218,7 +219,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             gameWorld.getPlayer().setSlowDebuffed(false);
         }
     }
-
 
     //@Author Isak
     public void stopAnimationTimer() {

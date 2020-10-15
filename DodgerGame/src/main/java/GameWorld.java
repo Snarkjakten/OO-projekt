@@ -85,7 +85,7 @@ public class GameWorld {
 
     //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship) {
-        if(player.getSlowDebuffed() == true) {
+        if(player.getSlowDebuffed()) {
             spaceship.setSpeed(100);
         }
 

@@ -9,7 +9,7 @@ public class SlowDebuff extends Projectile {
 
     public SlowDebuff() {
         super(400, 32, 32);
-        slowSpeed = 100;
+        slowSpeed = 90;
     }
 
     public int getSlowSpeed() { return slowSpeed; }
