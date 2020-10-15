@@ -28,3 +28,4 @@ Outcomes and assignments
 Wrap up
 - Oliver ska fråga om Point-2D i modellen är OK. 
 - Får man broadcasta data till observers? Om inte, så får vi göra om alla observers. 
+- Nästa möte imorgon 16/9 kl 09:00
