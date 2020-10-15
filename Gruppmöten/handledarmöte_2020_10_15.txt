@@ -1,0 +1,29 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 15 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+Objectives
+- Frågor om Point-2D i modellen
+- Allt det rörliga om observers
+- Fråga hur vi fixar wraparound
+
+Reports
+- Alla har varit med och Faktoriserat och städat kod tillsammans.
+- Olle är klar med refaktorisering av asteroider så att det bara är en asteroidklass
+
+Discussion items
+- Observer pattern
+- Wraparound
+- Presentationen
+
+Outcomes and assignments
+- Isak: scorecalculator och göra klart debuff
+- Viktor och Irja: wavemanager
+- Tobias: Jobba på hitboxar
+
+Wrap up
+- Oliver fråga om Point-2D i modellen är OK. 
+- Får man broadcasta data till observers. Om inte, så får vi göra om alla observers. Vore bra att få svar på snart. Hör med Oliver imorgon och se om han fått svar. 
