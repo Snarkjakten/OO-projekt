@@ -229,7 +229,7 @@ public class GameLoop {
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
-            gameWorld = GameWorld.getInstance();
+            gameWorld = Game.GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
         }

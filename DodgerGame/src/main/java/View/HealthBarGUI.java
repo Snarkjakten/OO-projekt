@@ -46,14 +46,14 @@ public class HealthBarGUI implements IPlayerObserver {
         return border;
     }
 
-    private void drawHealthBar(double remainingHp) {
-        gc.drawImage(background, 0, 0, 200, 40);
+    private void drawHealthBar(double remainingHp, double maxHealth) {
+        gc.drawImage(background, 0, 0, maxHealth, 40);
         gc.drawImage(foreground, 0, 0, remainingHp, 40);
-        gc.drawImage(border, 0, 0, 200, 40);
+        gc.drawImage(border, 0, 0, maxHealth, 40);
     }
 
     @Override
     public void actOnEvent(Player player) {
-        drawHealthBar(player.getHp());
+        drawHealthBar(player.getHp(), player.getMaxHp());
     }
 }

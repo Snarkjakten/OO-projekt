@@ -126,8 +126,8 @@ public abstract class Projectile extends AbstractGameObject {
     }
 
     /**
-     * The method checks if the projectile is still on the screen.
      * @author Olle Westerlund
+     * The method checks if the projectile is still on the screen.
      * @return Boolean if the object is no longer on the screen.
      */
     public boolean isNotOnScreen() {

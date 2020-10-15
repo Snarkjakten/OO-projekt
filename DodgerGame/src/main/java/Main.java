@@ -2,6 +2,7 @@ import Game.Entities.Player.Player;
 import Game.Entities.Player.Spaceship;
 import Game.Entities.Projectiles.Projectile;
 import Game.Entities.Projectiles.ProjectileFactory;
+import Game.GameWorld;
 import Game.HighScoreHandler;
 import Game.Movement.AbstractGameObject;
 import Game.Movement.CollisionHandler;

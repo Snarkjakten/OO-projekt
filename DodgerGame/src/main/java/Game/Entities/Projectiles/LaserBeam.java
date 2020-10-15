@@ -76,8 +76,4 @@ public class LaserBeam extends AbstractGameObject {
     public int getDamage() {
         return damage;
     }
-
-    public boolean isVertical() {
-        return isVertical;
-    }
 }

@@ -42,6 +42,10 @@ public class Player implements ICollisionObserver {
         return hp;
     }
 
+    public int getMaxHp() {
+        return maxHp;
+    }
+
     public int getPoints() {
         return points;
     }
