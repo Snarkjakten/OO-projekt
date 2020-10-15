@@ -59,6 +59,7 @@ public class ViewController implements IGameOverObserver {
         // when closing window in the upper left corner
         stage.setOnCloseRequest(event -> {
             event.consume();
+            gameLoop.pause();
             closeProgram();
         });
     }
@@ -164,6 +165,8 @@ public class ViewController implements IGameOverObserver {
 
         if (result.isPresent() && result.get() == ButtonType.YES) {
             System.exit(0);
+        } else {
+            gameLoop.play();
         }
     }
 

@@ -34,8 +34,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private final SoundHandler soundHandler = new SoundHandler();
     private final HighScoreHandler scoreHandler = new HighScoreHandler();
 
-    private long startNanoTime;
-
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
@@ -53,7 +51,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
-        startNanoTime = System.nanoTime(); //TODO Fix time bug
 
         gameLoop = new PausableAnimationTimer() {
 
@@ -200,7 +197,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addObserver(backgroundView);
 
         soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
-
     }
 
     public static void main(String[] args) {
@@ -318,7 +314,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     // Calculates elapsed time
     public long calculateElapsedTime() {
         long endNanoTime = System.nanoTime();
-        return endNanoTime - startNanoTime;
+        return endNanoTime - gameLoop.getStartNanoTime();
     }
 
     @Override
