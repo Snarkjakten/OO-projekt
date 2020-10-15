@@ -1,4 +1,5 @@
 import Entities.Projectiles.*;
+import View.GameObjectGUI;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -46,6 +47,14 @@ public class ProjectileTest {
         assertTrue(currentHealth == 150);
     }
 
+//    @Test
+//    //@Author Olle Westerlund
+//    public void testProjectileAndGuiPosition() {
+//        Point2D projPosition = smallAsteroidGUI.getProjectile().position;
+//        Point2D projGuiPosition = smallAsteroidGUI.getPoint();
+//        assertTrue(projPosition.getX() == projGuiPosition.getX() &&
+//                   projPosition.getY() == projGuiPosition.getY());
+//    }
 
     /**
      * Test that the asteroid has a speed when spawned.
@@ -55,12 +64,14 @@ public class ProjectileTest {
     public void testAsteroidSpeed() {
         assertTrue(projAsteroid.speed > 0 );
     }
+    */
 
     /**
      * Test that asteroid does damage
      * @author Olle Westerlund
      */
     @Test
+    //@Author Olle Westerlund
     public void testAsteroidDamage() {
         int startHealth = 200;
         int healthAfterHit = startHealth - projAsteroid.getDamage();

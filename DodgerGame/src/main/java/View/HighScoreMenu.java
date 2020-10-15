@@ -1,11 +1,13 @@
 package View;
 
+import Game.HighScoreHandler;
 import javafx.scene.Parent;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.*;
+import javafx.scene.layout.Pane;
+import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -14,8 +16,6 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
-
-import Score.HighScoreHandler;
 
 public class HighScoreMenu {
 
@@ -43,7 +43,7 @@ public class HighScoreMenu {
         // Presents the scores
         scores = new Text();
         HighScoreHandler hs = new HighScoreHandler();
-        scores.setText(presentableScores(hs.getScoresFromFile("DodgerGame/" + hs.getFileName())));
+        scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         scores.setFont(theFont2);
         scores.setFill(Color.GRAY);

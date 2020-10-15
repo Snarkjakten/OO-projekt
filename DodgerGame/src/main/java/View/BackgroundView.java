@@ -1,5 +1,6 @@
 package View;
 
+import Interfaces.IPlayingFieldObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -9,7 +10,7 @@ import java.util.ArrayList;
 /**
  * @author Olle Westerlund
  */
-public class BackgroundView {
+public class BackgroundView implements IPlayingFieldObserver {
     private GraphicsContext gc;
     private ArrayList<Image> backgroundImages;
 
@@ -34,4 +35,8 @@ public class BackgroundView {
         gc.drawImage(image, x, y, width, height);
     }
 
+    @Override
+    public void actOnEvent(double width, double height) {
+        drawBackground(0,0, height, width, 0);
+    }
 }
