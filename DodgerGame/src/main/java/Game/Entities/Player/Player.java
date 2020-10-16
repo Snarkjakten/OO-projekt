@@ -19,9 +19,6 @@ public class Player implements ICollisionObserver {
     private int points;
     private int nrOfShields;
 
-    private Boolean isSlowDebuffed = false;
-    private long slowDebuffedTime;
-
     public Player() {
         this.spaceships = new ArrayList<>();
         this.nrOfShields = 0;
@@ -36,18 +33,6 @@ public class Player implements ICollisionObserver {
         this.points = points;
         maxHp = 200;
         this.hp = hp;
-    }
-
-    public Boolean getSlowDebuffed() {
-        return isSlowDebuffed;
-    }
-
-    public void setSlowDebuffed(Boolean slowDebuffed) {
-        isSlowDebuffed = slowDebuffed;
-    }
-
-    public long getSlowDebuffedTime() {
-        return slowDebuffedTime;
     }
 
     public void setHp(int hp) {
@@ -112,14 +97,10 @@ public class Player implements ICollisionObserver {
                 setHp(getHp() + ((HealthPowerUp) gameObject).getHealth());
             }
         } else if (gameObject instanceof SlowDebuff) {
-            double slowSpeed = ((SlowDebuff) gameObject).getSlowSpeed();
-            // Also slows down wraparaound spaceships
+            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             for (Spaceship spaceship : spaceships) {
-                spaceship.setSpeed(slowSpeed);
+                spaceship.setSpeed(slowSpeedFactor * spaceship.getSpeed());
             }
-
-            slowDebuffedTime = System.nanoTime();
-            isSlowDebuffed = true;
         }
     }
 }

@@ -85,9 +85,9 @@ public class GameWorld {
 
     //@Author Tobias Engblom
     private void addSpaceship(Spaceship spaceship) {
-        if(player.getSlowDebuffed()) {
-            spaceship.setSpeed(100);
-        }
+
+        double speed = player.getSpaceships().get(0).getSpeed();
+        spaceship.setSpeed(speed);
 
         player.getSpaceships().add(spaceship);
         gameObjects.add(spaceship);
