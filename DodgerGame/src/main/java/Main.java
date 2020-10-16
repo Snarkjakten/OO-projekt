@@ -55,6 +55,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
+        //LaserGUI laserGUI = new LaserGUI(graphicsContext, 10, true);
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
         startNanoTime = System.nanoTime(); //TODO Fix time bug
@@ -120,7 +121,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                //waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects);
+                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects);
 
                 gameWorld.wrapAround();
 
@@ -149,6 +150,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         soundObservers = new ArrayList<>();
         playerObservers = new ArrayList<>();
 
+        //addObserver(laserGUI);
         addObserver(gameObjectGUI);
         addObserver(vc);
         addTimeObserver(timeView);

@@ -54,7 +54,7 @@ public class Window {
 
     //Sets size of Pane
     private void createContent() {
-        root.setPrefSize(800, 600);
+        root.setPrefSize(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
     }
 
     public Pane getRoot() {

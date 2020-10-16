@@ -29,6 +29,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
 
     // Position (x, y)
     public Point2D position = new Point2D(0, 0);
+
+    public Point2D getVelocity() {
+        return velocity;
+    }
+
+    public void setVelocity(Point2D velocity) {
+        this.velocity = velocity;
+    }
+
     // Velocity (horizontal, vertical)
     public Point2D velocity = new Point2D(0, 0);
 

@@ -23,4 +23,7 @@ public abstract class ProjectileFactory {
         return new SlowDebuff();
     }
 
+    public static Projectile createScriptedAsteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
+        return new Asteroid(speed, height, width, xPos, yPos, xVelocity, yVelocity); }
+
 }

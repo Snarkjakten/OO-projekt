@@ -87,7 +87,7 @@ public class ProjectileTest {
     public void ProjectileMovedLeft() {
         startPos = projAsteroid.position;
         // Negative horizontal value to move left
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.position.getX() < startPos.getX());
     }
@@ -101,7 +101,7 @@ public class ProjectileTest {
     public void ProjectileMovedRight() {
         startPos = projAsteroid.position;
         // Positive horizontal value to move right
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.position.getX() > startPos.getX());
     }
@@ -115,7 +115,7 @@ public class ProjectileTest {
     public void ProjectileMovedUp() {
         startPos = projAsteroid.position;
         // Negative vertical value to move up
-        projAsteroid.setVertical(-1);
+        projAsteroid.setYVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.position.getY() < startPos.getY());
     }
@@ -129,7 +129,7 @@ public class ProjectileTest {
     public void ProjectileMovedDown() {
         startPos = projAsteroid.position;
         // Positive vertical value to move down
-        projAsteroid.setVertical(1);
+        projAsteroid.setYVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.position.getY() > startPos.getY());
     }
@@ -142,8 +142,8 @@ public class ProjectileTest {
     @Test
     public void ProjectileMovedUpRight() {
         startPos = projAsteroid.position;
-        projAsteroid.setVertical(-1);
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setYVelocity(-1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.position.getX() > startPos.getX()) && (projAsteroid.position.getY() < startPos.getY()));
     }
@@ -156,8 +156,8 @@ public class ProjectileTest {
     @Test
     public void ProjectileMovedUpLeft() {
         startPos = projAsteroid.position;
-        projAsteroid.setVertical(-1);
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setYVelocity(-1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.position.getX() < startPos.getX()) && (projAsteroid.position.getY() < startPos.getY()));
     }
@@ -170,8 +170,8 @@ public class ProjectileTest {
     @Test
     public void ProjectileMovedDownRight() {
         startPos = projAsteroid.position;
-        projAsteroid.setVertical(1);
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setYVelocity(1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.position.getX() > startPos.getX()) && (projAsteroid.position.getY() > startPos.getY()));
     }
@@ -184,8 +184,8 @@ public class ProjectileTest {
     @Test
     public void ProjectileMovedDownLeft() {
         startPos = projAsteroid.position;
-        projAsteroid.setVertical(1);
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setYVelocity(1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.position.getX() < startPos.getX()) && (projAsteroid.position.getY() > startPos.getY()));
     }
@@ -198,8 +198,8 @@ public class ProjectileTest {
     @Test
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = projAsteroid.position;
-        projAsteroid.setVertical(0);
-        projAsteroid.setHorizontal(0);
+        projAsteroid.setYVelocity(0);
+        projAsteroid.setXVelocity(0);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.position.getX() == startPos.getX()) && (projAsteroid.position.getY() == startPos.getY()));
     }

@@ -13,6 +13,10 @@ import java.util.List;
 
 public class WaveManager {
 
+    private int spaceshipWidth = 64;
+    private int spaceshipHeight = 64;
+    //private GameWorld gameWorld = GameWorld.getInstance();
+
     private List<AbstractGameObject> easyWave;
     private List<AbstractGameObject> hardWave;
     private List<AbstractGameObject> powerUps;
@@ -28,16 +32,36 @@ public class WaveManager {
         this.minutes = sec / 60;
     }
 
-    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects){
+    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects) {
         calcuateTime(time);
         removeOffscreenProjectiles(gameObjects);
-        if(oldSeconds != seconds) {
-            oldSeconds = seconds;
-            if (gameObjects.size() <= 10 + seconds && gameObjects.size() <= maxNumProjectiles) {
+        if (gameObjects.size() <= 3 + seconds && gameObjects.size() <= maxNumProjectiles) {
+            if (oldSeconds != seconds) {
+                oldSeconds = seconds;
+                addHealthPowerUp(gameObjects);
+                addShieldPowerUp(gameObjects);
+                if (seconds <= 20) {
+                    addVerticalWave(gameObjects, 0, 0);
+                    addVerticalWave(gameObjects, 64, 64);
+                } else if (seconds > 23) {
+                    addAsteroid(gameObjects);
+                }
             }
-            addHealthPowerUp(gameObjects);
-            addShieldPowerUp(gameObjects);
         }
+    }
+
+
+    /*private void addLaserBeam(List<AbstractGameObject> gameObjects) {
+        LaserBeam laserBeam = new LaserBeam();
+        if(seconds % 20 == 0) {
+            gameObjects.add(laserBeam);
+        }
+    }*/
+
+    private void addAsteroid(List<AbstractGameObject> gameObjects) {
+        Projectile asteroid = ProjectileFactory.createAsteroid();
+        asteroid.setSpeed(asteroid.getSpeed() + seconds + minutes * 60);
+        gameObjects.add(asteroid);
     }
 
     private void addShieldPowerUp(List<AbstractGameObject> gameObjects) {
@@ -61,19 +85,11 @@ public class WaveManager {
         }
     }
 
-    private void addHardWave(List<AbstractGameObject> gameObjects) {
-        if(seconds >= 21 || minutes > 0) {
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
+    private void addVerticalWave(List<AbstractGameObject> gameObjects, int shiftY, int shiftX) { //TODO: separera på x-axel.
+        for (int i = 0; i < 5; i++) {
+            gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -69 + shiftX, 50 + shiftY + (spaceshipHeight * 2) * i, 1, 0));
+
+            //gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -50 + 64, 64 + (spaceshipHeight * 2) * i, 1, 0));
         }
     }
 
