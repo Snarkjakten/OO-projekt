@@ -38,7 +38,7 @@ public abstract class Projectile extends AbstractGameObject {
                 this.position = new Point2D(xPos, yPos);
                 break;
             case 1: // Right side of the screen
-                xPos = 850;
+                xPos = horizontalMapSize + 50;
                 yPos = randomPos.nextDouble() * verticalMapSize;
                 this.position = new Point2D(xPos, yPos);
                 break;
