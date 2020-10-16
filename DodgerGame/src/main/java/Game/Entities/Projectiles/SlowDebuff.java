@@ -13,8 +13,4 @@ public class SlowDebuff extends Projectile {
     }
 
     public double getSlowSpeedFactor() { return slowSpeedFactor; }
-
-    public double slowedSpeed(double speed) {
-        return speed * 0.9;
-    }
 }
