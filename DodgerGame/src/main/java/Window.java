@@ -31,7 +31,6 @@ public class Window implements IGameOverObserver {
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
 
-
             /**
              * Handle key pressed
              * @Author Irja Vuorela
@@ -61,7 +60,6 @@ public class Window implements IGameOverObserver {
     public Pane getRoot() {
         return root;
     }
-
 
     public GraphicsContext getGraphicsContext() {
         return gc;

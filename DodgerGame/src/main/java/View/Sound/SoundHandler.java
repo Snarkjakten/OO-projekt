@@ -1,9 +1,5 @@
 package View.Sound;
-
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.MediumAsteroid;
-import Game.Entities.Projectiles.ShieldPowerUp;
-import Game.Entities.Projectiles.SmallAsteroid;
+import Game.Entities.Projectiles.*;
 import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
@@ -78,6 +74,8 @@ public class SoundHandler implements ISoundObserve {
             soundFilepath = GameObjectsSounds.getShieldSound();
         } else if (c.equals(HealthPowerUp.class)) {
             soundFilepath = GameObjectsSounds.getHealthSound();
+        } else if (c.equals(SlowDebuff.class)) {
+            soundFilepath = GameObjectsSounds.getSlowDebuffSound();
         }
 
         if(soundFilepath != null) {
