@@ -45,7 +45,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     public void updateVelocity() {
         // Set velocity for all hitBoxes in the list
         for (HitBox hitBox : getHitBoxes()) {
-            hitBox.setVelocity(up, down, left, right, speed);
+            hitBox.setVelocity(up, down, left, right, getSpeed());
         }
     }
 

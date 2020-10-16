@@ -76,9 +76,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * Calculates time since last update
                  * @author Irja Vuorela
                  */
-                this.currentNanoTime = System.nanoTime();
-                double deltaTime = (this.currentNanoTime - previousNanoTime) / 1e9;
-                double animationTime = (this.currentNanoTime - animationNanoTime) / 1e9;
+                currentNanoTime = System.nanoTime();
+                double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
+                double animationTime = (currentNanoTime - animationNanoTime) / 1e9;
 
                 notifyPlayingFieldObservers(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
 

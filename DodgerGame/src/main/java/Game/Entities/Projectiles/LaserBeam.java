@@ -16,7 +16,7 @@ public class LaserBeam extends AbstractGameObject {
     private final double screenVerticalLength = 600; // TODO: Get this from model.
 
     public LaserBeam() {
-        this.speed = 100;
+        setSpeed(100);
         getHitBoxes().add(new HitBox(0, 0, 1, 1));
         randomStartPoint();
     }
@@ -29,7 +29,7 @@ public class LaserBeam extends AbstractGameObject {
 
     private void updateVelocity() {
         HitBox hitBox = getHitBoxes().get(0);
-        hitBox.setVelocity(this.horizontal, this.vertical, this.speed);
+        hitBox.setVelocity(this.horizontal, this.vertical, getSpeed());
     }
 
     /**

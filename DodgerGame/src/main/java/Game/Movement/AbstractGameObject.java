@@ -16,10 +16,13 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     private double height;
     private final List<HitBox> hitBoxes;
     private boolean collided;
+    // Game movement speed
+    private double speed;
 
     public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
         this.collided = false;
+        this.speed = 250;
     }
 
     public List<HitBox> getHitBoxes() {
@@ -27,9 +30,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     //------------------------------------------------------
-
-    // Game.Movement speed
-    public double speed = 250;
 
     /**
      * Move self to a new position
@@ -93,5 +93,13 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     @Override
     public void actOnCollision(AbstractGameObject c) {
         c.setCollided(true);
+    }
+
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
+    public double getSpeed() {
+        return this.speed;
     }
 }
