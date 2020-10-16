@@ -8,8 +8,6 @@ import Game.Movement.AbstractGameObject;
 
 public interface ICollidable {
 
-    boolean collided = false;
-
     void setCollided(boolean collided);
 
     boolean getCollided();

@@ -1,8 +1,8 @@
 package View;
 
-import Game.Entities.Player.Player;
+import Game.Entities.Player.HitBox;
 import Game.Entities.Player.Spaceship;
-import Interfaces.IPlayerObserver;
+import Interfaces.ISpaceshipObserver;
 import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -12,10 +12,10 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class ShieldGUI implements IPlayerObserver, ITimeObserver {
-    private GraphicsContext gc;
-    private Image[] frames;
-    private double duration;
+public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
+    private final GraphicsContext gc;
+    private final Image[] frames;
+    private final double duration;
     private double animationTime;
 
     public ShieldGUI(GraphicsContext gc) {
@@ -37,26 +37,27 @@ public class ShieldGUI implements IPlayerObserver, ITimeObserver {
     }
 
     /**
-     * @author Olle Westerlund
-     * Loads a specific image and returns it.
      * @param number The number for the picture that the is needed.
      * @return the loaded image.
+     * @author Olle Westerlund
+     * Loads a specific image and returns it.
      */
     private Image setImage(int number) {
         InputStream inputStream;
         Image image;
         String url = "shield/shield" + number + ".png";
         inputStream = getClass().getClassLoader().getResourceAsStream(url);
+        assert inputStream != null;
         image = new Image(inputStream);
         return image;
     }
 
     /**
+     * @param time The current animation time.
+     * @return The image that is going to be displayed at the current time.
      * @author Olle Westerlund
      * Dicides which image to show depending on the time, number of images and
      * the duration each images is shown.
-     * @param time The current animation time.
-     * @return The image that is going to be displayed at the current time.
      */
     private Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
@@ -64,30 +65,30 @@ public class ShieldGUI implements IPlayerObserver, ITimeObserver {
     }
 
     /**
+     * @param spaceship The current spaceship.
      * @author Olle Westerlund
      * Draws the image on the players position if the player has a shield.
-     * @param player The current player.
      */
-    private void drawImage(Player player) {
-        if (player.getNrOfShields() > 0) {
+    private void drawImage(Spaceship spaceship) {
+        if (spaceship.getNrOfShields() > 0) {
             Image image = getFrame(animationTime);
-            for (Spaceship ship : player.getSpaceships()) {
-                double xPos = ship.position.getX() - 7;
-                double yPos = ship.position.getY() - 7;
-                double height = ship.getHeight() * 1.25;
-                double width = ship.getWidth() * 1.25;
+            for (HitBox hitBox : spaceship.getHitBoxes()) {
+                double xPos = hitBox.getXPos() - 7;
+                double yPos = hitBox.getYPos() - 7;
+                double height = spaceship.getHeight() * 1.25;
+                double width = spaceship.getWidth() * 1.25;
                 gc.drawImage(image, xPos, yPos, height, width);
             }
         }
     }
 
     @Override
-    public void actOnEvent(Player player) {
-        drawImage(player);
+    public void actOnEvent(long time, double deltaTime) {
+        this.animationTime = deltaTime;
     }
 
     @Override
-    public void actOnEvent(long time, double deltaTime) {
-        this.animationTime = deltaTime;
+    public void actOnEvent(Spaceship spaceship) {
+        drawImage(spaceship);
     }
 }

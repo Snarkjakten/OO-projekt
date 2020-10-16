@@ -1,10 +1,10 @@
 package Game.Entities.Projectiles;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 public class HealthPowerUp extends Projectile {
-    private int health;  // Percent of health the player gets back.
+    private final int health;  // Percent of health the player gets back.
 
     public HealthPowerUp() {
         super(400, 64, 64);

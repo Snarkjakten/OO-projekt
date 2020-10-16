@@ -1,43 +1,40 @@
 package Game.Movement;
 
+import Game.Entities.Player.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
+
+import java.util.ArrayList;
+import java.util.List;
 
 /**
- * @Author Irja Vuorela
+ * @author Irja Vuorela
  */
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    protected double height;
-    protected double width;
-    protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
-    boolean collided = false;
+    private double width;
+    private double height;
+    private final List<HitBox> hitBoxes;
+    private boolean collided;
 
-    //Currently unused
-    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
-    public void setHitbox(double x, double y, double width, double height){
-        this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
+    public AbstractGameObject() {
+        this.hitBoxes = new ArrayList<>();
+        this.collided = false;
     }
 
-    public Rectangle2D getHitbox(){
-        return hitbox;
+    public List<HitBox> getHitBoxes() {
+        return this.hitBoxes;
     }
 
     //------------------------------------------------------
 
-    // Position (x, y)
-    public Point2D position = new Point2D(0, 0);
-    // Velocity (horizontal, vertical)
-    public Point2D velocity = new Point2D(0, 0);
     // Game.Movement speed
     public double speed = 250;
 
     /**
      * Move self to a new position
      *
-     * @Author Irja Vuorela
+     * @author Irja Vuorela
      */
     public void move(double deltaTime) {
         updatePosition(deltaTime);
@@ -46,39 +43,36 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     /**
      * Update the position of a movable object
      *
-     * @Author Irja Vuorela
+     * @author Irja Vuorela and Tobias Engblom
      */
     protected void updatePosition(double deltaTime) {
-        this.velocity = velocity.multiply(deltaTime);
-        this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
-        this.setHitbox(position.getX(), position.getY(), this.width * 0.75, this.height * 0.75);
+        for (HitBox hitBox : getHitBoxes()) {
+            hitBox.velocity = hitBox.getVelocity().multiply(deltaTime);
+            hitBox.updatePosition(hitBox.getVelocity().getX(), hitBox.getVelocity().getY());
+        }
     }
 
-    /**
-     * Getter for position
-     * @return position
-     * @author Irja Vuorela
-     */
-    @Override
-    public Point2D getPosition() {
-        return this.position;
+    public void setWidth(double width) {
+        this.width = width;
     }
 
-    // Setter for self position
-    // @Author Tobias Engblom
-    public void setPosition(double xPos, double yPos) {
-        position = new Point2D(xPos, yPos);
-    }
-
-    public double getHeight() {
-        return height;
+    public void setHeight(double height) {
+        this.height = height;
     }
 
     public double getWidth() {
-        return width;
+        return this.width;
     }
 
-    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
+    public double getHeight() {
+        return this.height;
+    }
+
+    //-------------------------------------------------------
+
+    /**
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     */
     @Override
     public boolean getCollided() {
         return this.collided;
@@ -89,8 +83,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    @Override
-    public void actOnCollision(AbstractGameObject c){ }
 
-    //-------------------------------------------------------
+    /**
+     * Acts upon the collision based on instance of projectile
+     *
+     * @param c The gameobject this gameobject collided with
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        c.setCollided(true);
+    }
 }

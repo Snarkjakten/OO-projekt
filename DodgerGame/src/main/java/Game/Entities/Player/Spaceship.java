@@ -1,11 +1,19 @@
 package Game.Entities.Player;
 
-
+import Game.Entities.Projectiles.Asteroid;
+import Game.Entities.Projectiles.HealthPowerUp;
+import Game.Entities.Projectiles.ShieldPowerUp;
 import Game.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Interfaces.ICollisionObserver;
 
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractGameObject {
+public class Spaceship extends AbstractGameObject implements ICollisionObserver {
+
+    private final int maxHp;
+    private int hp;
+
+    private int points;
+    private int nrOfShields;
 
     // Game.Movement directions
     private int up = 0; // moving up decreases vertical axis value
@@ -13,17 +21,16 @@ public class Spaceship extends AbstractGameObject {
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
 
-    public Spaceship(double x, double y) {
-        setPosition(x, y);
-        this.width = 64;
-        this.height = 64;
+    public Spaceship(double xPos, double yPos, double width, double height) {
+        setWidth(width);
+        setHeight(height);
+        getHitBoxes().add(new HitBox(xPos, yPos, width, height));
+        this.nrOfShields = 0;
+        this.points = 0;
+        maxHp = 200;
+        this.hp = maxHp;
     }
 
-    /**
-     * Move self to a new position
-     *
-     * @author Irja Vuorela
-     */
     @Override
     public void move(double deltaTime) {
         updateVelocity();
@@ -35,12 +42,11 @@ public class Spaceship extends AbstractGameObject {
      *
      * @author Irja Vuorela
      */
-    private void updateVelocity() {
-        // Stop if moving in two opposite directions simultaneously
-        // Normalize velocity (keep same direction and turn into a unit vector)
-        this.velocity = (new Point2D((right - left), (down - up))).normalize();
-        // Multiply direction with speed
-        this.velocity = velocity.multiply(speed);
+    public void updateVelocity() {
+        // Set velocity for all hitBoxes in the list
+        for (HitBox hitBox : getHitBoxes()) {
+            hitBox.setVelocity(up, down, left, right, speed);
+        }
     }
 
     // Setters for movement directions
@@ -60,32 +66,46 @@ public class Spaceship extends AbstractGameObject {
         this.right = right;
     }
 
-    // @Author Tobias Engblom
-    // Sets this direction to the spaceships direction
-    public void setDirection(Spaceship spaceship) {
-        this.up = spaceship.up;
-        this.down = spaceship.down;
-        this.left = spaceship.left;
-        this.right = spaceship.right;
+    public int getMaxHp() {
+        return maxHp;
     }
 
+    public int getHp() {
+        return hp;
+    }
 
-    /**
-     * Acts upon the collision based on instance of projectile
-     *
-     * @param c
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
-     */
+    public void setHp(int hp) {
+        this.hp = hp;
+    }
+
+    public int getPoints() {
+        return points;
+    }
+
+    public void setPoints(int points) {
+        this.points = points;
+    }
+
+    public int getNrOfShields() {
+        return nrOfShields;
+    }
+
+    public void gainShield() {
+        this.nrOfShields += 1;
+    }
+
+    public void loseShield() {
+        if (this.nrOfShields > 0) this.nrOfShields -= 1;
+        else this.nrOfShields = 0;
+    }
 
     @Override
-    public void actOnCollision(AbstractGameObject c) {
-        c.setCollided(true);
-    }
-
-    public void resetDirection() {
-        this.up = 0;
-        this.down = 0;
-        this.left = 0;
-        this.right = 0;
+    public void actOnEvent(AbstractGameObject gameObject) {
+        if (gameObject instanceof Asteroid)
+            if (this.nrOfShields > 0) loseShield();
+            else this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+        else if (gameObject instanceof ShieldPowerUp) gainShield();
+        else if (gameObject instanceof HealthPowerUp)
+            setHp(Math.min(getHp() + ((HealthPowerUp) gameObject).getHealth(), maxHp));
     }
 }

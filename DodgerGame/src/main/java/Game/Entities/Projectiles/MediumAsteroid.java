@@ -1,7 +1,7 @@
 package Game.Entities.Projectiles;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 
 public class MediumAsteroid extends Asteroid {

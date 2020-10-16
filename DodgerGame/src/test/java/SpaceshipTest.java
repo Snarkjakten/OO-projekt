@@ -17,7 +17,7 @@ public class SpaceshipTest {
      */
     @Before
     public void init() {
-        spaceship = SpaceshipFactory.createSpaceship(0, 0);
+        spaceship = SpaceshipFactory.createSpaceship(0, 0, 64, 64);
     }
 
     /**
@@ -27,12 +27,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedLeft() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setLeft(1);
         // Negative x value to move to the left
-        spaceship.velocity = new Point2D(-1, 0);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue(spaceship.position.getX() < startPos.getX());
+        assertTrue(spaceship.getHitBoxes().get(0).getXPos() < startPos.getX());
     }
 
     /**
@@ -42,12 +42,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedRight() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setRight(1);
         // Positive x value to move to the right
-        spaceship.velocity = new Point2D(1, 0);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue(spaceship.position.getX() > startPos.getX());
+        assertTrue(spaceship.getHitBoxes().get(0).getXPos() > startPos.getX());
     }
 
     /**
@@ -57,12 +57,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedUp() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setUp(1);
         // Negative y value to move up
-        spaceship.velocity = new Point2D(0, -1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue(spaceship.position.getY() < startPos.getY());
+        assertTrue(spaceship.getHitBoxes().get(0).getYPos() < startPos.getY());
     }
 
     /**
@@ -72,12 +72,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedDown() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setDown(1);
         // Positive y value to move down
-        spaceship.velocity = new Point2D(0, 1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue(spaceship.position.getY() > startPos.getY());
+        assertTrue(spaceship.getHitBoxes().get(0).getYPos() > startPos.getY());
     }
 
     /**
@@ -87,12 +87,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedUpAndRight() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setUp(1);
         spaceship.setRight(1);
-        spaceship.velocity = new Point2D(1, -1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() > startPos.getX()) && (spaceship.position.getY() < startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() > startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
 
     /**
@@ -102,12 +102,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedUpAndLeft() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setUp(1);
         spaceship.setLeft(1);
-        spaceship.velocity = new Point2D(-1, -1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() < startPos.getX()) && (spaceship.position.getY() < startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() < startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
 
     /**
@@ -118,12 +118,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedDownAndRight() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setDown(1);
         spaceship.setRight(1);
-        spaceship.velocity = new Point2D(1, 1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() > startPos.getX()) && (spaceship.position.getY() > startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() > startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
 
     /**
@@ -133,12 +133,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipMovedDownAndLeft() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setDown(1);
         spaceship.setLeft(1);
-        spaceship.velocity = new Point2D(-1, 1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() < startPos.getX()) && (spaceship.position.getY() > startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() < startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
 
     /**
@@ -148,12 +148,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipNotMovingWhenLeftAndRight() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setLeft(1);
         spaceship.setRight(1);
-        spaceship.velocity = new Point2D(1, 1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() == startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() == startPos.getY()));
     }
 
     /**
@@ -163,12 +163,12 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipNotMovingWhenUpAndDown() {
-        startPos = spaceship.position;
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
         spaceship.setUp(1);
         spaceship.setDown(1);
-        spaceship.velocity = new Point2D(1, 1);
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() == startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() == startPos.getY()));
     }
 
     /**
@@ -178,10 +178,10 @@ public class SpaceshipTest {
      */
     @Test
     public void SpaceshipNotMovingWhenVelocityZero() {
-        startPos = spaceship.position;
-        spaceship.velocity = new Point2D(0, 0);
+        startPos = spaceship.getHitBoxes().get(0).getPosition();
+        spaceship.updateVelocity();
         spaceship.move(deltaTime);
-        assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
+        assertTrue((spaceship.getHitBoxes().get(0).getXPos() == startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() == startPos.getY()));
     }
 
     @Test

@@ -1,4 +1,4 @@
-import Game.Entities.Player.Player;
+import Game.Entities.Player.HitBox;
 import Game.Entities.Player.Spaceship;
 import Game.Entities.Projectiles.Projectile;
 import Game.Entities.Projectiles.ProjectileFactory;
@@ -17,7 +17,7 @@ import javafx.stage.Stage;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Main extends Application implements ICollisionObservable, IGameObjectObservable, IGameOverObservable, IPlayerObservable, IPlayingFieldObservable, ISoundObservable, ITimeObservable, IGameWorldObservable {
+public class Main extends Application implements ICollisionObservable, IGameObjectObservable, IGameOverObservable, ISpaceshipObservable, IPlayingFieldObservable, ISoundObservable, ITimeObservable, IGameWorldObservable {
 
     private GameWorld gameWorld;
     private PausableAnimationTimer gameLoop;
@@ -28,7 +28,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private List<ISoundObserve> soundObservers;
     private List<IGameOverObserver> gameOverObservers;
     private List<IPlayingFieldObserver> playingFieldObservers;
-    private List<IPlayerObserver> playerObservers;
+    private List<ISpaceshipObserver> spaceshipObservers;
     private List<ICollisionObserver> collisionObservers;
     private List<IGameWorldObserver> gameWorldObservers;
 
@@ -55,7 +55,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
         gameLoop = new PausableAnimationTimer() {
 
-            final long currentNanoTime = System.nanoTime();
+            long currentNanoTime;
             long previousNanoTime = currentNanoTime;
             int updateCounter = 60;
 
@@ -64,14 +64,17 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             @Override
             public void tick(long currentNanoTime) {
                 checkGameWorld();
+                System.out.println(gameWorld.getSpaceship().getHitBoxes().size());
+                for (HitBox hitBox : gameWorld.getSpaceship().getHitBoxes())
+                    System.out.println(hitBox.getHitBox().getMinX() + " and " + hitBox.getHitBox().getMinY());
 
                 /**
                  * Calculates time since last update
                  * @author Irja Vuorela
                  */
-                currentNanoTime = System.nanoTime();
-                double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
-                double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
+                this.currentNanoTime = currentNanoTime;
+                double deltaTime = (this.currentNanoTime - previousNanoTime) / 1e9;
+                double animationTime = (this.currentNanoTime - animationNanoTime) / 1e9;
 
                 notifyPlayingFieldObservers(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
 
@@ -81,7 +84,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  */
                 for (AbstractGameObject gameObject : gameObjects) {
                     gameObject.move(deltaTime);
-                    notifyGameObjectObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
+                    notifyGameObjectObservers(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight());
                 }
 
                 List<AbstractGameObject> toBeRemoved;
@@ -90,7 +93,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 CollisionHandler collisionHandler = new CollisionHandler();
 
                 for (AbstractGameObject gameObject : gameObjects) {
-                    notifyGameObjectObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
+                    notifyGameObjectObservers(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight());
                     for (AbstractGameObject a : gameObjects) {
                         if (collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
                             // TODO Fråga handledaren om kopia av objekt
@@ -107,7 +110,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                         }
                     }
                 }
-                notifyPlayerObservers(gameWorld.getPlayer());
+                notifySpaceshipObservers(gameWorld.getSpaceship());
 
                 for (AbstractGameObject a : toBeRemoved) {
                     gameObjects.remove(a);
@@ -142,7 +145,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                         }
                     }
                 }
-                gameWorld.wrapAround();
+                gameWorld.wrapAround(gameWorld.getSpaceship());
 
                 long elapsedTime = calculateElapsedTime();
                 notifyTimeObservers(elapsedTime, animationTime);
@@ -184,16 +187,16 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         collisionObservers = new ArrayList<>();
         timeObservers = new ArrayList<>();
         soundObservers = new ArrayList<>();
-        playerObservers = new ArrayList<>();
+        spaceshipObservers = new ArrayList<>();
         gameWorldObservers = new ArrayList<>();
 
         addObserver(gameObjectGUI);
         addObserver(vc);
         addTimeObserver(timeView);
         addTimeObserver(shieldGUI);
-        addPlayerObserver(shieldGUI);
-        addPlayerObserver(healthBarGUI);
-        addCollisionObserver(gameWorld.getPlayer());
+        addSpaceshipObserver(shieldGUI);
+        addSpaceshipObserver(healthBarGUI);
+        addCollisionObserver(gameWorld.getSpaceship());
         addObserver(soundHandler);
         addObserver(backgroundView);
         addGameWorldObserver(keyController);
@@ -243,9 +246,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     @Override
-    public void notifyGameObjectObservers(double x, double y, Class c, double height, double width) {
+    public void notifyGameObjectObservers(List<HitBox> hitBoxes, Class c, double width, double height) {
         for (IGameObjectObserver obs : gameObjectObservers) {
-            obs.actOnEvent(x, y, c, height, width);
+            obs.actOnEvent(hitBoxes, c, width, height);
         }
     }
 
@@ -284,16 +287,16 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     private void endGame() { //TODO: Broken plz fix
-        if (gameWorld.getPlayer().getHp() <= 0) {
+        if (gameWorld.getSpaceship().getHp() <= 0) {
             gameWorld.setGameOver(true);
             notifyGameOverObservers(gameWorld.getIsGameOver());
             gameObjects.clear();
-            collisionObservers.remove(gameWorld.getPlayer());
+            collisionObservers.remove(gameWorld.getSpaceship());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
             notifyGameWorldObservers();
             gameLoop.stop();
-            collisionObservers.add(gameWorld.getPlayer());
+            collisionObservers.add(gameWorld.getSpaceship());
         }
     }
 
@@ -338,40 +341,24 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     @Override
-    public void addPlayerObserver(IPlayerObserver obs) {
-        playerObservers.add(obs);
+    public void addSpaceshipObserver(ISpaceshipObserver obs) {
+        spaceshipObservers.add(obs);
     }
 
     @Override
-    public void removePlayerObserver(IPlayerObserver obs) {
-        playerObservers.remove(obs);
+    public void removeSpaceshipObserver(ISpaceshipObserver obs) {
+        spaceshipObservers.remove(obs);
     }
 
     @Override
-    public void notifyPlayerObservers(Player player) {
-        Player copyOfPlayer = new Player(player.getSpaceships(), player.getNrOfShields(), player.getPoints(), player.getHp());
-        for (IPlayerObserver obs : playerObservers) {
-            obs.actOnEvent(copyOfPlayer);
-        }
-    }
+    public void notifySpaceshipObservers(Spaceship spaceship) {
 
-    /*
-    private Player copyPlayer(Player object) {
-        Player copyOfPlayer = new Player();
-        copyOfPlayer.setHp(object.getHp());
-        copyOfPlayer.setPoints(object.getPoints());
-        copyOfPlayer.setNrOfShields(object.getNrOfShields());
-        copyOfPlayer.setSpaceships(object.getSpaceships());
-        return copyOfPlayer;
     }
-
-     */
 
     @Override
     public void notifyCollisionObservers(AbstractGameObject gameObject) {
-        for (ICollisionObserver obs : collisionObservers) {
+        for (ICollisionObserver obs : collisionObservers)
             obs.actOnEvent(gameObject);
-        }
     }
 
     @Override
