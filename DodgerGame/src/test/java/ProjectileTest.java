@@ -1,5 +1,4 @@
-import Game.Entities.Projectiles.*;
-import View.GameObjectGUI;
+import Model.Entities.Projectiles.*;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,9 +8,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class ProjectileTest {
 
-    SmallAsteroid projSmallAsteroid;
-    MediumAsteroid projMediumAsteroid;
-    GameObjectGUI smallAsteroidGUI;
+    Asteroid projAsteroid;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     Point2D startPos;
@@ -22,63 +19,63 @@ public class ProjectileTest {
      */
     @Before
     public void init() {
-        projSmallAsteroid = new SmallAsteroid();
-        projMediumAsteroid = new MediumAsteroid();
-//        smallAsteroidGUI = new ProjectileGUI();
+        projAsteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
     }
 
+    /**
+     * Test that the shield power up gives one shield when pick up.
+     * @author Olle Westerlund
+     */
     @Test
-    //@Author Olle Westerlund
     public void testGainShield() {
         int shields = 0;
-        shields = shieldPU.gainShield();
-        assertTrue(shields == 1);
+        int shieldsAfterPowerUp = shields + shieldPU.gainShield();
+        assertTrue(shieldsAfterPowerUp > shields);
     }
 
-    /*
-    @Test
-    //@Author Olle Westerlund
-    public void testGainHealth() {
-        int totalHealth = 200;
-        int currentHealth = 100;
-        currentHealth += hpUp.getHealth(totalHealth);
-        assertTrue(currentHealth == 150);
-    }
-
+    /**
+     * Test that the health power up increases the health.
+     * @author Olle Westerlund
      */
+    @Test
+    public void testGainHealth() {
+        int currentHealth = 100;
+        int healthAfterHeal = currentHealth + hpUp.getHealth();
+        assertTrue(healthAfterHeal > currentHealth);
+    }
 
-//    @Test
-//    //@Author Olle Westerlund
-//    public void testProjectileAndGuiPosition() {
-//        Point2D projPosition = smallAsteroidGUI.getProjectile().position;
-//        Point2D projGuiPosition = smallAsteroidGUI.getPoint();
-//        assertTrue(projPosition.getX() == projGuiPosition.getX() &&
-//                   projPosition.getY() == projGuiPosition.getY());
-//    }
-
-    /* hardcoded values
+    /**
+     * Test that the asteroid has a speed when spawned.
+     * @author Olle Westerlund
+     */
     @Test
     public void testAsteroidSpeed() {
-        assertTrue(projSmallAsteroid.getSpeed() == 5);
-        assertTrue(projMediumAsteroid.getSpeed() == 3);
+        assertTrue(projAsteroid.getSpeed() > 0 );
     }
-    */
 
+
+    /**
+     * Test that asteroid does damage
+     * @author Olle Westerlund
+     */
     @Test
     //@Author Olle Westerlund
     public void testAsteroidDamage() {
-        assertTrue(projSmallAsteroid.getDamage() == 20);
-        //TODO Change damage to 35
-        assertTrue(projMediumAsteroid.getDamage() == 200);
+        int startHealth = 200;
+        int healthAfterHit = startHealth - projAsteroid.getDamage();
+        assertTrue(startHealth > healthAfterHit);
     }
 
+    /**
+     * Test if the asteroid is no longer on the map.
+     * @author Olle Westerlund
+     */
     @Test
-    //@Author Olle Westerlund
     public void testAsteroidIsNotOnScreen() {
-        projSmallAsteroid.setPosition(-80, -80);
-        assertTrue(projSmallAsteroid.isNotOnScreen());
+        projAsteroid.setPosition(-80, -80);
+        assertTrue(projAsteroid.isNotOnScreen());
     }
 
     /**
@@ -88,11 +85,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedLeft() {
-        startPos = projSmallAsteroid.position;
+        startPos = projAsteroid.position;
         // Negative horizontal value to move left
-        projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue(projSmallAsteroid.position.getX() < startPos.getX());
+        projAsteroid.setHorizontal(-1);
+        projAsteroid.move(deltaTime);
+        assertTrue(projAsteroid.position.getX() < startPos.getX());
     }
 
     /**
@@ -102,11 +99,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedRight() {
-        startPos = projSmallAsteroid.position;
+        startPos = projAsteroid.position;
         // Positive horizontal value to move right
-        projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue(projSmallAsteroid.position.getX() > startPos.getX());
+        projAsteroid.setHorizontal(1);
+        projAsteroid.move(deltaTime);
+        assertTrue(projAsteroid.position.getX() > startPos.getX());
     }
 
     /**
@@ -116,11 +113,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedUp() {
-        startPos = projSmallAsteroid.position;
+        startPos = projAsteroid.position;
         // Negative vertical value to move up
-        projSmallAsteroid.setVertical(-1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue(projSmallAsteroid.position.getY() < startPos.getY());
+        projAsteroid.setVertical(-1);
+        projAsteroid.move(deltaTime);
+        assertTrue(projAsteroid.position.getY() < startPos.getY());
     }
 
     /**
@@ -130,11 +127,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedDown() {
-        startPos = projSmallAsteroid.position;
+        startPos = projAsteroid.position;
         // Positive vertical value to move down
-        projSmallAsteroid.setVertical(1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue(projSmallAsteroid.position.getY() > startPos.getY());
+        projAsteroid.setVertical(1);
+        projAsteroid.move(deltaTime);
+        assertTrue(projAsteroid.position.getY() > startPos.getY());
     }
 
     /**
@@ -144,11 +141,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedUpRight() {
-        startPos = projSmallAsteroid.position;
-        projSmallAsteroid.setVertical(-1);
-        projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
+        startPos = projAsteroid.position;
+        projAsteroid.setVertical(-1);
+        projAsteroid.setHorizontal(1);
+        projAsteroid.move(deltaTime);
+        assertTrue((projAsteroid.position.getX() > startPos.getX()) && (projAsteroid.position.getY() < startPos.getY()));
     }
 
     /**
@@ -158,11 +155,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedUpLeft() {
-        startPos = projSmallAsteroid.position;
-        projSmallAsteroid.setVertical(-1);
-        projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() < startPos.getY()));
+        startPos = projAsteroid.position;
+        projAsteroid.setVertical(-1);
+        projAsteroid.setHorizontal(-1);
+        projAsteroid.move(deltaTime);
+        assertTrue((projAsteroid.position.getX() < startPos.getX()) && (projAsteroid.position.getY() < startPos.getY()));
     }
 
     /**
@@ -172,11 +169,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedDownRight() {
-        startPos = projSmallAsteroid.position;
-        projSmallAsteroid.setVertical(1);
-        projSmallAsteroid.setHorizontal(1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue((projSmallAsteroid.position.getX() > startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
+        startPos = projAsteroid.position;
+        projAsteroid.setVertical(1);
+        projAsteroid.setHorizontal(1);
+        projAsteroid.move(deltaTime);
+        assertTrue((projAsteroid.position.getX() > startPos.getX()) && (projAsteroid.position.getY() > startPos.getY()));
     }
 
     /**
@@ -186,11 +183,11 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileMovedDownLeft() {
-        startPos = projSmallAsteroid.position;
-        projSmallAsteroid.setVertical(1);
-        projSmallAsteroid.setHorizontal(-1);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue((projSmallAsteroid.position.getX() < startPos.getX()) && (projSmallAsteroid.position.getY() > startPos.getY()));
+        startPos = projAsteroid.position;
+        projAsteroid.setVertical(1);
+        projAsteroid.setHorizontal(-1);
+        projAsteroid.move(deltaTime);
+        assertTrue((projAsteroid.position.getX() < startPos.getX()) && (projAsteroid.position.getY() > startPos.getY()));
     }
 
     /**
@@ -200,10 +197,10 @@ public class ProjectileTest {
      */
     @Test
     public void ProjectileNotMovingWhenVelocityZero() {
-        startPos = projSmallAsteroid.position;
-        projSmallAsteroid.setVertical(0);
-        projSmallAsteroid.setHorizontal(0);
-        projSmallAsteroid.move(deltaTime);
-        assertTrue((projSmallAsteroid.position.getX() == startPos.getX()) && (projSmallAsteroid.position.getY() == startPos.getY()));
+        startPos = projAsteroid.position;
+        projAsteroid.setVertical(0);
+        projAsteroid.setHorizontal(0);
+        projAsteroid.move(deltaTime);
+        assertTrue((projAsteroid.position.getX() == startPos.getX()) && (projAsteroid.position.getY() == startPos.getY()));
     }
 }

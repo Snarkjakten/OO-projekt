@@ -1,10 +1,10 @@
-package Game.Entities.Player;
+package Model.Entities.Player;
 
-import Game.Entities.Projectiles.Asteroid;
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.ShieldPowerUp;
-import Game.Entities.Projectiles.SlowDebuff;
-import Game.Movement.AbstractGameObject;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Entities.Projectiles.SlowDebuff;
+import Model.Movement.AbstractGameObject;
 import Interfaces.ICollisionObserver;
 
 import java.util.ArrayList;
@@ -41,6 +41,10 @@ public class Player implements ICollisionObserver {
 
     public int getHp() {
         return hp;
+    }
+
+    public int getMaxHp() {
+        return maxHp;
     }
 
     public int getPoints() {

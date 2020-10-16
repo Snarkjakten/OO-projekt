@@ -1,4 +1,4 @@
-import Game.Entities.Player.Spaceship;
+import Model.Entities.Player.Spaceship;
 import javafx.scene.input.KeyEvent;
 
 import java.util.List;

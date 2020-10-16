@@ -1,7 +1,7 @@
 package View;
 
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.*;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.*;
 import Interfaces.IGameObjectObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -9,7 +9,7 @@ import javafx.scene.image.Image;
 import java.io.InputStream;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 
 public class GameObjectGUI implements IGameObjectObserver {
@@ -43,18 +43,14 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
-     * @param gameObject The gameObject to set the image to.
-     * @return The a specific image depending on the gameObject.
-     * @Author Olle Westerlund
      * The method sets the correct image depending on the specific gameObject.
+     * @param gameObject The game object to set the image to.
+     * @return The a specific image depending on the gameObject.
+     * @author Olle Westerlund
      */
     private Image addImageToProjectile(Class gameObject) {
         InputStream inputStream;
-        if (gameObject.equals(SmallAsteroid.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream(smallAsteroidFilePath);
-            assert inputStream != null;
-            image = new Image(inputStream);
-        } else if (gameObject.equals(MediumAsteroid.class)) {
+        if (gameObject.equals(Asteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(mediumAsteroidFilePath);
             assert inputStream != null;
             image = new Image(inputStream);

@@ -1,9 +1,6 @@
-package Game.Entities.Player;
+package Model.Entities.Player;
 
-import Game.Entities.Projectiles.Asteroid;
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.ShieldPowerUp;
-import Game.Movement.AbstractGameObject;
+import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player

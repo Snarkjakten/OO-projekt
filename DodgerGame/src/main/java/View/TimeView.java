@@ -23,7 +23,7 @@ public class TimeView implements ITimeObserver {
         gc.setFill(Color.WHITE);
     }
 
-    private void calcuateTime(long time){
+    private void calculateTime(long time){
         long sec = time / 1000000000;
         this.seconds = sec % 60;
         this.minutes = sec / 60;
@@ -44,7 +44,7 @@ public class TimeView implements ITimeObserver {
     }
 
     public void actOnEvent(long time, double deltaTime) {
-        calcuateTime(time);
+        calculateTime(time);
         drawImage();
     }
 }

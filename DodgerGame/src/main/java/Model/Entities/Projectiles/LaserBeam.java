@@ -1,22 +1,25 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
-import Game.Movement.AbstractGameObject;
+import Model.GameWorld;
+import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
 import java.util.Random;
 
 /**
- * @Author Olle Westerlund
+ * @author Olle Westerlund
  */
 public class LaserBeam extends AbstractGameObject {
     private double horizontal;
     private double vertical;
     private boolean isVertical;
-    private double screenHorizontalLength = 800; //TODO: Get this from model.
-    private double screenVerticalLength = 600; // TODO: Get this from model.
+    private int damage;
+    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public LaserBeam() {
         this.setSpeed(100);
+        this.damage = 100;
         randomStartPoint();
     }
 
@@ -32,8 +35,9 @@ public class LaserBeam extends AbstractGameObject {
     }
 
     /**
-     * @Author Olle Westerlund
-     * The method sets a starting side and then sets the position to go to.
+     * @author Olle Westerlund
+     * The method sets a starting side and then sets the position the laser beam
+     * moves towards.
      */
     private void randomStartPoint() {
         Random random = new Random();
@@ -42,21 +46,21 @@ public class LaserBeam extends AbstractGameObject {
             case 0: // Bottom of the screen
                 this.isVertical = false;
                 setStopPosition(0,-50);
-                this.position = new Point2D(-50, screenVerticalLength + 50);
+                this.position = new Point2D(-50, verticalMapSize + 50);
                 break;
             case 1: // Right side of the screen
                 this.isVertical = true;
                 setStopPosition(-50,0);
-                this.position = new Point2D(screenHorizontalLength + 50, -50);
+                this.position = new Point2D(horizontalMapSize + 50, -50);
                 break;
             case 2: // Top of the screen
                 this.isVertical = false;
-                setStopPosition(0,screenVerticalLength);
+                setStopPosition(0, verticalMapSize);
                 this.position = new Point2D(-50, -50);
                 break;
             case 3: // Left of the screen
                 this.isVertical = true;
-                setStopPosition(screenHorizontalLength, 0);
+                setStopPosition(horizontalMapSize, 0);
                 this.position = new Point2D(-50, -50);
                 break;
             default:
@@ -70,15 +74,7 @@ public class LaserBeam extends AbstractGameObject {
         this.vertical = vertical;
     }
 
-    public double getHorizontal() {
-        return horizontal;
-    }
-
-    public double getVertical() {
-        return vertical;
-    }
-
-    public boolean isVertical() {
-        return isVertical;
+    public int getDamage() {
+        return damage;
     }
 }

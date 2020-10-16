@@ -1,4 +1,4 @@
-package Game.Movement;
+package Model.Movement;
 
 /**
  * Checks hitboxes Rectangle2D for intersection (collision)

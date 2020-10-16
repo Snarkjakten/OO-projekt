@@ -1,17 +1,14 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
 /**
- * @Author Olle Westerlund
+ * A factory class that creates the different projectiles.
+ * @author Olle Westerlund
  */
 
 public abstract class ProjectileFactory {
 
-    public static Projectile createSmallAsteroid() {
-        return new SmallAsteroid();
-    }
-
-    public static Projectile createMediumAsteroid() {
-        return new MediumAsteroid();
+    public static Projectile createAsteroid() {
+        return new Asteroid();
     }
 
     public static Projectile createHealthPowerUp() {

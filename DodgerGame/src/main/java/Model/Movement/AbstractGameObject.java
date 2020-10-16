@@ -1,4 +1,4 @@
-package Game.Movement;
+package Model.Movement;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
@@ -13,7 +13,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected double height;
     protected double width;
     protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
-    boolean collided = false;
+    protected boolean collided = false;
 
     //Currently unused
     //@Author Viktor Sundberg (viktor.sundberg@icloud.com)

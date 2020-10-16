@@ -1,5 +1,5 @@
 package View.Sound;
-import Game.Entities.Projectiles.*;
+import Model.Entities.Projectiles.*;
 import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
@@ -68,7 +68,7 @@ public class SoundHandler implements ISoundObserve {
     public void actOnEvent(Class c) {
         String soundFilepath = null;
 
-        if (c.equals(SmallAsteroid.class) || c.equals(MediumAsteroid.class)) { //TODO: change to Asteroid.class when asteroids are combined
+        if (c.equals(Asteroid.class)) {
             soundFilepath = GameObjectsSounds.getAsteroidSound();
         } else if (c.equals(ShieldPowerUp.class)) {
             soundFilepath = GameObjectsSounds.getShieldSound();

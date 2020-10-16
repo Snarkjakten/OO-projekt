@@ -1,7 +1,9 @@
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Player.SpaceshipFactory;
-import Game.Movement.AbstractGameObject;
+package Model;
+
+import Model.Entities.Player.Player;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Player.SpaceshipFactory;
+import Model.Movement.AbstractGameObject;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -14,8 +16,8 @@ public class GameWorld {
     private Player player;
     private boolean isGameOver;
 
-    private final double playingFieldWidth = 800;
-    private final double playingFieldHeight = 600;
+    private static final double playingFieldWidth = 800;
+    private static final double playingFieldHeight = 600;
 
     private GameWorld() {
         this.isGameOver = false;
@@ -36,7 +38,7 @@ public class GameWorld {
     }
 
     //@Author Tobias Engblom
-    protected static GameWorld getInstance() {
+    public static GameWorld getInstance() {
         if (instance == null) {
             instance = new GameWorld();
         }
@@ -52,22 +54,22 @@ public class GameWorld {
     }
 
     //@Author Tobias Engblom
-    protected List<Spaceship> getSpaceships() {
+    public List<Spaceship> getSpaceships() {
         return this.player.getSpaceships();
     }
 
     //@Author Tobias Engblom
-    protected Player getPlayer() {
+    public Player getPlayer() {
         return this.player;
     }
 
     //@Author Tobias Engblom
-    protected List<AbstractGameObject> getGameObjects() {
+    public List<AbstractGameObject> getGameObjects() {
         return this.gameObjects;
     }
 
     //@Author Tobias Engblom
-    protected void wrapAround() {
+    public void wrapAround() {
         Spaceship spaceship = player.getSpaceships().get(0);
         if (player.getSpaceships().size() == 1) {
             checkWrapAround(spaceship);

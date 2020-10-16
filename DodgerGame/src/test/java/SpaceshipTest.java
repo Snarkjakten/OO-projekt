@@ -1,5 +1,5 @@
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Player.SpaceshipFactory;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Player.SpaceshipFactory;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
