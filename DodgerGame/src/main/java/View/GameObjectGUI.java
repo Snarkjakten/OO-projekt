@@ -76,15 +76,15 @@ public class GameObjectGUI implements IGameObjectObserver {
         return image;
     }
 
-    private void drawImage(List<HitBox> hitBoxes, Class c, double height, double width) {
+    private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
         Image image = addImageToGameObject(c);
         for (HitBox hitBox : hitBoxes)
             gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
     }
 
     @Override
-    public void actOnEvent(List<HitBox> hitBoxes, Class c, double height, double width) {
-        drawImage(hitBoxes, c, height, width);
+    public void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height) {
+        drawImage(hitBoxes, c, width, height);
     }
 
     public static String getFirstChoice() {

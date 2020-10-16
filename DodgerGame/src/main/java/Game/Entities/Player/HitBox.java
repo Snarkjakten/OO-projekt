@@ -52,7 +52,7 @@ public class HitBox {
 
     public void updatePosition(double xPos, double yPos) {
         setPosition(xPos, yPos);
-        setHitBox(xPos, yPos, this.width, this.height);
+        setHitBox(this.position.getX(), this.position.getY(), this.width, this.height);
     }
 
     public Rectangle2D getHitBox() {

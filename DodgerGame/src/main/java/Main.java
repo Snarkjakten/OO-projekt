@@ -35,6 +35,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private final SoundHandler soundHandler = new SoundHandler();
     private final HighScoreHandler scoreHandler = new HighScoreHandler();
 
+    private long startNanoTime;
+
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
@@ -53,9 +55,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
 
+        startNanoTime = System.nanoTime();
+
         gameLoop = new PausableAnimationTimer() {
 
-            long currentNanoTime;
+            long currentNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
             int updateCounter = 60;
 
@@ -72,7 +76,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * Calculates time since last update
                  * @author Irja Vuorela
                  */
-                this.currentNanoTime = currentNanoTime;
+                this.currentNanoTime = System.nanoTime();
                 double deltaTime = (this.currentNanoTime - previousNanoTime) / 1e9;
                 double animationTime = (this.currentNanoTime - animationNanoTime) / 1e9;
 
@@ -147,7 +151,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 gameWorld.wrapAround(gameWorld.getSpaceship());
 
-                long elapsedTime = calculateElapsedTime();
+                long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
                 endGame();
@@ -318,9 +322,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     // Calculates elapsed time
-    public long calculateElapsedTime() {
+    public long calculateElapsedTime(long startNanoTime) {
         long endNanoTime = System.nanoTime();
-        return endNanoTime - gameLoop.getStartNanoTime();
+        return endNanoTime - startNanoTime;
     }
 
     @Override
