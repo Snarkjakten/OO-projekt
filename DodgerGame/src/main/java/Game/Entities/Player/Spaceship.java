@@ -77,6 +77,7 @@ public class Spaceship extends AbstractGameObject {
      * @param c
      * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
+    @Override
     public void actOnCollision(AbstractGameObject c) {
         c.setCollided(true);
     }
