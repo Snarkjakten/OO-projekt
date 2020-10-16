@@ -92,7 +92,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     @Override
     public void actOnCollision(AbstractGameObject c) {
-        c.setCollided(true);
     }
 
     public void setSpeed(double speed) {

@@ -13,7 +13,7 @@ public class CollisionHandler {
 
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
         for (HitBox hitBox1 : g.getHitBoxes())
-            for (HitBox hitBox2 : g.getHitBoxes())
+            for (HitBox hitBox2 : a.getHitBoxes())
                 return hitBox1.getHitBox().intersects(hitBox2.getHitBox()) && a != g;
         return false;
     }

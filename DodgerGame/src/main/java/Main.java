@@ -54,12 +54,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
-
-        startNanoTime = System.nanoTime();
+        startNanoTime = System.nanoTime(); //TODO Fix time bug
 
         gameLoop = new PausableAnimationTimer() {
 
-            long currentNanoTime = System.nanoTime();
+            final long currentNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
             int updateCounter = 60;
 
@@ -68,9 +67,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             @Override
             public void tick(long currentNanoTime) {
                 checkGameWorld();
-                System.out.println(gameWorld.getSpaceship().getHitBoxes().size());
-                for (HitBox hitBox : gameWorld.getSpaceship().getHitBoxes())
-                    System.out.println(hitBox.getHitBox().getMinX() + " and " + hitBox.getHitBox().getMinY());
 
                 /**
                  * Calculates time since last update
@@ -323,8 +319,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     // Calculates elapsed time
     public long calculateElapsedTime(long startNanoTime) {
-        long endNanoTime = System.nanoTime();
-        return endNanoTime - startNanoTime;
+        long currentNanoTime = System.nanoTime();
+        return currentNanoTime - startNanoTime;
     }
 
     @Override
@@ -356,7 +352,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     @Override
     public void notifySpaceshipObservers(Spaceship spaceship) {
-
+        for (ISpaceshipObserver obs : spaceshipObservers)
+            obs.actOnEvent(spaceship);
     }
 
     @Override

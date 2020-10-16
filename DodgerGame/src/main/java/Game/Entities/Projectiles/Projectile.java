@@ -10,17 +10,16 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-    private double speed;         // Speed of the projectile.
     private double horizontal;    // positive value: right, negative value: left
     private double vertical;      // positive value: up, negative value: down
     private final double screenSizeX = 800;   // TODO: Remember to get this from model not hard code.
     private final double screenSizeY = 600;   // TODO: Remember to get this from model not hard code.
 
     public Projectile(double speed, double width, double height) {
-        this.speed = speed;
+        setSpeed(speed);
         setWidth(width);
         setHeight(height);
-        getHitBoxes().add(new HitBox(0, 0, width * 0.75, height * 0.75));
+        getHitBoxes().add(new HitBox(0, 0, width, height));
         randomPosition();
     }
 
@@ -133,7 +132,7 @@ public abstract class Projectile extends AbstractGameObject {
      */
     public void updateVelocity() {
         HitBox hitBox = getHitBoxes().get(0);
-        hitBox.setVelocity(horizontal, vertical, speed);
+        hitBox.setVelocity(horizontal, vertical, getSpeed());
     }
 
     /**
@@ -147,10 +146,6 @@ public abstract class Projectile extends AbstractGameObject {
         boolean isStillOnX = (hitBox.getXPos() > -70 && hitBox.getXPos() < (screenSizeX + 70));
         boolean isStillOnY = (hitBox.getYPos() > -70 && hitBox.getYPos() < (screenSizeY + 70));
         return (!isStillOnX || !isStillOnY);
-    }
-
-    public double getSpeed() {
-        return speed;
     }
 
     public double getHorizontal() {

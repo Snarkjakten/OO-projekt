@@ -108,4 +108,9 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         else if (gameObject instanceof HealthPowerUp)
             setHp(Math.min(getHp() + ((HealthPowerUp) gameObject).getHealth(), maxHp));
     }
+
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        c.setCollided(true);
+    }
 }
