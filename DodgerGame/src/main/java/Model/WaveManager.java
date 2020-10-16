@@ -23,7 +23,7 @@ public class WaveManager {
     private long seconds;
     private long minutes;
     private long oldSeconds;
-    private int maxNumProjectiles = 30;
+    private int maxNumProjectiles = 20;
 
 
     private void calcuateTime(long time){
@@ -36,13 +36,15 @@ public class WaveManager {
         calcuateTime(time);
         removeOffscreenProjectiles(gameObjects);
         if (gameObjects.size() <= 3 + seconds && gameObjects.size() <= maxNumProjectiles) {
+            addAsteroid(gameObjects);
             if (oldSeconds != seconds) {
                 oldSeconds = seconds;
                 addHealthPowerUp(gameObjects);
                 addShieldPowerUp(gameObjects);
                 if (seconds <= 20) {
-                    addVerticalWave(gameObjects, 0, 0);
-                    addVerticalWave(gameObjects, 64, 64);
+                    //addVerticalWave(gameObjects, 0, 0);
+                    //addVerticalWave(gameObjects, 64, 64);
+                    //addAsteroid(gameObjects);
                 } else if (seconds > 23) {
                     addAsteroid(gameObjects);
                 }
