@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Game.Movement.AbstractGameObject;
+import Model.Movement.AbstractGameObject;
 
 /**
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)

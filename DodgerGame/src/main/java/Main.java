@@ -1,10 +1,11 @@
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
-import Game.HighScoreHandler;
-import Game.Movement.AbstractGameObject;
-import Game.Movement.CollisionHandler;
-import Game.WaveManager;
 import Interfaces.*;
+import Model.Entities.Player.Player;
+import Model.Entities.Player.Spaceship;
+import Model.GameWorld;
+import Model.HighScoreHandler;
+import Model.Movement.AbstractGameObject;
+import Model.Movement.CollisionHandler;
+import Model.WaveManager;
 import View.*;
 import View.Sound.GameObjectsSounds;
 import View.Sound.SoundHandler;
@@ -119,11 +120,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                waveManager.projectileSpawner(calculateElapsedTime(), gameObjects);
+                //waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects);
 
                 gameWorld.wrapAround();
 
-                long elapsedTime = calculateElapsedTime();
+                long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
                 endGame();
@@ -174,7 +175,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     public void stopAnimationTimer() {
         gameLoop.stop();
     }
-
 
     /**
      * @author Irja Vuorela
@@ -233,7 +233,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         this.timeObservers.remove(obs);
     }
 
-    private void endGame() { //TODO: Broken plz fix
+    private void endGame() {
         if (gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
             notifyGameOverObservers(gameWorld.getIsGameOver());
@@ -264,9 +264,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     // Calculates elapsed time
-    public long calculateElapsedTime() {
-        long endNanoTime = System.nanoTime();
-        return endNanoTime - startNanoTime;
+    public long calculateElapsedTime(long startNanoTime) {
+        long currentNanoTime = System.nanoTime();
+        return currentNanoTime - startNanoTime;
     }
 
     @Override

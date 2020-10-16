@@ -1,8 +1,8 @@
-package Game;
+package Model;
 
-import Game.Entities.Projectiles.Projectile;
-import Game.Entities.Projectiles.ProjectileFactory;
-import Game.Movement.AbstractGameObject;
+import Model.Entities.Projectiles.Projectile;
+import Model.Entities.Projectiles.ProjectileFactory;
+import Model.Movement.AbstractGameObject;
 
 import java.util.List;
 
@@ -54,26 +54,26 @@ public class WaveManager {
 
     private void addEasyWave(List<AbstractGameObject> gameObjects) {
         if (seconds >= 0 && seconds <= 20 && minutes < 1) {
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
         }
     }
 
     private void addHardWave(List<AbstractGameObject> gameObjects) {
         if(seconds >= 21 || minutes > 0) {
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createSmallAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
-            gameObjects.add(ProjectileFactory.createMediumAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
+            gameObjects.add(ProjectileFactory.createAsteroid());
         }
     }
 

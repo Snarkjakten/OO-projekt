@@ -1,4 +1,4 @@
-package Game.Movement;
+package Model.Movement;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
@@ -13,7 +13,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected double height;
     protected double width;
     protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
-    boolean collided = false;
+    protected boolean collided = false;
 
     //Currently unused
     //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
@@ -31,8 +31,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     public Point2D position = new Point2D(0, 0);
     // Velocity (horizontal, vertical)
     public Point2D velocity = new Point2D(0, 0);
+
     // Game.Movement speed
-    public double speed = 250;
+    private double speed = 250;
 
     /**
      * Move self to a new position
@@ -87,6 +88,16 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     @Override
     public void setCollided(boolean b) {
         this.collided = b;
+    }
+
+    // @Author Isak Almeros
+    public double getSpeed() {
+        return speed;
+    }
+
+    // @Author Isak Almeros
+    public void setSpeed(double speed) {
+        this.speed = speed;
     }
 
     @Override

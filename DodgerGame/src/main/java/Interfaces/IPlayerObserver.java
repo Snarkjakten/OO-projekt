@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Game.Entities.Player.Player;
+import Model.Entities.Player.Player;
 
 public interface IPlayerObserver {
 

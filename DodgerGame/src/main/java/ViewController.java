@@ -20,7 +20,7 @@ public class ViewController implements IGameOverObserver {
     private final Stage stage;
     private int spaceshipChoice;
     private GameObjectGUI gameObjectGUI;
-    AnimationTimer gameLoop;
+    private AnimationTimer gameLoop;
 
     public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
                           GameOverMenu gameOverMenu, Stage stage, AnimationTimer gameLoop, GameObjectGUI gameObjectGUI) {
@@ -51,13 +51,7 @@ public class ViewController implements IGameOverObserver {
         });
 
         // When clicking on "QUIT"
-        mainMenu.getQuitBtn().setOnMouseClicked(event -> closeProgram());
-
-        // when closing window in the upper left corner
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            closeProgram();
-        });
+        mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
     private void highScoreButtonHandler(){
@@ -119,26 +113,6 @@ public class ViewController implements IGameOverObserver {
         });
 
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
-    }
-
-    // Opens a dialog box when pressing quit
-    private void closeProgram() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Quit game");
-        alert.setContentText("Are you sure you want to quit?");
-
-        // Replace buttons
-        alert.getButtonTypes().remove(ButtonType.OK);
-        alert.getButtonTypes().remove(ButtonType.CANCEL);
-        alert.getButtonTypes().add(ButtonType.YES);
-        alert.getButtonTypes().add(ButtonType.NO);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.YES) {
-            System.exit(0);
-        }
     }
 
     @Override

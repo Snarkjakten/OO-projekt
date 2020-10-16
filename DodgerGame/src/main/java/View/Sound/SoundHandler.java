@@ -1,9 +1,5 @@
 package View.Sound;
-
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.MediumAsteroid;
-import Game.Entities.Projectiles.ShieldPowerUp;
-import Game.Entities.Projectiles.SmallAsteroid;
+import Model.Entities.Projectiles.*;
 import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
@@ -72,12 +68,14 @@ public class SoundHandler implements ISoundObserve {
     public void actOnEvent(Class c) {
         String soundFilepath = null;
 
-        if (c.equals(SmallAsteroid.class) || c.equals(MediumAsteroid.class)) { //TODO: change to Asteroid.class when asteroids are combined
+        if (c.equals(Asteroid.class)) {
             soundFilepath = GameObjectsSounds.getAsteroidSound();
         } else if (c.equals(ShieldPowerUp.class)) {
             soundFilepath = GameObjectsSounds.getShieldSound();
         } else if (c.equals(HealthPowerUp.class)) {
             soundFilepath = GameObjectsSounds.getHealthSound();
+        } else if (c.equals(SlowDebuff.class)) {
+            soundFilepath = GameObjectsSounds.getSlowDebuffSound();
         }
 
         if(soundFilepath != null) {

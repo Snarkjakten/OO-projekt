@@ -1,4 +1,4 @@
-package Game; /**
+package Model; /**
  * @author Irja Vuorela
  * <p>
  * HighScore adds the player's score in a text file if it's among the top scores in that file.

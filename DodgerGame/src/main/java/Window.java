@@ -1,4 +1,4 @@
-
+import Model.GameWorld;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -31,7 +31,6 @@ public class Window {
             //Adds ImageView and Canvas to Pane
             root.getChildren().addAll(canvas);
 
-
             /**
              * Handle key pressed
              * @Author Irja Vuorela
@@ -61,7 +60,6 @@ public class Window {
     public Pane getRoot() {
         return root;
     }
-
 
     public GraphicsContext getGraphicsContext() {
         return gc;
