@@ -71,7 +71,7 @@ public class ProjectileTest {
     public void testAsteroidDamage() {
         assertTrue(projSmallAsteroid.getDamage() == 20);
         //TODO Change damage to 35
-        assertTrue(projMediumAsteroid.getDamage() == 200);
+        assertTrue(projMediumAsteroid.getDamage() == 50);
     }
 
     @Test

@@ -18,6 +18,8 @@ public class WaveManager {
     private List<AbstractGameObject> powerUps;
     private long seconds;
     private long minutes;
+    private long oldSeconds;
+    private int maxNumProjectiles = 30;
 
 
     private void calcuateTime(long time){
@@ -29,11 +31,12 @@ public class WaveManager {
     public void projectileSpawner(long time, List<AbstractGameObject> gameObjects){
         calcuateTime(time);
         removeOffscreenProjectiles(gameObjects);
-        if(gameObjects.size() <= 13) {
+        if(oldSeconds != seconds) {
+            oldSeconds = seconds;
+            if (gameObjects.size() <= 10 + seconds && gameObjects.size() <= maxNumProjectiles) {
+            }
             addHealthPowerUp(gameObjects);
             addShieldPowerUp(gameObjects);
-            addEasyWave(gameObjects); //TODO: spawna bara en av dessa, hur?
-            addHardWave(gameObjects);
         }
     }
 
