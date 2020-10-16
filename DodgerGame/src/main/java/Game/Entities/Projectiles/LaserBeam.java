@@ -1,6 +1,5 @@
 package Game.Entities.Projectiles;
 
-import Game.GameWorld;
 import Game.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 

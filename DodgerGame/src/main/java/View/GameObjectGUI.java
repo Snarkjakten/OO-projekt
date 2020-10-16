@@ -66,6 +66,10 @@ public class GameObjectGUI implements IGameObjectObserver {
             inputStream = getClass().getClassLoader().getResourceAsStream(spaceshipImageName);
             assert inputStream != null;
             image = new Image(inputStream);
+        } else if (gameObject.equals(SlowDebuff.class)) {
+            inputStream = getClass().getClassLoader().getResourceAsStream("skull.png");
+            assert inputStream != null;
+            image = new Image(inputStream);
         }
         return image;
     }

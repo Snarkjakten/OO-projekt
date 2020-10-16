@@ -3,6 +3,7 @@ package Game.Entities.Player;
 import Game.Entities.Projectiles.Asteroid;
 import Game.Entities.Projectiles.HealthPowerUp;
 import Game.Entities.Projectiles.ShieldPowerUp;
+import Game.Entities.Projectiles.SlowDebuff;
 import Game.Movement.AbstractGameObject;
 import Interfaces.ICollisionObserver;
 
@@ -98,6 +99,11 @@ public class Player implements ICollisionObserver {
                 setHp(maxHp);
             } else {
                 setHp(getHp() + ((HealthPowerUp) gameObject).getHealth());
+            }
+        } else if (gameObject instanceof SlowDebuff) {
+            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
+            for (Spaceship spaceship : spaceships) {
+                spaceship.setSpeed(slowSpeedFactor * spaceship.getSpeed());
             }
         }
     }

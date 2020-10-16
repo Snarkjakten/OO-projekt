@@ -39,7 +39,7 @@ public class Spaceship extends AbstractGameObject {
         // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
-        this.velocity = velocity.multiply(speed);
+        this.velocity = velocity.multiply(getSpeed());
     }
 
     // Setters for movement directions
@@ -68,14 +68,12 @@ public class Spaceship extends AbstractGameObject {
         this.right = spaceship.right;
     }
 
-
     /**
      * Acts upon the collision based on instance of projectile
      *
      * @param c
      * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
-
     @Override
     public void actOnCollision(AbstractGameObject c) {
         c.setCollided(true);
