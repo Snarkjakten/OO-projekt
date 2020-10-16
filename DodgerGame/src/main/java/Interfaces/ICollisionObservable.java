@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Game.Movement.AbstractGameObject;
+import Model.Movement.AbstractGameObject;
 
 public interface ICollisionObservable {
 

@@ -1,4 +1,4 @@
-import Game.GameWorld;
+import Model.GameWorld;
 import Interfaces.IGameOverObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;

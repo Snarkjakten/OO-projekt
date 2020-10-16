@@ -1,4 +1,4 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
 /**
  * A factory class that creates the different projectiles.

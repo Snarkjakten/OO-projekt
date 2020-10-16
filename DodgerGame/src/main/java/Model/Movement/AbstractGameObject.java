@@ -1,4 +1,4 @@
-package Game.Movement;
+package Model.Movement;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;

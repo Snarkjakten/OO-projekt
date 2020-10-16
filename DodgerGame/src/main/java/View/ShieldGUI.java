@@ -1,7 +1,7 @@
 package View;
 
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
+import Model.Entities.Player.Player;
+import Model.Entities.Player.Spaceship;
 import Interfaces.IPlayerObserver;
 import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;

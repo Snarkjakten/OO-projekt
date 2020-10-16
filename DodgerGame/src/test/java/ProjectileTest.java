@@ -1,4 +1,4 @@
-import Game.Entities.Projectiles.*;
+import Model.Entities.Projectiles.*;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;

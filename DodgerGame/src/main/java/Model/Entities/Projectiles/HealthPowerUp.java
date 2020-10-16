@@ -1,4 +1,4 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
 /**
  * @author Olle Westerlund

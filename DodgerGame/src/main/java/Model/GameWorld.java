@@ -1,9 +1,9 @@
-package Game;
+package Model;
 
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Player.SpaceshipFactory;
-import Game.Movement.AbstractGameObject;
+import Model.Entities.Player.Player;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Player.SpaceshipFactory;
+import Model.Movement.AbstractGameObject;
 
 import java.util.ArrayList;
 import java.util.List;

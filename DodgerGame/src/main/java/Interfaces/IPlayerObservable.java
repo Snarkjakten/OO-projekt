@@ -1,9 +1,6 @@
 package Interfaces;
 
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
-
-import java.util.List;
+import Model.Entities.Player.Player;
 
 public interface IPlayerObservable {
 

@@ -1,16 +1,4 @@
-package Game;
-
-import Game.Entities.Player.Player;
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.Projectile;
-import Game.Entities.Projectiles.ProjectileFactory;
-import Game.Movement.AbstractGameObject;
-import Game.Movement.CollisionHandler;
-import Interfaces.*;
-import javafx.animation.AnimationTimer;
-
-import java.util.ArrayList;
-import java.util.List;
+package Model;
 
 public class GameLoop {
 

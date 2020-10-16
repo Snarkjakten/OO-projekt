@@ -1,4 +1,4 @@
-package Game.Entities.Player;
+package Model.Entities.Player;
 
 public abstract class SpaceshipFactory {
 

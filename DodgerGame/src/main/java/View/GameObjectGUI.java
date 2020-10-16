@@ -1,7 +1,7 @@
 package View;
 
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.*;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.*;
 import Interfaces.IGameObjectObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

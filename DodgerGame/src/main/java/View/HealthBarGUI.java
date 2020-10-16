@@ -1,6 +1,6 @@
 package View;
 
-import Game.Entities.Player.Player;
+import Model.Entities.Player.Player;
 import Interfaces.IPlayerObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

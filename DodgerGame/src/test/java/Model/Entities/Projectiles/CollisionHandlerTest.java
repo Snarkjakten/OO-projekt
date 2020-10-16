@@ -1,7 +1,7 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
-import Game.Entities.Player.Spaceship;
-import Game.Movement.CollisionHandler;
+import Model.Entities.Player.Spaceship;
+import Model.Movement.CollisionHandler;
 import javafx.geometry.Rectangle2D;
 import org.junit.Assert;
 import org.junit.Before;

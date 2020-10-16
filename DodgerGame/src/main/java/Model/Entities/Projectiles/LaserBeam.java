@@ -1,7 +1,7 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
-import Game.GameWorld;
-import Game.Movement.AbstractGameObject;
+import Model.GameWorld;
+import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
 import java.util.Random;
