@@ -10,11 +10,10 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-    protected double speed;         // Speed of the projectile.
     private double horizontal;    // positive value: right, negative value: left
     private double vertical;      // positive value: up, negative value: down
-    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public Projectile(double speed, double height, double width) {
         this.speed = speed;
