@@ -16,7 +16,7 @@ public abstract class Projectile extends AbstractGameObject {
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public Projectile(double speed, double height, double width) {
-        this.speed = speed;
+        this.setSpeed(speed);
         this.height = height;
         this.width = width;
         randomPosition();
@@ -122,7 +122,7 @@ public abstract class Projectile extends AbstractGameObject {
      */
     private void updateVelocity() {
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        this.velocity = velocity.multiply(this.speed);
+        this.velocity = velocity.multiply(this.getSpeed());
     }
 
     /**
@@ -142,9 +142,5 @@ public abstract class Projectile extends AbstractGameObject {
 
     public void setVertical(double vertical) {
         this.vertical = vertical;
-    }
-
-    public double getSpeed() {
-        return speed;
     }
 }

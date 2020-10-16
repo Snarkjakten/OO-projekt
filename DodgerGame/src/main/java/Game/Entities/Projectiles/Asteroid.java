@@ -30,13 +30,13 @@ public class Asteroid extends Projectile {
             this.damage = 20;
             this.height = 64;
             this.width = 64;
-            this.speed = 200;
+            this.setSpeed(200);
         } else {
             // medium asteroid
             this.damage = 35;
             this.height = 128;
             this.width = 128;
-            this.speed = 100;
+            this.setSpeed(100);
         }
     }
 }
