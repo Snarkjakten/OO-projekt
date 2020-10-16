@@ -1,5 +1,6 @@
 import Model.Entities.Player.Player;
 import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.LaserBeam;
 import Model.Entities.Projectiles.Projectile;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.GameWorld;
@@ -51,6 +52,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
 
+        LaserGUI laserGUI = LaserGUI.getInstance();
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
@@ -98,15 +100,18 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     notifyGameObjectObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());
                     for (AbstractGameObject a : gameObjects) {
                         if (collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
-                            // TODO Fråga handledaren om kopia av objekt
                             if (a instanceof Spaceship) {
                                 notifySoundObservers(gameObject.getClass());
                                 notifyCollisionObservers(gameObject);
-                                toBeRemoved.add(gameObject);
+                                if (!(gameObject instanceof LaserBeam)) {
+                                    toBeRemoved.add(gameObject);
+                                }
                             } else if (gameObject instanceof Spaceship) {
                                 notifySoundObservers(a.getClass());
                                 notifyCollisionObservers(a);
-                                toBeRemoved.add(a);
+                                if (!(a instanceof LaserBeam)) {
+                                    toBeRemoved.add(a);
+                                }
                             }
                             collisionHandler.collide(a, gameObject);
                         }
@@ -118,6 +123,19 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     gameObjects.remove(a);
                 }
                 //End of collision handling -----------------------------------
+
+                /**
+                 * removes offscreen projectiles
+                 * @author Irja Vuorela
+                 */
+                for (AbstractGameObject g : gameObjects) {
+                    if (g instanceof Projectile) {
+                        if (((Projectile) g).isNotOnScreen()) {
+                            gameObjects.remove(g);
+                            break;
+                        }
+                    }
+                }
 
                 /**
                  * projectile spawner
@@ -134,20 +152,25 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     gameObjects.add(ProjectileFactory.createHealthPowerUp());
                     gameObjects.add(ProjectileFactory.createShieldPowerUp());
                     gameObjects.add(ProjectileFactory.createSlowDebuff());
-                }
-
-                /**
-                 * removes offscreen projectiles
-                 * @author Irja Vuorela
-                 */
-                for (AbstractGameObject g : gameObjects) {
-                    if (g instanceof Projectile) {
-                        if (((Projectile) g).isNotOnScreen()) {
-                            gameObjects.remove(g);
-                            break;
+                    int count = 0;
+                    for (AbstractGameObject object : gameObjects) {
+                        if (object instanceof LaserBeam) {
+                            count++;
                         }
                     }
+                    if (count < 1) {
+                        gameObjects.add(ProjectileFactory.createLaserBeam());
+                        count = 0;
+                    }
                 }
+
+                for (AbstractGameObject object : gameObjects) {
+                    if (object instanceof LaserBeam) {
+                        laserGUI.setIsVertical(((LaserBeam) object).isVertical());
+                    }
+                }
+
+
                 gameWorld.wrapAround();
 
                 long elapsedTime = calculateElapsedTime(startNanoTime);
@@ -179,6 +202,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addObserver(window);
         addObserver(vc);
         addTimeObserver(timeView);
+        addTimeObserver(laserGUI);
         addTimeObserver(shieldGUI);
         addPlayerObserver(shieldGUI);
         addPlayerObserver(healthBarGUI);

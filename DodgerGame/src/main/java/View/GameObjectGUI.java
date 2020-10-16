@@ -16,6 +16,7 @@ public class GameObjectGUI implements IGameObjectObserver {
     private GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
+    private LaserGUI laserGUI;
 
     private static final String firstChoice = "thor.gif";
     private static final String secondChoice = "turtle.png";
@@ -25,9 +26,11 @@ public class GameObjectGUI implements IGameObjectObserver {
     private static final String mediumAsteroidFilePath = "mediumAsteroid.png";
     private static final String shieldFilePath = "healthPowerUp.png";
     private static final String hpFilePath = "shieldPowerUp.png";
+    private static final String timeDebuffPath = "skull.png";
 
     public GameObjectGUI(GraphicsContext gc) {
         this.gc = gc;
+        this.laserGUI = LaserGUI.getInstance();
     }
 
     public void chooseSpaceshipImage(int spaceshipChoice) {
@@ -67,9 +70,11 @@ public class GameObjectGUI implements IGameObjectObserver {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(SlowDebuff.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream("skull.png");
+            inputStream = getClass().getClassLoader().getResourceAsStream(timeDebuffPath);
             assert inputStream != null;
             image = new Image(inputStream);
+        } else if (gameObject.equals(LaserBeam.class)) {
+            image = laserGUI.getImage();
         }
         return image;
     }

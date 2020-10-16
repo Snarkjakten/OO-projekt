@@ -1,9 +1,6 @@
 package Model.Entities.Player;
 
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.HealthPowerUp;
-import Model.Entities.Projectiles.ShieldPowerUp;
-import Model.Entities.Projectiles.SlowDebuff;
+import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Interfaces.ICollisionObserver;
 
@@ -104,6 +101,12 @@ public class Player implements ICollisionObserver {
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             for (Spaceship spaceship : spaceships) {
                 spaceship.setSpeed(slowSpeedFactor * spaceship.getSpeed());
+            }
+        } else if (gameObject instanceof LaserBeam) {
+            if (nrOfShields > 0) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
             }
         }
     }

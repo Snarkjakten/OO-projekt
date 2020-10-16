@@ -23,4 +23,10 @@ public abstract class ProjectileFactory {
         return new SlowDebuff();
     }
 
+    public static Projectile createLaserBeam() {
+        return new LaserBeam();
+    }
+
+
+
 }

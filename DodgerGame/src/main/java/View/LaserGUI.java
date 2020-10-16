@@ -1,6 +1,7 @@
 package View;
 
-import javafx.scene.canvas.GraphicsContext;
+import Interfaces.ITimeObserver;
+import Model.GameWorld;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
@@ -8,22 +9,40 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI {
-    private GraphicsContext gc;
+public class LaserGUI implements ITimeObserver {
+    private double animationTime;
     private Image[] frames;
-    private boolean isVertical;
-    private double duration;
+    private final double duration = 0.1;
+    private boolean isVertical = false;
+    private final double width = GameWorld.getInstance().getPlayingFieldWidth();
+    private final double height = GameWorld.getInstance().getPlayingFieldHeight();
+    private static LaserGUI instance = null;
 
-    public LaserGUI(GraphicsContext gc, double duration, boolean isVertical) {
-        this.gc = gc;
-        this.duration = duration;
-        this.isVertical = isVertical;
+    private LaserGUI() {
         this.frames = new Image[8];
         initImages();
     }
 
-    public void drawLaser(double animationTime, double xPos, double yPos) {
-        gc.drawImage(this.getFrame(animationTime), xPos, yPos);
+    public static LaserGUI getInstance() {
+        if (instance == null) {
+            instance = new LaserGUI();
+        }
+        return instance;
+    }
+
+    public void setIsVertical(boolean isVertical) {
+        this.isVertical = isVertical;
+        initImages();
+    }
+
+//    public void drawLaser(LaserBeam laserBeam) {
+//        this.isVertical = laserBeam.isVertical();
+//        gc.drawImage(this.getFrame(animationTime), laserBeam.getPosition().getX(), laserBeam.position.getY());
+//    }
+
+    public Image getImage() {
+//        initImages();
+        return getFrame(animationTime);
     }
 
     /**
@@ -61,12 +80,17 @@ public class LaserGUI {
         if (isVertical) {
             url = "LaserBeam/laser0" + imageNumber + "V.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, 256, 700, false, false);
+            image = new Image(inputStream, 256, (height + 100), false, false);
         } else {
             url = "LaserBeam/laser0" + imageNumber + "H.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, 900, 256, false, false);
+            image = new Image(inputStream, (width + 100), 256, false, false);
         }
         return image;
+    }
+
+    @Override
+    public void actOnEvent(long time, double deltaTime) {
+        this.animationTime = deltaTime;
     }
 }

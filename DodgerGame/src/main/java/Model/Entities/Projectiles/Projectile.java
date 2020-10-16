@@ -22,6 +22,10 @@ public abstract class Projectile extends AbstractGameObject {
         randomPosition();
     }
 
+    public Projectile(double speed) {
+        this.setSpeed(speed);
+    }
+
     /**
      * @author Olle Westerlund
      * The method sets a random starting position for the projectile.
