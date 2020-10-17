@@ -59,6 +59,8 @@ public abstract class Projectile extends AbstractGameObject {
         randomStartVelocity(side);
     }
 
+
+    // todo: kolla om vi kan undvika projektiler som missar skärmen
     /**
      * @author Olle Westerlund
      * The method sets a random velocity and direction for the projectile.

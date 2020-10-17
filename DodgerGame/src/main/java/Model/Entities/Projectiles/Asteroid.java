@@ -13,6 +13,16 @@ public class Asteroid extends Projectile {
         initAsteroid();
     }
 
+    /**
+     * @param speed     the speed of this object.
+     * @param height    the height of this object.
+     * @param width     the width of this object.
+     * @param xPos      the x-value of this object's position.
+     * @param yPos      the y-value of this object's position.
+     * @param xVelocity the x-value to calculate this object's velocity.
+     * @param yVelocity the y-value to calculate this object's velocity.
+     * @authors Irja & Viktor
+     */
     public Asteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
         super(speed, height, width);
         setPosition(xPos, yPos);

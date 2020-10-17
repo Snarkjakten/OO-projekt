@@ -121,7 +121,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects,deltaTime);
+                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects,deltaTime, 1);
 
                 gameWorld.wrapAround();
 

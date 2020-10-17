@@ -4,128 +4,222 @@ import Model.Entities.Projectiles.Projectile;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Movement.AbstractGameObject;
 
-import java.util.Random;
-
 import java.util.List;
 
 /**
- * @author Viktor Sundberg & Irja Vuorela
+ * @authors Viktor Sundberg & Irja Vuorela
  */
 
 public class WaveManager {
 
-    private int spaceshipWidth = 64;
-    private int spaceshipHeight = 64;
-    //private GameWorld gameWorld = GameWorld.getInstance();
+    // gap sizes between projectiles in a wave
+    private int horizontalGap = 64;
+    private int verticalGap = 64;
 
-    private List<AbstractGameObject> easyWave;
-    private List<AbstractGameObject> hardWave;
-    private List<AbstractGameObject> powerUps;
-    private long sec;
-    private long seconds;
-    private long minutes;
-    private int maxNumProjectiles = 40;
-    private double healthPowerUpCooldown = 1;
-    private double shieldPowerUpCooldown = 1;
-    private double waveCooldown = 0.5;
+    // time
+    private long sec; // total number of seconds
+    private long seconds; // current number of seconds
+    private long minutes; // current number of minutes
 
-    private Random random = new Random();
+    // The maximum number of allowed projectiles on the playing field
+    private int maxNumProjectiles = 20;
 
+    // Cooldowns for the different wave types
+    private double healthPowerUpCooldown;
+    private double shieldPowerUpCooldown;
+    private double slowDebuffCooldown;
+    private double horizontalWaveCooldown;
+    private double verticalWaveCooldown;
+    private double powerUpWaveCooldown;
+    private double asteroidCooldown;
 
+    /**
+     * @param time elapsed time
+     * @author Isak Almeros
+     */
     private void calcuateTime(long time) {
         this.sec = time / 1000000000;
         this.seconds = sec % 60;
         this.minutes = sec / 60;
     }
 
-    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects, double deltaTime) {
+    /**
+     * Spawns projectiles according to a given scenario
+     *
+     * @param time        the elapsed time of the simulation
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param scenario    a customized spawn pattern
+     * @authors Irja & Viktor
+     */
+    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects, double deltaTime, int scenario) {
         calcuateTime(time);
+        System.out.println("seconds: " + seconds);
         removeOffscreenProjectiles(gameObjects);
-        if (/*gameObjects.size() <= 3 + seconds &&*/ gameObjects.size() <= maxNumProjectiles) {
-            //addAsteroid(gameObjects);
+        switch (scenario) {
+            case 1:
+                scenario1(gameObjects, deltaTime);
+                break;
+            default:
+                break;
+        }
+    }
 
-            if (seconds < 5 && minutes < 1) {
-                if (seconds % 1 == 0) {
-                    addVerticalWave(gameObjects, random.nextInt(3), deltaTime);
-                }
-            } else if (seconds > 7 && seconds < 16 && minutes < 1) {
-                if (seconds % 1 == 0) {
-                    addHorizontalWave(gameObjects, random.nextInt(3), deltaTime);
-                }
+    /**
+     * A customized spawn pattern to be used by projectileSpawner
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @authors Irja & Viktor
+     */
+    private void scenario1(List<AbstractGameObject> gameObjects, double deltaTime) {
+
+        if (seconds < 20 || seconds > 30) {
+            // checks that max size for list of game objects isn't exceeded
+            if (gameObjects.size() <= 3 + seconds && gameObjects.size() <= maxNumProjectiles) {
+                addAsteroid(gameObjects, deltaTime, 0.1);
             }
-           /* if (seconds % 2 == 1) {
-                addVerticalWave(gameObjects, 64, deltaTime);
-            }*/
-            //addAsteroid(gameObjects);
-        } else if (seconds > 23) {
-            addAsteroid(gameObjects);
-
+            // adds a vertical wave of asteroids every five seconds
+            if (seconds % 5 == 0) {
+                addVerticalWave(gameObjects, deltaTime, 2);
+            }
+            // adds a horizontal wave of asteroids every three seconds
+            if (seconds % 3 == 0) {
+                addHorizontalWave(gameObjects, deltaTime, 2);
+            }
+            // a small break from asteroids with waves of power ups
+        } else if (seconds > 25 && seconds < 30) {
+            addPowerUpWave(gameObjects, deltaTime, 0.5);
         }
-
+        // add power ups every ten seconds
         if (seconds % 10 == 0) {
-            addHealthPowerUp(gameObjects, deltaTime);
-            addShieldPowerUp(gameObjects, deltaTime);
+            addHealthPowerUp(gameObjects, deltaTime, 1);
+            addShieldPowerUp(gameObjects, deltaTime, 1);
         }
-
+        // add a debuff every four seconds
+        if (seconds % 4 == 0) {
+            addSlowDebuff(gameObjects, deltaTime, 1);
+        }
     }
 
-
-    /*private void addLaserBeam(List<AbstractGameObject> gameObjects) {
-        LaserBeam laserBeam = new LaserBeam();
-        if(seconds % 20 == 0) {
-            gameObjects.add(laserBeam);
+    /**
+     * Adds an asteroid to the list of game objects. Speed is increased with time
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addAsteroid(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
+        asteroidCooldown = asteroidCooldown - deltaTime;
+        if (asteroidCooldown < 0) {
+            Projectile asteroid = ProjectileFactory.createRandomizedAsteroid();
+            asteroid.setSpeed(asteroid.getSpeed() + (seconds + minutes * 60) * 0.5);
+            gameObjects.add(asteroid);
+            asteroidCooldown = cooldown;
         }
-    }*/
-
-    private void addAsteroid(List<AbstractGameObject> gameObjects) {
-        Projectile asteroid = ProjectileFactory.createAsteroid();
-        asteroid.setSpeed(asteroid.getSpeed() + seconds + minutes * 60);
-        gameObjects.add(asteroid);
     }
 
-    private void addShieldPowerUp(List<AbstractGameObject> gameObjects, double deltaTime) {
+    /**
+     * Adds a shield power up to the list of game objects.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addShieldPowerUp(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
         shieldPowerUpCooldown = shieldPowerUpCooldown - deltaTime;
         if (shieldPowerUpCooldown < 0) {
-            gameObjects.add(ProjectileFactory.createShieldPowerUp());
-            shieldPowerUpCooldown = 1;
+            gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());
+            shieldPowerUpCooldown = cooldown;
         }
     }
 
-    private void addHealthPowerUp(List<AbstractGameObject> gameObjects, double deltaTime) {
+    /**
+     * Adds a health power up to the list of game objects.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addHealthPowerUp(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
         healthPowerUpCooldown = healthPowerUpCooldown - deltaTime;
-
         if (healthPowerUpCooldown < 0) {
-            gameObjects.add(ProjectileFactory.createHealthPowerUp());
-            healthPowerUpCooldown = 1;
+            gameObjects.add(ProjectileFactory.createRandomizedHealthPowerUp());
+            healthPowerUpCooldown = cooldown;
         }
     }
 
-    private void addEasyWave(List<AbstractGameObject> gameObjects) {
-        if (seconds >= 0 && seconds <= 20 && minutes < 1) {
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
-            gameObjects.add(ProjectileFactory.createAsteroid());
+    /**
+     * Adds a speed debuff to the list of game objects.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addSlowDebuff(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
+        slowDebuffCooldown = slowDebuffCooldown - deltaTime;
+        if (slowDebuffCooldown < 0) {
+            gameObjects.add(ProjectileFactory.createSlowDebuff());
+            slowDebuffCooldown = cooldown;
         }
     }
 
-    private void addVerticalWave(List<AbstractGameObject> gameObjects, int shiftY, double deltaTime) {
-        waveCooldown = waveCooldown - deltaTime;
-        if (waveCooldown < 0) {
-            for (int i = 0; i < 5; i++) {
-                gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -65, shiftY * 32 + (spaceshipHeight * 2 * i), 1, 0));
+    /**
+     * Adds a wave of power ups to the list of game objects. The wave crosses the playing field from top to bottom.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addPowerUpWave(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
+        powerUpWaveCooldown = powerUpWaveCooldown - deltaTime;
+        if (powerUpWaveCooldown < 0) {
+            for (int i = 0; i < 4; i++) {
+                gameObjects.add(ProjectileFactory.createHealthPowerUp(400, 128 + horizontalGap * 3 * i, -65, 0, 1));
+                gameObjects.add(ProjectileFactory.createShieldPowerUp(400, 64 + horizontalGap * 3 * i, -65, 0, 1));
             }
-            waveCooldown = 0.5;
+        }
+        powerUpWaveCooldown = cooldown;
+    }
+
+    /**
+     * Adds a wave of asteroids to the list of game objects. The wave crosses the playing field from left to right.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addVerticalWave(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
+        verticalWaveCooldown = verticalWaveCooldown - deltaTime;
+        if (verticalWaveCooldown < 0) {
+            for (int i = 0; i < 5; i++) {
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 64, 64, -65, 32 + (verticalGap * 2 * i), 1, 0));
+            }
+            verticalWaveCooldown = cooldown;
         }
     }
 
-    private void addHorizontalWave(List<AbstractGameObject> gameObjects, int shiftX, double deltaTime) {
-        waveCooldown = waveCooldown - deltaTime;
-        if (waveCooldown < 0) {
-            for (int i = 0; i < 5; i++) {
-                gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, shiftX * 32 + (spaceshipHeight * 2 * i), -65, 0, 1));
+    /**
+     * Adds a wave of asteroids to the list of game objects. The wave crosses the playing field from top to bottom.
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown to prevent adding too frequently
+     * @authors Viktor & Irja
+     */
+    private void addHorizontalWave(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown) {
+        horizontalWaveCooldown = horizontalWaveCooldown - deltaTime;
+        if (horizontalWaveCooldown < 0) {
+            for (int i = 0; i < 6; i++) {
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 64, 64, 32 + (horizontalGap * 2 * i), -65, 0, 1));
             }
-            waveCooldown = 0.5;
+            horizontalWaveCooldown = cooldown;
         }
     }
 
