@@ -92,7 +92,6 @@ public class Player implements ICollisionObserver {
             } else {
                 this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
             }
-            System.out.println(gameObject.getHitbox());
         } else if (gameObject instanceof ShieldPowerUp) {
             gainShield();
         } else if (gameObject instanceof HealthPowerUp) {

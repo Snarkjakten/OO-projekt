@@ -4,11 +4,12 @@ import Model.Entities.Projectiles.Projectile;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Movement.AbstractGameObject;
 
+import java.util.Random;
+
 import java.util.List;
 
 /**
  * @author Viktor Sundberg & Irja Vuorela
- *
  */
 
 public class WaveManager {
@@ -20,36 +21,52 @@ public class WaveManager {
     private List<AbstractGameObject> easyWave;
     private List<AbstractGameObject> hardWave;
     private List<AbstractGameObject> powerUps;
+    private long sec;
     private long seconds;
     private long minutes;
-    private long oldSeconds;
-    private int maxNumProjectiles = 20;
+    private int maxNumProjectiles = 40;
+    private double healthPowerUpCooldown = 1;
+    private double shieldPowerUpCooldown = 1;
+    private double waveCooldown = 0.5;
+
+    private Random random = new Random();
 
 
-    private void calcuateTime(long time){
-        long sec = time / 1000000000;
+    private void calcuateTime(long time) {
+        this.sec = time / 1000000000;
         this.seconds = sec % 60;
         this.minutes = sec / 60;
     }
 
-    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects) {
+    public void projectileSpawner(long time, List<AbstractGameObject> gameObjects, double deltaTime) {
         calcuateTime(time);
         removeOffscreenProjectiles(gameObjects);
-        if (gameObjects.size() <= 3 + seconds && gameObjects.size() <= maxNumProjectiles) {
-            addAsteroid(gameObjects);
-            if (oldSeconds != seconds) {
-                oldSeconds = seconds;
-                addHealthPowerUp(gameObjects);
-                addShieldPowerUp(gameObjects);
-                if (seconds <= 20) {
-                    //addVerticalWave(gameObjects, 0, 0);
-                    //addVerticalWave(gameObjects, 64, 64);
-                    //addAsteroid(gameObjects);
-                } else if (seconds > 23) {
-                    addAsteroid(gameObjects);
+        if (/*gameObjects.size() <= 3 + seconds &&*/ gameObjects.size() <= maxNumProjectiles) {
+            //addAsteroid(gameObjects);
+
+            if (seconds < 5 && minutes < 1) {
+                if (seconds % 1 == 0) {
+                    addVerticalWave(gameObjects, random.nextInt(3), deltaTime);
+                }
+            } else if (seconds > 7 && seconds < 16 && minutes < 1) {
+                if (seconds % 1 == 0) {
+                    addHorizontalWave(gameObjects, random.nextInt(3), deltaTime);
                 }
             }
+           /* if (seconds % 2 == 1) {
+                addVerticalWave(gameObjects, 64, deltaTime);
+            }*/
+            //addAsteroid(gameObjects);
+        } else if (seconds > 23) {
+            addAsteroid(gameObjects);
+
         }
+
+        if (seconds % 10 == 0) {
+            addHealthPowerUp(gameObjects, deltaTime);
+            addShieldPowerUp(gameObjects, deltaTime);
+        }
+
     }
 
 
@@ -66,15 +83,20 @@ public class WaveManager {
         gameObjects.add(asteroid);
     }
 
-    private void addShieldPowerUp(List<AbstractGameObject> gameObjects) {
-        if (seconds % 10 == 0) {
+    private void addShieldPowerUp(List<AbstractGameObject> gameObjects, double deltaTime) {
+        shieldPowerUpCooldown = shieldPowerUpCooldown - deltaTime;
+        if (shieldPowerUpCooldown < 0) {
             gameObjects.add(ProjectileFactory.createShieldPowerUp());
+            shieldPowerUpCooldown = 1;
         }
     }
 
-    private void addHealthPowerUp(List<AbstractGameObject> gameObjects) {
-        if (seconds % 10 == 0) {
+    private void addHealthPowerUp(List<AbstractGameObject> gameObjects, double deltaTime) {
+        healthPowerUpCooldown = healthPowerUpCooldown - deltaTime;
+
+        if (healthPowerUpCooldown < 0) {
             gameObjects.add(ProjectileFactory.createHealthPowerUp());
+            healthPowerUpCooldown = 1;
         }
     }
 
@@ -87,16 +109,29 @@ public class WaveManager {
         }
     }
 
-    private void addVerticalWave(List<AbstractGameObject> gameObjects, int shiftY, int shiftX) { //TODO: separera på x-axel.
-        for (int i = 0; i < 5; i++) {
-            gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -69 + shiftX, 50 + shiftY + (spaceshipHeight * 2) * i, 1, 0));
+    private void addVerticalWave(List<AbstractGameObject> gameObjects, int shiftY, double deltaTime) {
+        waveCooldown = waveCooldown - deltaTime;
+        if (waveCooldown < 0) {
+            for (int i = 0; i < 5; i++) {
+                gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -65, shiftY * 32 + (spaceshipHeight * 2 * i), 1, 0));
+            }
+            waveCooldown = 0.5;
+        }
+    }
 
-            //gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, -50 + 64, 64 + (spaceshipHeight * 2) * i, 1, 0));
+    private void addHorizontalWave(List<AbstractGameObject> gameObjects, int shiftX, double deltaTime) {
+        waveCooldown = waveCooldown - deltaTime;
+        if (waveCooldown < 0) {
+            for (int i = 0; i < 5; i++) {
+                gameObjects.add(ProjectileFactory.createScriptedAsteroid(200, 64, 64, shiftX * 32 + (spaceshipHeight * 2 * i), -65, 0, 1));
+            }
+            waveCooldown = 0.5;
         }
     }
 
     /**
      * removes offscreen projectiles
+     *
      * @author Irja Vuorela
      */
     public void removeOffscreenProjectiles(List<AbstractGameObject> gameObjects) {
