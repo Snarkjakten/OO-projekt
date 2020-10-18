@@ -121,7 +121,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects,deltaTime, 1);
+                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects,deltaTime, 1, 25);
 
                 gameWorld.wrapAround();
 
@@ -130,9 +130,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
                 endGame();
                 previousNanoTime = currentNanoTime;
-                if(deltaTime > 0.08) {
-                    System.out.println(deltaTime);
+
+                /* todo: use to check for bad frame rate
+                if(deltaTime > 0.07) {
+                    System.out.println("deltaTime: " + deltaTime);
                 }
+                */
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI);

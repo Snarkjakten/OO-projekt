@@ -12,6 +12,9 @@ public abstract class ProjectileFactory {
         return new Asteroid();
     }
 
+    /**
+     * @authors Irja & Viktor
+     */
     public static Projectile createAsteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
         return new Asteroid(speed, height, width, xPos, yPos, xVelocity, yVelocity);
     }
@@ -20,6 +23,9 @@ public abstract class ProjectileFactory {
         return new HealthPowerUp();
     }
 
+    /**
+     * @authors Viktor & Irja
+     */
     public static Projectile createHealthPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
         return new HealthPowerUp(speed, xPos, yPos, xVelocity, yVelocity);
     }
@@ -28,6 +34,9 @@ public abstract class ProjectileFactory {
         return new ShieldPowerUp();
     }
 
+    /**
+     * @authors Irja & Viktor
+     */
     public static Projectile createShieldPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
         return new ShieldPowerUp(speed, xPos, yPos, xVelocity, yVelocity);
     }
