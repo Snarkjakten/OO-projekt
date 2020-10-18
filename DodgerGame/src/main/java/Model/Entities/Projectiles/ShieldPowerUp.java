@@ -28,7 +28,7 @@ public class ShieldPowerUp extends Projectile {
         hitCapacity = 1;
     }
 
-    public int gainShield() {
+    public int getHitCapacity() {
         return hitCapacity;
     }
 }

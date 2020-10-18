@@ -327,7 +327,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void notifyCollisionObservers(AbstractGameObject gameObject) {
         for (ICollisionObserver obs : collisionObservers) {
-            obs.actOnEvent(gameObject);
+            obs.actOnCollisionEvent(gameObject);
         }
     }
 
