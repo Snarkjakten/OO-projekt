@@ -154,7 +154,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 notifyTimeObservers(elapsedTime, animationTime);
 
                 scoreCalculator();
-                System.out.println(gameWorld.getPlayer().getPoints());
                 endGame();
                 previousNanoTime = currentNanoTime;
             }

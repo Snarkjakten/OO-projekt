@@ -4,6 +4,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 
+import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class ProjectileTest {
@@ -11,6 +12,7 @@ public class ProjectileTest {
     Asteroid projAsteroid;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
+    SlowDebuff slowDebuff;
     Point2D startPos;
     double deltaTime = 0.016;
 
@@ -22,6 +24,20 @@ public class ProjectileTest {
         projAsteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
+        slowDebuff = new SlowDebuff();
+    }
+
+    /**
+     * Tests that slowdebuff slows the inital speed by 10%
+     * @Author Isak Ameros
+     */
+    @Test
+    public void testSlowDebuff() {
+        double initialSpeed = 200;
+        double slowedSpeed = slowDebuff.getSlowSpeedFactor() * initialSpeed;
+        double expectedSpeed = 180;
+        assertTrue(slowedSpeed < initialSpeed);
+        assertEquals(expectedSpeed, slowedSpeed);
     }
 
     /**

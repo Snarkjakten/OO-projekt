@@ -118,8 +118,6 @@ public class ViewController implements IGameOverObserver {
     @Override
     public void actOnEvent(boolean isGameOver, int points) {
         if(isGameOver) {
-            //TODO: change this
-            //int points = 100;
             gameOverMenu.showScore(points);
             stage.getScene().setRoot(gameOverMenu.getRoot());
         }
