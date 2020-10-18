@@ -67,7 +67,7 @@ public class Window implements IGameOverObserver {
     }
 
     @Override
-    public void actOnEvent(boolean isGameOver) {
+    public void actOnEvent(boolean isGameOver, int points) {
         if(isGameOver) {
             gameWorld = GameWorld.getInstance();
         }

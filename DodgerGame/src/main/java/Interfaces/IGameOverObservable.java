@@ -2,7 +2,7 @@ package Interfaces;
 
 public interface IGameOverObservable {
 
-    void notifyGameOverObservers(boolean isGameOver);
+    void notifyGameOverObservers(boolean isGameOver, int points);
 
     void addObserver(IGameOverObserver obs);
 

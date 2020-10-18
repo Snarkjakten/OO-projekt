@@ -153,6 +153,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
+                scoreCalculator();
+                System.out.println(gameWorld.getPlayer().getPoints());
                 endGame();
                 previousNanoTime = currentNanoTime;
             }
@@ -196,11 +198,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     public void checkGameWorld() {
         this.gameWorld = GameWorld.getInstance();
-    }
-
-    //@Author Isak
-    public void stopAnimationTimer() {
-        gameLoop.stop();
     }
 
     /**
@@ -263,7 +260,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private void endGame() {
         if (gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
-            notifyGameOverObservers(gameWorld.getIsGameOver());
+            notifyGameOverObservers(gameWorld.getIsGameOver(), gameWorld.getPlayer().getPoints());
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
@@ -290,6 +287,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         this.playingFieldObservers.remove(obs);
     }
 
+    public void scoreCalculator() {
+        long time = calculateElapsedTime(startNanoTime);
+        int points = (int) (time / 1000000000);
+        gameWorld.getPlayer().setPoints(points);
+    }
+
     // Calculates elapsed time
     public long calculateElapsedTime(long startNanoTime) {
         long currentNanoTime = System.nanoTime();
@@ -297,9 +300,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     @Override
-    public void notifyGameOverObservers(boolean isGameOver) {
+    public void notifyGameOverObservers(boolean isGameOver, int points) {
         for (IGameOverObserver obs : gameOverObservers) {
-            obs.actOnEvent(isGameOver);
+            obs.actOnEvent(isGameOver, points);
         }
     }
 
