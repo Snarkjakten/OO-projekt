@@ -1,6 +1,7 @@
 package Model.Entities.Projectiles;
 
 import Model.GameWorld;
+import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
 import java.util.Random;
@@ -30,11 +31,13 @@ public class LaserBeam extends Projectile {
 
     private void initSize() {
         if (isVertical) {
-            this.width = 256;
+            this.width = 10;
             this.height = verticalMapSize + 100;
+//            setHitbox(this.position.getX(), this.position.getY(), 5, verticalMapSize + 100);
         } else {
             this.width = horizontalMapSize + 100;
-            this.height = 256;
+            this.height = 10;
+//            setHitbox(this.position.getX(), this.position.getY(), horizontalMapSize + 100, 5);
         }
     }
 

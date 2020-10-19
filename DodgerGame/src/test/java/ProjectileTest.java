@@ -74,7 +74,7 @@ public class ProjectileTest {
      */
     @Test
     public void testAsteroidIsNotOnScreen() {
-        projAsteroid.setPosition(-80, -80);
+        projAsteroid.setPosition(-130, -130);
         assertTrue(projAsteroid.isNotOnScreen());
     }
 

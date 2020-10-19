@@ -14,11 +14,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected double width;
     protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
     protected boolean collided = false;
+    private double speed = 250; // Game.Movement speed
+    public Point2D position = new Point2D(0, 0); // Position (x, y)
+    public Point2D velocity = new Point2D(0, 0); // Velocity (horizontal, vertical)
+
 
     //Currently unused
     //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
     public void setHitbox(double x, double y, double width, double height){
-        this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
+        this.hitbox = new Rectangle2D(x, y, width, height);
     }
 
     public Rectangle2D getHitbox(){
@@ -27,13 +31,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
 
     //------------------------------------------------------
 
-    // Position (x, y)
-    public Point2D position = new Point2D(0, 0);
-    // Velocity (horizontal, vertical)
-    public Point2D velocity = new Point2D(0, 0);
-
-    // Game.Movement speed
-    private double speed = 250;
 
     /**
      * Move self to a new position
@@ -52,7 +49,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
         this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
-        this.setHitbox(position.getX(), position.getY(), this.width * 0.75, this.height * 0.75);
+        this.setHitbox(position.getX(), position.getY(), this.width, this.height);
     }
 
     /**

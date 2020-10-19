@@ -52,6 +52,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
 
+        CollisionHandler collisionHandler = new CollisionHandler();
+
         LaserGUI laserGUI = LaserGUI.getInstance();
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
@@ -94,7 +96,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 List<AbstractGameObject> toBeRemoved;
                 toBeRemoved = new ArrayList<>();
 
-                CollisionHandler collisionHandler = new CollisionHandler();
+
 
                 for (AbstractGameObject gameObject : gameObjects) {
                     notifyGameObjectObservers(gameObject.position.getX(), gameObject.position.getY(), gameObject.getClass(), gameObject.getHeight(), gameObject.getWidth());

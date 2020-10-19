@@ -135,8 +135,8 @@ public abstract class Projectile extends AbstractGameObject {
      * @return Boolean if the object is no longer on the screen.
      */
     public boolean isNotOnScreen() {
-        boolean isStillOnX = (position.getX() > -70 && position.getX() < (horizontalMapSize + 70));
-        boolean isStillOnY = (position.getY() > -70 && position.getY() < (verticalMapSize + 70));
+        boolean isStillOnX = (position.getX() > -120 && position.getX() < (horizontalMapSize + 120));
+        boolean isStillOnY = (position.getY() > -120 && position.getY() < (verticalMapSize + 120));
         return (!isStillOnX || !isStillOnY);
     }
 

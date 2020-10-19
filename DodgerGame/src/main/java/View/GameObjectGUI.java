@@ -17,6 +17,8 @@ public class GameObjectGUI implements IGameObjectObserver {
     private Image image;
     private String spaceshipImageName;
     private LaserGUI laserGUI;
+    private double imageWidth;
+    private double imageHeight;
 
     private static final String firstChoice = "thor.gif";
     private static final String secondChoice = "turtle.png";
@@ -53,6 +55,8 @@ public class GameObjectGUI implements IGameObjectObserver {
      */
     private Image addImageToProjectile(Class gameObject) {
         InputStream inputStream;
+        imageWidth = 64;
+        imageHeight = 64;
         if (gameObject.equals(Asteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(mediumAsteroidFilePath);
             assert inputStream != null;
@@ -70,18 +74,22 @@ public class GameObjectGUI implements IGameObjectObserver {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(SlowDebuff.class)) {
+            imageWidth = 32;
+            imageHeight = 32;
             inputStream = getClass().getClassLoader().getResourceAsStream(timeDebuffPath);
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(LaserBeam.class)) {
             image = laserGUI.getImage();
+            imageWidth = image.getWidth();
+            imageHeight = image.getHeight();
         }
         return image;
     }
 
     private void drawImage(double x, double y, Class c, double height, double width) {
         Image image = addImageToProjectile(c);
-        gc.drawImage(image, x, y, width, height);
+        gc.drawImage(image, x, y, imageWidth, imageHeight);
     }
 
     @Override
