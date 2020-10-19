@@ -13,6 +13,27 @@ public class Asteroid extends Projectile {
         initAsteroid();
     }
 
+    /**
+     * @param speed     the speed of this object.
+     * @param height    the height of this object.
+     * @param width     the width of this object.
+     * @param xPos      the x-value of this object's position.
+     * @param yPos      the y-value of this object's position.
+     * @param xVelocity the x-value to calculate this object's velocity.
+     * @param yVelocity the y-value to calculate this object's velocity.
+     * @authors Irja & Viktor
+     */
+    public Asteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
+        super(speed, height, width);
+        setPosition(xPos, yPos);
+        setXVelocity(xVelocity);
+        setYVelocity(yVelocity);
+        setSpeed(200);
+        this.height = 64;
+        this.width = 64;
+        this.damage = 20;
+    }
+
     public int getDamage() {
         return damage;
     }
@@ -24,8 +45,8 @@ public class Asteroid extends Projectile {
      */
     private void initAsteroid() {
         Random random = new Random();
-        int type = random.nextInt(99);
-        if (type <= 69) {
+        int type = random.nextInt(100);
+        if (type <= 70) {
             //Small asteroid
             this.damage = 20;
             this.height = 64;
@@ -34,8 +55,8 @@ public class Asteroid extends Projectile {
         } else {
             // medium asteroid
             this.damage = 35;
-            this.height = 128;
-            this.width = 128;
+            this.height = 100;
+            this.width = 100;
             this.setSpeed(100);
         }
     }

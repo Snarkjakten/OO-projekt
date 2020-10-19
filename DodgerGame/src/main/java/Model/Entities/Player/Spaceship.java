@@ -16,6 +16,7 @@ public class Spaceship extends AbstractGameObject {
         setPosition(x, y);
         this.width = 64;
         this.height = 64;
+        this.setSpeed(300);
     }
 
     /**

@@ -1,5 +1,6 @@
 package View;
 
+import Interfaces.IGameObjectObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -8,7 +9,7 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI {
+public class LaserGUI implements IGameObjectObserver {
     private GraphicsContext gc;
     private Image[] frames;
     private boolean isVertical;
@@ -68,5 +69,18 @@ public class LaserGUI {
             image = new Image(inputStream, 900, 256, false, false);
         }
         return image;
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @param c
+     * @param height
+     * @param width
+     * @author Irja Vuorela & Viktor Sundberg
+     */
+    @Override
+    public void actOnEvent(double x, double y, Class c, double height, double width) {
+        drawLaser(duration, x, y);
     }
 }

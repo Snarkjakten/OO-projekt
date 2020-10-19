@@ -1,5 +1,4 @@
 import Model.GameWorld;
-import Interfaces.IGameOverObserver;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -9,7 +8,7 @@ import javafx.stage.Stage;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window implements IGameOverObserver {
+public class Window {
 
     //Creates Pane
     private final Pane root = new Pane();
@@ -55,7 +54,7 @@ public class Window implements IGameOverObserver {
 
     //Sets size of Pane
     private void createContent() {
-        root.setPrefSize(800, 600);
+        root.setPrefSize(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
     }
 
     public Pane getRoot() {
@@ -64,12 +63,5 @@ public class Window implements IGameOverObserver {
 
     public GraphicsContext getGraphicsContext() {
         return gc;
-    }
-
-    @Override
-    public void actOnEvent(boolean isGameOver, int points) {
-        if(isGameOver) {
-            gameWorld = GameWorld.getInstance();
-        }
     }
 }
