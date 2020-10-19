@@ -1,4 +1,5 @@
 import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.Movement.AbstractGameObject;
@@ -16,6 +17,8 @@ public class ProjectileTest {
     Asteroid projAsteroid;
     ShieldPowerUp shieldPU;
     ShieldPowerUp shieldPowerUp;
+    HealthPowerUp hpUp;
+    HealthPowerUp healthPowerUp;
     Point2D startPos;
     List<AbstractGameObject> gameObjects;
     double deltaTime = 0.016;
@@ -28,6 +31,8 @@ public class ProjectileTest {
         projAsteroid = new Asteroid();
         shieldPU = new ShieldPowerUp();
         shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
+        hpUp = new HealthPowerUp();
+        healthPowerUp = new HealthPowerUp(400, 100, 100, 0, 1);
         gameObjects = new ArrayList<>();
     }
 

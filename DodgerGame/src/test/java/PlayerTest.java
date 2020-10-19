@@ -1,5 +1,4 @@
 import Model.Entities.Player.Player;
-import Model.Entities.Projectiles.HealthPowerUp;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,17 +7,13 @@ import static junit.framework.TestCase.assertTrue;
 public class PlayerTest {
 
     Player player;
-    HealthPowerUp hpUp;
-    HealthPowerUp healthPowerUp;
 
     /**
      * @authors Irja Vuorela & Viktor Sundberg
      */
     @Before
     public void init() {
-        hpUp = new HealthPowerUp();
         player = new Player();
-        healthPowerUp = new HealthPowerUp(400, 100, 100, 0, 1);
     }
 
     /**
