@@ -1,9 +1,6 @@
 import Model.Point2D;
-import org.junit.Before;
+
 import org.junit.Test;
-
-import java.awt.*;
-
 import static org.junit.Assert.*;
 
 public class Point2DTest {
