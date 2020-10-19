@@ -1,6 +1,6 @@
-package Game.Movement;
+package Model.Movement;
 
-import Game.Entities.Player.HitBox;
+import Model.Entities.HitBox;
 
 /**
  * Checks hitBoxes Rectangle2D for intersection (collision)

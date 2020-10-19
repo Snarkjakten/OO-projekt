@@ -22,7 +22,6 @@ public class ViewController implements IGameOverObserver {
     private final GameObjectGUI gameObjectGUI;
     private final PausableAnimationTimer gameLoop;
 
-
     public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
                           GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
         this.window = window;
@@ -54,14 +53,7 @@ public class ViewController implements IGameOverObserver {
         });
 
         // When clicking on "QUIT"
-        mainMenu.getQuitBtn().setOnMouseClicked(event -> closeProgram());
-
-        // when closing window in the upper left corner
-        stage.setOnCloseRequest(event -> {
-            event.consume();
-            gameLoop.pause();
-            closeProgram();
-        });
+        mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
     private void highScoreButtonHandler() {
@@ -134,9 +126,7 @@ public class ViewController implements IGameOverObserver {
             // TODO Need to use endGame()
         });
 
-        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> {
-            closeProgram();
-        });
+        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
     // Handles button clicks in the game over menu
@@ -148,28 +138,6 @@ public class ViewController implements IGameOverObserver {
         });
 
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
-    }
-
-    // Opens a dialog box when pressing quit
-    private void closeProgram() {
-        Alert alert = new Alert(Alert.AlertType.NONE);
-        alert.setAlertType(Alert.AlertType.CONFIRMATION);
-        alert.setTitle("Quit game");
-        alert.setContentText("Are you sure you want to quit?");
-
-        // Replace buttons
-        alert.getButtonTypes().remove(ButtonType.OK);
-        alert.getButtonTypes().remove(ButtonType.CANCEL);
-        alert.getButtonTypes().add(ButtonType.YES);
-        alert.getButtonTypes().add(ButtonType.NO);
-
-        Optional<ButtonType> result = alert.showAndWait();
-
-        if (result.isPresent() && result.get() == ButtonType.YES) {
-            System.exit(0);
-        } else {
-            gameLoop.play();
-        }
     }
 
     @Override

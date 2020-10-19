@@ -1,10 +1,11 @@
-import Game.Entities.Player.HitBox;
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.Projectile;
-import Game.Entities.Projectiles.ProjectileFactory;
-import Game.HighScoreHandler;
-import Game.Movement.AbstractGameObject;
-import Game.Movement.CollisionHandler;
+import Model.Entities.HitBox;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.Projectile;
+import Model.Entities.Projectiles.ProjectileFactory;
+import Model.GameWorld;
+import Model.HighScoreHandler;
+import Model.Movement.AbstractGameObject;
+import Model.Movement.CollisionHandler;
 import Interfaces.*;
 import View.*;
 import View.Sound.GameObjectsSounds;
@@ -125,12 +126,13 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 updateCounter = updateCounter + 1;
                 if (updateCounter >= 120) {
                     updateCounter = 0;
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createSmallAsteroid());
-                    gameObjects.add(ProjectileFactory.createMediumAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
+                    gameObjects.add(ProjectileFactory.createAsteroid());
                     gameObjects.add(ProjectileFactory.createHealthPowerUp());
                     gameObjects.add(ProjectileFactory.createShieldPowerUp());
+                    gameObjects.add(ProjectileFactory.createSlowDebuff());
                 }
 
                 /**
@@ -350,7 +352,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         spaceshipObservers.remove(obs);
     }
 
-    @Override
     public void notifySpaceshipObservers(Spaceship spaceship) {
         for (ISpaceshipObserver obs : spaceshipObservers)
             obs.actOnEvent(spaceship);

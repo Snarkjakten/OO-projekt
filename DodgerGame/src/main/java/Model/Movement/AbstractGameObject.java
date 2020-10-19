@@ -1,6 +1,6 @@
-package Game.Movement;
+package Model.Movement;
 
-import Game.Entities.Player.HitBox;
+import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
 
@@ -12,8 +12,8 @@ import java.util.List;
  */
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    private double width;
-    private double height;
+    protected double width;
+    protected double height;
     private final List<HitBox> hitBoxes;
     private boolean collided;
     // Game movement speed
@@ -83,6 +83,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
+    // @Author Isak Almeros
+    public double getSpeed() {
+        return speed;
+    }
+
+    // @Author Isak Almeros
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
 
     /**
      * Acts upon the collision based on instance of projectile
@@ -92,13 +101,5 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     @Override
     public void actOnCollision(AbstractGameObject c) {
-    }
-
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    public double getSpeed() {
-        return this.speed;
     }
 }

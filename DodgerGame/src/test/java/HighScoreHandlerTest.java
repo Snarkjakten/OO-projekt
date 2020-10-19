@@ -1,5 +1,5 @@
 
-import Game.HighScoreHandler;
+import Model.HighScoreHandler;
 import org.junit.After;
 import org.junit.Before;
 import org.junit.Test;

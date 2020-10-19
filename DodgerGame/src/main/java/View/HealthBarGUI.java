@@ -1,7 +1,7 @@
 package View;
 
-import Game.Entities.Player.Spaceship;
 import Interfaces.ISpaceshipObserver;
+import Model.Entities.Player.Spaceship;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -49,14 +49,14 @@ public class HealthBarGUI implements ISpaceshipObserver {
         return border;
     }
 
-    private void drawHealthBar(double remainingHp) {
-        gc.drawImage(background, 0, 0, 200, 40);
+    private void drawHealthBar(double remainingHp, double maxHealth) {
+        gc.drawImage(background, 0, 0, maxHealth, 40);
         gc.drawImage(foreground, 0, 0, remainingHp, 40);
-        gc.drawImage(border, 0, 0, 200, 40);
+        gc.drawImage(border, 0, 0, maxHealth, 40);
     }
 
     @Override
     public void actOnEvent(Spaceship spaceship) {
-        drawHealthBar(spaceship.getHp());
+        drawHealthBar(spaceship.getHp(), spaceship.getMaxHp());
     }
 }

@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Game.Entities.Player.HitBox;
+import Model.Entities.HitBox;
 
 import java.util.List;
 

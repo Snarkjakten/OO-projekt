@@ -1,6 +1,6 @@
 package Interfaces;
 
-import Game.Entities.Player.Spaceship;
+import Model.Entities.Player.Spaceship;
 
 public interface ISpaceshipObservable {
 

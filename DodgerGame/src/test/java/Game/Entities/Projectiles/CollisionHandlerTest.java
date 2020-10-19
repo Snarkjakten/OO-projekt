@@ -1,7 +1,10 @@
 package Game.Entities.Projectiles;
 
-import Game.Entities.Player.Spaceship;
-import Game.Movement.CollisionHandler;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Movement.CollisionHandler;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -12,18 +15,16 @@ import org.junit.Test;
 
 public class CollisionHandlerTest {
 
-    SmallAsteroid projSmallAsteroid;
-    MediumAsteroid projMediumAsteroid;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
+    Asteroid projAsteroid;
     Spaceship spaceship;
 
     CollisionHandler collisionHandler = new CollisionHandler();
 
     @Before
     public void init() {
-        projSmallAsteroid = new SmallAsteroid();
-        projMediumAsteroid = new MediumAsteroid();
+        projAsteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
         spaceship = new Spaceship(368, 248, 64, 64);
@@ -40,9 +41,9 @@ public class CollisionHandlerTest {
 
     @Test
     public void testSetCollided() {
-        projSmallAsteroid.setCollided(true);
-        Assert.assertTrue(projSmallAsteroid.getCollided());
-        projSmallAsteroid.setCollided(false);
+        projAsteroid.setCollided(true);
+        Assert.assertTrue(projAsteroid.getCollided());
+        projAsteroid.setCollided(false);
     }
 
     /*
@@ -65,14 +66,14 @@ public class CollisionHandlerTest {
 
     @Test
     public void testSpaceshipCollide() {
-        collisionHandler.collide(projMediumAsteroid, spaceship);
-        Assert.assertTrue(projMediumAsteroid.getCollided());
-        projMediumAsteroid.setCollided(false);
+        collisionHandler.collide(projAsteroid, spaceship);
+        Assert.assertTrue(projAsteroid.getCollided());
+        projAsteroid.setCollided(false);
     }
 
     @Test
     public void testProjectileCollide() {
-        collisionHandler.collide(projMediumAsteroid, hpUp);
-        Assert.assertFalse(projMediumAsteroid.getCollided());
+        collisionHandler.collide(projAsteroid, hpUp);
+        Assert.assertFalse(projAsteroid.getCollided());
     }
 }

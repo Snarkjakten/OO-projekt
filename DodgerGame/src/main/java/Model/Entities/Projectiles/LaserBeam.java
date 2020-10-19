@@ -1,7 +1,8 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
-import Game.Entities.Player.HitBox;
-import Game.Movement.AbstractGameObject;
+import Model.Entities.HitBox;
+import Model.GameWorld;
+import Model.Movement.AbstractGameObject;
 
 import java.util.Random;
 
@@ -12,8 +13,11 @@ public class LaserBeam extends AbstractGameObject {
     private double horizontal;
     private double vertical;
     private boolean isVertical;
-    private final double screenHorizontalLength = 800; //TODO: Get this from model.
-    private final double screenVerticalLength = 600; // TODO: Get this from model.
+    private int damage;
+
+    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+
 
     public LaserBeam() {
         setSpeed(100);
@@ -34,7 +38,8 @@ public class LaserBeam extends AbstractGameObject {
 
     /**
      * @author Olle Westerlund
-     * The method sets a starting side and then sets the position to go to.
+     * The method sets a starting side and then sets the position the laser beam
+     * moves towards.
      */
     private void randomStartPoint() {
         HitBox hitBox = getHitBoxes().get(0);
@@ -44,21 +49,21 @@ public class LaserBeam extends AbstractGameObject {
             case 0: // Bottom of the screen
                 this.isVertical = false;
                 setStopPosition(0, -50);
-                hitBox.updatePosition(-50, screenVerticalLength + 50);
+                hitBox.updatePosition(-50, verticalMapSize + 50);
                 break;
             case 1: // Right side of the screen
                 this.isVertical = true;
                 setStopPosition(-50, 0);
-                hitBox.updatePosition(screenHorizontalLength + 50, -50);
+                hitBox.updatePosition(horizontalMapSize + 50, -50);
                 break;
             case 2: // Top of the screen
                 this.isVertical = false;
-                setStopPosition(0, screenVerticalLength);
+                setStopPosition(0, verticalMapSize);
                 hitBox.updatePosition(-50, -50);
                 break;
             case 3: // Left of the screen
                 this.isVertical = true;
-                setStopPosition(screenHorizontalLength, 0);
+                setStopPosition(horizontalMapSize, 0);
                 hitBox.updatePosition(-50, -50);
                 break;
             default:
@@ -72,15 +77,7 @@ public class LaserBeam extends AbstractGameObject {
         this.vertical = vertical;
     }
 
-    public double getHorizontal() {
-        return horizontal;
-    }
-
-    public double getVertical() {
-        return vertical;
-    }
-
-    public boolean isVertical() {
-        return isVertical;
+    public int getDamage() {
+        return damage;
     }
 }

@@ -1,4 +1,4 @@
-import Game.Entities.Projectiles.LaserBeam;
+import Model.Entities.Projectiles.LaserBeam;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;

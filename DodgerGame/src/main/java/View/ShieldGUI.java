@@ -1,8 +1,8 @@
 package View;
 
-import Game.Entities.Player.HitBox;
-import Game.Entities.Player.Spaceship;
+import Model.Entities.HitBox;
 import Interfaces.ISpaceshipObserver;
+import Model.Entities.Player.Spaceship;
 import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;

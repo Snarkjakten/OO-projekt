@@ -1,0 +1,24 @@
+Group: TheDodgers (grupp 13)
+Date: 16 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+Objectives
+- Pull requests
+
+Reports
+- Olle har gjort klart rework av asteroider. Fått bort beroenden av hårdkodad skärmstorlek. 
+- Isak färdig med slowdebuff
+
+Discussion items
+- Spelet känns lite laggigt. Känns som det laggar till när saker spawnas. Kanske inte borde lägga in en hel lista i taget när vi lägger in gameobjects.
+- Logiken för projektilspawner.
+
+Outcomes and assignments
+- Olle kanske göra om laserbeam till projektil
+- Isak göra test för slowdebuff och göra calculatescore
+- Övriga fortsätter arbeta med sina assignments
+
+Wrap up
+- Skriva RAD och SDD nästa möte. Den som vill får gärna tjuvstarta.
+- Nästa möte måndag 19/10 kl 09:00

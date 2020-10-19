@@ -9,7 +9,7 @@ import javafx.scene.text.Text;
 import java.io.IOException;
 
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 
 public class GameOverMenu extends AbstractMenu {

@@ -1,8 +1,8 @@
 package View;
 
-import Game.Entities.Player.HitBox;
-import Game.Entities.Player.Spaceship;
-import Game.Entities.Projectiles.*;
+import Model.Entities.HitBox;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.*;
 import Interfaces.IGameObjectObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -45,18 +45,20 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
+     * <<<<<<< HEAD
+     *
      * @param gameObject The gameObject to set the image to.
+     * @param gameObject The game object to set the image to.
      * @return The a specific image depending on the gameObject.
      * @author Olle Westerlund
+     * =======
+     * >>>>>>> master
      * The method sets the correct image depending on the specific gameObject.
+     * @author Olle Westerlund
      */
     private Image addImageToGameObject(Class gameObject) {
         InputStream inputStream;
-        if (gameObject.equals(SmallAsteroid.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream(smallAsteroidFilePath);
-            assert inputStream != null;
-            image = new Image(inputStream);
-        } else if (gameObject.equals(MediumAsteroid.class)) {
+        if (gameObject.equals(Asteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(mediumAsteroidFilePath);
             assert inputStream != null;
             image = new Image(inputStream);
@@ -70,6 +72,10 @@ public class GameObjectGUI implements IGameObjectObserver {
             image = new Image(inputStream);
         } else if (gameObject.equals(Spaceship.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(spaceshipImageName);
+            assert inputStream != null;
+            image = new Image(inputStream);
+        } else if (gameObject.equals(SlowDebuff.class)) {
+            inputStream = getClass().getClassLoader().getResourceAsStream("skull.png");
             assert inputStream != null;
             image = new Image(inputStream);
         }

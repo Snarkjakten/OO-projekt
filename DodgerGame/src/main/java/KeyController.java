@@ -1,6 +1,7 @@
-import Game.Entities.Player.Spaceship;
 import Interfaces.IGameWorldObserver;
+import Model.GameWorld;
 import View.PauseMenu;
+import Model.Entities.Player.Spaceship;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
 

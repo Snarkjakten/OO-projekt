@@ -1,10 +1,11 @@
-package Game.Entities.Player;
+package Model.Entities.Player;
 
-import Game.Entities.Projectiles.Asteroid;
-import Game.Entities.Projectiles.HealthPowerUp;
-import Game.Entities.Projectiles.ShieldPowerUp;
-import Game.Movement.AbstractGameObject;
 import Interfaces.ICollisionObserver;
+import Model.Entities.HitBox;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Movement.AbstractGameObject;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractGameObject implements ICollisionObserver {
@@ -99,6 +100,12 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         else this.nrOfShields = 0;
     }
 
+    /**
+     * Acts upon the collision based on instance of projectile
+     *
+     * @param gameObject
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     */
     @Override
     public void actOnEvent(AbstractGameObject gameObject) {
         if (gameObject instanceof Asteroid)

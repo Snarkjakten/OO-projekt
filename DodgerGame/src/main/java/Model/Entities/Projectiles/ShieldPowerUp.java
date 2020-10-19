@@ -1,10 +1,10 @@
-package Game.Entities.Projectiles;
+package Model.Entities.Projectiles;
 
 /**
  * @author Olle Westerlund
  */
 public class ShieldPowerUp extends Projectile {
-    private final int hitCapacity;    // Number of hits the player can take before shield is destroyed.
+    private final int hitCapacity;    // Number of shields the player will get.
 
     public ShieldPowerUp() {
         super(400, 64, 64);
