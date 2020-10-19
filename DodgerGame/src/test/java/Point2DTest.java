@@ -10,16 +10,20 @@ public class Point2DTest {
 
 
     /**
-     * Tests if add adds correctly.
+     * Tests if the add methods add correctly.
      *
      * @author Irja Vuorela
      */
     @Test
     public void addedPoint() {
+        double x = 1;
+        double y = 1;
         Point2D point = new Point2D(0, 0);
-        Point2D other = new Point2D(1, 1);
-        Point2D added = point.add(other);
-        assertTrue(added.getX() == (point.getX() + other.getX()) && added.getY() == (point.getY()) + other.getY());
+        Point2D other = new Point2D(x, y);
+        Point2D add1 = point.add(other);
+        Point2D add2 = point.add(x, y);
+        assertTrue(add1.getX() == (point.getX() + other.getX()) && add1.getY() == (point.getY()) + other.getY());
+        assertTrue(add2.getX() == (point.getX() + other.getX()) && add2.getY() == (point.getY()) + other.getY());
     }
 
     /**
@@ -68,7 +72,6 @@ public class Point2DTest {
         // compare magnitude to the expected value
         assertEquals(point.magnitude(), 1, 0.0000001);
     }
-
 
 
 }

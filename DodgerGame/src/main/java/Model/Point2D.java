@@ -36,6 +36,18 @@ public class Point2D {
     }
 
     /**
+     * Create a point with the specified coordinates added to the coordinates of this point.
+     *
+     * @param x the x coordinate.
+     * @param y the y coordinate
+     * @return a point with the specified coordinates added to the coordinates of this point.
+     * @author Irja Vuorela
+     */
+    public Point2D add(double x, double y) {
+        return new Point2D(this.x + x, this.y + y);
+    }
+
+    /**
      * Returns a point with the coordinates of this point multiplied by the specified factor
      *
      * @param factor
