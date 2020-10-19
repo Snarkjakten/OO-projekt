@@ -79,8 +79,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * @author Irja Vuorela
                  */
                 currentNanoTime = System.nanoTime();
-                double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
-                double animationTime = (currentNanoTime - animationNanoTime) / 1e9;
+                double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
+                double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
 
                 notifyPlayingFieldObservers(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
 
@@ -132,11 +132,10 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 endGame();
                 previousNanoTime = currentNanoTime;
 
-                /* todo: use to check for bad frame rate
-                if(deltaTime > 0.07) {
+                // todo: use to check for bad frame rate
+                if (deltaTime > 0.07) {
                     System.out.println("deltaTime: " + deltaTime);
                 }
-                */
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);

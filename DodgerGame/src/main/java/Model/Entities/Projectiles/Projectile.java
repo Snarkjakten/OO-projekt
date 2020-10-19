@@ -18,11 +18,9 @@ public abstract class Projectile extends AbstractGameObject {
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-    public Projectile(double speed, double width, double height) {
+    public Projectile(double speed) {
         setSpeed(speed);
-        setWidth(width);
-        setHeight(height);
-        getHitBoxes().add(new HitBox(0, 0, width, height));
+        getHitBoxes().add(new HitBox(0, 0, 0, 0));
         randomPosition();
     }
 
@@ -137,7 +135,7 @@ public abstract class Projectile extends AbstractGameObject {
 
     public void updateVelocity() {
         this.velocity = (new Point2D(xVelocity, yVelocity).normalize());
-        this.velocity.multiply(getSpeed());
+        this.velocity = velocity.multiply(getSpeed());
     }
 
     /**

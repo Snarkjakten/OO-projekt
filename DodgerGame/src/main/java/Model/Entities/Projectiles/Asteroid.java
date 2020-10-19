@@ -1,5 +1,7 @@
 package Model.Entities.Projectiles;
 
+import javafx.geometry.Rectangle2D;
+
 import java.util.Random;
 
 /**
@@ -9,7 +11,7 @@ public class Asteroid extends Projectile {
     private int damage;
 
     public Asteroid() {
-        super(50, 28, 28);
+        super(50);
         initAsteroid();
     }
 
@@ -24,7 +26,7 @@ public class Asteroid extends Projectile {
      * @authors Irja & Viktor
      */
     public Asteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, width, height);
+        super(speed);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);

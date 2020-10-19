@@ -45,14 +45,8 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
-     * <<<<<<< HEAD
-     *
      * @param gameObject The gameObject to set the image to.
-     * @param gameObject The game object to set the image to.
      * @return The a specific image depending on the gameObject.
-     * @author Olle Westerlund
-     * =======
-     * >>>>>>> master
      * The method sets the correct image depending on the specific gameObject.
      * @author Olle Westerlund
      */
@@ -84,8 +78,9 @@ public class GameObjectGUI implements IGameObjectObserver {
 
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
         Image image = addImageToGameObject(c);
-        for (HitBox hitBox : hitBoxes)
+        for (HitBox hitBox : hitBoxes) {
             gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
+        }
     }
 
     @Override

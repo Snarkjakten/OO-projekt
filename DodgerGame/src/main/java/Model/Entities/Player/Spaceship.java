@@ -35,10 +35,11 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
 
     @Override
     public void move(double deltaTime) {
+        //System.out.println("First: " + this.velocity);
         updateVelocity();
-        System.out.println("Before: " + this.velocity);
+        //System.out.println("Before: " + this.velocity);
         updatePosition(deltaTime);
-        System.out.println("After: " + this.velocity);
+        //System.out.println("After: " + this.velocity);
     }
 
     /**
@@ -51,8 +52,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         // Normalize velocity (keep same direction and turn into a unit vector)
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply direction with speed
-        this.velocity.multiply(getSpeed());
-
+        this.velocity = velocity.multiply(getSpeed());
     }
 
     // Setters for movement directions

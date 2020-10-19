@@ -51,8 +51,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
-        for (HitBox hitBox : getHitBoxes())
+        for (HitBox hitBox : getHitBoxes()) {
             hitBox.updatePosition(velocity.getX(), velocity.getY());
+        }
     }
 
     public void setWidth(double width) {
