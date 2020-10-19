@@ -12,7 +12,6 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
 
     private final int maxHp;
     private int hp;
-
     private int points;
     private int nrOfShields;
 
@@ -75,15 +74,15 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return hp;
     }
 
-    public void setHp(int hp) {
+    protected void setHp(int hp) {
         this.hp = hp;
     }
 
-    public int getPoints() {
+    protected int getPoints() {
         return points;
     }
 
-    public void setPoints(int points) {
+    protected void setPoints(int points) {
         this.points = points;
     }
 
@@ -91,11 +90,11 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return nrOfShields;
     }
 
-    public void gainShield() {
+    protected void gainShield() {
         this.nrOfShields += 1;
     }
 
-    public void loseShield() {
+    protected void loseShield() {
         if (this.nrOfShields > 0) this.nrOfShields -= 1;
         else this.nrOfShields = 0;
     }
