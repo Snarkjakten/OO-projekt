@@ -153,7 +153,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
-                scoreCalculator();
                 endGame();
                 previousNanoTime = currentNanoTime;
             }
@@ -181,6 +180,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addObserver(vc);
         addTimeObserver(timeView);
         addTimeObserver(shieldGUI);
+        addTimeObserver(gameWorld.getPlayer());
         addPlayerObserver(shieldGUI);
         addPlayerObserver(healthBarGUI);
         addCollisionObserver(gameWorld.getPlayer());
@@ -262,10 +262,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             notifyGameOverObservers(gameWorld.getIsGameOver(), gameWorld.getPlayer().getPoints());
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
+            timeObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
+            timeObservers.add(gameWorld.getPlayer());
         }
     }
 
@@ -284,12 +286,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void removeObserver(IPlayingFieldObserver obs) {
         this.playingFieldObservers.remove(obs);
-    }
-
-    public void scoreCalculator() {
-        long time = calculateElapsedTime(startNanoTime);
-        int points = (int) (time / 1000000000);
-        gameWorld.getPlayer().setPoints(points);
     }
 
     // Calculates elapsed time

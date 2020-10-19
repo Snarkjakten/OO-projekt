@@ -1,5 +1,6 @@
 package Model.Entities.Player;
 
+import Interfaces.ITimeObserver;
 import Model.Entities.Projectiles.Asteroid;
 import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ShieldPowerUp;
@@ -10,7 +11,7 @@ import Interfaces.ICollisionObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements ICollisionObserver {
+public class Player implements ICollisionObserver, ITimeObserver {
 
     private int maxHp;
     private List<Spaceship> spaceships;
@@ -106,5 +107,11 @@ public class Player implements ICollisionObserver {
                 spaceship.setSpeed(slowSpeedFactor * spaceship.getSpeed());
             }
         }
+    }
+
+    @Override
+    public void actOnEvent(long time, double deltaTime) {
+        int points = (int) (time / 1000000000);
+        setPoints(points);
     }
 }
