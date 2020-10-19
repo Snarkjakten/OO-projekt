@@ -30,7 +30,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     //------------------------------------------------------
-
     /**
      * Move self to a new position
      *

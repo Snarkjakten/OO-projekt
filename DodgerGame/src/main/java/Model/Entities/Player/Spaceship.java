@@ -29,6 +29,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         this.points = 0;
         maxHp = 200;
         this.hp = maxHp;
+        setSpeed(300);
     }
 
     @Override
@@ -74,7 +75,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return hp;
     }
 
-    protected void setHp(int hp) {
+    public void setHp(int hp) {
         this.hp = hp;
     }
 
@@ -90,13 +91,22 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return nrOfShields;
     }
 
-    protected void gainShield() {
+    public void gainShield() {
         this.nrOfShields += 1;
+    }
+
+    public void gainHealth(int hp) {
+        this.hp = hp;
     }
 
     protected void loseShield() {
         if (this.nrOfShields > 0) this.nrOfShields -= 1;
         else this.nrOfShields = 0;
+    }
+
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        c.setCollided(true);
     }
 
     /**
@@ -106,17 +116,12 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
     @Override
-    public void actOnEvent(AbstractGameObject gameObject) {
+    public void actOnCollisionEvent(AbstractGameObject gameObject) {
         if (gameObject instanceof Asteroid)
             if (this.nrOfShields > 0) loseShield();
             else this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
         else if (gameObject instanceof ShieldPowerUp) gainShield();
         else if (gameObject instanceof HealthPowerUp)
-            setHp(Math.min(getHp() + ((HealthPowerUp) gameObject).getHealth(), maxHp));
-    }
-
-    @Override
-    public void actOnCollision(AbstractGameObject c) {
-        c.setCollided(true);
+            setHp(Math.min(getHp() + ((HealthPowerUp) gameObject).getHealingValue(), maxHp));
     }
 }

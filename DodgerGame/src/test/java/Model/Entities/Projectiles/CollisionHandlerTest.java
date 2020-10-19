@@ -2,7 +2,6 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.Player.Spaceship;
 import Model.Movement.CollisionHandler;
-import javafx.geometry.Rectangle2D;
 import org.junit.Assert;
 import org.junit.Before;
 import org.junit.Test;
@@ -30,6 +29,7 @@ public class CollisionHandlerTest {
 
     /*
     @Test
+<<<<<<< HEAD
     public void testSetGetHitbox() {
         asteroid.set(0, 0, 10, 10);
         Assert.assertEquals(asteroid.getHitBoxes().get(0), new Rectangle2D(0, 0, 10 * 0.75, 10 * 0.75));
@@ -49,6 +49,11 @@ public class CollisionHandlerTest {
     public void testCheckCollisions() {
         spaceship.setHitbox(10, 10, 10, 10);
         asteroid.setHitbox(10, 10, 10, 10);
+=======
+    public void hitboxesCollided() {
+        spaceship.setHitbox(10,10,10,10);
+        asteroid.setHitbox(10,10,10,10);
+>>>>>>> master
         Assert.assertTrue(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
@@ -65,14 +70,14 @@ public class CollisionHandlerTest {
      */
 
     @Test
-    public void testSpaceshipCollide() {
+    public void spaceshipCollided() {
         collisionHandler.collide(asteroid, spaceship);
         Assert.assertTrue(asteroid.getCollided());
         asteroid.setCollided(false);
     }
 
     @Test
-    public void testProjectileCollide() {
+    public void projectileCollided() {
         collisionHandler.collide(asteroid, hpUp);
         Assert.assertFalse(asteroid.getCollided());
     }

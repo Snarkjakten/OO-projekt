@@ -11,17 +11,17 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-    private double horizontal;    // positive value: right, negative value: left
-    private double vertical;      // positive value: up, negative value: down
-    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+
+    private double xVelocity;    // positive value: right, negative value: left
+    private double yVelocity;      // positive value: up, negative value: down
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-
-    public Projectile(double speed, double width, double height) {
+    public Projectile(double speed, double xPos, double yPos, double width, double height) {
         setSpeed(speed);
         setWidth(width);
         setHeight(height);
-        getHitBoxes().add(new HitBox(0, 0, width, height));
+        getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         randomPosition();
     }
 
@@ -62,6 +62,9 @@ public abstract class Projectile extends AbstractGameObject {
         }
         randomStartVelocity(side);
     }
+
+
+    // todo: kolla om vi kan undvika projektiler som missar skärmen
 
     /**
      * The method sets a random velocity and direction for the projectile.
@@ -108,8 +111,8 @@ public abstract class Projectile extends AbstractGameObject {
                 System.out.println("Something wrong in randomVelocity");
                 break;
         }
-        setHorizontal(xPos);
-        setVertical(yPos);
+        setXVelocity(xPos);
+        setYVelocity(yPos);
     }
 
     /**
@@ -130,14 +133,14 @@ public abstract class Projectile extends AbstractGameObject {
      *
      * @author Irja Vuorela
      */
+
     public void updateVelocity() {
         HitBox hitBox = getHitBoxes().get(0);
-        hitBox.setVelocity(horizontal, vertical, getSpeed());
+        hitBox.setVelocity(xVelocity, yVelocity, getSpeed());
     }
 
     /**
      * @return Boolean if the object is no longer on the screen.
-     * @author Olle Westerlund
      * The method checks if the projectile is still on the screen.
      * @author Olle Westerlund
      */
@@ -148,19 +151,11 @@ public abstract class Projectile extends AbstractGameObject {
         return (!isStillOnX || !isStillOnY);
     }
 
-    public double getHorizontal() {
-        return horizontal;
+    public void setXVelocity(double xVelocity) {
+        this.xVelocity = xVelocity;
     }
 
-    public double getVertical() {
-        return vertical;
-    }
-
-    public void setHorizontal(double horizontal) {
-        this.horizontal = horizontal;
-    }
-
-    public void setVertical(double vertical) {
-        this.vertical = vertical;
+    public void setYVelocity(double yVelocity) {
+        this.yVelocity = yVelocity;
     }
 }

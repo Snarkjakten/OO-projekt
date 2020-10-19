@@ -1,18 +1,18 @@
 import Controller.KeyController;
 import Controller.ViewController;
 import Model.Entities.HitBox;
+import Interfaces.*;
 import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.Projectile;
-import Model.Entities.Projectiles.ProjectileFactory;
 import Model.GameWorld;
 import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
-import Interfaces.*;
 import Model.PausableAnimationTimer;
+import Model.WaveManager;
 import View.*;
 import View.Sound.GameObjectsSounds;
 import View.Sound.SoundHandler;
+import View.Window;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -35,6 +35,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private List<ISpaceshipObserver> spaceshipObservers;
     private List<ICollisionObserver> collisionObservers;
     private List<IGameWorldObserver> gameWorldObservers;
+    private List<AbstractGameObject> projectileWave;
 
     private final SoundHandler soundHandler = new SoundHandler();
     private final HighScoreHandler scoreHandler = new HighScoreHandler();
@@ -52,10 +53,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
         PauseMenu pauseMenu = new PauseMenu();
+        WaveManager waveManager = new WaveManager();
 
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
+        //LaserGUI laserGUI = new LaserGUI(graphicsContext, 10, true);
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
         startNanoTime = System.nanoTime(); //TODO Fix time bug
@@ -120,35 +123,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                /**
-                 * projectile spawner
-                 * @author Irja Vuorela
-                 */
+                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects, deltaTime, 1, 25);
 
-                updateCounter = updateCounter + 1;
-                if (updateCounter >= 120) {
-                    updateCounter = 0;
-                    gameObjects.add(ProjectileFactory.createAsteroid());
-                    gameObjects.add(ProjectileFactory.createAsteroid());
-                    gameObjects.add(ProjectileFactory.createAsteroid());
-                    gameObjects.add(ProjectileFactory.createAsteroid());
-                    gameObjects.add(ProjectileFactory.createHealthPowerUp());
-                    gameObjects.add(ProjectileFactory.createShieldPowerUp());
-                    gameObjects.add(ProjectileFactory.createSlowDebuff());
-                }
-
-                /**
-                 * removes offscreen projectiles
-                 * @author Irja Vuorela
-                 */
-                for (AbstractGameObject g : gameObjects) {
-                    if (g instanceof Projectile) {
-                        if (((Projectile) g).isNotOnScreen()) {
-                            gameObjects.remove(g);
-                            break;
-                        }
-                    }
-                }
                 gameWorld.wrapAround(gameWorld.getSpaceship());
 
                 long elapsedTime = calculateElapsedTime(startNanoTime);
@@ -156,6 +132,12 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
                 endGame();
                 previousNanoTime = currentNanoTime;
+
+                /* todo: use to check for bad frame rate
+                if(deltaTime > 0.07) {
+                    System.out.println("deltaTime: " + deltaTime);
+                }
+                */
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);
@@ -194,6 +176,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         spaceshipObservers = new ArrayList<>();
         gameWorldObservers = new ArrayList<>();
 
+        //addObserver(laserGUI);
         addObserver(gameObjectGUI);
         addObserver(vc);
         addTimeObserver(timeView);
@@ -361,8 +344,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     @Override
     public void notifyCollisionObservers(AbstractGameObject gameObject) {
-        for (ICollisionObserver obs : collisionObservers)
-            obs.actOnEvent(gameObject);
+        for (ICollisionObserver obs : collisionObservers) {
+            obs.actOnCollisionEvent(gameObject);
+        }
     }
 
     @Override

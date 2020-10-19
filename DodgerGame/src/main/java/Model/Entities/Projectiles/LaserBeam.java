@@ -13,14 +13,15 @@ public class LaserBeam extends AbstractGameObject {
     private double horizontal;
     private double vertical;
     private boolean isVertical;
-    private int damage;
+    private final int damage;
 
-    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
 
     public LaserBeam() {
         setSpeed(100);
+        this.damage = 100;
         getHitBoxes().add(new HitBox(0, 0, 1, 1));
         randomStartPoint();
     }

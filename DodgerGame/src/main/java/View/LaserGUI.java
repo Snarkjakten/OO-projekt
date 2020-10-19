@@ -1,9 +1,12 @@
 package View;
 
+import Interfaces.IGameObjectObserver;
+import Model.Entities.HitBox;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author Olle Westerlund
@@ -27,10 +30,10 @@ public class LaserGUI {
     }
 
     /**
-     * @author Olle Westerlund
-     * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
+     * @author Olle Westerlund
+     * The method decides which image to show.
      */
     private Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
@@ -48,10 +51,10 @@ public class LaserGUI {
     }
 
     /**
-     * @author Olle Westerlund
-     * Sets the corresponding image depending on isHorizontal and the number passed to the method.
      * @param number Which picture number the animation needs.
      * @return The correct image and size of the image.
+     * @author Olle Westerlund
+     * Sets the corresponding image depending on isHorizontal and the number passed to the method.
      */
     private Image setImage(int number) {
         InputStream inputStream;

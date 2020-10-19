@@ -4,5 +4,5 @@ import Model.Movement.AbstractGameObject;
 
 public interface ICollisionObserver {
 
-    void actOnEvent(AbstractGameObject gameObject);
+    void actOnCollisionEvent(AbstractGameObject gameObject);
 }

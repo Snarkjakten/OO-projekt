@@ -1,18 +1,27 @@
-import Model.Entities.Projectiles.*;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.ProjectileFactory;
+import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
 
-import static junit.framework.TestCase.assertEquals;
-import static junit.framework.TestCase.assertTrue;
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertTrue;
 
 public class ProjectileTest {
 
     Asteroid projAsteroid;
-    HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
+    ShieldPowerUp shieldPowerUp;
+    HealthPowerUp hpUp;
+    HealthPowerUp healthPowerUp;
     Point2D startPos;
+    List<AbstractGameObject> gameObjects;
     double deltaTime = 0.016;
 
     /**
@@ -21,8 +30,11 @@ public class ProjectileTest {
     @Before
     public void init() {
         projAsteroid = new Asteroid();
-        hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
+        shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
+        hpUp = new HealthPowerUp();
+        healthPowerUp = new HealthPowerUp(400, 100, 100, 0, 1);
+        gameObjects = new ArrayList<>();
     }
 
     /**
@@ -31,22 +43,10 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    public void testGainShield() {
+    public void getHitCapacity() {  // todo: this is redundant?
         int shields = 0;
-        int shieldsAfterPowerUp = shields + shieldPU.gainShield();
-        assertTrue(shieldsAfterPowerUp > shields);
-    }
-
-    /**
-     * Test that the health power up increases the health.
-     *
-     * @author Olle Westerlund
-     */
-    @Test
-    public void testGainHealth() {
-        int currentHealth = 100;
-        int healthAfterHeal = currentHealth + hpUp.getHealth();
-        assertTrue(healthAfterHeal > currentHealth);
+        int shieldsAfterShieldPU = shields + shieldPU.getHitCapacity();
+        assertTrue(shieldsAfterShieldPU > shields);
     }
 
     /**
@@ -55,7 +55,7 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    public void testAsteroidSpeed() {
+    public void asteroidSpeed() {
         assertTrue(projAsteroid.getSpeed() > 0);
     }
 
@@ -67,7 +67,7 @@ public class ProjectileTest {
      */
     @Test
     //@Author Olle Westerlund
-    public void testAsteroidDamage() {
+    public void asteroidDamage() {
         int startHealth = 200;
         int healthAfterHit = startHealth - projAsteroid.getDamage();
         assertTrue(startHealth > healthAfterHit);
@@ -79,7 +79,7 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    public void testAsteroidIsNotOnScreen() {
+    public void asteroidIsNotOnScreen() {
         projAsteroid.getHitBoxes().get(0).setPosition(-80, -80);
         assertTrue(projAsteroid.isNotOnScreen());
     }
@@ -90,10 +90,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedLeft() {
+    public void projectileMovedLeft() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
         // Negative horizontal value to move left
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.getHitBoxes().get(0).getXPos() < startPos.getX());
     }
@@ -104,11 +104,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedRight() {
+    public void projectileMovedRight() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
         // Positive horizontal value to move right
-        // Positive horizontal value to move right
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.getHitBoxes().get(0).getXPos() > startPos.getX());
     }
@@ -119,10 +118,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedUp() {
+    public void projectileMovedUp() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
         // Negative vertical value to move up
-        projAsteroid.setVertical(-1);
+        projAsteroid.setYVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.getHitBoxes().get(0).getYPos() < startPos.getY());
     }
@@ -133,10 +132,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedDown() {
+    public void projectileMovedDown() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
         // Positive vertical value to move down
-        projAsteroid.setVertical(1);
+        projAsteroid.setYVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue(projAsteroid.getHitBoxes().get(0).getYPos() > startPos.getY());
     }
@@ -147,10 +146,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedUpRight() {
+    public void projectileMovedUpRight() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
-        projAsteroid.setVertical(-1);
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setYVelocity(-1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.getHitBoxes().get(0).getXPos() > startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
@@ -161,10 +160,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedUpLeft() {
+    public void projectileMovedUpLeft() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
-        projAsteroid.setVertical(-1);
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setYVelocity(-1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.getHitBoxes().get(0).getXPos() < startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
@@ -175,10 +174,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedDownRight() {
+    public void projectileMovedDownRight() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
-        projAsteroid.setVertical(1);
-        projAsteroid.setHorizontal(1);
+        projAsteroid.setYVelocity(1);
+        projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.getHitBoxes().get(0).getXPos() > startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
@@ -189,10 +188,10 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileMovedDownLeft() {
+    public void projectileMovedDownLeft() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
-        projAsteroid.setVertical(1);
-        projAsteroid.setHorizontal(-1);
+        projAsteroid.setYVelocity(1);
+        projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.getHitBoxes().get(0).getXPos() < startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
@@ -203,11 +202,30 @@ public class ProjectileTest {
      * @author Irja Vuorela
      */
     @Test
-    public void ProjectileNotMovingWhenVelocityZero() {
+    public void projectileNotMovingWhenVelocityZero() {
         startPos = projAsteroid.getHitBoxes().get(0).getPosition();
-        projAsteroid.setVertical(0);
-        projAsteroid.setHorizontal(0);
+        projAsteroid.setYVelocity(0);
+        projAsteroid.setXVelocity(0);
         projAsteroid.move(deltaTime);
         assertTrue((projAsteroid.getHitBoxes().get(0).getXPos() == startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getYPos() == startPos.getY()));
+    }
+
+    /**
+     * Checks if all factory methods can successfully add to the list of game objects
+     *
+     * @authors Irja & Viktor
+     */
+    @Test
+    public void addedProjectilesWithFactory() {
+        int oldListSize = gameObjects.size();
+        gameObjects.add(ProjectileFactory.createRandomizedAsteroid());
+        gameObjects.add(ProjectileFactory.createAsteroid(1, 1, 1, 1, 1, 1, 1));
+        gameObjects.add(ProjectileFactory.createRandomizedHealthPowerUp());
+        gameObjects.add(ProjectileFactory.createHealthPowerUp(1, 1, 1, 1, 1));
+        gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());
+        gameObjects.add(ProjectileFactory.createShieldPowerUp(1, 1, 1, 1, 1));
+        gameObjects.add(ProjectileFactory.createSlowDebuff());
+        int newListSize = gameObjects.size();
+        assertEquals(newListSize, oldListSize + 7); // 7 = times added to the list with factory
     }
 }
