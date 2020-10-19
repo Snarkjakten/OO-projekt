@@ -8,7 +8,7 @@ public class HealthPowerUp extends Projectile {
     private final int healingValue;  // Amount of healing
 
     public HealthPowerUp() {
-        super(200, 0, 0, 64, 64);
+        super(200, 64, 64);
         this.healingValue = getHealingValue();
     }
 
@@ -21,7 +21,7 @@ public class HealthPowerUp extends Projectile {
      * @authors Irja & Viktor
      */
     public HealthPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, xPos, yPos, 64, 64);
+        super(speed, 64, 64);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);

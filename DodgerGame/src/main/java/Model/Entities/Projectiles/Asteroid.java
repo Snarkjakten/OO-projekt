@@ -9,7 +9,7 @@ public class Asteroid extends Projectile {
     private int damage;
 
     public Asteroid() {
-        super(50, 0, 0, 28, 28);
+        super(50, 28, 28);
         initAsteroid();
     }
 
@@ -24,13 +24,14 @@ public class Asteroid extends Projectile {
      * @authors Irja & Viktor
      */
     public Asteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, xPos, yPos, width, height);
+        super(speed, width, height);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);
         setWidth(width);
         setHeight(height);
         this.damage = 20;
+        getHitBoxes().get(0).setPosition(xPos, yPos);
     }
 
     public int getDamage() {

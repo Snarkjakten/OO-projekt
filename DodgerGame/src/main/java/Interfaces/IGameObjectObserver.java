@@ -9,5 +9,5 @@ public interface IGameObjectObserver {
     /**
      * @author Irja Vuorela
      */
-    void actOnEvent(List<HitBox> hitBoxes, Class c, double height, double width);
+    void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height);
 }

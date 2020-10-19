@@ -7,7 +7,7 @@ public class ShieldPowerUp extends Projectile {
     private final int hitCapacity;    // Number of shields the player will get.
 
     public ShieldPowerUp() {
-        super(200, 0, 0, 64, 64);
+        super(200, 64, 64);
         this.hitCapacity = 1;
     }
 
@@ -20,7 +20,7 @@ public class ShieldPowerUp extends Projectile {
      * @authors Irja & Viktor
      */
     public ShieldPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, xPos, yPos, 64, 64);
+        super(speed, 64, 64);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);

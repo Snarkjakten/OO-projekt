@@ -67,7 +67,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
             final long currentNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
-            int updateCounter = 60;
 
             final long animationNanoTime = System.nanoTime();
 
