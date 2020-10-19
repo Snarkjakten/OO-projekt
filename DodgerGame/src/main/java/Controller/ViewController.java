@@ -1,10 +1,9 @@
+package Controller;
+
+import Model.PausableAnimationTimer;
 import View.*;
 import Interfaces.IGameOverObserver;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
 import javafx.stage.Stage;
-
-import java.util.Optional;
 
 /**
  * @author Isak Almeros

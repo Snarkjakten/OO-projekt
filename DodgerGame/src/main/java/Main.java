@@ -1,3 +1,5 @@
+import Controller.KeyController;
+import Controller.ViewController;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.Projectile;
@@ -7,6 +9,7 @@ import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
 import Interfaces.*;
+import Model.PausableAnimationTimer;
 import View.*;
 import View.Sound.GameObjectsSounds;
 import View.Sound.SoundHandler;
@@ -97,7 +100,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                     notifyGameObjectObservers(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight());
                     for (AbstractGameObject a : gameObjects) {
                         if (collisionHandler.checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
-                            // TODO Fråga handledaren om kopia av objekt
                             if (a instanceof Spaceship) {
                                 notifySoundObservers(gameObject.getClass());
                                 notifyCollisionObservers(gameObject);
