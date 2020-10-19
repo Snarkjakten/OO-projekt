@@ -26,7 +26,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedLeft() {
+    public void spaceshipMovedLeft() {
         startPos = spaceship.position;
         spaceship.setLeft(1);
         // Negative x value to move to the left
@@ -41,7 +41,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedRight() {
+    public void spaceshipMovedRight() {
         startPos = spaceship.position;
         spaceship.setRight(1);
         // Positive x value to move to the right
@@ -56,7 +56,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedUp() {
+    public void spaceshipMovedUp() {
         startPos = spaceship.position;
         spaceship.setUp(1);
         // Negative y value to move up
@@ -71,7 +71,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedDown() {
+    public void spaceshipMovedDown() {
         startPos = spaceship.position;
         spaceship.setDown(1);
         // Positive y value to move down
@@ -86,7 +86,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedUpAndRight() {
+    public void spaceshipMovedUpAndRight() {
         startPos = spaceship.position;
         spaceship.setUp(1);
         spaceship.setRight(1);
@@ -101,7 +101,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedUpAndLeft() {
+    public void spaceshipMovedUpAndLeft() {
         startPos = spaceship.position;
         spaceship.setUp(1);
         spaceship.setLeft(1);
@@ -117,7 +117,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedDownAndRight() {
+    public void spaceshipMovedDownAndRight() {
         startPos = spaceship.position;
         spaceship.setDown(1);
         spaceship.setRight(1);
@@ -132,7 +132,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipMovedDownAndLeft() {
+    public void spaceshipMovedDownAndLeft() {
         startPos = spaceship.position;
         spaceship.setDown(1);
         spaceship.setLeft(1);
@@ -147,7 +147,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipNotMovingWhenLeftAndRight() {
+    public void spaceshipNotMovingWhenLeftAndRight() {
         startPos = spaceship.position;
         spaceship.setLeft(1);
         spaceship.setRight(1);
@@ -162,7 +162,7 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipNotMovingWhenUpAndDown() {
+    public void spaceshipNotMovingWhenUpAndDown() {
         startPos = spaceship.position;
         spaceship.setUp(1);
         spaceship.setDown(1);
@@ -177,13 +177,15 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-    public void SpaceshipNotMovingWhenVelocityZero() {
+    public void spaceshipNotMovingWhenVelocityZero() {
         startPos = spaceship.position;
         spaceship.velocity = new Point2D(0, 0);
         spaceship.move(deltaTime);
         assertTrue((spaceship.position.getX() == startPos.getX()) && (spaceship.position.getY() == startPos.getY()));
     }
 
+
+    // todo: finish these
     @Test
     public void westWrapAround() {
 

@@ -19,6 +19,7 @@ public class Player implements ICollisionObserver {
     private int points;
     private int nrOfShields;
 
+    // todo: add authors
     public Player() {
         this.spaceships = new ArrayList<>();
         this.nrOfShields = 0;
@@ -71,10 +72,29 @@ public class Player implements ICollisionObserver {
         return nrOfShields;
     }
 
-    public void gainShield() {
-        this.nrOfShields += 1;
+    /**
+     * @authors Irja & Viktor
+     * @param hitCapacity amount of collisions a single shield power up can block
+     */
+    public void gainShield(int hitCapacity) {
+        this.nrOfShields += hitCapacity;
     }
 
+    /**
+     * @authors Irja & Viktor
+     * @param healingValue amount of healing from one health power up
+     */
+    public void gainHealth(int healingValue) {
+        if (getHp() + healingValue > maxHp) {
+            setHp(maxHp);
+        } else {
+            setHp(getHp() + healingValue);
+        }
+    }
+
+    /**
+     * @author Olle Westerlund
+     */
     public void loseShield() {
         if (this.nrOfShields > 0) {
             this.nrOfShields -= 1;
@@ -84,8 +104,12 @@ public class Player implements ICollisionObserver {
     }
 
 
+    /**
+     * @authors Viktor, Olle, Tobias
+     * @param gameObject an object from the game objects list in the game loop
+     */
     @Override
-    public void actOnEvent(AbstractGameObject gameObject) {
+    public void actOnCollisionEvent(AbstractGameObject gameObject) {
         if (gameObject instanceof Asteroid) {
             if (nrOfShields > 0) {
                 loseShield();
@@ -93,13 +117,9 @@ public class Player implements ICollisionObserver {
                 this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
             }
         } else if (gameObject instanceof ShieldPowerUp) {
-            gainShield();
+            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
         } else if (gameObject instanceof HealthPowerUp) {
-            if (getHp() + ((HealthPowerUp) gameObject).getHealth() > maxHp) {
-                setHp(maxHp);
-            } else {
-                setHp(getHp() + ((HealthPowerUp) gameObject).getHealth());
-            }
+            gainHealth(((HealthPowerUp) gameObject).getHealingValue());
         } else if (gameObject instanceof SlowDebuff) {
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             for (Spaceship spaceship : spaceships) {

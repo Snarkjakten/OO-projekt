@@ -7,11 +7,28 @@ public class ShieldPowerUp extends Projectile {
     private int hitCapacity;    // Number of shields the player will get.
 
     public ShieldPowerUp() {
-        super(400, 64, 64);
+        super(200, 64, 64);
         hitCapacity = 1;
     }
 
-    public int gainShield() {
+    /**
+     * @param speed     the speed of this object.
+     * @param xPos      the x-value of this object's position.
+     * @param yPos      the y-value of this object's position.
+     * @param xVelocity the x-value to calculate this object's velocity.
+     * @param yVelocity the y-value to calculate this object's velocity.
+     * @authors Irja & Viktor
+     */
+    public ShieldPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
+        super(speed, 64, 64);
+        setPosition(xPos, yPos);
+        setXVelocity(xVelocity);
+        setYVelocity(yVelocity);
+        setSpeed(200);
+        hitCapacity = 1;
+    }
+
+    public int getHitCapacity() {
         return hitCapacity;
     }
 }
