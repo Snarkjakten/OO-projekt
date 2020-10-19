@@ -2,7 +2,7 @@ package Model.Movement;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import javafx.geometry.Rectangle2D;
 
 /**
@@ -38,7 +38,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.velocity = velocity;
     }
 
-    // Velocity (horizontal, vertical)
+    // Velocity (x, y)
     public Point2D velocity = new Point2D(0, 0);
 
     // Game.Movement speed
@@ -60,7 +60,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
-        this.position = position.add(velocity.getX(), velocity.getY()); // add() returns a new Point2D
+        this.position = position.add(getVelocity());
         this.setHitbox(position.getX(), position.getY(), this.width * 0.75, this.height * 0.75);
     }
 

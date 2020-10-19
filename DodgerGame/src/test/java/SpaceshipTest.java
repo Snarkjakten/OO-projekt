@@ -1,6 +1,6 @@
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Player.SpaceshipFactory;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 

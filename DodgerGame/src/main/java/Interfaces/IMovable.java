@@ -1,5 +1,6 @@
 package Interfaces;
-import javafx.geometry.Point2D;
+
+import Model.Point2D;
 
 /**
  * @Author Irja Vuorela
