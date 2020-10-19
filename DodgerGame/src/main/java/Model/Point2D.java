@@ -38,12 +38,12 @@ public class Point2D {
     /**
      * Returns a point with the coordinates of this point multiplied by the specified factor
      *
-     * @param multiplier
+     * @param factor
      * @return a point with the coordinates of this point multiplied by the specified factor
      * @author Irja Vuorela
      */
-    public Point2D multiply(double multiplier) {
-        return new Point2D(this.x * multiplier, this.y * multiplier);
+    public Point2D multiply(double factor) {
+        return new Point2D(this.x * factor, this.y * factor);
     }
 
     /**
@@ -68,20 +68,15 @@ public class Point2D {
         if (!(length == 0)) {
             return new Point2D(this.x / length, this.y / length);
         } else {
-            return new Point2D(0,0);
+            return new Point2D(0, 0);
         }
     }
 
-    /**
-     * @return the x coordinate.
-     */
+    // Getters
     public double getX() {
         return this.x;
     }
 
-    /**
-     * @return the y coordinate
-     */
     public double getY() {
         return this.y;
     }
