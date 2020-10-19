@@ -3,6 +3,7 @@ package Model.Entities.Projectiles;
 import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
+import javafx.geometry.Point2D;
 
 import java.util.Random;
 
@@ -32,9 +33,9 @@ public class LaserBeam extends AbstractGameObject {
         updatePosition(deltaTime);
     }
 
-    private void updateVelocity() {
-        HitBox hitBox = getHitBoxes().get(0);
-        hitBox.setVelocity(this.horizontal, this.vertical, getSpeed());
+    public void updateVelocity() {
+        this.velocity = (new Point2D(horizontal, vertical).normalize());
+        this.velocity.multiply(getSpeed());
     }
 
     /**

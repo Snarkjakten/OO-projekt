@@ -3,6 +3,7 @@ package Model.Movement;
 import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
+import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -16,6 +17,8 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected double height;
     private final List<HitBox> hitBoxes;
     private boolean collided;
+    // Velocity (horizontal, vertical)
+    public Point2D velocity;
     // Game movement speed
     private double speed;
 
@@ -23,6 +26,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.hitBoxes = new ArrayList<>();
         this.collided = false;
         this.speed = 250;
+        this.velocity = new Point2D(0, 0);
     }
 
     public List<HitBox> getHitBoxes() {
@@ -30,6 +34,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     //------------------------------------------------------
+
     /**
      * Move self to a new position
      *
@@ -45,10 +50,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @author Irja Vuorela and Tobias Engblom
      */
     protected void updatePosition(double deltaTime) {
-        for (HitBox hitBox : getHitBoxes()) {
-            hitBox.velocity = hitBox.getVelocity().multiply(deltaTime);
-            hitBox.updatePosition(hitBox.getVelocity().getX(), hitBox.getVelocity().getY());
-        }
+        this.velocity = velocity.multiply(deltaTime);
+        for (HitBox hitBox : getHitBoxes())
+            hitBox.updatePosition(velocity.getX(), velocity.getY());
     }
 
     public void setWidth(double width) {

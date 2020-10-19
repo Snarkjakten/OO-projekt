@@ -9,15 +9,12 @@ public class HitBox {
     private final double height;
     // Position (x, y)
     private Point2D position;
-    // Velocity (horizontal, vertical)
-    public Point2D velocity;
     private Rectangle2D hitBox;
 
     public HitBox(double xPos, double yPos, double width, double height) {
         this.width = width * 0.75;
         this.height = height * 0.75;
         this.position = new Point2D(xPos, yPos);
-        this.velocity = new Point2D(0, 0);
         setHitBox(xPos, yPos, this.width, this.height);
     }
 
@@ -33,25 +30,8 @@ public class HitBox {
         this.hitBox = new Rectangle2D(xPos, yPos, width, height);
     }
 
-    public void setVelocity(int up, int down, int left, int right, double speed) {
-        // Stop if moving in two opposite direction simultaneously
-        // Normalize velocity (keep same direction and turn into a unit vector)
-        this.velocity = (new Point2D((right - left), (down - up))).normalize();
-        // Multiply direction with speed
-        this.velocity.multiply(speed);
-    }
-
-    public void setVelocity(double horizontal, double vertical, double speed) {
-        this.velocity = (new Point2D(horizontal, vertical).normalize());
-        this.velocity.multiply(speed);
-    }
-
-    public Point2D getVelocity() {
-        return this.velocity;
-    }
-
-    public void updatePosition(double xPos, double yPos) {
-        setPosition(xPos, yPos);
+    public void updatePosition(double xVelocity, double yVelocity) {
+        this.position = position.add(xVelocity, yVelocity);
         setHitBox(this.position.getX(), this.position.getY(), this.width, this.height);
     }
 
@@ -64,6 +44,6 @@ public class HitBox {
     }
 
     public void setPosition(double xPos, double yPos) {
-        this.position = position.add(xPos, yPos);
+        this.position = new Point2D(xPos, yPos);
     }
 }

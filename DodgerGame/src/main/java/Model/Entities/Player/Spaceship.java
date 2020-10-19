@@ -6,6 +6,7 @@ import Model.Entities.Projectiles.Asteroid;
 import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.Movement.AbstractGameObject;
+import javafx.geometry.Point2D;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractGameObject implements ICollisionObserver {
@@ -35,7 +36,9 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     @Override
     public void move(double deltaTime) {
         updateVelocity();
+        System.out.println("Before: " + this.velocity);
         updatePosition(deltaTime);
+        System.out.println("After: " + this.velocity);
     }
 
     /**
@@ -44,10 +47,12 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @author Irja Vuorela
      */
     public void updateVelocity() {
-        // Set velocity for all hitBoxes in the list
-        for (HitBox hitBox : getHitBoxes()) {
-            hitBox.setVelocity(up, down, left, right, getSpeed());
-        }
+        // Stop if moving in two opposite direction simultaneously
+        // Normalize velocity (keep same direction and turn into a unit vector)
+        this.velocity = (new Point2D((right - left), (down - up))).normalize();
+        // Multiply direction with speed
+        this.velocity.multiply(getSpeed());
+
     }
 
     // Setters for movement directions

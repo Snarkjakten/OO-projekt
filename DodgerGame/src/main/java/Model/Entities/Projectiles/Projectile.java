@@ -3,6 +3,7 @@ package Model.Entities.Projectiles;
 import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
+import javafx.geometry.Point2D;
 
 import java.util.Random;
 
@@ -135,8 +136,8 @@ public abstract class Projectile extends AbstractGameObject {
      */
 
     public void updateVelocity() {
-        HitBox hitBox = getHitBoxes().get(0);
-        hitBox.setVelocity(xVelocity, yVelocity, getSpeed());
+        this.velocity = (new Point2D(xVelocity, yVelocity).normalize());
+        this.velocity.multiply(getSpeed());
     }
 
     /**
