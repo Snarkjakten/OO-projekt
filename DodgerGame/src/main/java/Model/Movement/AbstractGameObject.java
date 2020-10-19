@@ -3,7 +3,7 @@ package Model.Movement;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
 import Model.Point2D;
-import javafx.geometry.Rectangle2D;
+import Model.Rectangle2D;
 
 /**
  * @Author Irja Vuorela
@@ -12,7 +12,7 @@ import javafx.geometry.Rectangle2D;
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     protected double height;
     protected double width;
-    protected Rectangle2D hitbox = new Rectangle2D( 0, 0, 1, 1);
+    protected Rectangle2D hitbox = new Rectangle2D();
     protected boolean collided = false;
 
     //Currently unused

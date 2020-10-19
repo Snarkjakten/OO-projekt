@@ -1,9 +1,9 @@
-import Model.Rectangle;
+import Model.Rectangle2D;
 import org.junit.Test;
 
 import static org.junit.Assert.*;
 
-public class RectangleTest {
+public class Rectangle2DTest {
 
     /**
      * Tests if intersects works properly.
@@ -12,10 +12,10 @@ public class RectangleTest {
      */
     @Test
     public void testIntersects() {
-        Rectangle rectangle = new Rectangle();
-        Rectangle other = new Rectangle(500, 500);
-        assertTrue(rectangle.intersects(rectangle)); // Same location
-        assertFalse(rectangle.intersects(other)); // Far from each other
+        Rectangle2D rectangle = new Rectangle2D();
+        Rectangle2D other = new Rectangle2D(500, 500);
+        assertTrue(rectangle.intersects(rectangle));
+        assertFalse(rectangle.intersects(other));
     }
 
     /**
@@ -26,7 +26,7 @@ public class RectangleTest {
     @Test
     public void negativeSizeTurnsPositive() {
         double size = 32;
-        Rectangle rectangle = new Rectangle(0, 0, -size, -size);
+        Rectangle2D rectangle = new Rectangle2D(0, 0, -size, -size);
         assertTrue(rectangle.getHeight() == size);
         assertTrue(rectangle.getWidth() == size);
     }

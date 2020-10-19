@@ -6,7 +6,7 @@ import static java.lang.StrictMath.abs;
  * A rectangle to be used for the game's hitboxes.
  */
 
-public class Rectangle {
+public class Rectangle2D {
     private final double x;
     private final double y;
     private final double width;
@@ -17,7 +17,7 @@ public class Rectangle {
      *
      * @author Irja Vuorela
      */
-    public Rectangle() {
+    public Rectangle2D() {
         this.x = 0.0;
         this.y = 0.0;
         this.width = 1.0;
@@ -31,7 +31,7 @@ public class Rectangle {
      * @param y the y-coordinate
      * @author Irja Vuorela
      */
-   public Rectangle(double x, double y) {
+   public Rectangle2D(double x, double y) {
         this.x = x;
         this.y = y;
         this.width = 1.0;
@@ -47,7 +47,7 @@ public class Rectangle {
      * @param height the height of the rectangle
      * @author Irja Vuorela
      */
-    public Rectangle(double x, double y, double width, double height) {
+    public Rectangle2D(double x, double y, double width, double height) {
         this.x = x;
         this.y = y;
         this.width = abs(width);
@@ -61,7 +61,7 @@ public class Rectangle {
      * @return true if the other rectangle intersects with yours, false if not
      * @author Irja Vuorela
      */
-    public boolean intersects(Rectangle other) {
+    public boolean intersects(Rectangle2D other) {
         // the distances between this rectangle's and the other rectangle's x- and y-values.
         double xDistance = abs(this.x - other.getX());
         double yDistance = abs(this.y - other.getY());
