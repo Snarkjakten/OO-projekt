@@ -40,12 +40,9 @@ public class HighScoreHandler {
         try {
             File file = new File(fileName);
             if (file.createNewFile()) {
-                System.out.println("Created " + file.getName() + " at:");
-                System.out.println(file.getAbsolutePath());
-
+                System.out.println("Created " + file.getName() + " at: " + file.getAbsolutePath());
             }
         } catch (IOException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }

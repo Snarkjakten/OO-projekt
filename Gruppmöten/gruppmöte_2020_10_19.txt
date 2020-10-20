@@ -1,0 +1,22 @@
+
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 19 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+Objectives
+-Irja och Viktors pullrequest med wavemanager
+
+Reports
+-Irja och Viktor gjort wavemanager och skrivit test till wavemanager
+
+Discussion items
+-Ändringar i SDD och RAD. Översatt till engelska
+
+Outcomes and assignments
+-Irja skriver egna Point-2D och Rectangle så att de inte beror av Java-FX 
+
+Wrap up
+-Nästa möte tisdag 20/9 

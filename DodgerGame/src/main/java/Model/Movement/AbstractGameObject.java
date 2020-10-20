@@ -3,10 +3,11 @@ package Model.Movement;
 import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import Model.Point2D;
 
 /**
  * @author Irja Vuorela

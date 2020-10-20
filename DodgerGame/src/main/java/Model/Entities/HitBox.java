@@ -1,7 +1,8 @@
 package Model.Entities;
 
-import javafx.geometry.Point2D;
-import javafx.geometry.Rectangle2D;
+
+import Model.Point2D;
+import Model.Rectangle2D;
 
 public class HitBox {
 
@@ -19,11 +20,11 @@ public class HitBox {
     }
 
     public double getXPos() {
-        return this.hitBox.getMinX();
+        return this.hitBox.getX();
     }
 
     public double getYPos() {
-        return this.hitBox.getMinY();
+        return this.hitBox.getY();
     }
 
     public void setHitBox(double xPos, double yPos, double width, double height) {

@@ -47,9 +47,7 @@ public class ViewController implements IGameOverObserver {
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
-        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(highScoreMenu.getRoot());
-        });
+        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> stage.getScene().setRoot(highScoreMenu.getRoot()));
 
         // When clicking on "QUIT"
         mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
@@ -140,16 +138,10 @@ public class ViewController implements IGameOverObserver {
     }
 
     @Override
-    public void actOnEvent(boolean isGameOver) {
+    public void actOnEvent(boolean isGameOver, int points) {
         if (isGameOver) {
-            //TODO: change this
-            int points = 100;
             gameOverMenu.showScore(points);
             stage.getScene().setRoot(gameOverMenu.getRoot());
         }
-    }
-
-    public int getSpaceshipChoice() {
-        return spaceshipChoice;
     }
 }

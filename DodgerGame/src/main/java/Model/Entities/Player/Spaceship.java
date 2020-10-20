@@ -7,14 +7,13 @@ import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.Entities.Projectiles.SlowDebuff;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractGameObject implements ICollisionObserver {
 
     private final int maxHp;
     private int hp;
-    private int points;
     private int nrOfShields;
 
     // Game.Movement directions
@@ -34,7 +33,6 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         super(width, height);
         getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         this.nrOfShields = 0;
-        this.points = 0;
         this.maxHp = 200;
         this.hp = maxHp;
         setSpeed(300);
@@ -123,22 +121,6 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     public void setHp(int hp) {
         this.hp = hp;
-    }
-
-    /**
-     * @return the amount of points of this spaceship
-     */
-    protected int getPoints() {
-        return this.points;
-    }
-
-    /**
-     * Sets the new amount of points to this spaceship
-     *
-     * @param points the new amount of points
-     */
-    protected void setPoints(int points) {
-        this.points = points;
     }
 
     /**

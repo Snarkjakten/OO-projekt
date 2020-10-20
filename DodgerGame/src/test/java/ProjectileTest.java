@@ -1,9 +1,6 @@
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.HealthPowerUp;
-import Model.Entities.Projectiles.ProjectileFactory;
-import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -17,6 +14,7 @@ public class ProjectileTest {
 
     Asteroid projAsteroid;
     ShieldPowerUp shieldPU;
+    SlowDebuff slowDebuff;
     ShieldPowerUp shieldPowerUp;
     HealthPowerUp hpUp;
     HealthPowerUp healthPowerUp;
@@ -31,10 +29,25 @@ public class ProjectileTest {
     public void init() {
         projAsteroid = new Asteroid();
         shieldPU = new ShieldPowerUp();
+        slowDebuff = new SlowDebuff();
         shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
         hpUp = new HealthPowerUp();
         healthPowerUp = new HealthPowerUp(400, 100, 100, 0, 1);
         gameObjects = new ArrayList<>();
+    }
+
+    /**
+     * Tests that slowdebuff slows the initial speed by 25%
+     *
+     * @author Isak Ameros
+     */
+    @Test
+    public void testSlowDebuff() {
+        double initialSpeed = 200;
+        double slowedSpeed = slowDebuff.getSlowSpeedFactor() * initialSpeed;
+        double expectedSpeed = 150;
+        assertTrue(slowedSpeed < initialSpeed);
+        assertEquals(expectedSpeed, slowedSpeed);
     }
 
     /**

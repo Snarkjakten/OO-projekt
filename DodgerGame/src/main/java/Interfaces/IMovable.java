@@ -1,7 +1,7 @@
 package Interfaces;
 
 /**
- * @Author Irja Vuorela
+ * @author Irja Vuorela
  */
 
 public interface IMovable {

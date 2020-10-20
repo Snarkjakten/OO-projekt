@@ -1,7 +1,6 @@
 package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
-import com.sun.javafx.scene.text.TextLayout;
 
 import java.util.Random;
 
@@ -53,7 +52,7 @@ public class Asteroid extends Projectile {
             updateWidth(64);
             updateHeight(64);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getMinX(), hitBox.getHitBox().getMinY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
         } else {
             // medium asteroid
@@ -61,7 +60,7 @@ public class Asteroid extends Projectile {
             updateWidth(100);
             updateHeight(100);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getMinX(), hitBox.getHitBox().getMinY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);
         }
     }

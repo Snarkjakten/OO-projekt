@@ -3,7 +3,7 @@ package Model.Entities.Projectiles;
 import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 
 import java.util.Random;
 
