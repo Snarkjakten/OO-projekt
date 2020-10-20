@@ -1,6 +1,6 @@
 import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 

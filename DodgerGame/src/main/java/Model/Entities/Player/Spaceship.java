@@ -1,7 +1,7 @@
 package Model.Entities.Player;
 
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractGameObject {
