@@ -11,7 +11,7 @@ import Interfaces.ICollisionObserver;
 import java.util.ArrayList;
 import java.util.List;
 
-public class Player implements ICollisionObserver, ITimeObserver {
+public class Player implements ICollisionObserver {
 
     private int maxHp;
     private List<Spaceship> spaceships;
@@ -127,11 +127,5 @@ public class Player implements ICollisionObserver, ITimeObserver {
                 spaceship.setSpeed(slowSpeedFactor * spaceship.getSpeed());
             }
         }
-    }
-
-    @Override
-    public void actOnEvent(long time, double deltaTime) {
-        int points = (int) (time / 1000000000);
-        setPoints(points);
     }
 }

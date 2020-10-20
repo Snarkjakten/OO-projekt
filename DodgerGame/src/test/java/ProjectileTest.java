@@ -37,14 +37,14 @@ public class ProjectileTest {
     }
 
     /**
-     * Tests that slowdebuff slows the inital speed by 10%
+     * Tests that slowdebuff slows the inital speed by 25%
      * @Author Isak Ameros
      */
     @Test
     public void testSlowDebuff() {
         double initialSpeed = 200;
         double slowedSpeed = slowDebuff.getSlowSpeedFactor() * initialSpeed;
-        double expectedSpeed = 180;
+        double expectedSpeed = 150;
         assertTrue(slowedSpeed < initialSpeed);
         assertEquals(expectedSpeed, slowedSpeed);
     }

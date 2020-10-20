@@ -5,6 +5,7 @@ import Model.GameWorld;
 import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
+import Model.ScoreCalculator;
 import Model.WaveManager;
 import View.*;
 import View.Sound.GameObjectsSounds;
@@ -35,6 +36,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     private SoundHandler soundHandler = new SoundHandler();
     private HighScoreHandler scoreHandler = new HighScoreHandler();
+    private ScoreCalculator scoreCalculator;
 
     private GraphicsContext graphicsContext;
 
@@ -43,6 +45,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
+        scoreCalculator = new ScoreCalculator(gameWorld.getPlayer());
         gameObjects = gameWorld.getGameObjects();
         Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         graphicsContext = window.getGraphicsContext();
@@ -161,7 +164,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addObserver(vc);
         addTimeObserver(timeView);
         addTimeObserver(shieldGUI);
-        addTimeObserver(gameWorld.getPlayer());
+        addTimeObserver(scoreCalculator);
         addPlayerObserver(shieldGUI);
         addPlayerObserver(healthBarGUI);
         addCollisionObserver(gameWorld.getPlayer());
@@ -243,12 +246,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             notifyGameOverObservers(gameWorld.getIsGameOver(), gameWorld.getPlayer().getPoints());
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
-            timeObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
-            timeObservers.add(gameWorld.getPlayer());
+            scoreCalculator.setPlayer(gameWorld.getPlayer());
         }
     }
 
