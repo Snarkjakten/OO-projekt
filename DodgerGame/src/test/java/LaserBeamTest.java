@@ -25,7 +25,7 @@ public class LaserBeamTest {
         // Negative horizontal value to move left
         laserBeam.setStopPosition(-1, 0);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX());
+        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX());
     }
 
     @Test
@@ -36,7 +36,7 @@ public class LaserBeamTest {
         // Positive horizontal value to move right
         laserBeam.setStopPosition(1, 0);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX());
+        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX());
     }
 
     @Test
@@ -47,7 +47,7 @@ public class LaserBeamTest {
         // Negative vertical value to move up
         laserBeam.setStopPosition(0, -1);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY());
+        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY());
     }
 
     @Test
@@ -58,7 +58,7 @@ public class LaserBeamTest {
         // Positive vertical value to move down
         laserBeam.setStopPosition(0, 1);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY());
+        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY());
     }
 
     @Test
@@ -68,7 +68,7 @@ public class LaserBeamTest {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setStopPosition(1, -1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
     }
 
     @Test
@@ -78,7 +78,7 @@ public class LaserBeamTest {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setStopPosition(-1, -1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
     }
 
     @Test
@@ -88,7 +88,7 @@ public class LaserBeamTest {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setStopPosition(1, 1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
     }
 
     @Test
@@ -98,7 +98,7 @@ public class LaserBeamTest {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setStopPosition(-1, 1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
     }
 
     @Test
@@ -108,6 +108,6 @@ public class LaserBeamTest {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setStopPosition(0, 0);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getXPos() == startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() == startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() == startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() == startPos.getY()));
     }
 }

@@ -31,7 +31,7 @@ public class Asteroid extends Projectile {
         setYVelocity(yVelocity);
         setSpeed(200);
         this.damage = 20;
-        getHitBoxes().get(0).setPosition(xPos, yPos);
+        getHitBoxes().get(0).updateHitBox(xPos, yPos, width, height);
     }
 
     public int getDamage() {
@@ -52,7 +52,7 @@ public class Asteroid extends Projectile {
             updateWidth(64);
             updateHeight(64);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
         } else {
             // medium asteroid
@@ -60,7 +60,7 @@ public class Asteroid extends Projectile {
             updateWidth(100);
             updateHeight(100);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);
         }
     }

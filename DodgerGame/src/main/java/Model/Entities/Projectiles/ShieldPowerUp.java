@@ -25,7 +25,7 @@ public class ShieldPowerUp extends Projectile {
         setYVelocity(yVelocity);
         setSpeed(200);
         this.hitCapacity = 1;
-        getHitBoxes().get(0).setPosition(xPos, yPos);
+        getHitBoxes().get(0).updateHitBox(xPos, yPos, getWidth(), getHeight());
     }
 
     public int getHitCapacity() {

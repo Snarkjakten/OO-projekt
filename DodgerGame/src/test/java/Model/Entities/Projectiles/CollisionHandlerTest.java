@@ -29,15 +29,15 @@ public class CollisionHandlerTest {
 
     @Test
     public void hitBoxesCollided() {
-        spaceship.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
-        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
+        spaceship.getHitBoxes().get(0).updateHitBox(10, 10, 10, 10);
+        asteroid.getHitBoxes().get(0).updateHitBox(10, 10, 10, 10);
         Assert.assertTrue(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
     @Test
     public void doesNotCollide() {
-        spaceship.getHitBoxes().get(0).setHitBox(200, 200, 10, 10);
-        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
+        spaceship.getHitBoxes().get(0).updateHitBox(200, 200, 10, 10);
+        asteroid.getHitBoxes().get(0).updateHitBox(10, 10, 10, 10);
         Assert.assertFalse(collisionHandler.checkCollision(asteroid, spaceship));
     }
 

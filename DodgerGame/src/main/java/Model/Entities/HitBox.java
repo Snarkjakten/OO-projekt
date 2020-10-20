@@ -13,54 +13,104 @@ public class HitBox {
     private Rectangle2D hitBox;
 
     public HitBox(double xPos, double yPos, double width, double height) {
-        this.width = width * 0.6;
-        this.height = height * 0.6;
-        this.position = new Point2D(xPos, yPos);
-        setHitBox(xPos, yPos, this.width, this.height);
+        this.width = width;
+        this.height = height;
+        setPosition(new Point2D(xPos, yPos));
+        updateHitBox(xPos, yPos, width, height);
     }
 
-    public double getXPos() {
-        return this.hitBox.getX();
+    /**
+     * Creates a new Rectangle2D with the new values
+     *
+     * @param xPos   new xPosition
+     * @param yPos   new yPosition
+     * @param width  new Width
+     * @param height new Height
+     * @author Tobias Engblom
+     */
+    public void updateHitBox(double xPos, double yPos, double width, double height) {
+        setHitBox(new Rectangle2D(xPos, yPos, width * 0.6, height * 0.6));
+        setPosition(new Point2D(xPos, yPos));
     }
 
-    public double getYPos() {
-        return this.hitBox.getY();
-    }
-
-    public void setHitBox(double xPos, double yPos, double width, double height) {
-        this.hitBox = new Rectangle2D(xPos, yPos, width, height);
-        setPosition(xPos, yPos);
-    }
-
+    /**
+     * Updates the position of the hitBox depending on the velocity
+     *
+     * @param xVelocity the xVelocity for this hitBox
+     * @param yVelocity the yVelocity for this hitBox
+     * @author Tobias Engblom
+     */
     public void updatePosition(double xVelocity, double yVelocity) {
         this.position = position.add(xVelocity, yVelocity);
-        setHitBox(this.position.getX(), this.position.getY(), this.width, this.height);
+        updateHitBox(this.position.getX(), this.position.getY(), this.width, this.height);
     }
 
+    /**
+     * @param hitBox the new 2D rectangle for this hitBox
+     * @author Tobias Engblom
+     */
+    private void setHitBox(Rectangle2D hitBox) {
+        this.hitBox = hitBox;
+    }
+
+    /**
+     * @return the Rectangle2D hitBox of this hitBox
+     * @author Tobias Engblom
+     */
     public Rectangle2D getHitBox() {
         return hitBox;
     }
 
+    /**
+     * @return the position of this hitBox
+     * @author Tobias Engblom
+     */
     public Point2D getPosition() {
-        return this.position;
+        return position;
     }
 
-    public void setPosition(double xPos, double yPos) {
-        this.position = new Point2D(xPos, yPos);
+    /**
+     * Setter for this hitBox position
+     *
+     * @param position the new 2D point for this hitBox
+     * @author Tobias Engblom
+     */
+    private void setPosition(Point2D position) {
+        this.position = position;
     }
 
+    /**
+     * The hitBox width is 0.6 times the width of the game object
+     *
+     * @param width the new width
+     * @author Tobias Engblom
+     */
     public void setWidth(double width) {
-        this.width = width * 0.75;
+        this.width = width;
     }
 
+    /**
+     * The hitBox height is 0.6 times the height of the game object
+     *
+     * @param height the new height
+     * @author Tobias Engblom
+     */
     public void setHeight(double height) {
-        this.height = height * 0.75;
+        this.height = height;
     }
 
+    /**
+     * @return the width of this hitBox
+     * @author Tobias Engblom
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * @return the height of this hitBox
+     * @author Tobias Engblom
+     */
     public double getHeight() {
         return height;
     }

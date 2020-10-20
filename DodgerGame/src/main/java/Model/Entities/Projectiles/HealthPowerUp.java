@@ -25,8 +25,8 @@ public class HealthPowerUp extends Projectile {
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);
-        this.healingValue = getHealingValue();
-        getHitBoxes().get(0).setPosition(xPos, yPos);
+        this.healingValue = 50;
+        getHitBoxes().get(0).updateHitBox(xPos, yPos, getWidth(), getHeight());
     }
 
     /**

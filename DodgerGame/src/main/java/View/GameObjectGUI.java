@@ -79,7 +79,7 @@ public class GameObjectGUI implements IGameObjectObserver {
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
         Image image = addImageToGameObject(c);
         for (HitBox hitBox : hitBoxes) {
-            gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
+            gc.drawImage(image, hitBox.getPosition().getX(), hitBox.getPosition().getY(), width, height);
         }
     }
 
