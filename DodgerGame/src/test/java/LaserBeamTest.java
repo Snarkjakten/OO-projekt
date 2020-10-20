@@ -1,10 +1,8 @@
 import Model.Entities.Projectiles.LaserBeam;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import junit.framework.TestCase;
 import org.junit.Before;
 import org.junit.Test;
-
-import static org.junit.Assert.assertTrue;
 
 public class LaserBeamTest {
 

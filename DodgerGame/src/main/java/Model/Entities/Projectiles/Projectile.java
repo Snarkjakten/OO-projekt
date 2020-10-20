@@ -2,7 +2,7 @@ package Model.Entities.Projectiles;
 
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import java.util.Random;
 
 /**
@@ -10,8 +10,8 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-    private double horizontal;    // positive value: right, negative value: left
-    private double vertical;      // positive value: up, negative value: down
+    private double xVelocity;    // positive value: right, negative value: left
+    private double yVelocity;      // positive value: up, negative value: down
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
@@ -63,6 +63,8 @@ public abstract class Projectile extends AbstractGameObject {
         randomStartVelocity(side);
     }
 
+
+    // todo: kolla om vi kan undvika projektiler som missar skärmen
     /**
      * @author Olle Westerlund
      * The method sets a random velocity and direction for the projectile.
@@ -105,8 +107,8 @@ public abstract class Projectile extends AbstractGameObject {
                 System.out.println("Something wrong in randomVelocity");
                 break;
         }
-        setHorizontal(xPos);
-        setVertical(yPos);
+        setXVelocity(xPos);
+        setYVelocity(yPos);
     }
 
     /**
@@ -125,7 +127,7 @@ public abstract class Projectile extends AbstractGameObject {
      * @author Irja Vuorela
      */
     private void updateVelocity() {
-        this.velocity = (new Point2D(horizontal, vertical)).normalize();
+        this.velocity = (new Point2D(xVelocity, yVelocity)).normalize();
         this.velocity = velocity.multiply(this.getSpeed());
     }
 
@@ -140,11 +142,11 @@ public abstract class Projectile extends AbstractGameObject {
         return (!isStillOnX || !isStillOnY);
     }
 
-    public void setHorizontal(double horizontal) {
-        this.horizontal = horizontal;
+    public void setXVelocity(double xVelocity) {
+        this.xVelocity = xVelocity;
     }
 
-    public void setVertical(double vertical) {
-        this.vertical = vertical;
+    public void setYVelocity(double yVelocity) {
+        this.yVelocity = yVelocity;
     }
 }

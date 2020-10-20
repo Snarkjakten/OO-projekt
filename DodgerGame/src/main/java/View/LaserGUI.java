@@ -9,8 +9,9 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI implements ITimeObserver {
+public class LaserGUI implements ITimeObserver, IGameObjectObserver {
     private double animationTime;
+    private GraphicsContext gc;
     private Image[] frames;
     private final double duration = 0.1;
     private boolean isVertical = false;
@@ -32,6 +33,7 @@ public class LaserGUI implements ITimeObserver {
 
     public void setIsVertical(boolean isVertical) {
         this.isVertical = isVertical;
+        this.frames = new Image[8];
         initImages();
     }
 
@@ -80,11 +82,11 @@ public class LaserGUI implements ITimeObserver {
         if (isVertical) {
             url = "LaserBeam/laser0" + imageNumber + "V.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, 256, (playingFieldHeight + 100), false, false);
+            image = new Image(inputStream, 256, 700, false, false);
         } else {
             url = "LaserBeam/laser0" + imageNumber + "H.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, (playingFieldWidth + 100), 256, false, false);
+            image = new Image(inputStream, 900, 256, false, false);
         }
         return image;
     }
@@ -92,5 +94,18 @@ public class LaserGUI implements ITimeObserver {
     @Override
     public void actOnEvent(long time, double deltaTime) {
         this.animationTime = deltaTime;
+    }
+
+    /**
+     * @param x
+     * @param y
+     * @param c
+     * @param height
+     * @param width
+     * @author Irja Vuorela & Viktor Sundberg
+     */
+    @Override
+    public void actOnEvent(double x, double y, Class c, double height, double width) {
+        drawLaser(duration, x, y);
     }
 }
