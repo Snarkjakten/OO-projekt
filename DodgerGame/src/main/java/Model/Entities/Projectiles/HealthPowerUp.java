@@ -9,7 +9,7 @@ public class HealthPowerUp extends Projectile {
 
     public HealthPowerUp() {
         super(200, 64, 64);
-        this.healingValue = getHealingValue();
+        this.healingValue = 50;
     }
 
     /**
@@ -35,6 +35,6 @@ public class HealthPowerUp extends Projectile {
      * @return The amount of health the player will gain.
      */
     public int getHealingValue() {
-        return healingValue;
+        return this.healingValue;
     }
 }
