@@ -21,8 +21,8 @@ public class GameOverMenu extends AbstractMenu {
 
     public GameOverMenu() throws IOException {
         // Creates a title to the page.
-        getGc().fillText("GAME OVER", 95, 100);
-        getGc().strokeText("GAME OVER", 95, 100);
+        getGraphicsContext().fillText("GAME OVER", 95, 100);
+        getGraphicsContext().strokeText("GAME OVER", 95, 100);
 
         ButtonMenu buttonMenu = new ButtonMenu(20);
 

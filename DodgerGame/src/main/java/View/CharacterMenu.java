@@ -21,8 +21,8 @@ public class CharacterMenu extends AbstractMenu {
 
     public CharacterMenu() throws IOException {
         // Creates a title to the Character page.
-        getGc().fillText("Characters", 160, 100);
-        getGc().strokeText("Characters", 160, 100);
+        getGraphicsContext().fillText("Characters", 160, 100);
+        getGraphicsContext().strokeText("Characters", 160, 100);
 
         ButtonMenu buttonMenu = new ButtonMenu(20);
 

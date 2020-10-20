@@ -14,8 +14,8 @@ public class MainMenu extends AbstractMenu {
 
     public MainMenu() throws IOException {
         // Creates a title to the main page.
-        getGc().fillText("Space Dodger", 100, 100);
-        getGc().strokeText("Space Dodger", 100, 100);
+        getGraphicsContext().fillText("Space Dodger", 100, 100);
+        getGraphicsContext().strokeText("Space Dodger", 100, 100);
 
         ButtonMenu buttonMenu = new ButtonMenu(20);
 

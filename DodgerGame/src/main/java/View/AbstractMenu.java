@@ -12,21 +12,23 @@ import javafx.scene.text.FontWeight;
 import java.io.IOException;
 import java.io.InputStream;
 
-
+/**
+ * @author Tobias Engblom
+ */
 public abstract class AbstractMenu {
     private final Canvas title;
-    private final GraphicsContext gc;
+    private final GraphicsContext graphicsContext;
     private final Pane root;
 
     public AbstractMenu() throws IOException {
         int windowWidth = 800;
         title = new Canvas(windowWidth, 200);
-        gc = title.getGraphicsContext2D();
+        graphicsContext = title.getGraphicsContext2D();
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 100);
-        gc.setFont(font);
-        gc.setFill(Color.BLUEVIOLET);
-        gc.setStroke(Color.WHITE);
-        gc.setLineWidth(2);
+        graphicsContext.setFont(font);
+        graphicsContext.setFill(Color.BLUEVIOLET);
+        graphicsContext.setStroke(Color.WHITE);
+        graphicsContext.setLineWidth(2);
 
         InputStream is = getClass().getClassLoader().getResourceAsStream("backgroundSpace_01.1.png");
         assert is != null;
@@ -44,15 +46,27 @@ public abstract class AbstractMenu {
         root.getChildren().addAll(background);
     }
 
+    /**
+     * @return the Pane for this Menu
+     * @author Tobias Engblom
+     */
     public Pane getRoot() {
         return root;
     }
 
+    /**
+     * @return the Title for this Menu
+     * @author Tobias Engblom
+     */
     public Canvas getTitle() {
         return title;
     }
 
-    public GraphicsContext getGc() {
-        return gc;
+    /**
+     * @return the GraphicsContext for this Menu
+     * @author Tobias Engblom
+     */
+    public GraphicsContext getGraphicsContext() {
+        return graphicsContext;
     }
 }

@@ -45,8 +45,9 @@ public class KeyController implements IGameWorldObserver {
                 spaceship.setRight(1);
                 break;
             case ESCAPE:
-                gameLoop.pause();
-                stage.getScene().setRoot(pauseMenu.getRoot());
+                // TODO Implement pause function and pause menu
+                //gameLoop.pause();
+                //stage.getScene().setRoot(pauseMenu.getRoot());
                 break;
             default:
                 break;
