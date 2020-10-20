@@ -3,7 +3,6 @@ package Model.Movement;
 import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import com.sun.javafx.scene.text.TextLayout;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -32,6 +31,10 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.velocity = new Point2D(0, 0);
     }
 
+    /**
+     * @return the hitBoxes for this game object
+     * @author Tobias Engblom
+     */
     public List<HitBox> getHitBoxes() {
         return this.hitBoxes;
     }
@@ -50,7 +53,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     /**
      * Update the position of a movable object
      *
-     * @author Irja Vuorela and Tobias Engblom
+     * @authors Irja Vuorela and Tobias Engblom
      */
     protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
@@ -74,20 +77,37 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    // @Author Isak Almeros
+    /**
+     * @return the speed of this game object
+     * @author Isak Almeros
+     */
     public double getSpeed() {
         return speed;
     }
 
-    // @Author Isak Almeros
+    /**
+     * Sets the new speed to this game object
+     *
+     * @param speed the new speed
+     * @author Isak Almeros
+     */
     public void setSpeed(double speed) {
         this.speed = speed;
     }
 
+    /**
+     * @return the width of this game object
+     */
     public double getWidth() {
         return width;
     }
 
+    /**
+     * Updates width both for the object and its hitBoxes
+     *
+     * @param width the new width
+     * @author Tobias Engblom
+     */
     public void updateWidth(double width) {
         this.width = width;
         for (HitBox hitBox : hitBoxes) {
@@ -95,10 +115,19 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         }
     }
 
+    /**
+     * @return the height of this game object
+     */
     public double getHeight() {
         return height;
     }
 
+    /**
+     * Updates height both for the object and its hitBoxes
+     *
+     * @param height the new height
+     * @author Tobias Engblom
+     */
     public void updateHeight(double height) {
         this.height = height;
         for (HitBox hitBox : hitBoxes) {
@@ -109,7 +138,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     /**
      * Acts upon the collision based on instance of projectile
      *
-     * @param c The gameobject this gameobject collided with
+     * @param c The gameObject this gameObject collided with
      * @author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
     @Override

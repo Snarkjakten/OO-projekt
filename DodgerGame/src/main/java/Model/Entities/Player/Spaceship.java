@@ -65,42 +65,85 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     }
 
     // Setters for movement directions
+
+    /**
+     * Setter for direction up
+     *
+     * @param up
+     */
     public void setUp(int up) {
         this.up = up;
     }
 
+    /**
+     * Setter for direction down
+     *
+     * @param down
+     */
     public void setDown(int down) {
         this.down = down;
     }
 
+    /**
+     * Setter for direction left
+     *
+     * @param left
+     */
     public void setLeft(int left) {
         this.left = left;
     }
 
+    /**
+     * Setter for direction right
+     *
+     * @param right
+     */
     public void setRight(int right) {
         this.right = right;
     }
 
+    /**
+     * @return the maximum possible health points of this spaceship
+     */
     public int getMaxHp() {
         return maxHp;
     }
 
+    /**
+     * @return the amount of health points of this spaceship
+     */
     public int getHp() {
         return hp;
     }
 
+    /**
+     * Sets the new amount of health points to this spaceship
+     *
+     * @param hp the new amount of health points
+     */
     public void setHp(int hp) {
         this.hp = hp;
     }
 
+    /**
+     * @return the amount of points of this spaceship
+     */
     protected int getPoints() {
         return points;
     }
 
+    /**
+     * Sets the new amount of points to this spaceship
+     *
+     * @param points the new amount of points
+     */
     protected void setPoints(int points) {
         this.points = points;
     }
 
+    /**
+     * @return the number of shields of this spaceship
+     */
     public int getNrOfShields() {
         return nrOfShields;
     }
@@ -136,7 +179,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     /**
      * Acts upon the collision based on instance of projectile
      *
-     * @param gameObject
+     * @param gameObject the gameObject spaceship collided with
      * @author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
     @Override

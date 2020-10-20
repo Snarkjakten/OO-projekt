@@ -227,7 +227,7 @@ public class SpaceshipTest {
     @Test
     public void testGainShield() {
         int oldShields = spaceship.getNrOfShields();
-        spaceship.gainShield();
+        spaceship.gainShield(1);
         int newShields = spaceship.getNrOfShields();
         assertTrue(newShields > oldShields);
     }
