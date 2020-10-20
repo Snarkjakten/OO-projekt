@@ -3,6 +3,10 @@ package Model;
 import Interfaces.ITimeObserver;
 import Model.Entities.Player.Player;
 
+/**
+ * @Author Isak Almeros
+ */
+
 public class ScoreCalculator implements ITimeObserver {
     Player player;
 
