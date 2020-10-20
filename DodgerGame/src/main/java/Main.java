@@ -5,6 +5,7 @@ import Model.GameWorld;
 import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
+import Model.ScoreCalculator;
 import Model.WaveManager;
 import View.*;
 import View.Sound.GameObjectsSounds;
@@ -35,6 +36,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     private SoundHandler soundHandler = new SoundHandler();
     private HighScoreHandler scoreHandler = new HighScoreHandler();
+    private ScoreCalculator scoreCalculator;
 
     private GraphicsContext graphicsContext;
 
@@ -43,6 +45,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
+        scoreCalculator = new ScoreCalculator();
         gameObjects = gameWorld.getGameObjects();
         Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         graphicsContext = window.getGraphicsContext();
@@ -128,6 +131,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
 
+
                 endGame();
                 previousNanoTime = currentNanoTime;
 
@@ -161,6 +165,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         addObserver(vc);
         addTimeObserver(timeView);
         addTimeObserver(shieldGUI);
+        addTimeObserver(scoreCalculator);
         addPlayerObserver(shieldGUI);
         addPlayerObserver(healthBarGUI);
         addCollisionObserver(gameWorld.getPlayer());
@@ -177,11 +182,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     public void checkGameWorld() {
         this.gameWorld = GameWorld.getInstance();
-    }
-
-    //@Author Isak
-    public void stopAnimationTimer() {
-        gameLoop.stop();
     }
 
     /**
@@ -244,13 +244,14 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private void endGame() {
         if (gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
-            notifyGameOverObservers(gameWorld.getIsGameOver());
+            notifyGameOverObservers(gameWorld.getIsGameOver(), scoreCalculator.getPoints());
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
+            scoreHandler.handleScore(scoreCalculator.getPoints());
         }
     }
 
@@ -278,9 +279,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     }
 
     @Override
-    public void notifyGameOverObservers(boolean isGameOver) {
+    public void notifyGameOverObservers(boolean isGameOver, int points) {
         for (IGameOverObserver obs : gameOverObservers) {
-            obs.actOnEvent(isGameOver);
+            obs.actOnEvent(isGameOver, points);
         }
     }
 
@@ -306,7 +307,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     @Override
     public void notifyPlayerObservers(Player player) {
-        Player copyOfPlayer = new Player(player.getSpaceships(), player.getNrOfShields(), player.getPoints(), player.getHp());
+        Player copyOfPlayer = new Player(player.getSpaceships(), player.getNrOfShields(), player.getHp());
         for (IPlayerObserver obs : playerObservers) {
             obs.actOnEvent(copyOfPlayer);
         }

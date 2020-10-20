@@ -1,5 +1,6 @@
 package Model.Entities.Player;
 
+import Interfaces.ITimeObserver;
 import Model.Entities.Projectiles.Asteroid;
 import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ShieldPowerUp;
@@ -16,22 +17,19 @@ public class Player implements ICollisionObserver {
     private List<Spaceship> spaceships;
     private int hp;
 
-    private int points;
     private int nrOfShields;
 
     // todo: add authors
     public Player() {
         this.spaceships = new ArrayList<>();
         this.nrOfShields = 0;
-        this.points = 0;
         maxHp = 200;
         this.hp = maxHp;
     }
 
-    public Player(List<Spaceship> spaceships, int nrOfShields, int points, int hp) {
+    public Player(List<Spaceship> spaceships, int nrOfShields, int hp) {
         this.spaceships = spaceships;
         this.nrOfShields = nrOfShields;
-        this.points = points;
         maxHp = 200;
         this.hp = hp;
     }
@@ -46,14 +44,6 @@ public class Player implements ICollisionObserver {
 
     public int getMaxHp() {
         return maxHp;
-    }
-
-    public int getPoints() {
-        return points;
-    }
-
-    public void setPoints(int points) {
-        this.points = points;
     }
 
     public List<Spaceship> getSpaceships() {
