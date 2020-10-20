@@ -306,7 +306,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     @Override
     public void notifyPlayerObservers(Player player) {
-        Player copyOfPlayer = new Player(player.getSpaceships(), player.getNrOfShields(), player.getPoints(), player.getHp());
+        Player copyOfPlayer = new Player(player.getSpaceships(), player.getNrOfShields(), player.getHp());
         for (IPlayerObserver obs : playerObservers) {
             obs.actOnEvent(copyOfPlayer);
         }

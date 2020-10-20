@@ -23,15 +23,13 @@ public class Player implements ICollisionObserver {
     public Player() {
         this.spaceships = new ArrayList<>();
         this.nrOfShields = 0;
-        this.points = 0;
         maxHp = 200;
         this.hp = maxHp;
     }
 
-    public Player(List<Spaceship> spaceships, int nrOfShields, int points, int hp) {
+    public Player(List<Spaceship> spaceships, int nrOfShields, int hp) {
         this.spaceships = spaceships;
         this.nrOfShields = nrOfShields;
-        this.points = points;
         maxHp = 200;
         this.hp = hp;
     }
