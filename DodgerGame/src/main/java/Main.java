@@ -1,6 +1,7 @@
 import Interfaces.*;
 import Model.Entities.Player.Player;
 import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.LaserBeam;
 import Model.GameWorld;
 import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;

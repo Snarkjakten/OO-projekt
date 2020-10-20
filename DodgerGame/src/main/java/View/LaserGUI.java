@@ -1,7 +1,9 @@
 package View;
 
+import Interfaces.IGameObjectObserver;
 import Interfaces.ITimeObserver;
 import Model.GameWorld;
+import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
@@ -9,7 +11,7 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI implements ITimeObserver, IGameObjectObserver {
+public class LaserGUI implements ITimeObserver { // , IGameObjectObserver
     private double animationTime;
     private GraphicsContext gc;
     private Image[] frames;
@@ -96,6 +98,7 @@ public class LaserGUI implements ITimeObserver, IGameObjectObserver {
         this.animationTime = deltaTime;
     }
 
+
     /**
      * @param x
      * @param y
@@ -104,8 +107,10 @@ public class LaserGUI implements ITimeObserver, IGameObjectObserver {
      * @param width
      * @author Irja Vuorela & Viktor Sundberg
      */
+    /*
     @Override
     public void actOnEvent(double x, double y, Class c, double height, double width) {
         drawLaser(duration, x, y);
     }
+    */
 }

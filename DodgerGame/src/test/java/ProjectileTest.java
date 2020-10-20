@@ -18,7 +18,6 @@ public class ProjectileTest {
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     ShieldPowerUp shieldPowerUp;
-    HealthPowerUp hpUp;
     HealthPowerUp healthPowerUp;
     Point2D startPos;
     List<AbstractGameObject> gameObjects;
