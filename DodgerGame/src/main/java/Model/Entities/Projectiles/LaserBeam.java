@@ -1,7 +1,6 @@
 package Model.Entities.Projectiles;
 
 import Model.GameWorld;
-import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
 import java.util.Random;
