@@ -45,7 +45,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
-        scoreCalculator = new ScoreCalculator(gameWorld.getPlayer());
+        scoreCalculator = new ScoreCalculator();
         gameObjects = gameWorld.getGameObjects();
         Window window = new Window(stage, gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         graphicsContext = window.getGraphicsContext();
@@ -130,6 +130,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
                 long elapsedTime = calculateElapsedTime(startNanoTime);
                 notifyTimeObservers(elapsedTime, animationTime);
+
 
                 endGame();
                 previousNanoTime = currentNanoTime;
@@ -243,14 +244,13 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private void endGame() {
         if (gameWorld.getPlayer().getHp() <= 0) {
             gameWorld.setGameOver(true);
-            notifyGameOverObservers(gameWorld.getIsGameOver(), gameWorld.getPlayer().getPoints());
+            notifyGameOverObservers(gameWorld.getIsGameOver(), scoreCalculator.getPoints());
             gameObjects.clear();
             collisionObservers.remove(gameWorld.getPlayer());
             gameWorld.createNewGameWorld();
             gameWorld = GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
-            scoreCalculator.setPlayer(gameWorld.getPlayer());
         }
     }
 
