@@ -27,47 +27,19 @@ public class CollisionHandlerTest {
         spaceship = new Spaceship(368, 248, 64, 64);
     }
 
-    /*
     @Test
-<<<<<<< HEAD
-    public void testSetGetHitbox() {
-        asteroid.set(0, 0, 10, 10);
-        Assert.assertEquals(asteroid.getHitBoxes().get(0), new Rectangle2D(0, 0, 10 * 0.75, 10 * 0.75));
-    }
-
-     */
-
-    @Test
-    public void testSetCollided() {
-        asteroid.setCollided(true);
-        Assert.assertTrue(asteroid.getCollided());
-        asteroid.setCollided(false);
-    }
-
-    /*
-    @Test
-    public void testCheckCollisions() {
-        spaceship.setHitbox(10, 10, 10, 10);
-        asteroid.setHitbox(10, 10, 10, 10);
-=======
-    public void hitboxesCollided() {
-        spaceship.setHitbox(10,10,10,10);
-        asteroid.setHitbox(10,10,10,10);
->>>>>>> master
+    public void hitBoxesCollided() {
+        spaceship.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
+        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
         Assert.assertTrue(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
-     */
-
-    /*
     @Test
     public void doesNotCollide() {
-        spaceship.setHitbox(200, 200, 10, 10);
-        asteroid.setHitbox(10, 10, 10, 10);
+        spaceship.getHitBoxes().get(0).setHitBox(200, 200, 10, 10);
+        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
         Assert.assertFalse(collisionHandler.checkCollision(asteroid, spaceship));
     }
-
-     */
 
     @Test
     public void spaceshipCollided() {
