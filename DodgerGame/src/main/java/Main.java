@@ -49,11 +49,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         gameObjects = gameWorld.getGameObjects();
         Window window = new Window(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         GraphicsContext graphicsContext = window.getGraphicsContext();
-        MainMenu mainMenu = new MainMenu();
-        HighScoreMenu highScoreMenu = new HighScoreMenu();
-        CharacterMenu characterMenu = new CharacterMenu();
-        GameOverMenu gameOverMenu = new GameOverMenu();
-        PauseMenu pauseMenu = new PauseMenu();
+        MainMenu mainMenu = MenuFactory.createMainMenu();
+        HighScoreMenu highScoreMenu = MenuFactory.createHighScoreMenu();
+        CharacterMenu characterMenu = MenuFactory.createCharacterMenu();
+        GameOverMenu gameOverMenu = MenuFactory.createGameOverMenu();
+        PauseMenu pauseMenu = MenuFactory.createPauseMenu();
         WaveManager waveManager = new WaveManager();
 
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
@@ -67,13 +67,10 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
             final long currentNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
-
             final long animationNanoTime = System.nanoTime();
 
             @Override
             public void tick(long currentNanoTime) {
-                checkGameWorld();
-
                 /**
                  * Calculates time since last update
                  * @author Irja Vuorela
@@ -140,7 +137,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
 
                  */
-                System.out.println(gameWorld.getSpaceship().getHp());
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);
@@ -197,10 +193,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
 
     public static void main(String[] args) {
         launch(args);
-    }
-
-    public void checkGameWorld() {
-        this.gameWorld = GameWorld.getInstance();
     }
 
     /**

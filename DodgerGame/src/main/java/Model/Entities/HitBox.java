@@ -13,8 +13,8 @@ public class HitBox {
     private Rectangle2D hitBox;
 
     public HitBox(double xPos, double yPos, double width, double height) {
-        this.width = width * 0.75;
-        this.height = height * 0.75;
+        this.width = width * 0.6;
+        this.height = height * 0.6;
         this.position = new Point2D(xPos, yPos);
         setHitBox(xPos, yPos, this.width, this.height);
     }
@@ -29,6 +29,7 @@ public class HitBox {
 
     public void setHitBox(double xPos, double yPos, double width, double height) {
         this.hitBox = new Rectangle2D(xPos, yPos, width, height);
+        setPosition(xPos, yPos);
     }
 
     public void updatePosition(double xVelocity, double yVelocity) {

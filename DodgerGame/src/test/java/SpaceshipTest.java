@@ -1,5 +1,7 @@
+import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Player.SpaceshipFactory;
+import Model.GameWorld;
 import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -9,6 +11,7 @@ import static junit.framework.TestCase.assertTrue;
 
 public class SpaceshipTest {
 
+    GameWorld gameWorld;
     Spaceship spaceship;
     Point2D startPos;
     double deltaTime = 0.016;
@@ -18,6 +21,7 @@ public class SpaceshipTest {
      */
     @Before
     public void init() {
+        gameWorld = GameWorld.getInstance();
         spaceship = SpaceshipFactory.createSpaceship(0, 0, 64, 64);
     }
 
@@ -186,15 +190,14 @@ public class SpaceshipTest {
         assertTrue((spaceship.getHitBoxes().get(0).getXPos() == startPos.getX()) && (spaceship.getHitBoxes().get(0).getYPos() == startPos.getY()));
     }
 
-
-    // todo: finish these
-
     /**
      * @author Tobias Engblom
      */
     @Test
     public void westWrapAround() {
-
+        spaceship.getHitBoxes().get(0).setHitBox(-20, 300, 64, 64);
+        gameWorld.wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
     }
 
     /**
@@ -202,7 +205,9 @@ public class SpaceshipTest {
      */
     @Test
     public void northWrapAround() {
-
+        spaceship.getHitBoxes().get(0).setHitBox(20, -5, 64, 64);
+        gameWorld.wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
     }
 
     /**
@@ -210,7 +215,9 @@ public class SpaceshipTest {
      */
     @Test
     public void eastWrapAround() {
-
+        spaceship.getHitBoxes().get(0).setHitBox(770, 300, 64, 64);
+        gameWorld.wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
     }
 
     /**
@@ -218,7 +225,53 @@ public class SpaceshipTest {
      */
     @Test
     public void southWrapAround() {
+        spaceship.getHitBoxes().get(0).setHitBox(20, 550, 64, 64);
+        gameWorld.wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
+    }
 
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsWestWrapAround() {
+        spaceship.getHitBoxes().get(0).setHitBox(-20, 300, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(-20, 300, 64, 64));
+        gameWorld.wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsNorthWrapAround() {
+        spaceship.getHitBoxes().get(0).setHitBox(20, -5, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(20, -5, 64, 64));
+        gameWorld.wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsEastWrapAround() {
+        spaceship.getHitBoxes().get(0).setHitBox(770, 300, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(770, 300, 64, 64));
+        gameWorld.wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsSouthWrapAround() {
+        spaceship.getHitBoxes().get(0).setHitBox(5, 550, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(5, 550, 64, 64));
+        gameWorld.wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
     }
 
     /**
@@ -230,6 +283,29 @@ public class SpaceshipTest {
         spaceship.gainShield(1);
         int newShields = spaceship.getNrOfShields();
         assertTrue(newShields > oldShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void testLoseShield() {
+        spaceship.gainShield(1);
+        int oldShields = spaceship.getNrOfShields();
+        spaceship.loseShield();
+        int newShields = spaceship.getNrOfShields();
+        assertTrue(newShields < oldShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void testLoseShieldWhenNrShieldsIsZero() {
+        int oldShields = spaceship.getNrOfShields();
+        spaceship.loseShield();
+        int newShields = spaceship.getNrOfShields();
+        assertEquals(newShields, oldShields);
     }
 
     /**

@@ -22,4 +22,8 @@ public abstract class MenuFactory {
     public static PauseMenu createPauseMenu() throws IOException {
         return new PauseMenu();
     }
+
+    public static HighScoreMenu createHighScoreMenu() throws IOException {
+        return new HighScoreMenu();
+    }
 }

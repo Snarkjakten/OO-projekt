@@ -62,8 +62,6 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         this.velocity = velocity.multiply(getSpeed());
     }
 
-    // Setters for movement directions
-
     /**
      * Setter for direction up
      *
@@ -153,9 +151,12 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     /**
      * @author Olle Westerlund
      */
-    protected void loseShield() {
-        if (this.nrOfShields > 0) this.nrOfShields -= 1;
-        else this.nrOfShields = 0;
+    public void loseShield() {
+        if (this.nrOfShields > 0) {
+            this.nrOfShields -= 1;
+        } else {
+            this.nrOfShields = 0;
+        }
     }
 
     /**
@@ -176,12 +177,16 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     @Override
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
         if (gameObject instanceof Asteroid)
-            if (this.nrOfShields > 0) loseShield();
-            else this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
-        else if (gameObject instanceof ShieldPowerUp) gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
-        else if (gameObject instanceof HealthPowerUp)
+            if (this.nrOfShields > 0) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+            }
+        else if (gameObject instanceof ShieldPowerUp) {
+            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
+        } else if (gameObject instanceof HealthPowerUp) {
             gainHealth(((HealthPowerUp) gameObject).getHealingValue());
-        else if (gameObject instanceof SlowDebuff) {
+        } else if (gameObject instanceof SlowDebuff) {
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             setSpeed(getSpeed() * slowSpeedFactor);
         }
