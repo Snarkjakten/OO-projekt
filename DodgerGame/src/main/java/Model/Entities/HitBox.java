@@ -5,8 +5,8 @@ import javafx.geometry.Rectangle2D;
 
 public class HitBox {
 
-    private final double width;
-    private final double height;
+    private double width;
+    private double height;
     // Position (x, y)
     private Point2D position;
     private Rectangle2D hitBox;
@@ -26,7 +26,7 @@ public class HitBox {
         return this.hitBox.getMinY();
     }
 
-    private void setHitBox(double xPos, double yPos, double width, double height) {
+    public void setHitBox(double xPos, double yPos, double width, double height) {
         this.hitBox = new Rectangle2D(xPos, yPos, width, height);
     }
 
@@ -45,5 +45,21 @@ public class HitBox {
 
     public void setPosition(double xPos, double yPos) {
         this.position = new Point2D(xPos, yPos);
+    }
+
+    public void setWidth(double width) {
+        this.width = width * 0.75;
+    }
+
+    public void setHeight(double height) {
+        this.height = height * 0.75;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public double getHeight() {
+        return height;
     }
 }

@@ -1,6 +1,7 @@
 package Model.Entities.Projectiles;
 
-import javafx.geometry.Rectangle2D;
+import Model.Entities.HitBox;
+import com.sun.javafx.scene.text.TextLayout;
 
 import java.util.Random;
 
@@ -11,7 +12,7 @@ public class Asteroid extends Projectile {
     private int damage;
 
     public Asteroid() {
-        super(50);
+        super(50, 24, 24);
         initAsteroid();
     }
 
@@ -25,13 +26,11 @@ public class Asteroid extends Projectile {
      * @param yVelocity the y-value to calculate this object's velocity.
      * @authors Irja & Viktor
      */
-    public Asteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed);
+    public Asteroid(double speed, double width, double height, double xPos, double yPos, double xVelocity, double yVelocity) {
+        super(speed, width, height);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);
-        setWidth(width);
-        setHeight(height);
         this.damage = 20;
         getHitBoxes().get(0).setPosition(xPos, yPos);
     }
@@ -51,15 +50,19 @@ public class Asteroid extends Projectile {
         if (type <= 70) {
             //Small asteroid
             this.damage = 20;
-            this.height = 64;
-            this.width = 64;
-            this.setSpeed(200);
+            updateWidth(64);
+            updateHeight(64);
+            for (HitBox hitBox : getHitBoxes())
+                hitBox.setHitBox(hitBox.getHitBox().getMinX(), hitBox.getHitBox().getMinY(), hitBox.getWidth(), hitBox.getHeight());
+            setSpeed(200);
         } else {
             // medium asteroid
             this.damage = 35;
-            this.height = 100;
-            this.width = 100;
-            this.setSpeed(100);
+            updateWidth(100);
+            updateHeight(100);
+            for (HitBox hitBox : getHitBoxes())
+                hitBox.setHitBox(hitBox.getHitBox().getMinX(), hitBox.getHitBox().getMinY(), hitBox.getWidth(), hitBox.getHeight());
+            setSpeed(100);
         }
     }
 }

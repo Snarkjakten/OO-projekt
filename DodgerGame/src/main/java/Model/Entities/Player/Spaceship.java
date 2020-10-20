@@ -23,8 +23,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     private int right = 0; // moving right increases horizontal axis value
 
     public Spaceship(double xPos, double yPos, double width, double height) {
-        setWidth(width);
-        setHeight(height);
+        super(width, height);
         getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         this.nrOfShields = 0;
         this.points = 0;
@@ -35,11 +34,8 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
 
     @Override
     public void move(double deltaTime) {
-        //System.out.println("First: " + this.velocity);
         updateVelocity();
-        //System.out.println("Before: " + this.velocity);
         updatePosition(deltaTime);
-        //System.out.println("After: " + this.velocity);
     }
 
     /**

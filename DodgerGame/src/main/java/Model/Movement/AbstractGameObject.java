@@ -3,6 +3,7 @@ package Model.Movement;
 import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
+import com.sun.javafx.scene.text.TextLayout;
 import javafx.geometry.Point2D;
 
 import java.util.ArrayList;
@@ -13,8 +14,8 @@ import java.util.List;
  */
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    protected double width;
-    protected double height;
+    private double width;
+    private double height;
     private final List<HitBox> hitBoxes;
     private boolean collided;
     // Velocity (horizontal, vertical)
@@ -22,7 +23,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     // Game movement speed
     private double speed;
 
-    public AbstractGameObject() {
+    public AbstractGameObject(double width, double height) {
+        this.width = width;
+        this.height = height;
         this.hitBoxes = new ArrayList<>();
         this.collided = false;
         this.speed = 250;
@@ -56,22 +59,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         }
     }
 
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    public double getWidth() {
-        return this.width;
-    }
-
-    public double getHeight() {
-        return this.height;
-    }
-
     //-------------------------------------------------------
 
     /**
@@ -95,6 +82,28 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     // @Author Isak Almeros
     public void setSpeed(double speed) {
         this.speed = speed;
+    }
+
+    public double getWidth() {
+        return width;
+    }
+
+    public void updateWidth(double width) {
+        this.width = width;
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setWidth(width);
+        }
+    }
+
+    public double getHeight() {
+        return height;
+    }
+
+    public void updateHeight(double height) {
+        this.height = height;
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setHeight(height);
+        }
     }
 
     /**

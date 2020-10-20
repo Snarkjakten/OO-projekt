@@ -13,7 +13,6 @@ import java.util.Random;
 public class LaserBeam extends AbstractGameObject {
     private double horizontal;
     private double vertical;
-    private boolean isVertical;
     private final int damage;
 
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
@@ -21,6 +20,7 @@ public class LaserBeam extends AbstractGameObject {
 
 
     public LaserBeam() {
+        super(1, 1);
         setSpeed(100);
         this.damage = 100;
         getHitBoxes().add(new HitBox(0, 0, 1, 1));
@@ -49,22 +49,18 @@ public class LaserBeam extends AbstractGameObject {
         int side = random.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
-                this.isVertical = false;
                 setStopPosition(0, -50);
                 hitBox.updatePosition(-50, verticalMapSize + 50);
                 break;
             case 1: // Right side of the screen
-                this.isVertical = true;
                 setStopPosition(-50, 0);
                 hitBox.updatePosition(horizontalMapSize + 50, -50);
                 break;
             case 2: // Top of the screen
-                this.isVertical = false;
                 setStopPosition(0, verticalMapSize);
                 hitBox.updatePosition(-50, -50);
                 break;
             case 3: // Left of the screen
-                this.isVertical = true;
                 setStopPosition(horizontalMapSize, 0);
                 hitBox.updatePosition(-50, -50);
                 break;
