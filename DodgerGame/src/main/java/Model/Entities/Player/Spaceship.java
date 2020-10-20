@@ -106,14 +106,14 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @return the maximum possible health points of this spaceship
      */
     public int getMaxHp() {
-        return maxHp;
+        return this.maxHp;
     }
 
     /**
      * @return the amount of health points of this spaceship
      */
     public int getHp() {
-        return hp;
+        return this.hp;
     }
 
     /**
@@ -129,7 +129,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @return the amount of points of this spaceship
      */
     protected int getPoints() {
-        return points;
+        return this.points;
     }
 
     /**
@@ -145,7 +145,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @return the number of shields of this spaceship
      */
     public int getNrOfShields() {
-        return nrOfShields;
+        return this.nrOfShields;
     }
 
     /**
