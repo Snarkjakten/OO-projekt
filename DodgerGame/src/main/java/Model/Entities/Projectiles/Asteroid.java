@@ -49,16 +49,16 @@ public class Asteroid extends Projectile {
         if (type <= 70) {
             //Small asteroid
             this.damage = 20;
-            updateWidth(64);
-            updateHeight(64);
+            updateWidthHitboxes(64);
+            updateHeightHitboxes(64);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
         } else {
             // medium asteroid
             this.damage = 35;
-            updateWidth(100);
-            updateHeight(100);
+            updateWidthHitboxes(100);
+            updateHeightHitboxes(100);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);

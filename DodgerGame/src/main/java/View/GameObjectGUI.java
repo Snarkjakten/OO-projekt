@@ -90,14 +90,18 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     private void drawImage(double x, double y, Class c, double height, double width) {
-        Image image = addImageToProjectile(c);
+        Image image = addImageToGameObject(c);
         gc.drawImage(image, x, y, imageWidth, imageHeight);
+    }
+
+
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
         Image image = addImageToGameObject(c);
         for (HitBox hitBox : hitBoxes) {
             gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
         }
     }
+
 
     @Override
     public void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height) {
@@ -119,4 +123,5 @@ public class GameObjectGUI implements IGameObjectObserver {
     public static String getFourthChoice() {
         return fourthChoice;
     }
+
 }

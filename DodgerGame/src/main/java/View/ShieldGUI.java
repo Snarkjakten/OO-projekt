@@ -3,7 +3,6 @@ package View;
 import Model.Entities.HitBox;
 import Interfaces.ISpaceshipObserver;
 import Model.Entities.Player.Spaceship;
-import Interfaces.IPlayerObserver;
 import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -73,11 +72,11 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
     private void drawImage(Spaceship spaceship) {
         if (spaceship.getNrOfShields() > 0) {
             Image image = getFrame(animationTime);
-            for (Spaceship ship : player.getSpaceships()) {
-                double xPos = ship.position.getX() - 7;
-                double yPos = ship.position.getY() - 7;
-                double height = ship.getHeight() * 1.25;
-                double width = ship.getWidth() * 1.25;
+            for (HitBox hitBox : spaceship.getHitBoxes()) {
+                double xPos = hitBox.getPosition().getX() - 7;
+                double yPos = hitBox.getPosition().getY() - 7;
+                double height = hitBox.getHeight() * 1.25;
+                double width = hitBox.getWidth() * 1.25;
                 gc.drawImage(image, xPos, yPos, height, width);
             }
         }

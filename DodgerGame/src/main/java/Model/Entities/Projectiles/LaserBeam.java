@@ -1,7 +1,7 @@
 package Model.Entities.Projectiles;
 
+import Model.Entities.HitBox;
 import Model.GameWorld;
-import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
 import java.util.Random;
@@ -18,7 +18,7 @@ public class LaserBeam extends Projectile {
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public LaserBeam() {
-        super(100);
+        super(100, 1, 1);
         randomStartPoint();
         initSize();
     }
@@ -31,17 +31,15 @@ public class LaserBeam extends Projectile {
 
     private void initSize() {
         if (isVertical) {
-            this.width = 10;
-            this.height = verticalMapSize + 100;
-//            setHitbox(this.position.getX(), this.position.getY(), 5, verticalMapSize + 100);
+            updateWidthHitboxes(10);
+            updateHeightHitboxes(verticalMapSize + 100);
         } else {
-            this.width = horizontalMapSize + 100;
-            this.height = 10;
-//            setHitbox(this.position.getX(), this.position.getY(), horizontalMapSize + 100, 5);
+            updateWidthHitboxes(horizontalMapSize + 100);
+            updateHeightHitboxes(10);
         }
     }
 
-    private void updateVelocity() {
+    public void updateVelocity() {
         this.velocity = (new Point2D(horizontal, vertical)).normalize();
         this.velocity = velocity.multiply(this.getSpeed());
     }

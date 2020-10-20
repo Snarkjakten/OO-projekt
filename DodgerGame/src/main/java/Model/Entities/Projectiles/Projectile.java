@@ -23,10 +23,6 @@ public abstract class Projectile extends AbstractGameObject {
         randomPosition();
     }
 
-    public Projectile(double speed) {
-        this.setSpeed(speed);
-    }
-
     /**
      * @author Olle Westerlund
      * The method sets a random starting position for the projectile.
@@ -41,27 +37,23 @@ public abstract class Projectile extends AbstractGameObject {
             case 0: // Bottom of the screen
                 xPos = randomPos.nextDouble() * horizontalMapSize;
                 yPos = verticalMapSize + 50;
-                this.position = new Point2D(xPos, yPos);
                 break;
             case 1: // Right side of the screen
                 xPos = horizontalMapSize + 50;
                 yPos = randomPos.nextDouble() * verticalMapSize;
-                this.position = new Point2D(xPos, yPos);
                 break;
             case 2: // Top of the screen
                 xPos = randomPos.nextDouble() * horizontalMapSize;
                 yPos = -50;
-                this.position = new Point2D(xPos, yPos);
                 break;
             case 3: // Left of the screen
                 xPos = -50;
                 yPos = randomPos.nextDouble() * verticalMapSize;
-                this.position = new Point2D(xPos, yPos);
                 break;
             default:
-                System.out.println("Error in randomPosition");
                 break;
         }
+        hitBox.setPosition(xPos, yPos);
         randomStartVelocity(side);
     }
 
@@ -107,7 +99,6 @@ public abstract class Projectile extends AbstractGameObject {
                 }
                 break;
             default:
-                System.out.println("Something wrong in randomVelocity");
                 break;
         }
         setXVelocity(xPos);
