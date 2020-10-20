@@ -7,7 +7,7 @@ import org.junit.Before;
 import org.junit.Test;
 
 /**
- * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+ * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
 public class CollisionHandlerTest {
@@ -20,24 +20,24 @@ public class CollisionHandlerTest {
     CollisionHandler collisionHandler = new CollisionHandler();
 
     @Before
-    public void init(){
+    public void init() {
         asteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
-        spaceship = new Spaceship(368, 248);
+        spaceship = new Spaceship(368, 248, 64, 64);
     }
 
     @Test
-    public void hitboxesCollided() {
-        spaceship.setHitbox(10,10,10,10);
-        asteroid.setHitbox(10,10,10,10);
+    public void hitBoxesCollided() {
+        spaceship.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
+        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
         Assert.assertTrue(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
     @Test
     public void doesNotCollide() {
-        spaceship.setHitbox(200,200,10,10);
-        asteroid.setHitbox(10,10,10,10);
+        spaceship.getHitBoxes().get(0).setHitBox(200, 200, 10, 10);
+        asteroid.getHitBoxes().get(0).setHitBox(10, 10, 10, 10);
         Assert.assertFalse(collisionHandler.checkCollision(asteroid, spaceship));
     }
 

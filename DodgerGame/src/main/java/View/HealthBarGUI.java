@@ -1,18 +1,18 @@
 package View;
 
-import Model.Entities.Player.Player;
-import Interfaces.IPlayerObserver;
+import Interfaces.ISpaceshipObserver;
+import Model.Entities.Player.Spaceship;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
 
 /**
- * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
+ * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class HealthBarGUI implements IPlayerObserver {
-    private GraphicsContext gc;
+public class HealthBarGUI implements ISpaceshipObserver {
+    private final GraphicsContext gc;
     private Image background;
     private Image foreground;
     private Image border;
@@ -30,18 +30,21 @@ public class HealthBarGUI implements IPlayerObserver {
 
     private Image addBackgroundToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBackground.png");
+        assert inputStream != null;
         background = new Image(inputStream);
         return background;
     }
 
     private Image addForegroundToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpForeground.png");
+        assert inputStream != null;
         foreground = new Image(inputStream);
         return foreground;
     }
 
     private Image addBorderToHpBar() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("hpBorder.png");
+        assert inputStream != null;
         border = new Image(inputStream);
         return border;
     }
@@ -53,7 +56,7 @@ public class HealthBarGUI implements IPlayerObserver {
     }
 
     @Override
-    public void actOnEvent(Player player) {
-        drawHealthBar(player.getHp(), player.getMaxHp());
+    public void actOnEvent(Spaceship spaceship) {
+        drawHealthBar(spaceship.getHp(), spaceship.getMaxHp());
     }
 }

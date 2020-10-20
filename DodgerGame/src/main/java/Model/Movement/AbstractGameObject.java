@@ -1,53 +1,51 @@
 package Model.Movement;
 
+import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
+
+import java.util.ArrayList;
+import java.util.List;
+
 import Model.Point2D;
-import Model.Rectangle2D;
 
 /**
- * @Author Irja Vuorela
+ * @author Irja Vuorela
  */
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    protected double height;
-    protected double width;
-    protected Rectangle2D hitbox = new Rectangle2D();
-    protected boolean collided = false;
+    private double width;
+    private double height;
+    private final List<HitBox> hitBoxes;
+    private boolean collided;
+    // Velocity (horizontal, vertical)
+    public Point2D velocity;
+    // Game movement speed
+    private double speed;
 
-    //Currently unused
-    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
-    public void setHitbox(double x, double y, double width, double height){
-        this.hitbox = new Rectangle2D(x, y, width * 0.75, height * 0.75);
+    public AbstractGameObject(double width, double height) {
+        this.width = width;
+        this.height = height;
+        this.hitBoxes = new ArrayList<>();
+        this.collided = false;
+        this.speed = 250;
+        this.velocity = new Point2D(0, 0);
     }
 
-    public Rectangle2D getHitbox(){
-        return hitbox;
+    /**
+     * @return the hitBoxes for this game object
+     * @author Tobias Engblom
+     */
+    public List<HitBox> getHitBoxes() {
+        return this.hitBoxes;
     }
 
     //------------------------------------------------------
 
-    // Position (x, y)
-    public Point2D position = new Point2D(0, 0);
-
-    public Point2D getVelocity() {
-        return velocity;
-    }
-
-    public void setVelocity(Point2D velocity) {
-        this.velocity = velocity;
-    }
-
-    // Velocity (x, y)
-    public Point2D velocity = new Point2D(0, 0);
-
-    // Game.Movement speed
-    private double speed = 250;
-
     /**
      * Move self to a new position
      *
-     * @Author Irja Vuorela
+     * @author Irja Vuorela
      */
     public void move(double deltaTime) {
         updatePosition(deltaTime);
@@ -56,39 +54,20 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     /**
      * Update the position of a movable object
      *
-     * @Author Irja Vuorela
+     * @authors Irja Vuorela and Tobias Engblom
      */
     protected void updatePosition(double deltaTime) {
         this.velocity = velocity.multiply(deltaTime);
-        this.position = position.add(getVelocity());
-        this.setHitbox(position.getX(), position.getY(), this.width * 0.75, this.height * 0.75);
+        for (HitBox hitBox : getHitBoxes()) {
+            hitBox.updatePosition(velocity.getX(), velocity.getY());
+        }
     }
+
+    //-------------------------------------------------------
 
     /**
-     * Getter for position
-     * @return position
-     * @author Irja Vuorela
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
-    @Override
-    public Point2D getPosition() {
-        return this.position;
-    }
-
-    // Setter for self position
-    // @Author Tobias Engblom
-    public void setPosition(double xPos, double yPos) {
-        position = new Point2D(xPos, yPos);
-    }
-
-    public double getHeight() {
-        return height;
-    }
-
-    public double getWidth() {
-        return width;
-    }
-
-    //@Author Viktor Sundberg (viktor.sundberg@icloud.com)
     @Override
     public boolean getCollided() {
         return this.collided;
@@ -99,18 +78,71 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    // @Author Isak Almeros
+    /**
+     * @return the speed of this game object
+     * @author Isak Almeros
+     */
     public double getSpeed() {
         return speed;
     }
 
-    // @Author Isak Almeros
+    /**
+     * Sets the new speed to this game object
+     *
+     * @param speed the new speed
+     * @author Isak Almeros
+     */
     public void setSpeed(double speed) {
         this.speed = speed;
     }
 
-    @Override
-    public void actOnCollision(AbstractGameObject c){ }
+    /**
+     * @return the width of this game object
+     */
+    public double getWidth() {
+        return width;
+    }
 
-    //-------------------------------------------------------
+    /**
+     * Updates width both for the object and its hitBoxes
+     *
+     * @param width the new width
+     * @author Tobias Engblom
+     */
+    public void updateWidth(double width) {
+        this.width = width;
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setWidth(width);
+        }
+    }
+
+    /**
+     * @return the height of this game object
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * Updates height both for the object and its hitBoxes
+     *
+     * @param height the new height
+     * @author Tobias Engblom
+     */
+    public void updateHeight(double height) {
+        this.height = height;
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setHeight(height);
+        }
+    }
+
+    /**
+     * Acts upon the collision based on instance of projectile
+     *
+     * @param c The gameObject this gameObject collided with
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+    }
 }

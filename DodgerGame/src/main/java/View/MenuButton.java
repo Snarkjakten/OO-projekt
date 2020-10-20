@@ -11,7 +11,7 @@ import javafx.scene.shape.Rectangle;
 import javafx.scene.text.Text;
 
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 
 public class MenuButton extends StackPane {

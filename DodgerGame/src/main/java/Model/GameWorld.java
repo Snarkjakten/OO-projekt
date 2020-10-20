@@ -1,6 +1,7 @@
 package Model;
 
-import Model.Entities.Player.Player;
+import Model.Entities.HitBox;
+
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Player.SpaceshipFactory;
 import Model.Movement.AbstractGameObject;
@@ -11,9 +12,8 @@ import java.util.List;
 
 public class GameWorld {
     private final List<AbstractGameObject> gameObjects;
-    private Spaceship newSpaceship;
+    private Spaceship spaceship;
     private static GameWorld instance = null;
-    private Player player;
     private boolean isGameOver;
 
     private static final double playingFieldWidth = 800;
@@ -21,23 +21,31 @@ public class GameWorld {
 
     private GameWorld() {
         this.isGameOver = false;
-        this.player = new Player();
         this.gameObjects = new ArrayList<>();
-        initSpaceships();
+        initSpaceship();
     }
 
-    public void createNewGameWorld(){
+    public void createNewGameWorld() {
         reset();
-
     }
+
     private void reset() {
         this.isGameOver = false;
-        this.player = new Player();
         this.gameObjects.clear();
-        initSpaceships();
+        initSpaceship();
     }
 
-    //@Author Tobias Engblom
+    /**
+     * @author Tobias Engblom
+     */
+    private void initSpaceship() {
+        this.spaceship = SpaceshipFactory.createSpaceship(368, 268, 64, 64);
+        gameObjects.add(spaceship);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
     public static GameWorld getInstance() {
         if (instance == null) {
             instance = new GameWorld();
@@ -45,141 +53,122 @@ public class GameWorld {
         return instance;
     }
 
-    //@Author Tobias Engblom
-    private void initSpaceships() {
-        newSpaceship = SpaceshipFactory.createSpaceship(368, 268);
-        player.getSpaceships().add(newSpaceship);
-        gameObjects.add(newSpaceship);
-        //newSpaceship.addSoundObserver();
+    /**
+     * @author Tobias Engblom
+     */
+    public Spaceship getSpaceship() {
+        return this.spaceship;
     }
 
-    //@Author Tobias Engblom
-    public List<Spaceship> getSpaceships() {
-        return this.player.getSpaceships();
-    }
-
-    //@Author Tobias Engblom
-    public Player getPlayer() {
-        return this.player;
-    }
-
-    //@Author Tobias Engblom
+    /**
+     * @author Tobias Engblom
+     */
     public List<AbstractGameObject> getGameObjects() {
         return this.gameObjects;
     }
 
     //@Author Tobias Engblom
-    public void wrapAround() {
-        Spaceship spaceship = player.getSpaceships().get(0);
-        if (player.getSpaceships().size() == 1) {
-            checkWrapAround(spaceship);
-        } else if (player.getSpaceships().size() == 2) {
-            checkWrapAround(spaceship, player.getSpaceships().get(1));
-        }
-        for (Spaceship spaceship2 : player.getSpaceships()) {
-            if (checkInactive(spaceship2)) {
-                player.getSpaceships().remove(spaceship2);
-                gameObjects.remove(spaceship2);
-                break;
-            }
-        }
+    public void wrapAround(Spaceship spaceship) {
+        HitBox hitBox = spaceship.getHitBoxes().get(0);
+        int size = spaceship.getHitBoxes().size();
+        if (size == 1) checkWrapAround(spaceship, hitBox);
+        else if (size == 2) checkWrapAround(spaceship, hitBox, spaceship.getHitBoxes().get(1));
+        checkInactive(spaceship.getHitBoxes());
     }
 
     //@Author Tobias Engblom
-    private void addSpaceship(Spaceship spaceship) {
-
-        double speed = player.getSpaceships().get(0).getSpeed();
-        spaceship.setSpeed(speed);
-
-        player.getSpaceships().add(spaceship);
-        gameObjects.add(spaceship);
+    private void addHitBoxesToSpaceship(Spaceship spaceship, HitBox hitBox1, HitBox hitBox2) {
+        spaceship.getHitBoxes().add(hitBox1);
+        spaceship.getHitBoxes().add(hitBox2);
     }
 
     //@Author Tobias Engblom
-    private void addSpaceship(Spaceship spaceship, Spaceship otherSpaceship) {
-        addSpaceship(spaceship);
-        addSpaceship(otherSpaceship);
-    }
-
-    //@Author Tobias Engblom
-    private void checkWrapAround(Spaceship spaceship, Spaceship nextSpaceship) {
-        Spaceship otherSpaceship;
-        if (checkWestPosition(spaceship) && checkWestPosition(nextSpaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
-            otherSpaceship = SpaceshipFactory.createSpaceship(788, nextSpaceship.position.getY());
-            newSpaceship.setDirection(spaceship);
-            otherSpaceship.setDirection(nextSpaceship);
-            addSpaceship(newSpaceship, otherSpaceship);
-        } else if (checkNorthPosition(spaceship) && checkNorthPosition(nextSpaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
-            otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), 600);
-            newSpaceship.setDirection(spaceship);
-            otherSpaceship.setDirection(nextSpaceship);
-            addSpaceship(newSpaceship, otherSpaceship);
-        } else if (checkEastPosition(spaceship) && checkEastPosition(nextSpaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
-            otherSpaceship = SpaceshipFactory.createSpaceship(-76, nextSpaceship.position.getY());
-            newSpaceship.setDirection(spaceship);
-            otherSpaceship.setDirection(nextSpaceship);
-            addSpaceship(newSpaceship, otherSpaceship);
-        } else if (checkSouthPosition(spaceship) && checkSouthPosition(nextSpaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
-            otherSpaceship = SpaceshipFactory.createSpaceship(nextSpaceship.position.getX(), -64);
-            newSpaceship.setDirection(spaceship);
-            otherSpaceship.setDirection(nextSpaceship);
-            addSpaceship(newSpaceship, otherSpaceship);
+    private void checkWrapAround(Spaceship spaceship, HitBox hitBox1, HitBox hitBox2) {
+        HitBox newHitBox1;
+        HitBox newHitBox2;
+        if (checkWestPosition(hitBox1) && checkWestPosition(hitBox2)) {
+            newHitBox1 = new HitBox(788, hitBox1.getYPos(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(788, hitBox2.getYPos(), spaceship.getWidth(), spaceship.getHeight());
+            addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
+        } else if (checkNorthPosition(hitBox1) && checkNorthPosition(hitBox2)) {
+            newHitBox1 = new HitBox(hitBox1.getXPos(), 600, spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(hitBox2.getXPos(), 600, spaceship.getWidth(), spaceship.getHeight());
+            addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
+        } else if (checkEastPosition(hitBox1) && checkEastPosition(hitBox2)) {
+            newHitBox1 = new HitBox(-76, hitBox1.getYPos(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(-76, hitBox2.getYPos(), spaceship.getWidth(), spaceship.getHeight());
+            addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
+        } else if (checkSouthPosition(hitBox1) && checkSouthPosition(hitBox2)) {
+            newHitBox1 = new HitBox(hitBox1.getXPos(), -64, spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(hitBox2.getXPos(), -64, spaceship.getWidth(), spaceship.getHeight());
+            addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
         }
     }
 
     //@Author Tobias Engblom
-    private void checkWrapAround(Spaceship spaceship) {
-        if (checkWestPosition(spaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(788, spaceship.position.getY());
-            newSpaceship.setDirection(spaceship);
-            addSpaceship(newSpaceship);
-        } else if (checkNorthPosition(spaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), 600);
-            newSpaceship.setDirection(spaceship);
-            addSpaceship(newSpaceship);
-        } else if (checkEastPosition(spaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(-76, spaceship.position.getY());
-            newSpaceship.setDirection(spaceship);
-            addSpaceship(newSpaceship);
-        } else if (checkSouthPosition(spaceship)) {
-            newSpaceship = SpaceshipFactory.createSpaceship(spaceship.position.getX(), -64);
-            newSpaceship.setDirection(spaceship);
-            addSpaceship(newSpaceship);
-        }
+    private void checkWrapAround(Spaceship spaceship, HitBox hitBox) {
+        if (checkWestPosition(hitBox))
+            spaceship.getHitBoxes().add(new HitBox(788, hitBox.getYPos(), spaceship.getWidth(), spaceship.getHeight()));
+        else if (checkNorthPosition(hitBox))
+            spaceship.getHitBoxes().add(new HitBox(hitBox.getXPos(), 600, spaceship.getWidth(), spaceship.getHeight()));
+        else if (checkEastPosition(hitBox))
+            spaceship.getHitBoxes().add(new HitBox(-76, hitBox.getYPos(), spaceship.getWidth(), spaceship.getHeight()));
+        else if (checkSouthPosition(hitBox))
+            spaceship.getHitBoxes().add(new HitBox(hitBox.getXPos(), -64, spaceship.getWidth(), spaceship.getHeight()));
     }
 
-    //@Author Tobias Engblom
-    //Inactivates spaceship if it's outside the map
-    private boolean checkInactive(Spaceship spaceship) {
-        return spaceship.position.getX() < -76 || spaceship.position.getX() > 788 || spaceship.position.getY() < -64 || spaceship.position.getY() > 600;
+    /**
+     * Inactivates hitBox if it's outside the map
+     *
+     * @param hitBoxes The list of hitBoxes of the current spaceship
+     * @author Tobias Engblom
+     */
+    private void checkInactive(List<HitBox> hitBoxes) {
+        hitBoxes.removeIf(hitBox -> hitBox.getXPos() < -76 || hitBox.getXPos() > 788 || hitBox.getYPos() < -64 || hitBox.getYPos() > 600);
     }
 
-    //@Author Tobias Engblom
-    //Checks if active spaceship is beginning to go outside west wall
-    private boolean checkWestPosition(Spaceship spaceship) {
-        return spaceship.position.getX() <= -12;
+    /**
+     * Checks if active spaceship is beginning to go outside west wall
+     *
+     * @param hitBox one of the spaceship's hitBoxes
+     * @return true if the hitBox is at the wall or outside
+     * @author Tobias Engblom
+     */
+    private boolean checkWestPosition(HitBox hitBox) {
+        return hitBox.getXPos() <= -12;
     }
 
-    //@Author Tobias Engblom
-    //Checks if active spaceship is beginning to go outside north wall
-    private boolean checkNorthPosition(Spaceship spaceship) {
-        return spaceship.position.getY() <= 0;
+    /**
+     * Checks if active spaceship is beginning to go outside north wall
+     *
+     * @param hitBox one of the spaceship's hitBoxes
+     * @return true if the hitBox is at the wall or outside
+     * @author Tobias Engblom
+     */
+    private boolean checkNorthPosition(HitBox hitBox) {
+        return hitBox.getYPos() <= 0;
     }
 
-    //@Author Tobias Engblom
-    //Checks if active spaceship is beginning to go outside east wall
-    private boolean checkEastPosition(Spaceship spaceship) {
-        return spaceship.position.getX() >= 724;
+    /**
+     * Checks if active spaceship is beginning to go outside east wall
+     *
+     * @param hitBox one of the spaceship's hitBoxes
+     * @return true if the hitBox is at the wall or outside
+     * @author Tobias Engblom
+     */
+    private boolean checkEastPosition(HitBox hitBox) {
+        return hitBox.getXPos() >= 724;
     }
 
-    //@Author Tobias Engblom
-    //Checks if active spaceship is beginning to go outside south wall
-    private boolean checkSouthPosition(Spaceship spaceship) {
-        return spaceship.position.getY() >= 536;
+    /**
+     * Checks if active spaceship is beginning to go outside south wall
+     *
+     * @param hitBox one of the spaceship's hitBoxes
+     * @return true if the hitBox is at the wall or outside
+     * @author Tobias Engblom
+     */
+    private boolean checkSouthPosition(HitBox hitBox) {
+        return hitBox.getYPos() >= 536;
     }
 
     public boolean getIsGameOver() {

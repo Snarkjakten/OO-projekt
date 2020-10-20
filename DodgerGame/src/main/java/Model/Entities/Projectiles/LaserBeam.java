@@ -1,5 +1,6 @@
 package Model.Entities.Projectiles;
 
+import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
@@ -12,14 +13,17 @@ import java.util.Random;
 public class LaserBeam extends AbstractGameObject {
     private double horizontal;
     private double vertical;
-    private boolean isVertical;
-    private int damage;
-    private double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+    private final int damage;
+
+    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+
 
     public LaserBeam() {
-        this.setSpeed(100);
+        super(1, 1);
+        setSpeed(100);
         this.damage = 100;
+        getHitBoxes().add(new HitBox(0, 0, 1, 1));
         randomStartPoint();
     }
 
@@ -29,9 +33,9 @@ public class LaserBeam extends AbstractGameObject {
         updatePosition(deltaTime);
     }
 
-    private void updateVelocity() {
-        this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        this.velocity = velocity.multiply(this.getSpeed());
+    public void updateVelocity() {
+        this.velocity = (new Point2D(horizontal, vertical).normalize());
+        this.velocity.multiply(getSpeed());
     }
 
     /**
@@ -40,28 +44,25 @@ public class LaserBeam extends AbstractGameObject {
      * moves towards.
      */
     private void randomStartPoint() {
+        HitBox hitBox = getHitBoxes().get(0);
         Random random = new Random();
         int side = random.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
-                this.isVertical = false;
-                setStopPosition(0,-50);
-                this.position = new Point2D(-50, verticalMapSize + 50);
+                setStopPosition(0, -50);
+                hitBox.updatePosition(-50, verticalMapSize + 50);
                 break;
             case 1: // Right side of the screen
-                this.isVertical = true;
-                setStopPosition(-50,0);
-                this.position = new Point2D(horizontalMapSize + 50, -50);
+                setStopPosition(-50, 0);
+                hitBox.updatePosition(horizontalMapSize + 50, -50);
                 break;
             case 2: // Top of the screen
-                this.isVertical = false;
                 setStopPosition(0, verticalMapSize);
-                this.position = new Point2D(-50, -50);
+                hitBox.updatePosition(-50, -50);
                 break;
             case 3: // Left of the screen
-                this.isVertical = true;
                 setStopPosition(horizontalMapSize, 0);
-                this.position = new Point2D(-50, -50);
+                hitBox.updatePosition(-50, -50);
                 break;
             default:
                 System.out.println("Error in randomStartPoint");
