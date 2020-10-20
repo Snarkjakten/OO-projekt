@@ -15,7 +15,7 @@ public abstract class ProjectileFactory {
      * @authors Irja & Viktor
      */
     public static Projectile createAsteroid(double speed, double height, double width, double xPos, double yPos, double xVelocity, double yVelocity) {
-        return new Asteroid(speed, height, width, xPos, yPos, xVelocity, yVelocity);
+        return new Asteroid(speed, width, height, xPos, yPos, xVelocity, yVelocity);
     }
 
     public static Projectile createRandomizedHealthPowerUp() {

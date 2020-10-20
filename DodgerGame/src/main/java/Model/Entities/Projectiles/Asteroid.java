@@ -9,6 +9,8 @@ import java.util.Random;
  */
 public class Asteroid extends Projectile {
     private int damage;
+    private int smallSize = 32;
+    private int mediumSize = 64;
 
     public Asteroid() {
         super(50, 24, 24);
@@ -49,16 +51,17 @@ public class Asteroid extends Projectile {
         if (type <= 70) {
             //Small asteroid
             this.damage = 20;
-            updateWidthHitboxes(64);
-            updateHeightHitboxes(64);
+            updateWidthHitboxes(smallSize);
+            updateHeightHitboxes(smallSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
+
         } else {
             // medium asteroid
             this.damage = 35;
-            updateWidthHitboxes(100);
-            updateHeightHitboxes(100);
+            updateWidthHitboxes(mediumSize);
+            updateHeightHitboxes(mediumSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);

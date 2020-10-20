@@ -148,7 +148,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
 
                  */
-                System.out.println(gameWorld.getSpaceship().getHp());
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);

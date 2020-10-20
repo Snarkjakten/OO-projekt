@@ -55,7 +55,7 @@ public class GameObjectGUI implements IGameObjectObserver {
      * The method sets the correct image depending on the specific gameObject.
      * @author Olle Westerlund
      */
-    private Image addImageToGameObject(Class gameObject) {
+    private Image addImageToGameObject(Class gameObject, double width) {
         InputStream inputStream;
         imageWidth = 64;
         imageHeight = 64;
@@ -63,6 +63,10 @@ public class GameObjectGUI implements IGameObjectObserver {
             inputStream = getClass().getClassLoader().getResourceAsStream(mediumAsteroidFilePath);
             assert inputStream != null;
             image = new Image(inputStream);
+            if (width > 32) {
+                imageWidth = 100;
+                imageHeight = 100;
+            }
         } else if (gameObject.equals(HealthPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(shieldFilePath);
             assert inputStream != null;
@@ -89,16 +93,10 @@ public class GameObjectGUI implements IGameObjectObserver {
         return image;
     }
 
-    private void drawImage(double x, double y, Class c, double height, double width) {
-        Image image = addImageToGameObject(c);
-        gc.drawImage(image, x, y, imageWidth, imageHeight);
-    }
-
-
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
-        Image image = addImageToGameObject(c);
+        Image image = addImageToGameObject(c, width);
         for (HitBox hitBox : hitBoxes) {
-            gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
+            gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
         }
     }
 

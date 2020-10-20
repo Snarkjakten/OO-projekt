@@ -181,7 +181,7 @@ public class WaveManager {
         verticalWaveCooldown = verticalWaveCooldown - deltaTime;
         if (verticalWaveCooldown < 0) {
             for (int i = 0; i < size; i++) {
-                gameObjects.add(ProjectileFactory.createAsteroid(200, 64, 64, -65, 32 + (verticalGap * 2 * i), 1, 0));
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, -65, 32 + (verticalGap * 2 * i), 1, 0));
             }
             verticalWaveCooldown = cooldown;
         }
@@ -200,7 +200,7 @@ public class WaveManager {
         horizontalWaveCooldown = horizontalWaveCooldown - deltaTime;
         if (horizontalWaveCooldown < 0) {
             for (int i = 0; i < size; i++) {
-                gameObjects.add(ProjectileFactory.createAsteroid(200, 64, 64, 32 + (horizontalGap * 2 * i), -65, 0, 1));
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, 32 + (horizontalGap * 2 * i), -65, 0, 1));
             }
             horizontalWaveCooldown = cooldown;
         }
