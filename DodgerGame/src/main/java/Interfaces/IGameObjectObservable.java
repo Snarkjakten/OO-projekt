@@ -1,5 +1,9 @@
 package Interfaces;
 
+import Model.Entities.HitBox;
+
+import java.util.List;
+
 public interface IGameObjectObservable {
 
     /**
@@ -10,6 +14,6 @@ public interface IGameObjectObservable {
 
     void removeObserver(IGameObjectObserver obs);
 
-    void notifyGameObjectObservers(double x, double y, Class c, double height, double width);
+    void notifyGameObjectObservers(List<HitBox> hitBoxes, Class c, double height, double width);
 
 }

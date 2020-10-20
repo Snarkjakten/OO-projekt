@@ -1,5 +1,6 @@
 package View;
 
+import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.*;
 import Interfaces.IGameObjectObserver;
@@ -7,13 +8,14 @@ import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
 import java.io.InputStream;
+import java.util.List;
 
 /**
  * @author Olle Westerlund
  */
 
 public class GameObjectGUI implements IGameObjectObserver {
-    private GraphicsContext gc;
+    private final GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
     private LaserGUI laserGUI;
@@ -36,11 +38,11 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     public void chooseSpaceshipImage(int spaceshipChoice) {
-        if(spaceshipChoice == 1){
+        if (spaceshipChoice == 1) {
             spaceshipImageName = firstChoice;
-        } else if(spaceshipChoice == 2) {
+        } else if (spaceshipChoice == 2) {
             spaceshipImageName = secondChoice;
-        } else if(spaceshipChoice == 3) {
+        } else if (spaceshipChoice == 3) {
             spaceshipImageName = thirdChoice;
         } else {
             spaceshipImageName = fourthChoice;
@@ -48,12 +50,12 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
-     * The method sets the correct image depending on the specific gameObject.
-     * @param gameObject The game object to set the image to.
+     * @param gameObject The gameObject to set the image to.
      * @return The a specific image depending on the gameObject.
+     * The method sets the correct image depending on the specific gameObject.
      * @author Olle Westerlund
      */
-    private Image addImageToProjectile(Class gameObject) {
+    private Image addImageToGameObject(Class gameObject) {
         InputStream inputStream;
         imageWidth = 64;
         imageHeight = 64;
@@ -90,11 +92,16 @@ public class GameObjectGUI implements IGameObjectObserver {
     private void drawImage(double x, double y, Class c, double height, double width) {
         Image image = addImageToProjectile(c);
         gc.drawImage(image, x, y, imageWidth, imageHeight);
+    private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
+        Image image = addImageToGameObject(c);
+        for (HitBox hitBox : hitBoxes) {
+            gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
+        }
     }
 
     @Override
-    public void actOnEvent(double x, double y, Class c, double height, double width) {
-        drawImage(x, y, c, height, width);
+    public void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height) {
+        drawImage(hitBoxes, c, width, height);
     }
 
     public static String getFirstChoice() {

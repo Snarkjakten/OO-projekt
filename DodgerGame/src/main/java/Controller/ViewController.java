@@ -1,14 +1,12 @@
-import Interfaces.IGameOverObserver;
+package Controller;
+
+import Model.PausableAnimationTimer;
 import View.*;
-import javafx.animation.AnimationTimer;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonType;
+import Interfaces.IGameOverObserver;
 import javafx.stage.Stage;
 
-import java.util.Optional;
-
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 
 public class ViewController implements IGameOverObserver {
@@ -16,18 +14,20 @@ public class ViewController implements IGameOverObserver {
     private final MainMenu mainMenu;
     private final HighScoreMenu highScoreMenu;
     private final CharacterMenu characterMenu;
+    private final PauseMenu pauseMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private int spaceshipChoice;
-    private GameObjectGUI gameObjectGUI;
-    private AnimationTimer gameLoop;
+    private final GameObjectGUI gameObjectGUI;
+    private final PausableAnimationTimer gameLoop;
 
     public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
-                          GameOverMenu gameOverMenu, Stage stage, AnimationTimer gameLoop, GameObjectGUI gameObjectGUI) {
+                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
         this.characterMenu = characterMenu;
+        this.pauseMenu = pauseMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
         this.spaceshipChoice = 0;
@@ -36,6 +36,7 @@ public class ViewController implements IGameOverObserver {
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
+        pauseMenuButtonHandler();
         gameOverButtonHandler();
         highScoreButtonHandler();
     }
@@ -46,15 +47,13 @@ public class ViewController implements IGameOverObserver {
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
-        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(highScoreMenu.getRoot());
-        });
+        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> stage.getScene().setRoot(highScoreMenu.getRoot()));
 
         // When clicking on "QUIT"
         mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
-    private void highScoreButtonHandler(){
+    private void highScoreButtonHandler() {
         highScoreMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
@@ -104,6 +103,29 @@ public class ViewController implements IGameOverObserver {
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
+    private void pauseMenuButtonHandler() {
+        pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
+            stage.getScene().setRoot(window.getRoot());
+            gameLoop.play();
+        });
+
+        pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
+            stage.getScene().setRoot(window.getRoot());
+            gameLoop.stop();
+            // TODO Need to use endGame()
+            gameLoop.start();
+            window.init();
+        });
+
+        pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
+            stage.getScene().setRoot(mainMenu.getRoot());
+            gameLoop.stop();
+            // TODO Need to use endGame()
+        });
+
+        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> System.exit(0));
+    }
+
     // Handles button clicks in the game over menu
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
@@ -116,16 +138,10 @@ public class ViewController implements IGameOverObserver {
     }
 
     @Override
-    public void actOnEvent(boolean isGameOver) {
-        if(isGameOver) {
-            //TODO: change this
-            int points = 100;
+    public void actOnEvent(boolean isGameOver, int points) {
+        if (isGameOver) {
             gameOverMenu.showScore(points);
             stage.getScene().setRoot(gameOverMenu.getRoot());
         }
-    }
-
-    public int getSpaceshipChoice() {
-        return spaceshipChoice;
     }
 }

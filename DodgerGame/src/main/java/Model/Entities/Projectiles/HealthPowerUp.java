@@ -4,11 +4,12 @@ package Model.Entities.Projectiles;
  * @author Olle Westerlund
  */
 public class HealthPowerUp extends Projectile {
-    private int healingValue = 50;  // Amount of healing
+
+    private final int healingValue;  // Amount of healing
 
     public HealthPowerUp() {
         super(200, 64, 64);
-        this.healingValue = getHealingValue();
+        this.healingValue = 50;
     }
 
     /**
@@ -21,11 +22,11 @@ public class HealthPowerUp extends Projectile {
      */
     public HealthPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
         super(speed, 64, 64);
-        setPosition(xPos, yPos);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);
         this.healingValue = getHealingValue();
+        getHitBoxes().get(0).setPosition(xPos, yPos);
     }
 
     /**
@@ -34,6 +35,6 @@ public class HealthPowerUp extends Projectile {
      * @return The amount of health the player will gain.
      */
     public int getHealingValue() {
-        return healingValue;
+        return this.healingValue;
     }
 }

@@ -27,7 +27,7 @@ public class WaveManagerTest {
     @Before
     public void init() {
         time = 0;
-        gameObjects.add(SpaceshipFactory.createSpaceship(0, 0));
+        gameObjects.add(SpaceshipFactory.createSpaceship(0, 0, 64, 64));
         deltaTime = 0.016; // approximate length of a frame in 60 FPS.
         scenario = 0; // selects the default scenario for the projectile spawner.
         maxNumGameObjects = 25;
@@ -50,7 +50,7 @@ public class WaveManagerTest {
                     offscreenAsteroidExists = true;
                 }
             }
-            assertTrue(offscreenAsteroidExists == false);
+            assertFalse(offscreenAsteroidExists);
         }
     }
 

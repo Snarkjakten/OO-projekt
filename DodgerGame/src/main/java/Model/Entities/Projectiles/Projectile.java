@@ -1,5 +1,6 @@
 package Model.Entities.Projectiles;
 
+import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
@@ -15,10 +16,10 @@ public abstract class Projectile extends AbstractGameObject {
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-    public Projectile(double speed, double height, double width) {
-        this.setSpeed(speed);
-        this.height = height;
-        this.width = width;
+    public Projectile(double speed, double width, double height) {
+        super(width, height);
+        setSpeed(speed);
+        getHitBoxes().add(new HitBox(0, 0, width, height));
         randomPosition();
     }
 
@@ -31,6 +32,7 @@ public abstract class Projectile extends AbstractGameObject {
      * The method sets a random starting position for the projectile.
      */
     private void randomPosition() {
+        HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
         double xPos = 0;
         double yPos = 0;
@@ -71,13 +73,14 @@ public abstract class Projectile extends AbstractGameObject {
      * @param side The side of the screen that the asteroid spawns on.
      */
     private void randomStartVelocity(int side) {
+        HitBox hitBox = getHitBoxes().get(0);
         double xPos = 0;
         double yPos = 0;
         Random randomDouble = new Random();
         switch (side) {
             case 0: //Velocity from bottom
                 xPos = randomDouble.nextDouble() * horizontalMapSize;
-                if (xPos < this.position.getX()) {
+                if (xPos < hitBox.getXPos()) {
                     xPos *= -1;
                 }
                 yPos = (randomDouble.nextDouble() * (verticalMapSize - 60)) * -1;
@@ -85,13 +88,13 @@ public abstract class Projectile extends AbstractGameObject {
             case 1: //Velocity from right
                 xPos = randomDouble.nextDouble() * (horizontalMapSize - 60) * -1;
                 yPos = randomDouble.nextDouble() * verticalMapSize;
-                if (yPos < this.position.getY()) {
+                if (yPos < hitBox.getYPos()) {
                     yPos *= -1;
                 }
                 break;
             case 2: //Velocity from top
                 xPos = randomDouble.nextDouble() * horizontalMapSize;
-                if (xPos < this.position.getX()) {
+                if (xPos < hitBox.getXPos()) {
                     xPos *= -1;
                 }
                 yPos = 60 + randomDouble.nextDouble() * (verticalMapSize - 60);
@@ -99,7 +102,7 @@ public abstract class Projectile extends AbstractGameObject {
             case 3: //Velocity from left
                 xPos = 60 + randomDouble.nextDouble() * (horizontalMapSize - 60);
                 yPos = randomDouble.nextDouble() * verticalMapSize;
-                if (yPos < this.position.getY()) {
+                if (yPos < hitBox.getYPos()) {
                     yPos *= -1;
                 }
                 break;
@@ -113,8 +116,9 @@ public abstract class Projectile extends AbstractGameObject {
 
     /**
      * Moves self to a new position
-     * @author Irja Vuorela
+     *
      * @param deltaTime is the time elapsed since the last update
+     * @author Irja Vuorela
      */
     @Override
     public void move(double deltaTime) {
@@ -126,9 +130,10 @@ public abstract class Projectile extends AbstractGameObject {
      * Updates velocity
      * @author Irja Vuorela
      */
-    private void updateVelocity() {
-        this.velocity = (new Point2D(xVelocity, yVelocity)).normalize();
-        this.velocity = velocity.multiply(this.getSpeed());
+
+    public void updateVelocity() {
+        this.velocity = (new Point2D(xVelocity, yVelocity).normalize());
+        this.velocity = velocity.multiply(getSpeed());
     }
 
     /**
@@ -137,8 +142,9 @@ public abstract class Projectile extends AbstractGameObject {
      * @return Boolean if the object is no longer on the screen.
      */
     public boolean isNotOnScreen() {
-        boolean isStillOnX = (position.getX() > -120 && position.getX() < (horizontalMapSize + 120));
-        boolean isStillOnY = (position.getY() > -120 && position.getY() < (verticalMapSize + 120));
+        HitBox hitBox = getHitBoxes().get(0);
+        boolean isStillOnX = (hitBox.getXPos() > -70 && hitBox.getXPos() < (horizontalMapSize + 70));
+        boolean isStillOnY = (hitBox.getYPos() > -70 && hitBox.getYPos() < (verticalMapSize + 70));
         return (!isStillOnX || !isStillOnY);
     }
 

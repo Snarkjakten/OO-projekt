@@ -4,11 +4,11 @@ package Model.Entities.Projectiles;
  * @author Olle Westerlund
  */
 public class ShieldPowerUp extends Projectile {
-    private int hitCapacity;    // Number of shields the player will get.
+    private final int hitCapacity;    // Number of shields the player will get.
 
     public ShieldPowerUp() {
         super(200, 64, 64);
-        hitCapacity = 1;
+        this.hitCapacity = 1;
     }
 
     /**
@@ -21,11 +21,11 @@ public class ShieldPowerUp extends Projectile {
      */
     public ShieldPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
         super(speed, 64, 64);
-        setPosition(xPos, yPos);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
         setSpeed(200);
-        hitCapacity = 1;
+        this.hitCapacity = 1;
+        getHitBoxes().get(0).setPosition(xPos, yPos);
     }
 
     public int getHitCapacity() {
