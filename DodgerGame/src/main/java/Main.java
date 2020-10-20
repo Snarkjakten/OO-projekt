@@ -40,8 +40,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
     private final SoundHandler soundHandler = new SoundHandler();
     private final HighScoreHandler scoreHandler = new HighScoreHandler();
 
-    private long startNanoTime;
-
     @Override
     public void start(Stage stage) throws Exception {
         gameWorld = GameWorld.getInstance();
@@ -61,7 +59,6 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         //LaserGUI laserGUI = new LaserGUI(graphicsContext, 10, true);
         BackgroundView backgroundView = new BackgroundView(graphicsContext);
         ITimeObserver timeView = new TimeView(graphicsContext);
-        startNanoTime = System.nanoTime(); //TODO Fix time bug
 
         gameLoop = new PausableAnimationTimer() {
 
@@ -79,8 +76,8 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                  * @author Irja Vuorela
                  */
                 currentNanoTime = System.nanoTime();
-                double deltaTime = (currentNanoTime - previousNanoTime) / 1000000000.0;
-                double animationTime = (currentNanoTime - animationNanoTime) / 1000000000.0;
+                double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
+                double animationTime = (currentNanoTime - animationNanoTime) / 1e9;
 
                 notifyPlayingFieldObservers(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
 
@@ -122,20 +119,24 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 }
                 //End of collision handling -----------------------------------
 
-                waveManager.projectileSpawner(calculateElapsedTime(startNanoTime), gameObjects, deltaTime, 1, 25);
+                waveManager.projectileSpawner(calculateElapsedTime(getStartNanoTime()), gameObjects, deltaTime, 1, 25);
 
                 gameWorld.wrapAround(gameWorld.getSpaceship());
 
-                long elapsedTime = calculateElapsedTime(startNanoTime);
+                long elapsedTime = calculateElapsedTime(getStartNanoTime());
                 notifyTimeObservers(elapsedTime, animationTime);
 
                 endGame();
                 previousNanoTime = currentNanoTime;
 
+                /*
                 // todo: use to check for bad frame rate
                 if (deltaTime > 0.07) {
                     System.out.println("deltaTime: " + deltaTime);
                 }
+
+                 */
+                System.out.println(gameWorld.getSpaceship().getHp());
             }
         };
         ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);

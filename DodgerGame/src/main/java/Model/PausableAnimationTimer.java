@@ -17,6 +17,8 @@ public abstract class PausableAnimationTimer extends AnimationTimer {
     private boolean playScheduled;
     private boolean restartScheduled;
 
+    private long startNanoTime;
+
     public boolean isPaused() {
         return isPaused;
     }
@@ -48,6 +50,7 @@ public abstract class PausableAnimationTimer extends AnimationTimer {
     @Override
     public void start() {
         super.start();
+        startNanoTime = System.nanoTime();
         isActive = true;
         restartScheduled = true;
     }
@@ -88,6 +91,10 @@ public abstract class PausableAnimationTimer extends AnimationTimer {
             animationDuration.set(animDuration / 1e9);
             tick(animDuration);
         }
+    }
+
+    public long getStartNanoTime() {
+        return startNanoTime;
     }
 
     public abstract void tick(long relativeNow);

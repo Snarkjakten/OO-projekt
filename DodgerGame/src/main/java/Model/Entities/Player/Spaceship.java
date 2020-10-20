@@ -5,6 +5,7 @@ import Model.Entities.HitBox;
 import Model.Entities.Projectiles.Asteroid;
 import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Entities.Projectiles.SlowDebuff;
 import Model.Movement.AbstractGameObject;
 import javafx.geometry.Point2D;
 
@@ -22,16 +23,28 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     private int left = 0; // moving left decreases horizontal axis value
     private int right = 0; // moving right increases horizontal axis value
 
+    /**
+     * @param xPos   current xPosition of the spaceship
+     * @param yPos   current yPosition of the spaceship
+     * @param width  current width of the spaceship
+     * @param height current height of the spaceship
+     * @author Tobias Engblom
+     */
     public Spaceship(double xPos, double yPos, double width, double height) {
         super(width, height);
         getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         this.nrOfShields = 0;
         this.points = 0;
-        maxHp = 200;
+        this.maxHp = 200;
         this.hp = maxHp;
         setSpeed(300);
     }
 
+    /**
+     * Move self to a new position
+     *
+     * @author Irja Vuorela
+     */
     @Override
     public void move(double deltaTime) {
         updateVelocity();
@@ -92,22 +105,32 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return nrOfShields;
     }
 
-    public void gainShield() {
-        this.nrOfShields += 1;
+    /**
+     * @param hitCapacity amount of collisions a single shield power up can block
+     * @authors Irja & Viktor
+     */
+    public void gainShield(int hitCapacity) {
+        this.nrOfShields += hitCapacity;
     }
 
-    public void gainHealth(int hp) {
-        this.hp = hp;
+    /**
+     * @param healingValue amount of healing from one health power up
+     * @authors Irja & Viktor
+     */
+    public void gainHealth(int healingValue) {
+        if (getHp() + healingValue > maxHp) {
+            setHp(maxHp);
+        } else {
+            setHp(getHp() + healingValue);
+        }
     }
 
+    /**
+     * @author Olle Westerlund
+     */
     protected void loseShield() {
         if (this.nrOfShields > 0) this.nrOfShields -= 1;
         else this.nrOfShields = 0;
-    }
-
-    @Override
-    public void actOnCollision(AbstractGameObject c) {
-        c.setCollided(true);
     }
 
     /**
@@ -117,12 +140,26 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @author Viktor Sundberg (viktor.sundberg@icloud.com)
      */
     @Override
+    public void actOnCollision(AbstractGameObject gameObject) {
+        gameObject.setCollided(true);
+    }
+
+    /**
+     * @param gameObject an object from the game objects list in the game loop
+     * @authors Viktor, Olle, Tobias
+     */
+    @Override
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
         if (gameObject instanceof Asteroid)
             if (this.nrOfShields > 0) loseShield();
             else this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
-        else if (gameObject instanceof ShieldPowerUp) gainShield();
+        else if (gameObject instanceof ShieldPowerUp) gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
         else if (gameObject instanceof HealthPowerUp)
-            setHp(Math.min(getHp() + ((HealthPowerUp) gameObject).getHealingValue(), maxHp));
+            gainHealth(((HealthPowerUp) gameObject).getHealingValue());
+        else if (gameObject instanceof SlowDebuff) {
+            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
+            setSpeed(getSpeed() * slowSpeedFactor);
+        }
+
     }
 }
