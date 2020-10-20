@@ -3,7 +3,7 @@ import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.Movement.AbstractGameObject;
-import javafx.geometry.Point2D;
+import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
