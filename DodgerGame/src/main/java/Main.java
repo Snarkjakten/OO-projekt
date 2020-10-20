@@ -251,6 +251,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
             gameWorld = GameWorld.getInstance();
             gameLoop.stop();
             collisionObservers.add(gameWorld.getPlayer());
+            scoreHandler.handleScore(scoreCalculator.getPoints());
         }
     }
 
