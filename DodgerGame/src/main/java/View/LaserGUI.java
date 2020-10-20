@@ -18,7 +18,7 @@ public class LaserGUI implements ITimeObserver { // , IGameObjectObserver
     private GraphicsContext gc;
     private Image[] frames;
     private final double duration = 0.1;
-    private boolean isVertical = false;
+    private boolean isVertical = true;
     private final double playingFieldWidth = GameWorld.getInstance().getPlayingFieldWidth();
     private final double playingFieldHeight = GameWorld.getInstance().getPlayingFieldHeight();
     private static LaserGUI instance = null;
@@ -86,11 +86,11 @@ public class LaserGUI implements ITimeObserver { // , IGameObjectObserver
         if (isVertical) {
             url = "LaserBeam/laser0" + imageNumber + "V.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, 256, 700, false, false);
+            image = new Image(inputStream, 256, playingFieldHeight + 100, false, false);
         } else {
             url = "LaserBeam/laser0" + imageNumber + "H.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
-            image = new Image(inputStream, 900, 256, false, false);
+            image = new Image(inputStream, playingFieldWidth + 100, 256, false, false);
         }
         return image;
     }

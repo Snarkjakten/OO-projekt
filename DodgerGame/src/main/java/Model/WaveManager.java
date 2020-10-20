@@ -27,6 +27,7 @@ public class WaveManager {
     private double verticalWaveCooldown;
     private double powerUpWaveCooldown;
     private double asteroidCooldown;
+    private double laserBeamCooldown;
 
     /**
      * Spawns projectiles according to a given scenario (pawning pattern).
@@ -206,6 +207,14 @@ public class WaveManager {
         }
     }
 
+    private void addLaserBeam(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown, boolean isVertical, int side) {
+        laserBeamCooldown = laserBeamCooldown - deltaTime;
+        if (laserBeamCooldown < 0) {
+            gameObjects.add(ProjectileFactory.createLaserBeam(side));
+            laserBeamCooldown = cooldown;
+        }
+    }
+
     // Customized spawning patterns ------------------------------------------------------------------------------------
 
     /**
@@ -253,6 +262,9 @@ public class WaveManager {
             addSlowDebuff(gameObjects, deltaTime, 1);
         }
         if (seconds < 20 || seconds > 30) {
+            if (seconds % 7 == 0 && gameObjects.size() < maxNumGameObjects) {
+                addLaserBeam(gameObjects, deltaTime, 7, false, 1);
+            }
             // adds a vertical wave of asteroids every five seconds
             if (seconds % 5 == 0 && gameObjects.size() < maxNumGameObjects - verticalWaveSize) {
                 addVerticalWave(gameObjects, deltaTime, 2, verticalWaveSize);

@@ -96,7 +96,11 @@ public class GameObjectGUI implements IGameObjectObserver {
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
         Image image = addImageToGameObject(c, width);
         for (HitBox hitBox : hitBoxes) {
-            gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
+            if (c.equals(LaserBeam.class)) {
+                gc.drawImage(image, (hitBox.getXPos()), (hitBox.getYPos()), imageWidth, imageHeight);
+            } else {
+                gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
+            }
         }
     }
 

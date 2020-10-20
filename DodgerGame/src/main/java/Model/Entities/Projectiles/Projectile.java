@@ -134,8 +134,8 @@ public abstract class Projectile extends AbstractGameObject {
      */
     public boolean isNotOnScreen() {
         HitBox hitBox = getHitBoxes().get(0);
-        boolean isStillOnX = (hitBox.getXPos() > -70 && hitBox.getXPos() < (horizontalMapSize + 70));
-        boolean isStillOnY = (hitBox.getYPos() > -70 && hitBox.getYPos() < (verticalMapSize + 70));
+        boolean isStillOnX = (hitBox.getXPos() > -130 && hitBox.getXPos() < (horizontalMapSize + 130));
+        boolean isStillOnY = (hitBox.getYPos() > -130 && hitBox.getYPos() < (verticalMapSize + 130));
         return (!isStillOnX || !isStillOnY);
     }
 

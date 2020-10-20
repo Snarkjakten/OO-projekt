@@ -2,10 +2,7 @@ package Model.Entities.Player;
 
 import Interfaces.ICollisionObserver;
 import Model.Entities.HitBox;
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.HealthPowerUp;
-import Model.Entities.Projectiles.ShieldPowerUp;
-import Model.Entities.Projectiles.SlowDebuff;
+import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
@@ -175,15 +172,26 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     @Override
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
-        if (gameObject instanceof Asteroid)
-            if (this.nrOfShields > 0) loseShield();
-            else this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
-        else if (gameObject instanceof ShieldPowerUp) gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
-        else if (gameObject instanceof HealthPowerUp)
+        if (gameObject instanceof Asteroid) {
+            if (this.nrOfShields > 0) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+            }
+        } else if (gameObject instanceof ShieldPowerUp) {
+            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
+        } else if (gameObject instanceof HealthPowerUp) {
             gainHealth(((HealthPowerUp) gameObject).getHealingValue());
-        else if (gameObject instanceof SlowDebuff) {
+        } else if (gameObject instanceof SlowDebuff) {
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             setSpeed(getSpeed() * slowSpeedFactor);
+        } else if (gameObject instanceof LaserBeam) {
+            System.out.println("Laserbeam collision");
+            if (this.nrOfShields > 0) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
+            }
         }
 
     }

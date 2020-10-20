@@ -74,6 +74,14 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
     /**
      * @return the speed of this game object
      * @author Isak Almeros

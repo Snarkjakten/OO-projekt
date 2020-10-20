@@ -73,10 +73,10 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
         if (spaceship.getNrOfShields() > 0) {
             Image image = getFrame(animationTime);
             for (HitBox hitBox : spaceship.getHitBoxes()) {
-                double xPos = hitBox.getPosition().getX() - 7;
-                double yPos = hitBox.getPosition().getY() - 7;
-                double height = hitBox.getHeight() * 1.25;
-                double width = hitBox.getWidth() * 1.25;
+                double xPos = hitBox.getPosition().getX() - 37;
+                double yPos = hitBox.getPosition().getY() - 37;
+                double height = hitBox.getHeight() * 2.25;
+                double width = hitBox.getWidth() * 2.25;
                 gc.drawImage(image, xPos, yPos, height, width);
             }
         }

@@ -23,7 +23,7 @@ public class LaserBeamTest {
     public void ProjectileMovedLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Negative horizontal value to move left
-        laserBeam.setStopPosition(-1, 0);
+        laserBeam.targetDirection(-1, 0);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX());
     }
@@ -34,7 +34,7 @@ public class LaserBeamTest {
     public void ProjectileMovedRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Positive horizontal value to move right
-        laserBeam.setStopPosition(1, 0);
+        laserBeam.targetDirection(1, 0);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX());
     }
@@ -45,7 +45,7 @@ public class LaserBeamTest {
     public void ProjectileMovedUp() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Negative vertical value to move up
-        laserBeam.setStopPosition(0, -1);
+        laserBeam.targetDirection(0, -1);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY());
     }
@@ -56,7 +56,7 @@ public class LaserBeamTest {
     public void ProjectileMovedDown() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Positive vertical value to move down
-        laserBeam.setStopPosition(0, 1);
+        laserBeam.targetDirection(0, 1);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY());
     }
@@ -66,7 +66,7 @@ public class LaserBeamTest {
     // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
-        laserBeam.setStopPosition(1, -1);
+        laserBeam.targetDirection(1, -1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
@@ -76,7 +76,7 @@ public class LaserBeamTest {
     // @Author Irja Vuorela
     public void ProjectileMovedUpLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
-        laserBeam.setStopPosition(-1, -1);
+        laserBeam.targetDirection(-1, -1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
@@ -86,7 +86,7 @@ public class LaserBeamTest {
     // @Author Irja Vuorela
     public void ProjectileMovedDownRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
-        laserBeam.setStopPosition(1, 1);
+        laserBeam.targetDirection(1, 1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
@@ -96,7 +96,7 @@ public class LaserBeamTest {
     // @Author Irja Vuorela
     public void ProjectileMovedDownLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
-        laserBeam.setStopPosition(-1, 1);
+        laserBeam.targetDirection(-1, 1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
@@ -106,7 +106,7 @@ public class LaserBeamTest {
     // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
-        laserBeam.setStopPosition(0, 0);
+        laserBeam.targetDirection(0, 0);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() == startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() == startPos.getY()));
     }

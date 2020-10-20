@@ -45,8 +45,12 @@ public abstract class ProjectileFactory {
     }
 
 
-    public static Projectile createLaserBeam() {
+    public static Projectile createRandomizedLaserBeam() {
         return new LaserBeam();
+    }
+
+    public static Projectile createLaserBeam(int side) {
+        return new LaserBeam(side);
     }
 
 
