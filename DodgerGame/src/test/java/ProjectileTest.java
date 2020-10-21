@@ -37,7 +37,7 @@ public class ProjectileTest {
     }
 
     /**
-     * Tests that slowdebuff slows the initial speed by 25%
+     * Tests that slowdebuff slows the initial speed
      *
      * @author Isak Ameros
      */

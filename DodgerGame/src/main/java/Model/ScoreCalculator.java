@@ -7,7 +7,7 @@ import Interfaces.ITimeObserver;
  */
 
 public class ScoreCalculator implements ITimeObserver {
-    int points;
+    private int points;
 
     private void calculateScore(long time) {
         points = (int) (time / 1000000000);
