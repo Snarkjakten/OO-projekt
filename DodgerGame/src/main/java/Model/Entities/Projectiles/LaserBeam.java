@@ -2,7 +2,6 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
 import Model.GameWorld;
-import Model.Point2D;
 
 import java.util.Random;
 
@@ -10,8 +9,6 @@ import java.util.Random;
  * @author Olle Westerlund
  */
 public class LaserBeam extends Projectile {
-    private double horizontal;
-    private double vertical;
     private boolean isVertical;
     private final int damage = 100;
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
@@ -61,11 +58,6 @@ public class LaserBeam extends Projectile {
         updateHeightHitboxes(this.getHeight());
     }
 
-    public void updateVelocity() {
-        this.velocity = (new Point2D(horizontal, vertical)).normalize();
-        this.velocity = velocity.multiply(this.getSpeed());
-    }
-
     /**
      * @author Olle Westerlund
      * The method returns a random side for the laser beam
@@ -113,8 +105,7 @@ public class LaserBeam extends Projectile {
      * @param vertical the vertical value to move towards
      */
     public void targetDirection(double horizontal, double vertical) {
-        this.horizontal = horizontal;
-        this.vertical = vertical;
+        this.setVelocity(horizontal, vertical);
     }
 
     public int getDamage() {

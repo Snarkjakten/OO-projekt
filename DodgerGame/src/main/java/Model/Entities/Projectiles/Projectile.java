@@ -139,6 +139,11 @@ public abstract class Projectile extends AbstractGameObject {
         return (!isStillOnX || !isStillOnY);
     }
 
+    public void setVelocity(double xVelocity, double yVelocity) {
+        setXVelocity(xVelocity);
+        setYVelocity(yVelocity);
+    }
+
     public void setXVelocity(double xVelocity) {
         this.xVelocity = xVelocity;
     }
