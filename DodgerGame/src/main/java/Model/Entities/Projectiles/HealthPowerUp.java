@@ -1,5 +1,7 @@
 package Model.Entities.Projectiles;
 
+import Model.Movement.AbstractGameObject;
+
 /**
  * @author Olle Westerlund
  */
@@ -34,5 +36,17 @@ public class HealthPowerUp extends Projectile {
      */
     public int getHealingValue() {
         return this.healingValue;
+    }
+
+    /**
+     * Removes projectiles collided with asteroid unless object is an instance of laserbeam
+     *
+     * @param c the type of object this object has collided with
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        /*if(!(c instanceof LaserBeam || c instanceof Spaceship)) {
+            c.setCollided(true);
+        }*/
     }
 }

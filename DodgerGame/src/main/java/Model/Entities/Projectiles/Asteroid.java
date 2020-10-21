@@ -1,6 +1,7 @@
 package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
+import Model.Movement.AbstractGameObject;
 
 import java.util.Random;
 
@@ -67,5 +68,17 @@ public class Asteroid extends Projectile {
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);
         }
+    }
+
+    /**
+     * Removes projectiles collided with asteroid unless object is an instance of laserbeam
+     *
+     * @param c the type of object this object has collided with
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        /*if(!(c instanceof LaserBeam || c instanceof Spaceship)) {
+            c.setCollided(true);
+        }*/
     }
 }

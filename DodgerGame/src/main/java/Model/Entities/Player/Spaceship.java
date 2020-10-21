@@ -92,18 +92,22 @@ public class Spaceship extends AbstractGameObject {
      * @param gameObject the gameObject spaceship collided with
      *                   todo: make all gameobjects act on collision
      */
-    @Override
+    /*@Override
     public void actOnCollision(AbstractGameObject gameObject) {
         gameObject.setCollided(!(gameObject instanceof LaserBeam));
-    }
+    }*/
 
     /**
      * @param gameObject an object from the game objects list in the game loop
      * @authors Viktor, Olle, Tobias
      */
 
-    public void actOnCollisionEvent(AbstractGameObject gameObject) {
+    public void actOnCollision(AbstractGameObject gameObject) {
         boolean gotShield = this.nrOfShields > 0;
+        if(!(gameObject instanceof LaserBeam)) {
+            gameObject.setCollided(true);
+        }
+
         if (gameObject instanceof Asteroid) {
             if (gotShield) {
                 loseShield();

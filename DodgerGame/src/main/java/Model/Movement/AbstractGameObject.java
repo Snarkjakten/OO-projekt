@@ -1,13 +1,12 @@
 package Model.Movement;
 
-import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
+import Model.Entities.HitBox;
+import Model.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.Point2D;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private double width;
@@ -18,6 +17,8 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     public Point2D velocity;
     // movement speed
     private double speed;
+
+    public CollisionHandler collisionHandler = new CollisionHandler();
 
     public AbstractGameObject(double width, double height) {
         this.width = width;
