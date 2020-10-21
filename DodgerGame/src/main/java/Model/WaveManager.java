@@ -207,7 +207,15 @@ public class WaveManager {
         }
     }
 
-    private void addLaserBeam(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown, boolean isVertical, int side) {
+    /**
+     *
+     * @param gameObjects the list of game objects in the game loop
+     * @param deltaTime   length of a frame in the game loop
+     * @param cooldown    an internal cooldown period to prevent adding too frequently
+     * @param side        the side the laser beam should spawn on
+     * @author Olle, Irja, Viktor
+     */
+    private void addLaserBeam(List<AbstractGameObject> gameObjects, double deltaTime, double cooldown, int side) {
         laserBeamCooldown = laserBeamCooldown - deltaTime;
         if (laserBeamCooldown < 0) {
             gameObjects.add(ProjectileFactory.createLaserBeam(side));
@@ -263,7 +271,7 @@ public class WaveManager {
         }
         if (seconds < 20 || seconds > 30) {
             if (seconds % 7 == 0 && gameObjects.size() < maxNumGameObjects) {
-                addLaserBeam(gameObjects, deltaTime, 7, false, 1);
+                addLaserBeam(gameObjects, deltaTime, 7, 1);
             }
             // adds a vertical wave of asteroids every five seconds
             if (seconds % 5 == 0 && gameObjects.size() < maxNumGameObjects - verticalWaveSize) {

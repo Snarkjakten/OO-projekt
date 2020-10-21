@@ -172,8 +172,9 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     @Override
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
+        boolean gotShield = this.nrOfShields > 0;
         if (gameObject instanceof Asteroid) {
-            if (this.nrOfShields > 0) {
+            if (gotShield) {
                 loseShield();
             } else {
                 this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
@@ -186,8 +187,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             setSpeed(getSpeed() * slowSpeedFactor);
         } else if (gameObject instanceof LaserBeam) {
-            System.out.println("Laserbeam collision");
-            if (this.nrOfShields > 0) {
+            if (gotShield) {
                 loseShield();
             } else {
                 this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());

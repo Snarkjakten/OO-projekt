@@ -17,12 +17,21 @@ public class LaserBeam extends Projectile {
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
+    /**
+     * @author Olle Westerlund
+     * Constructor for a random laser beam
+     */
     public LaserBeam() {
         super(100, 1, 1);
         randomStartPoint();
         initSize();
     }
 
+    /**
+     * @author Olle Westerlund
+     * Constructor for a specified laser beam.
+     * @param side the side that the laser beam will spawn on.
+     */
     public LaserBeam(int side) {
         super(100, 1, 1);
         moveDirection(side);
@@ -35,6 +44,11 @@ public class LaserBeam extends Projectile {
         updatePosition(deltaTime);
     }
 
+    /**
+     * @author Olle Westerlund
+     * The method sets the right size depending on if the laser beam
+     * is vertical or not.
+     */
     private void initSize() {
         if (isVertical) {
             this.setWidth(10);
@@ -54,8 +68,8 @@ public class LaserBeam extends Projectile {
 
     /**
      * @author Olle Westerlund
-     * The method sets a starting side and then sets the position the laser beam
-     * moves towards.
+     * The method returns a random side for the laser beam
+     * to spawn on.
      */
     private void randomStartPoint() {
         Random random = new Random();
@@ -63,6 +77,10 @@ public class LaserBeam extends Projectile {
         moveDirection(side);
     }
 
+    /**
+     * @author Olle Westerlund
+     * @param side The side that the laser beam is spawning on.
+     */
     private void moveDirection(int side) {
         HitBox hitBox = getHitBoxes().get(0);
         switch (side) {
@@ -89,6 +107,11 @@ public class LaserBeam extends Projectile {
         }
     }
 
+    /**
+     * @author Olle Westerlund
+     * @param horizontal the horizontal value to move towards
+     * @param vertical the vertical value to move towards
+     */
     public void targetDirection(double horizontal, double vertical) {
         this.horizontal = horizontal;
         this.vertical = vertical;

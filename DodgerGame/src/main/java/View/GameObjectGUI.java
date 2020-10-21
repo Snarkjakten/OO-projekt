@@ -50,12 +50,12 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
+     * The method sets the correct image depending on the specific gameObject.
      * @param gameObject The gameObject to set the image to.
      * @return The a specific image depending on the gameObject.
-     * The method sets the correct image depending on the specific gameObject.
      * @author Olle Westerlund
      */
-    private Image addImageToGameObject(Class gameObject, double width) {
+    private Image addImageToGameObject(Class gameObject, double width, double height) {
         InputStream inputStream;
         imageWidth = 64;
         imageHeight = 64;
@@ -86,6 +86,11 @@ public class GameObjectGUI implements IGameObjectObserver {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(LaserBeam.class)) {
+            if (width > height) {
+                laserGUI.setIsVertical(false);
+            } else {
+                laserGUI.setIsVertical(true);
+            }
             image = laserGUI.getImage();
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
@@ -93,8 +98,16 @@ public class GameObjectGUI implements IGameObjectObserver {
         return image;
     }
 
+    /**
+     * Draws the correct image on the current position for the object
+     * @param hitBoxes The hitboxes of the object to be drawn.
+     * @param c The class of the object
+     * @param width The objects width
+     * @param height The objects height
+     * @author Olle Westerlund
+     */
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
-        Image image = addImageToGameObject(c, width);
+        Image image = addImageToGameObject(c, width, height);
         for (HitBox hitBox : hitBoxes) {
             if (c.equals(LaserBeam.class)) {
                 if (imageWidth > imageHeight) {

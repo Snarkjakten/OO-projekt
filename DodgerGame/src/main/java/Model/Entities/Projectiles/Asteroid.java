@@ -44,6 +44,7 @@ public class Asteroid extends Projectile {
      * Creates one of two random asteroids, a smaller, faster one or a bigger, slower
      * with more damage. About one of three is a bigger one and about two of three is
      * a smaller one.
+     * @author Olle Westerlund
      */
     private void initAsteroid() {
         Random random = new Random();

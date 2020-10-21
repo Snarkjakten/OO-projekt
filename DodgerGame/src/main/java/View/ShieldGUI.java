@@ -27,8 +27,8 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
     }
 
     /**
-     * @author Olle Westerlund
      * Sets a image to all positions in the list.
+     * @author Olle Westerlund
      */
     private void initImages() {
         for (int i = 0; i < frames.length; i++) {
@@ -37,10 +37,10 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
     }
 
     /**
+     * Loads a specific image and returns it.
      * @param number The number for the picture that the is needed.
      * @return the loaded image.
      * @author Olle Westerlund
-     * Loads a specific image and returns it.
      */
     private Image setImage(int number) {
         InputStream inputStream;
@@ -53,11 +53,11 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
     }
 
     /**
+     * Dicides which image to show depending on the time, number of images and
+     * the duration each images is shown.
      * @param time The current animation time.
      * @return The image that is going to be displayed at the current time.
      * @author Olle Westerlund
-     * Dicides which image to show depending on the time, number of images and
-     * the duration each images is shown.
      */
     private Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
@@ -65,9 +65,9 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
     }
 
     /**
+     * Draws the image on the players position if the player has a shield.
      * @param spaceship The current spaceship.
      * @author Olle Westerlund
-     * Draws the image on the players position if the player has a shield.
      */
     private void drawImage(Spaceship spaceship) {
         if (spaceship.getNrOfShields() > 0) {
