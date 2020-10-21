@@ -1,7 +1,5 @@
 package View;
 
-import Interfaces.ISpaceshipObserver;
-import Model.Entities.Player.Spaceship;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 

@@ -1,7 +1,6 @@
 package Model.Movement;
 
-import Interfaces.ICollisionObservable;
-import Interfaces.ICollisionObserver;
+import Interfaces.*;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.LaserBeam;
@@ -16,9 +15,9 @@ import java.util.List;
  * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class CollisionHandler implements ICollisionObservable {
+public class CollisionHandler implements IGameObjectObservable {
 
-    private List<ICollisionObserver> collisionObservers;
+    private List<IGameObjectObserver> gameObjectObservers = new ArrayList<>();
 
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
         for (HitBox hitBox1 : g.getHitBoxes())
@@ -41,15 +40,13 @@ public class CollisionHandler implements ICollisionObservable {
             for (AbstractGameObject a : gameObjects) {
                 if (checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
                     if (a instanceof Spaceship) {
-                        //notifySoundObservers(gameObject.getClass());
-                        //notifyCollisionObservers(gameObject);
+                        notifyGameObjectObservers(gameObject.getClass());
                         ((Spaceship) a).actOnCollisionEvent(gameObject);
                         if (!(gameObject instanceof LaserBeam)) {
                             toBeRemoved.add(gameObject);
                         }
                     } else if (gameObject instanceof Spaceship) {
-                        //notifySoundObservers(a.getClass());
-                        //notifyCollisionObservers(a);
+                        notifyGameObjectObservers(a.getClass());
                         ((Spaceship) gameObject).actOnCollisionEvent(a);
                         if (!(a instanceof LaserBeam)) {
                             toBeRemoved.add(a);
@@ -65,18 +62,21 @@ public class CollisionHandler implements ICollisionObservable {
         }
     }
 
-    @Override
-    public void notifyCollisionObservers(AbstractGameObject gameObject) {
 
+    @Override
+    public void addGameObjectObserver(IGameObjectObserver obs) {
+        gameObjectObservers.add(obs);
     }
 
     @Override
-    public void addCollisionObserver(ICollisionObserver obs) {
-
+    public void removeGameObjectObserver(IGameObjectObserver obs) {
+        gameObjectObservers.remove(obs);
     }
 
     @Override
-    public void removeCollisionObserver(ICollisionObserver obs) {
-
+    public void notifyGameObjectObservers(Class c) {
+        for (IGameObjectObserver obs : gameObjectObservers) {
+            obs.actOnGameObjectEvent(c);
+        }
     }
 }

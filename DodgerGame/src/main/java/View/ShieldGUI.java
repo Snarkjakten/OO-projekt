@@ -1,9 +1,7 @@
 package View;
 
 import Model.Entities.HitBox;
-import Interfaces.ISpaceshipObserver;
 import Model.Entities.Player.Spaceship;
-import Interfaces.ITimeObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -51,7 +49,7 @@ public class ShieldGUI {
         return image;
     }
 
-    /**
+    /** todo: animations seems broken
      * Dicides which image to show depending on the time, number of images and
      * the duration each images is shown.
      * @param time The current animation time.

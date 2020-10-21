@@ -1,6 +1,5 @@
 package View.Sound;
 import Model.Entities.Projectiles.*;
-import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;

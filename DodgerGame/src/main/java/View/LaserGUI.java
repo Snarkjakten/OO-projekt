@@ -41,7 +41,7 @@ public class LaserGUI {
         initImages();
     }
 
-    /**
+    /** todo: animation seems broken
      * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.

@@ -4,7 +4,7 @@ public interface IGameOverObservable {
 
     void notifyGameOverObservers(boolean isGameOver, int points);
 
-    void addObserver(IGameOverObserver obs);
+    void addGameOverObserver(IGameOverObserver obs);
 
-    void removeObserver(IGameOverObserver obs);
+    void removeGameOverObserver(IGameOverObserver obs);
 }

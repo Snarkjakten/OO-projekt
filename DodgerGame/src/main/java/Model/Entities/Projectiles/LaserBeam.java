@@ -77,35 +77,26 @@ public class LaserBeam extends Projectile {
         HitBox hitBox = getHitBoxes().get(0);
         switch (side) {
             case 0: // Bottom of the screen
-                targetDirection(0, -50);
+                setVelocity(0, -50);
                 hitBox.setPosition(-50, verticalMapSize + 50);
                 isVertical = false;
                 break;
             case 1: // Right side of the screen
-                targetDirection(-50, 0);
+                setVelocity(-50, 0);
                 hitBox.setPosition(horizontalMapSize + 50, -50);
                 isVertical = true;
                 break;
             case 2: // Top of the screen
-                targetDirection(0, verticalMapSize);
+                setVelocity(0, verticalMapSize);
                 hitBox.setPosition(-50, -50);
                 isVertical = false;
                 break;
             default: // Left of the screen
-                targetDirection(horizontalMapSize, 0);
+                setVelocity(horizontalMapSize, 0);
                 hitBox.setPosition(-50, -50);
                 isVertical = true;
                 break;
         }
-    }
-
-    /**
-     * @author Olle Westerlund
-     * @param horizontal the horizontal value to move towards
-     * @param vertical the vertical value to move towards
-     */
-    public void targetDirection(double horizontal, double vertical) {
-        this.setVelocity(horizontal, vertical);
     }
 
     public int getDamage() {

@@ -1,13 +1,12 @@
 package Model.Entities.Player;
 
-import Interfaces.ICollisionObserver;
 import Model.Entities.HitBox;
 import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractGameObject implements ICollisionObserver {
+public class Spaceship extends AbstractGameObject {
 
     private final int maxHp;
     private int hp;
@@ -159,19 +158,18 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * Acts upon the collision based on instance of projectile
      *
      * @param gameObject the gameObject spaceship collided with
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * todo: make all gameobjects collidable
      */
     @Override
     public void actOnCollision(AbstractGameObject gameObject) {
         gameObject.setCollided(!(gameObject instanceof LaserBeam));
-
     }
 
     /**
      * @param gameObject an object from the game objects list in the game loop
      * @authors Viktor, Olle, Tobias
      */
-    @Override
+
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
         boolean gotShield = this.nrOfShields > 0;
         if (gameObject instanceof Asteroid) {

@@ -15,60 +15,45 @@ import javafx.stage.Stage;
 
 import java.util.List;
 
-public class Main extends Application implements ITimeObserver {
-    //private GameWorld gameWorld;
-    //private PausableAnimationTimer gameLoop;
+public class Main extends Application implements ITimeObserver, IGameObjectObserver {
 
     private final SoundHandler soundHandler = new SoundHandler();
-    //private final HighScoreHandler scoreHandler = new HighScoreHandler();
-    //private ScoreCalculator scoreCalculator;
-    
+
     private GameLoop gameLoop;
     Window window = new Window(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
+    CollisionHandler collisionHandler = new CollisionHandler();
+
     GraphicsContext graphicsContext = window.getGraphicsContext();
+    PlayingFieldGUI playingFieldGUI = new PlayingFieldGUI(graphicsContext);
     GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
     HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
     ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
-    CollisionHandler collisionHandler = new CollisionHandler();
-    
-    
+    TimerGUI timerGUI = new TimerGUI(graphicsContext);
+
     @Override
     public void start(Stage stage) throws Exception {
-        //gameWorld = GameWorld.getInstance();
-        //scoreCalculator = new ScoreCalculator();
-        //gameObjects = gameWorld.getGameObjects();
-        //Window window = new Window(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
-        //GraphicsContext graphicsContext = window.getGraphicsContext();
+        // Menus
         MainMenu mainMenu = new MainMenu();
         HighScoreMenu highScoreMenu = new HighScoreMenu();
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
         PauseMenu pauseMenu = new PauseMenu();
-        
+
         gameLoop = new GameLoop();
-        
-        gameLoop.addTimeObserver(this);
-        
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop.getGameLoop(), gameObjectGUI, pauseMenu);
         collisionHandler = gameLoop.getCollisionHandler();
-        
-        
-        //WaveManager waveManager = new WaveManager();
 
-        //CollisionHandler collisionHandler = new CollisionHandler();
+        // observers
+        gameLoop.addTimeObserver(this);
+        collisionHandler.addGameObjectObserver(this);
+        gameLoop.addGameOverObserver(vc);
 
-        LaserGUI laserGUI = LaserGUI.getInstance();
-        //GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
-       // HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
-        //ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
-        //LaserGUI laserGUI = new LaserGUI(graphicsContext, 10, true);
-        BackgroundView backgroundView = new BackgroundView(graphicsContext);
-        ITimeObserver timeView = new TimeView(graphicsContext);
-
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop, gameObjectGUI, pauseMenu);
-        stage.setTitle("Space Dodger");
+        stage.setTitle("Space Dodger"); // todo: move to window
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
         stage.setScene(mainMenuScene);
+
+        //todo: move to window
         //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();
@@ -90,34 +75,52 @@ public class Main extends Application implements ITimeObserver {
         );
 
         window.init();
-        //@Author tobbe
-        
+
         soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
     }
 
     public static void main(String[] args) {
         launch(args);
     }
-    
-    private void updateGUI(double deltaTime) {
+
+    /**
+     * Updates all the images
+     *
+     * @param time the elapsed time in the game loop
+     * @param deltaTime the length of a frame in the game loop
+     * @author Everyone
+     */
+    private void updateGUI(long time, double deltaTime) {
         List<AbstractGameObject> gameObjects = GameWorld.getInstance().getGameObjects();
-        
+
+        playingFieldGUI.drawBackground(0, 0, GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight(), 0);
+
+        timerGUI.drawImage(time);
+
         for (AbstractGameObject gameObject : gameObjects) {
-            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), );
+            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), deltaTime);
         }
-        
+
         healthBarGUI.drawHealthBar(GameWorld.getInstance().getSpaceship().getHp(), GameWorld.getInstance().getSpaceship().getMaxHp());
-        
+
         shieldGUI.drawImage(GameWorld.getInstance().getSpaceship(), deltaTime);
     }
-    
+
+    /**
+     * Updates the sounds
+     * @param c the class type associated with the sound to be played
+     */
     private void updateSound(Class c) {
         soundHandler.playSound(c);
     }
 
     @Override
-    public void actOnEvent(long time, double deltaTime) {
-        updateGUI(deltaTime);
-        updateSound(); // TODO: 2020-10-21 flytta till annan actonevent 
+    public void actOnTimeEvent(long time, double deltaTime) {
+        updateGUI(time, deltaTime);
+    }
+
+    @Override
+    public void actOnGameObjectEvent(Class c) {
+        updateSound(c);
     }
 }

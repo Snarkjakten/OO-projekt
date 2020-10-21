@@ -32,7 +32,7 @@ public class Window {
         }
     }
 
-    //Sets size of Pane
+    //Sets size of Pane todo: size after playing field size
     private void createContent() {
         root.setPrefSize(800, 600);
     }

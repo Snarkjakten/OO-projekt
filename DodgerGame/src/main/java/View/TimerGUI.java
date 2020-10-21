@@ -9,13 +9,13 @@ import javafx.scene.text.Font;
  * @Author Isak almeros
  */
 
-public class TimeView implements ITimeObserver {
+public class TimerGUI {
     private GraphicsContext gc;
     private StringBuilder sb = new StringBuilder("00:00");
     private long seconds;
     private long minutes;
 
-    public TimeView(GraphicsContext gc){
+    public TimerGUI(GraphicsContext gc){
         this.gc = gc;
 
         Font font = Font.font("Arial", 50);
@@ -29,7 +29,8 @@ public class TimeView implements ITimeObserver {
         this.minutes = sec / 60;
     }
 
-    private void drawImage(){
+    public void drawImage(long time){
+        calculateTime(time);
         if(minutes < 10 && seconds < 10) {
             sb.replace(0, sb.capacity(), "0" + minutes + ":" + "0" + seconds);
         } else if (minutes < 10) {
@@ -43,8 +44,4 @@ public class TimeView implements ITimeObserver {
         gc.fillText(sb.toString(), 20, 590);
     }
 
-    public void actOnEvent(long time, double deltaTime) {
-        calculateTime(time);
-        drawImage();
-    }
 }
