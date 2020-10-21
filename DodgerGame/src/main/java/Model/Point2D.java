@@ -93,6 +93,11 @@ public class Point2D {
         return this.y;
     }
 
+    /**
+     *
+     * @return a string for the point showing the x- and y-position
+     * @author Olle Westerlund
+     */
     @Override
     public String toString() {
         return ("(" + x + "," + y + ")");
