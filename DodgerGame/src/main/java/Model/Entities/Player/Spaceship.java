@@ -163,7 +163,8 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     @Override
     public void actOnCollision(AbstractGameObject gameObject) {
-        gameObject.setCollided(true);
+        gameObject.setCollided(!(gameObject instanceof LaserBeam));
+
     }
 
     /**
