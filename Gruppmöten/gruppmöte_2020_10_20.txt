@@ -1,0 +1,32 @@
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 20 oktober 2020
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+Objectives
+- Mergea pull requests
+
+Reports
+- Isak gjort scorecalculator
+- Irja har gjort Point-2D och Rectangle-2D
+- Tillsammans har vi letat buggar
+- Tobias klar är klar med hitboxarna
+
+Discussion items
+- Ska gameloop ligga i main?
+- Ska vi ha kvar observers?
+- Lite jobb kvar på pausfunktionen
+
+Outcomes and assignments
+- Letat buggar tillsammans
+- Irja, Olla, Viktor kollar på laserbeam
+- Se ifall vi kan byta till facade pattern eller nåt annat, ifall det inte är för mycket jobb.
+- Isak skriva test för scorecalculator
+- Viktor kikar på tester
+- Tobias kollar på wraparound tester
+- Ev. kika på SDD och RAD om någon har tid
+
+Wrap up
+- Nästa möte onsdag 21/10 kl 09:00

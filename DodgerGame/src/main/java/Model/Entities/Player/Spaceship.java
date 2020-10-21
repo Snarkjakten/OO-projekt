@@ -2,10 +2,7 @@ package Model.Entities.Player;
 
 import Interfaces.ICollisionObserver;
 import Model.Entities.HitBox;
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.HealthPowerUp;
-import Model.Entities.Projectiles.ShieldPowerUp;
-import Model.Entities.Projectiles.SlowDebuff;
+import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
@@ -141,11 +138,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @authors Irja & Viktor
      */
     public void gainHealth(int healingValue) {
-        if (getHp() + healingValue > maxHp) {
-            setHp(maxHp);
-        } else {
-            setHp(getHp() + healingValue);
-        }
+        setHp(Math.min(getHp() + healingValue, maxHp));
     }
 
     /**
@@ -167,7 +160,8 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     @Override
     public void actOnCollision(AbstractGameObject gameObject) {
-        gameObject.setCollided(true);
+        gameObject.setCollided(!(gameObject instanceof LaserBeam));
+
     }
 
     /**
@@ -176,19 +170,26 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      */
     @Override
     public void actOnCollisionEvent(AbstractGameObject gameObject) {
-        if (gameObject instanceof Asteroid)
-            if (this.nrOfShields > 0) {
+        boolean gotShield = this.nrOfShields > 0;
+        if (gameObject instanceof Asteroid) {
+            if (gotShield) {
                 loseShield();
             } else {
                 this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
             }
-        else if (gameObject instanceof ShieldPowerUp) {
+        } else if (gameObject instanceof ShieldPowerUp) {
             gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
         } else if (gameObject instanceof HealthPowerUp) {
             gainHealth(((HealthPowerUp) gameObject).getHealingValue());
         } else if (gameObject instanceof SlowDebuff) {
             double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
             setSpeed(getSpeed() * slowSpeedFactor);
+        } else if (gameObject instanceof LaserBeam) {
+            if (gotShield) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
+            }
         }
 
     }

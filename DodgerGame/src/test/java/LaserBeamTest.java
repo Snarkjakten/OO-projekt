@@ -23,7 +23,7 @@ public class LaserBeamTest {
     public void ProjectileMovedLeft() {
         x = laserBeam.getHitBoxes().get(0).getX();
         // Negative horizontal value to move left
-        laserBeam.setStopPosition(-1, 0);
+        laserBeam.targetDirection(-1, 0);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getX() < x);
     }
@@ -34,7 +34,7 @@ public class LaserBeamTest {
     public void ProjectileMovedRight() {
         x = laserBeam.getHitBoxes().get(0).getX();
         // Positive horizontal value to move right
-        laserBeam.setStopPosition(1, 0);
+        laserBeam.targetDirection(1, 0);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getX() > x);
     }
@@ -45,7 +45,7 @@ public class LaserBeamTest {
     public void ProjectileMovedUp() {
         y = laserBeam.getHitBoxes().get(0).getY();
         // Negative vertical value to move up
-        laserBeam.setStopPosition(0, -1);
+        laserBeam.targetDirection(0, -1);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getY() < y);
     }
@@ -56,7 +56,7 @@ public class LaserBeamTest {
     public void ProjectileMovedDown() {
         y = laserBeam.getHitBoxes().get(0).getY();
         // Positive vertical value to move down
-        laserBeam.setStopPosition(0, 1);
+        laserBeam.targetDirection(0, 1);
         laserBeam.move(deltaTime);
         assertTrue(laserBeam.getHitBoxes().get(0).getY() > y);
     }
@@ -67,7 +67,7 @@ public class LaserBeamTest {
     public void ProjectileMovedUpRight() {
         x = laserBeam.getHitBoxes().get(0).getX();
         y = laserBeam.getHitBoxes().get(0).getY();
-        laserBeam.setStopPosition(1, -1);
+        laserBeam.targetDirection(1, -1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getX() > x) && (laserBeam.getHitBoxes().get(0).getY() < y));
     }
@@ -78,7 +78,7 @@ public class LaserBeamTest {
     public void ProjectileMovedUpLeft() {
         x = laserBeam.getHitBoxes().get(0).getX();
         y = laserBeam.getHitBoxes().get(0).getY();
-        laserBeam.setStopPosition(-1, -1);
+        laserBeam.targetDirection(-1, -1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getX() < x) && (laserBeam.getHitBoxes().get(0).getY() < y));
     }
@@ -89,7 +89,7 @@ public class LaserBeamTest {
     public void ProjectileMovedDownRight() {
         x = laserBeam.getHitBoxes().get(0).getX();
         y = laserBeam.getHitBoxes().get(0).getY();
-        laserBeam.setStopPosition(1, 1);
+        laserBeam.targetDirection(1, 1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getX() > x) && (laserBeam.getHitBoxes().get(0).getY() > y));
     }
@@ -100,7 +100,7 @@ public class LaserBeamTest {
     public void ProjectileMovedDownLeft() {
         x = laserBeam.getHitBoxes().get(0).getX();
         y = laserBeam.getHitBoxes().get(0).getY();
-        laserBeam.setStopPosition(-1, 1);
+        laserBeam.targetDirection(-1, 1);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getX() < x) && (laserBeam.getHitBoxes().get(0).getY() > y));
     }
@@ -111,7 +111,7 @@ public class LaserBeamTest {
     public void ProjectileNotMovingWhenVelocityZero() {
         x = laserBeam.getHitBoxes().get(0).getX();
         y = laserBeam.getHitBoxes().get(0).getY();
-        laserBeam.setStopPosition(0, 0);
+        laserBeam.targetDirection(0, 0);
         laserBeam.move(deltaTime);
         assertTrue((laserBeam.getHitBoxes().get(0).getX() == x) && (laserBeam.getHitBoxes().get(0).getY() == y));
     }

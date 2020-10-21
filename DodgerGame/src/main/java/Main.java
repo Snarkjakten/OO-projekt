@@ -3,6 +3,7 @@ import Controller.ViewController;
 import Model.Entities.HitBox;
 import Interfaces.*;
 import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.LaserBeam;
 import Model.GameWorld;
 import Model.HighScoreHandler;
 import Model.Movement.AbstractGameObject;
@@ -56,6 +57,9 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         AbstractMenu pauseMenu = MenuFactory.createPauseMenu();
         WaveManager waveManager = new WaveManager();
 
+        CollisionHandler collisionHandler = new CollisionHandler();
+
+        LaserGUI laserGUI = LaserGUI.getInstance();
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
         HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
         ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
@@ -93,7 +97,7 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                 List<AbstractGameObject> toBeRemoved;
                 toBeRemoved = new ArrayList<>();
 
-                CollisionHandler collisionHandler = new CollisionHandler();
+
 
                 for (AbstractGameObject gameObject : gameObjects) {
                     notifyGameObjectObservers(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight());
@@ -102,11 +106,15 @@ public class Main extends Application implements ICollisionObservable, IGameObje
                             if (a instanceof Spaceship) {
                                 notifySoundObservers(gameObject.getClass());
                                 notifyCollisionObservers(gameObject);
-                                toBeRemoved.add(gameObject);
+                                if (!(gameObject instanceof LaserBeam)) {
+                                    toBeRemoved.add(gameObject);
+                                }
                             } else if (gameObject instanceof Spaceship) {
                                 notifySoundObservers(a.getClass());
                                 notifyCollisionObservers(a);
-                                toBeRemoved.add(a);
+                                if (!(a instanceof LaserBeam)) {
+                                    toBeRemoved.add(a);
+                                }
                             }
                             collisionHandler.collide(a, gameObject);
                         }
@@ -175,10 +183,10 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         spaceshipObservers = new ArrayList<>();
         gameWorldObservers = new ArrayList<>();
 
-        //addObserver(laserGUI);
         addObserver(gameObjectGUI);
         addObserver(vc);
         addTimeObserver(timeView);
+        addTimeObserver(laserGUI);
         addTimeObserver(shieldGUI);
         addSpaceshipObserver(shieldGUI);
         addSpaceshipObserver(healthBarGUI);

@@ -2,29 +2,37 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
 import Model.GameWorld;
-import Model.Movement.AbstractGameObject;
-import Model.Point2D;
 
 import java.util.Random;
 
 /**
  * @author Olle Westerlund
  */
-public class LaserBeam extends AbstractGameObject {
-    private double horizontal;
-    private double vertical;
-    private final int damage;
-
+public class LaserBeam extends Projectile {
+    private boolean isVertical;
+    private final int damage = 25;
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-
+    /**
+     * @author Olle Westerlund
+     * Constructor for a random laser beam
+     */
     public LaserBeam() {
-        super(1, 1);
-        setSpeed(100);
-        this.damage = 100;
-        getHitBoxes().add(new HitBox(0, 0, 1, 1));
+        super(100, 1, 1);
         randomStartPoint();
+        initSize();
+    }
+
+    /**
+     * @param side the side that the laser beam will spawn on.
+     * @author Olle Westerlund
+     * Constructor for a specified laser beam.
+     */
+    public LaserBeam(int side) {
+        super(100, 1, 1);
+        moveDirection(side);
+        initSize();
     }
 
     @Override
@@ -33,49 +41,78 @@ public class LaserBeam extends AbstractGameObject {
         updatePosition(deltaTime);
     }
 
-    public void updateVelocity() {
-        this.velocity = (new Point2D(horizontal, vertical).normalize());
-        this.velocity.multiply(getSpeed());
+    /**
+     * @author Olle Westerlund
+     * The method sets the right size depending on if the laser beam
+     * is vertical or not.
+     */
+    private void initSize() {
+        if (isVertical) {
+            this.setWidth(10);
+            this.setHeight(verticalMapSize + 100);
+        } else {
+            this.setWidth(horizontalMapSize + 100);
+            this.setHeight(10);
+        }
+        updateWidthHitboxes(this.getWidth());
+        updateHeightHitboxes(this.getHeight());
     }
 
     /**
      * @author Olle Westerlund
-     * The method sets a starting side and then sets the position the laser beam
-     * moves towards.
+     * The method returns a random side for the laser beam
+     * to spawn on.
      */
     private void randomStartPoint() {
-        HitBox hitBox = getHitBoxes().get(0);
         Random random = new Random();
         int side = random.nextInt(4);
+        moveDirection(side);
+    }
+
+    /**
+     * @param side The side that the laser beam is spawning on.
+     * @author Olle Westerlund
+     */
+    private void moveDirection(int side) {
+        HitBox hitBox = getHitBoxes().get(0);
         switch (side) {
             case 0: // Bottom of the screen
-                setStopPosition(0, -50);
-                hitBox.updatePosition(-50, verticalMapSize + 50);
+                targetDirection(0, -50);
+                hitBox.updateHitBox(-50, verticalMapSize + 50, getWidth(), getHeight());
+                isVertical = false;
                 break;
             case 1: // Right side of the screen
-                setStopPosition(-50, 0);
-                hitBox.updatePosition(horizontalMapSize + 50, -50);
+                targetDirection(-50, 0);
+                hitBox.updateHitBox(horizontalMapSize + 50, 50, getWidth(), getHeight());
+                isVertical = true;
                 break;
             case 2: // Top of the screen
-                setStopPosition(0, verticalMapSize);
-                hitBox.updatePosition(-50, -50);
+                targetDirection(0, verticalMapSize);
+                hitBox.updateHitBox(-50, -50, getWidth(), getHeight());
+                isVertical = false;
                 break;
-            case 3: // Left of the screen
-                setStopPosition(horizontalMapSize, 0);
-                hitBox.updatePosition(-50, -50);
-                break;
-            default:
-                System.out.println("Error in randomStartPoint");
+            default: // Left of the screen
+                targetDirection(horizontalMapSize, 0);
+                hitBox.updateHitBox(-50, -50, getWidth(), getHeight());
+                isVertical = true;
                 break;
         }
     }
 
-    public void setStopPosition(double horizontal, double vertical) {
-        this.horizontal = horizontal;
-        this.vertical = vertical;
+    /**
+     * @param horizontal the horizontal value to move towards
+     * @param vertical   the vertical value to move towards
+     * @author Olle Westerlund
+     */
+    public void targetDirection(double horizontal, double vertical) {
+        this.setVelocity(horizontal, vertical);
     }
 
     public int getDamage() {
         return damage;
+    }
+
+    public boolean isVertical() {
+        return isVertical;
     }
 }

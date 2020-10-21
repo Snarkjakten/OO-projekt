@@ -15,6 +15,8 @@ import java.util.List;
 public class HighScoreMenu extends AbstractMenu {
 
     private final MenuButton mainMenuBtn;
+    private final Text scores;
+    private final HighScoreHandler hs = new HighScoreHandler();
 
     public HighScoreMenu() throws IOException {
 
@@ -33,8 +35,8 @@ public class HighScoreMenu extends AbstractMenu {
         mainMenuBtn = new MenuButton("BACK");
 
         // Presents the scores
-        Text scores = new Text();
         HighScoreHandler hs = new HighScoreHandler();
+        scores = new Text();
         scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         scores.setFont(theFont2);
@@ -56,6 +58,10 @@ public class HighScoreMenu extends AbstractMenu {
         buttonMenu.getvBox().getChildren().addAll(mainMenuBtn);
 
         getRoot().getChildren().addAll(background, getTitle(), scores, buttonMenu);
+    }
+
+    public void updateScore() {
+        scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
     }
 
     public MenuButton getMainMenuBtn() {

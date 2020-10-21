@@ -6,16 +6,16 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ProjectileTest {
 
     Asteroid projAsteroid;
+    HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     SlowDebuff slowDebuff;
     ShieldPowerUp shieldPowerUp;
-    HealthPowerUp hpUp;
     HealthPowerUp healthPowerUp;
     double x;
     double y;
@@ -37,7 +37,7 @@ public class ProjectileTest {
     }
 
     /**
-     * Tests that slowdebuff slows the initial speed by 25%
+     * Tests that slowdebuff slows the initial speed
      *
      * @author Isak Ameros
      */
@@ -91,7 +91,7 @@ public class ProjectileTest {
      */
     @Test
     public void asteroidIsNotOnScreen() {
-        projAsteroid.getHitBoxes().get(0).updateHitBox(-80, -80, projAsteroid.getWidth(), projAsteroid.getHeight());
+        projAsteroid.getHitBoxes().get(0).updateHitBox(-130, -130, projAsteroid.getWidth(), projAsteroid.getHeight());
         assertTrue(projAsteroid.isNotOnScreen());
     }
 

@@ -39,7 +39,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private void initSpaceship() {
-        this.spaceship = SpaceshipFactory.createSpaceship(368, 268, 64, 64);
+        this.spaceship = SpaceshipFactory.createSpaceship(368, 268, 32, 32);
         gameObjects.add(spaceship);
     }
 

@@ -47,7 +47,10 @@ public class ViewController implements IGameOverObserver {
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
         // TODO: 2020-09-27 go to highscore menu
-        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> stage.getScene().setRoot(highScoreMenu.getRoot()));
+        mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
+            highScoreMenu.updateScore();
+            stage.getScene().setRoot(highScoreMenu.getRoot());
+        });
 
         // When clicking on "QUIT"
         mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
