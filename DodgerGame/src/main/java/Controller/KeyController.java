@@ -3,7 +3,7 @@ package Controller;
 import Interfaces.IGameWorldObserver;
 import Model.GameWorld;
 import Model.PausableAnimationTimer;
-import View.PauseMenu;
+import View.AbstractMenu;
 import Model.Entities.Player.Spaceship;
 import javafx.scene.input.KeyEvent;
 import javafx.stage.Stage;
@@ -14,9 +14,9 @@ public class KeyController implements IGameWorldObserver {
     private GameWorld gameWorld;
     private Spaceship spaceship;
     private final PausableAnimationTimer gameLoop;
-    private final PauseMenu pauseMenu;
+    private final AbstractMenu pauseMenu;
 
-    public KeyController(Stage stage, PausableAnimationTimer gameLoop, PauseMenu pauseMenu) {
+    public KeyController(Stage stage, PausableAnimationTimer gameLoop, AbstractMenu pauseMenu) {
         this.gameLoop = gameLoop;
         this.stage = stage;
         this.gameWorld = GameWorld.getInstance();

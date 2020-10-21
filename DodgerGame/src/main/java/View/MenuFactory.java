@@ -7,23 +7,23 @@ import java.io.IOException;
  */
 public abstract class MenuFactory {
 
-    public static CharacterMenu createCharacterMenu() throws IOException {
+    public static AbstractMenu createCharacterMenu() throws IOException {
         return new CharacterMenu();
     }
 
-    public static GameOverMenu createGameOverMenu() throws IOException {
+    public static AbstractMenu createGameOverMenu() throws IOException {
         return new GameOverMenu();
     }
 
-    public static MainMenu createMainMenu() throws IOException {
+    public static AbstractMenu createMainMenu() throws IOException {
         return new MainMenu();
     }
 
-    public static PauseMenu createPauseMenu() throws IOException {
+    public static AbstractMenu createPauseMenu() throws IOException {
         return new PauseMenu();
     }
 
-    public static HighScoreMenu createHighScoreMenu() throws IOException {
+    public static AbstractMenu createHighScoreMenu() throws IOException {
         return new HighScoreMenu();
     }
 }

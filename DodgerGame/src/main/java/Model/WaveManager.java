@@ -13,8 +13,8 @@ import java.util.List;
 public class WaveManager {
 
     // Gap sizes between projectiles in a wave.
-    private int horizontalGap = 64;
-    private int verticalGap = 64;
+    private final int horizontalGap = 64;
+    private final int verticalGap = 64;
 
     private long seconds; // Current number of seconds.
     private long minutes; // Current number of minutes.

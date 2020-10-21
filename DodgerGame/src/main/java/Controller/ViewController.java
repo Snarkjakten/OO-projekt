@@ -21,14 +21,14 @@ public class ViewController implements IGameOverObserver {
     private final GameObjectGUI gameObjectGUI;
     private final PausableAnimationTimer gameLoop;
 
-    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
-                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
+    public ViewController(Window window, AbstractMenu mainMenu, AbstractMenu highScoreMenu, AbstractMenu characterMenu,
+                          AbstractMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, AbstractMenu pauseMenu) {
         this.window = window;
-        this.mainMenu = mainMenu;
-        this.highScoreMenu = highScoreMenu;
-        this.characterMenu = characterMenu;
-        this.pauseMenu = pauseMenu;
-        this.gameOverMenu = gameOverMenu;
+        this.mainMenu = (MainMenu) mainMenu;
+        this.highScoreMenu = (HighScoreMenu) highScoreMenu;
+        this.characterMenu = (CharacterMenu) characterMenu;
+        this.pauseMenu = (PauseMenu) pauseMenu;
+        this.gameOverMenu = (GameOverMenu) gameOverMenu;
         this.stage = stage;
         this.spaceshipChoice = 0;
         this.gameLoop = gameLoop;

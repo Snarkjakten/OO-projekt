@@ -13,10 +13,10 @@ public class SpaceshipTest {
 
     GameWorld gameWorld;
     Spaceship spaceship;
-    HealthPowerUp healthPowerUp;
-    ShieldPowerUp shieldPowerUp;
-    SlowDebuff slowDebuff;
-    Asteroid asteroid;
+    Projectile healthPowerUp;
+    Projectile shieldPowerUp;
+    Projectile slowDebuff;
+    Projectile asteroid;
     double x;
     double y;
     double deltaTime = 0.016;
@@ -28,10 +28,10 @@ public class SpaceshipTest {
     public void init() {
         gameWorld = GameWorld.getInstance();
         spaceship = SpaceshipFactory.createSpaceship(0, 0, 64, 64);
-        healthPowerUp = (HealthPowerUp) ProjectileFactory.createHealthPowerUp(200, 20, 20, 20, 20);
-        shieldPowerUp = (ShieldPowerUp) ProjectileFactory.createShieldPowerUp(200, 20, 20, 20, 20);
-        slowDebuff = (SlowDebuff) ProjectileFactory.createSlowDebuff();
-        asteroid = (Asteroid) ProjectileFactory.createAsteroid(20, 20, 20, 20, 20, 20, 20);
+        healthPowerUp = ProjectileFactory.createHealthPowerUp(200, 20, 20, 20, 20);
+        shieldPowerUp = ProjectileFactory.createShieldPowerUp(200, 20, 20, 20, 20);
+        slowDebuff = ProjectileFactory.createSlowDebuff();
+        asteroid = ProjectileFactory.createAsteroid(20, 20, 20, 20, 20, 20, 20);
     }
 
     /**

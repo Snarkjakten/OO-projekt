@@ -49,11 +49,11 @@ public class Main extends Application implements ICollisionObservable, IGameObje
         gameObjects = gameWorld.getGameObjects();
         Window window = new Window(gameWorld.getPlayingFieldWidth(), gameWorld.getPlayingFieldHeight());
         GraphicsContext graphicsContext = window.getGraphicsContext();
-        MainMenu mainMenu = MenuFactory.createMainMenu();
-        HighScoreMenu highScoreMenu = MenuFactory.createHighScoreMenu();
-        CharacterMenu characterMenu = MenuFactory.createCharacterMenu();
-        GameOverMenu gameOverMenu = MenuFactory.createGameOverMenu();
-        PauseMenu pauseMenu = MenuFactory.createPauseMenu();
+        AbstractMenu mainMenu = MenuFactory.createMainMenu();
+        AbstractMenu highScoreMenu = MenuFactory.createHighScoreMenu();
+        AbstractMenu characterMenu = MenuFactory.createCharacterMenu();
+        AbstractMenu gameOverMenu = MenuFactory.createGameOverMenu();
+        AbstractMenu pauseMenu = MenuFactory.createPauseMenu();
         WaveManager waveManager = new WaveManager();
 
         GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
