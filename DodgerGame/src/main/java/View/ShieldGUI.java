@@ -12,11 +12,10 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
+public class ShieldGUI {
     private final GraphicsContext gc;
     private final Image[] frames;
     private final double duration;
-    private double animationTime;
 
     public ShieldGUI(GraphicsContext gc) {
         this.gc = gc;
@@ -69,9 +68,9 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
      * @param spaceship The current spaceship.
      * @author Olle Westerlund
      */
-    private void drawImage(Spaceship spaceship) {
+    public void drawImage(Spaceship spaceship, double deltaTime) {
         if (spaceship.getNrOfShields() > 0) {
-            Image image = getFrame(animationTime);
+            Image image = getFrame(deltaTime);
             for (HitBox hitBox : spaceship.getHitBoxes()) {
                 double xPos = hitBox.getPosition().getX() - 37;
                 double yPos = hitBox.getPosition().getY() - 37;
@@ -80,15 +79,5 @@ public class ShieldGUI implements ISpaceshipObserver, ITimeObserver {
                 gc.drawImage(image, xPos, yPos, height, width);
             }
         }
-    }
-
-    @Override
-    public void actOnEvent(long time, double deltaTime) {
-        this.animationTime = deltaTime;
-    }
-
-    @Override
-    public void actOnEvent(Spaceship spaceship) {
-        drawImage(spaceship);
     }
 }

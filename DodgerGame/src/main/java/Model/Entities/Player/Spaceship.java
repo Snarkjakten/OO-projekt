@@ -194,6 +194,5 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
                 this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
             }
         }
-
     }
 }

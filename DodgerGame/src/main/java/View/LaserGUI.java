@@ -9,8 +9,7 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI implements ITimeObserver {
-    private double animationTime;
+public class LaserGUI {
     private Image[] frames;
     private final double duration = 0.1;
     private boolean isVertical;
@@ -42,19 +41,13 @@ public class LaserGUI implements ITimeObserver {
         initImages();
     }
 
-
-
-    public Image getImage() {
-        return getFrame(animationTime);
-    }
-
     /**
      * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
      * @author Olle Westerlund
      */
-    private Image getFrame(double time) {
+    public Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
         return frames[index];
     }
@@ -90,10 +83,5 @@ public class LaserGUI implements ITimeObserver {
             image = new Image(inputStream, playingFieldWidth + 100, 256, false, false);
         }
         return image;
-    }
-
-    @Override
-    public void actOnEvent(long time, double deltaTime) {
-        this.animationTime = deltaTime;
     }
 }

@@ -179,11 +179,11 @@ public class GameWorld {
         isGameOver = gameOver;
     }
 
-    public double getPlayingFieldWidth() {
+    public static double getPlayingFieldWidth() {
         return playingFieldWidth;
     }
 
-    public double getPlayingFieldHeight() {
+    public static double getPlayingFieldHeight() {
         return playingFieldHeight;
     }
 

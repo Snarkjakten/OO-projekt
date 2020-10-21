@@ -14,13 +14,14 @@ import java.util.List;
  * @author Olle Westerlund
  */
 
-public class GameObjectGUI implements IGameObjectObserver {
+public class GameObjectGUI {
     private final GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
     private LaserGUI laserGUI;
     private double imageWidth;
     private double imageHeight;
+    private double deltaTime;
 
     private static final String firstChoice = "thor.gif";
     private static final String secondChoice = "turtle.png";
@@ -91,7 +92,7 @@ public class GameObjectGUI implements IGameObjectObserver {
             } else {
                 laserGUI.setIsVertical(true);
             }
-            image = laserGUI.getImage();
+            image = laserGUI.getFrame(deltaTime);
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         }
@@ -104,9 +105,11 @@ public class GameObjectGUI implements IGameObjectObserver {
      * @param c The class of the object
      * @param width The objects width
      * @param height The objects height
+     * @param deltaTime
      * @author Olle Westerlund
      */
-    private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
+    public void drawImage(List<HitBox> hitBoxes, Class c, double width, double height, double deltaTime) {
+        this.deltaTime = deltaTime;
         Image image = addImageToGameObject(c, width, height);
         for (HitBox hitBox : hitBoxes) {
             if (c.equals(LaserBeam.class)) {
@@ -119,12 +122,6 @@ public class GameObjectGUI implements IGameObjectObserver {
                 gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
             }
         }
-    }
-
-
-    @Override
-    public void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height) {
-        drawImage(hitBoxes, c, width, height);
     }
 
     public static String getFirstChoice() {
