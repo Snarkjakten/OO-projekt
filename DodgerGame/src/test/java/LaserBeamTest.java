@@ -19,7 +19,6 @@ public class LaserBeamTest {
         laserBeam = new LaserBeam();
     }
 
-
     /**
      * Tests if a projectile can move its position to the left
      *

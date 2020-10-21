@@ -46,7 +46,7 @@ public class HighScoreHandler {
 
     /**
      * Create a list where each line in the file is an element (each score in the file).
-     * The list will be empty if the file doesn't exist
+     * Return an empty list if the file doesn't exist.
      *
      * @param fileName name of the text file.
      * @return list of top scores
