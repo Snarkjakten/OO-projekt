@@ -1,6 +1,5 @@
 package Model.Entities;
 
-
 import Model.Point2D;
 import Model.Rectangle2D;
 
@@ -62,14 +61,6 @@ public class HitBox {
     }
 
     /**
-     * @return the position of this hitBox
-     * @author Tobias Engblom
-     */
-    public Point2D getPosition() {
-        return position;
-    }
-
-    /**
      * Setter for this hitBox position
      *
      * @param position the new 2D point for this hitBox
@@ -113,5 +104,21 @@ public class HitBox {
      */
     public double getHeight() {
         return height;
+    }
+
+    /**
+     * @return the xPosition of this hitBox
+     * @author Tobias Engblom
+     */
+    public double getX() {
+        return this.position.getX();
+    }
+
+    /**
+     * @return the yPosition of this hitBox
+     * @author Tobias Engblom
+     */
+    public double getY() {
+        return this.position.getY();
     }
 }

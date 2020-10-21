@@ -1,6 +1,5 @@
 import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
-import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -18,7 +17,8 @@ public class ProjectileTest {
     ShieldPowerUp shieldPowerUp;
     HealthPowerUp hpUp;
     HealthPowerUp healthPowerUp;
-    Point2D startPos;
+    double x;
+    double y;
     List<AbstractGameObject> gameObjects;
     double deltaTime = 0.016;
 
@@ -102,11 +102,11 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedLeft() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
         // Negative horizontal value to move left
         projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
-        assertTrue(projAsteroid.getHitBoxes().get(0).getPosition().getX() < startPos.getX());
+        assertTrue(projAsteroid.getHitBoxes().get(0).getX() < x);
     }
 
     /**
@@ -116,11 +116,11 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedRight() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
         // Positive horizontal value to move right
         projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
-        assertTrue(projAsteroid.getHitBoxes().get(0).getPosition().getX() > startPos.getX());
+        assertTrue(projAsteroid.getHitBoxes().get(0).getX() > x);
     }
 
     /**
@@ -130,11 +130,11 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedUp() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         // Negative vertical value to move up
         projAsteroid.setYVelocity(-1);
         projAsteroid.move(deltaTime);
-        assertTrue(projAsteroid.getHitBoxes().get(0).getPosition().getY() < startPos.getY());
+        assertTrue(projAsteroid.getHitBoxes().get(0).getY() < y);
     }
 
     /**
@@ -144,11 +144,11 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedDown() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         // Positive vertical value to move down
         projAsteroid.setYVelocity(1);
         projAsteroid.move(deltaTime);
-        assertTrue(projAsteroid.getHitBoxes().get(0).getPosition().getY() > startPos.getY());
+        assertTrue(projAsteroid.getHitBoxes().get(0).getY() > y);
     }
 
     /**
@@ -158,11 +158,12 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedUpRight() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         projAsteroid.setYVelocity(-1);
         projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
-        assertTrue((projAsteroid.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
+        assertTrue((projAsteroid.getHitBoxes().get(0).getX() > x) && (projAsteroid.getHitBoxes().get(0).getY() < y));
     }
 
     /**
@@ -172,11 +173,12 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedUpLeft() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         projAsteroid.setYVelocity(-1);
         projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
-        assertTrue((projAsteroid.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
+        assertTrue((projAsteroid.getHitBoxes().get(0).getX() < x) && (projAsteroid.getHitBoxes().get(0).getY() < y));
     }
 
     /**
@@ -186,11 +188,12 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedDownRight() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         projAsteroid.setYVelocity(1);
         projAsteroid.setXVelocity(1);
         projAsteroid.move(deltaTime);
-        assertTrue((projAsteroid.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
+        assertTrue((projAsteroid.getHitBoxes().get(0).getX() > x) && (projAsteroid.getHitBoxes().get(0).getY() > y));
     }
 
     /**
@@ -200,11 +203,12 @@ public class ProjectileTest {
      */
     @Test
     public void projectileMovedDownLeft() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         projAsteroid.setYVelocity(1);
         projAsteroid.setXVelocity(-1);
         projAsteroid.move(deltaTime);
-        assertTrue((projAsteroid.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
+        assertTrue((projAsteroid.getHitBoxes().get(0).getX() < x) && (projAsteroid.getHitBoxes().get(0).getY() > y));
     }
 
     /**
@@ -214,11 +218,12 @@ public class ProjectileTest {
      */
     @Test
     public void projectileNotMovingWhenVelocityZero() {
-        startPos = projAsteroid.getHitBoxes().get(0).getPosition();
+        x = projAsteroid.getHitBoxes().get(0).getX();
+        y = projAsteroid.getHitBoxes().get(0).getY();
         projAsteroid.setYVelocity(0);
         projAsteroid.setXVelocity(0);
         projAsteroid.move(deltaTime);
-        assertTrue((projAsteroid.getHitBoxes().get(0).getPosition().getX() == startPos.getX()) && (projAsteroid.getHitBoxes().get(0).getPosition().getY() == startPos.getY()));
+        assertTrue((projAsteroid.getHitBoxes().get(0).getX() == x) && (projAsteroid.getHitBoxes().get(0).getY() == y));
     }
 
     /**

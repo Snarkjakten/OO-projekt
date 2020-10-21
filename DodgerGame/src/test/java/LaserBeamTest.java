@@ -1,5 +1,4 @@
 import Model.Entities.Projectiles.LaserBeam;
-import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,7 +7,8 @@ import static org.junit.Assert.assertTrue;
 public class LaserBeamTest {
 
     LaserBeam laserBeam;
-    Point2D startPos;
+    double x;
+    double y;
     double deltaTime = 0.016;
 
     @Before
@@ -21,93 +21,98 @@ public class LaserBeamTest {
     // Does move() move the projectile's position to the left?
     // @Author Irja Vuorela
     public void ProjectileMovedLeft() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
         // Negative horizontal value to move left
         laserBeam.setStopPosition(-1, 0);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX());
+        assertTrue(laserBeam.getHitBoxes().get(0).getX() < x);
     }
 
     @Test
     // Does move() move the projectile's position to the right?
     // @Author Irja Vuorela
     public void ProjectileMovedRight() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
         // Positive horizontal value to move right
         laserBeam.setStopPosition(1, 0);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX());
+        assertTrue(laserBeam.getHitBoxes().get(0).getX() > x);
     }
 
     @Test
     // Does move() move the projectile's position up?
     // @Author Irja Vuorela
     public void ProjectileMovedUp() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        y = laserBeam.getHitBoxes().get(0).getY();
         // Negative vertical value to move up
         laserBeam.setStopPosition(0, -1);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY());
+        assertTrue(laserBeam.getHitBoxes().get(0).getY() < y);
     }
 
     @Test
     // Does move() move the projectile's position down?
     // @Author Irja Vuorela
     public void ProjectileMovedDown() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        y = laserBeam.getHitBoxes().get(0).getY();
         // Positive vertical value to move down
         laserBeam.setStopPosition(0, 1);
         laserBeam.move(deltaTime);
-        assertTrue(laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY());
+        assertTrue(laserBeam.getHitBoxes().get(0).getY() > y);
     }
 
     @Test
     // Does move() move the projectile's position up and right diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
+        y = laserBeam.getHitBoxes().get(0).getY();
         laserBeam.setStopPosition(1, -1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getX() > x) && (laserBeam.getHitBoxes().get(0).getY() < y));
     }
 
     @Test
     // Does move() move the projectile's position up and left diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedUpLeft() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
+        y = laserBeam.getHitBoxes().get(0).getY();
         laserBeam.setStopPosition(-1, -1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() < startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getX() < x) && (laserBeam.getHitBoxes().get(0).getY() < y));
     }
 
     @Test
     // Does move() move the projectile's position down and right diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedDownRight() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
+        y = laserBeam.getHitBoxes().get(0).getY();
         laserBeam.setStopPosition(1, 1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getX() > x) && (laserBeam.getHitBoxes().get(0).getY() > y));
     }
 
     @Test
     // Does move() move the projectile's position down and left diagonally?
     // @Author Irja Vuorela
     public void ProjectileMovedDownLeft() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
+        y = laserBeam.getHitBoxes().get(0).getY();
         laserBeam.setStopPosition(-1, 1);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() > startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getX() < x) && (laserBeam.getHitBoxes().get(0).getY() > y));
     }
 
     @Test
     // Does move() leave the projectile's position unchanged when its velocity was zero?
     // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
-        startPos = laserBeam.getHitBoxes().get(0).getPosition();
+        x = laserBeam.getHitBoxes().get(0).getX();
+        y = laserBeam.getHitBoxes().get(0).getY();
         laserBeam.setStopPosition(0, 0);
         laserBeam.move(deltaTime);
-        assertTrue((laserBeam.getHitBoxes().get(0).getPosition().getX() == startPos.getX()) && (laserBeam.getHitBoxes().get(0).getPosition().getY() == startPos.getY()));
+        assertTrue((laserBeam.getHitBoxes().get(0).getX() == x) && (laserBeam.getHitBoxes().get(0).getY() == y));
     }
 }

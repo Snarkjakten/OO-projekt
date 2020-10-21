@@ -82,7 +82,7 @@ public abstract class Projectile extends AbstractGameObject {
         switch (side) {
             case 0: //Velocity from bottom
                 xPos = randomDouble.nextDouble() * horizontalMapSize;
-                if (xPos < hitBox.getPosition().getX()) {
+                if (xPos < hitBox.getX()) {
                     xPos *= -1;
                 }
                 yPos = (randomDouble.nextDouble() * (verticalMapSize - 60)) * -1;
@@ -90,13 +90,13 @@ public abstract class Projectile extends AbstractGameObject {
             case 1: //Velocity from right
                 xPos = randomDouble.nextDouble() * (horizontalMapSize - 60) * -1;
                 yPos = randomDouble.nextDouble() * verticalMapSize;
-                if (yPos < hitBox.getPosition().getY()) {
+                if (yPos < hitBox.getY()) {
                     yPos *= -1;
                 }
                 break;
             case 2: //Velocity from top
                 xPos = randomDouble.nextDouble() * horizontalMapSize;
-                if (xPos < hitBox.getPosition().getX()) {
+                if (xPos < hitBox.getX()) {
                     xPos *= -1;
                 }
                 yPos = 60 + randomDouble.nextDouble() * (verticalMapSize - 60);
@@ -104,7 +104,7 @@ public abstract class Projectile extends AbstractGameObject {
             case 3: //Velocity from left
                 xPos = 60 + randomDouble.nextDouble() * (horizontalMapSize - 60);
                 yPos = randomDouble.nextDouble() * verticalMapSize;
-                if (yPos < hitBox.getPosition().getY()) {
+                if (yPos < hitBox.getY()) {
                     yPos *= -1;
                 }
                 break;
@@ -147,8 +147,8 @@ public abstract class Projectile extends AbstractGameObject {
      */
     public boolean isNotOnScreen() {
         HitBox hitBox = getHitBoxes().get(0);
-        boolean isStillOnX = (hitBox.getPosition().getX() > -70 && hitBox.getPosition().getX() < (horizontalMapSize + 70));
-        boolean isStillOnY = (hitBox.getPosition().getY() > -70 && hitBox.getPosition().getY() < (verticalMapSize + 70));
+        boolean isStillOnX = (hitBox.getX() > -70 && hitBox.getX() < (horizontalMapSize + 70));
+        boolean isStillOnY = (hitBox.getY() > -70 && hitBox.getY() < (verticalMapSize + 70));
         return (!isStillOnX || !isStillOnY);
     }
 
