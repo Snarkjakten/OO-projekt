@@ -21,6 +21,7 @@ public class HighScoreMenu {
 
     private Pane root;
     private MenuButton mainMenuBtn;
+    HighScoreHandler hs = new HighScoreHandler();
     private HighScoreMenu.ButtonMenu buttonMenu;
     private StringBuilder sb;
     private Text scores;
@@ -42,7 +43,6 @@ public class HighScoreMenu {
 
         // Presents the scores
         scores = new Text();
-        HighScoreHandler hs = new HighScoreHandler();
         scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
         scores.setFont(theFont2);
@@ -64,6 +64,10 @@ public class HighScoreMenu {
         root.setPrefSize(800, 600);
 
         root.getChildren().addAll(background, title, scores, buttonMenu);
+    }
+
+    public void updateScore() {
+        scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
     }
 
     // Menu that contains the buttons on the screen
