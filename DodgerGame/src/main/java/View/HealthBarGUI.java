@@ -49,6 +49,12 @@ public class HealthBarGUI implements ISpaceshipObserver {
         return border;
     }
 
+    /**
+     *
+     * @param remainingHp the value of health point that remains
+     * @param maxHealth the maximum amount of health point
+     * @author Olle Westerlund
+     */
     private void drawHealthBar(double remainingHp, double maxHealth) {
         gc.drawImage(background, 0, 0, maxHealth, 40);
         gc.drawImage(foreground, 0, 0, remainingHp, 40);

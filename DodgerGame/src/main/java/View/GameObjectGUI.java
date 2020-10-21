@@ -18,6 +18,9 @@ public class GameObjectGUI implements IGameObjectObserver {
     private final GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
+    private LaserGUI laserGUI;
+    private double imageWidth;
+    private double imageHeight;
 
     private static final String firstChoice = "thor.gif";
     private static final String secondChoice = "turtle.png";
@@ -27,9 +30,11 @@ public class GameObjectGUI implements IGameObjectObserver {
     private static final String mediumAsteroidFilePath = "mediumAsteroid.png";
     private static final String shieldFilePath = "healthPowerUp.png";
     private static final String hpFilePath = "shieldPowerUp.png";
+    private static final String timeDebuffPath = "skull.png";
 
     public GameObjectGUI(GraphicsContext gc) {
         this.gc = gc;
+        this.laserGUI = LaserGUI.getInstance();
     }
 
     public void chooseSpaceshipImage(int spaceshipChoice) {
@@ -45,17 +50,23 @@ public class GameObjectGUI implements IGameObjectObserver {
     }
 
     /**
+     * The method sets the correct image depending on the specific gameObject.
      * @param gameObject The gameObject to set the image to.
      * @return The a specific image depending on the gameObject.
-     * The method sets the correct image depending on the specific gameObject.
      * @author Olle Westerlund
      */
-    private Image addImageToGameObject(Class gameObject) {
+    private Image addImageToGameObject(Class gameObject, double width, double height) {
         InputStream inputStream;
+        imageWidth = 64;
+        imageHeight = 64;
         if (gameObject.equals(Asteroid.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(mediumAsteroidFilePath);
             assert inputStream != null;
             image = new Image(inputStream);
+            if (width > 32) {
+                imageWidth = 100;
+                imageHeight = 100;
+            }
         } else if (gameObject.equals(HealthPowerUp.class)) {
             inputStream = getClass().getClassLoader().getResourceAsStream(shieldFilePath);
             assert inputStream != null;
@@ -69,19 +80,47 @@ public class GameObjectGUI implements IGameObjectObserver {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(SlowDebuff.class)) {
-            inputStream = getClass().getClassLoader().getResourceAsStream("skull.png");
+            imageWidth = 32;
+            imageHeight = 32;
+            inputStream = getClass().getClassLoader().getResourceAsStream(timeDebuffPath);
             assert inputStream != null;
             image = new Image(inputStream);
+        } else if (gameObject.equals(LaserBeam.class)) {
+            if (width > height) {
+                laserGUI.setIsVertical(false);
+            } else {
+                laserGUI.setIsVertical(true);
+            }
+            image = laserGUI.getImage();
+            imageWidth = image.getWidth();
+            imageHeight = image.getHeight();
         }
         return image;
     }
 
+    /**
+     * Draws the correct image on the current position for the object
+     * @param hitBoxes The hitboxes of the object to be drawn.
+     * @param c The class of the object
+     * @param width The objects width
+     * @param height The objects height
+     * @author Olle Westerlund
+     */
     private void drawImage(List<HitBox> hitBoxes, Class c, double width, double height) {
-        Image image = addImageToGameObject(c);
+        Image image = addImageToGameObject(c, width, height);
         for (HitBox hitBox : hitBoxes) {
-            gc.drawImage(image, hitBox.getXPos(), hitBox.getYPos(), width, height);
+            if (c.equals(LaserBeam.class)) {
+                if (imageWidth > imageHeight) {
+                    gc.drawImage(image, (hitBox.getXPos()), (hitBox.getYPos()) - (256 / 2), imageWidth, imageHeight);
+                } else {
+                    gc.drawImage(image, hitBox.getXPos() - (257 / 2), (hitBox.getYPos()), imageWidth, imageHeight);
+                }
+            } else {
+                gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
+            }
         }
     }
+
 
     @Override
     public void actOnEvent(List<HitBox> hitBoxes, Class c, double width, double height) {
@@ -103,4 +142,5 @@ public class GameObjectGUI implements IGameObjectObserver {
     public static String getFourthChoice() {
         return fourthChoice;
     }
+
 }

@@ -9,10 +9,6 @@ import java.util.List;
 
 import Model.Point2D;
 
-/**
- * @author Irja Vuorela
- */
-
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private double width;
     private double height;
@@ -78,6 +74,14 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
     /**
      * @return the speed of this game object
      * @author Isak Almeros
@@ -109,7 +113,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @param width the new width
      * @author Tobias Engblom
      */
-    public void updateWidth(double width) {
+    public void updateWidthHitboxes(double width) {
         this.width = width;
         for (HitBox hitBox : hitBoxes) {
             hitBox.setWidth(width);
@@ -129,7 +133,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @param height the new height
      * @author Tobias Engblom
      */
-    public void updateHeight(double height) {
+    public void updateHeightHitboxes(double height) {
         this.height = height;
         for (HitBox hitBox : hitBoxes) {
             hitBox.setHeight(height);

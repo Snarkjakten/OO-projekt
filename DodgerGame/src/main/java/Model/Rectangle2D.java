@@ -7,10 +7,10 @@ import static java.lang.StrictMath.abs;
  */
 
 public class Rectangle2D {
-    private final double x;
-    private final double y;
-    private final double width;
-    private final double height;
+    private double x;
+    private double y;
+    private double width;
+    private double height;
 
     /**
      * A default rectangle at (0, 0)

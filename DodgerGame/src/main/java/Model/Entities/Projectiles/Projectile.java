@@ -3,9 +3,7 @@ package Model.Entities.Projectiles;
 import Model.Entities.HitBox;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
-
 import Model.Point2D;
-
 import java.util.Random;
 
 /**
@@ -13,7 +11,6 @@ import java.util.Random;
  */
 
 public abstract class Projectile extends AbstractGameObject {
-
     private double xVelocity;    // positive value: right, negative value: left
     private double yVelocity;      // positive value: up, negative value: down
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
@@ -33,46 +30,39 @@ public abstract class Projectile extends AbstractGameObject {
     private void randomPosition() {
         HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
-        double xPos;
-        double yPos;
+        double xPos = 0;
+        double yPos = 0;
         int side = randomPos.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
                 xPos = randomPos.nextDouble() * horizontalMapSize;
                 yPos = verticalMapSize + 50;
-                hitBox.updatePosition(xPos, yPos);
                 break;
             case 1: // Right side of the screen
-                xPos = 850;
+                xPos = horizontalMapSize + 50;
                 yPos = randomPos.nextDouble() * verticalMapSize;
-                hitBox.updatePosition(xPos, yPos);
                 break;
             case 2: // Top of the screen
                 xPos = randomPos.nextDouble() * horizontalMapSize;
                 yPos = -50;
-                hitBox.updatePosition(xPos, yPos);
                 break;
             case 3: // Left of the screen
                 xPos = -50;
                 yPos = randomPos.nextDouble() * verticalMapSize;
-                hitBox.updatePosition(xPos, yPos);
                 break;
             default:
-                System.out.println("Error in randomPosition");
                 break;
         }
+        hitBox.setPosition(xPos, yPos);
         randomStartVelocity(side);
     }
 
 
     // todo: kolla om vi kan undvika projektiler som missar skärmen
-
     /**
-     * The method sets a random velocity and direction for the projectile.
-     *
-     * @param side The side of the screen that the asteroid spawns on.
      * @author Olle Westerlund
      * The method sets a random velocity and direction for the projectile.
+     * @param side The side of the screen that the asteroid spawns on.
      */
     private void randomStartVelocity(int side) {
         HitBox hitBox = getHitBoxes().get(0);
@@ -109,7 +99,6 @@ public abstract class Projectile extends AbstractGameObject {
                 }
                 break;
             default:
-                System.out.println("Something wrong in randomVelocity");
                 break;
         }
         setXVelocity(xPos);
@@ -121,7 +110,6 @@ public abstract class Projectile extends AbstractGameObject {
      *
      * @param deltaTime is the time elapsed since the last update
      * @author Irja Vuorela
-     * @author Irja Vuorela
      */
     @Override
     public void move(double deltaTime) {
@@ -131,7 +119,6 @@ public abstract class Projectile extends AbstractGameObject {
 
     /**
      * Updates velocity
-     *
      * @author Irja Vuorela
      */
 
@@ -141,15 +128,20 @@ public abstract class Projectile extends AbstractGameObject {
     }
 
     /**
-     * @return Boolean if the object is no longer on the screen.
-     * The method checks if the projectile is still on the screen.
      * @author Olle Westerlund
+     * The method checks if the projectile is still on the screen.
+     * @return Boolean if the object is no longer on the screen.
      */
     public boolean isNotOnScreen() {
         HitBox hitBox = getHitBoxes().get(0);
-        boolean isStillOnX = (hitBox.getXPos() > -70 && hitBox.getXPos() < (horizontalMapSize + 70));
-        boolean isStillOnY = (hitBox.getYPos() > -70 && hitBox.getYPos() < (verticalMapSize + 70));
+        boolean isStillOnX = (hitBox.getXPos() > -130 && hitBox.getXPos() < (horizontalMapSize + 130));
+        boolean isStillOnY = (hitBox.getYPos() > -130 && hitBox.getYPos() < (verticalMapSize + 130));
         return (!isStillOnX || !isStillOnY);
+    }
+
+    public void setVelocity(double xVelocity, double yVelocity) {
+        setXVelocity(xVelocity);
+        setYVelocity(yVelocity);
     }
 
     public void setXVelocity(double xVelocity) {

@@ -7,16 +7,16 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static junit.framework.TestCase.assertTrue;
 import static org.junit.Assert.assertEquals;
-import static org.junit.Assert.assertTrue;
 
 public class ProjectileTest {
 
     Asteroid projAsteroid;
+    HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     SlowDebuff slowDebuff;
     ShieldPowerUp shieldPowerUp;
-    HealthPowerUp hpUp;
     HealthPowerUp healthPowerUp;
     Point2D startPos;
     List<AbstractGameObject> gameObjects;
@@ -91,8 +91,8 @@ public class ProjectileTest {
      */
     @Test
     public void asteroidIsNotOnScreen() {
-        projAsteroid.getHitBoxes().get(0).setPosition(-80, -80);
-        projAsteroid.getHitBoxes().get(0).setHitBox(-80, -80, projAsteroid.getWidth(), projAsteroid.getHeight());
+        projAsteroid.getHitBoxes().get(0).setPosition(-130, -130);
+        projAsteroid.getHitBoxes().get(0).setHitBox(-130, -130, projAsteroid.getWidth(), projAsteroid.getHeight());
         assertTrue(projAsteroid.isNotOnScreen());
     }
 
