@@ -13,7 +13,7 @@ public class Rectangle2D {
     private double height;
 
     /**
-     * A default rectangle at (0, 0)
+     * A 1x1 rectangle at (0, 0)
      *
      * @author Irja Vuorela
      */
@@ -25,13 +25,13 @@ public class Rectangle2D {
     }
 
     /**
-     * A default rectangle at (x, y)
+     * A 1x1 rectangle at (x, y)
      *
      * @param x the x-coordinate
      * @param y the y-coordinate
      * @author Irja Vuorela
      */
-   public Rectangle2D(double x, double y) {
+    public Rectangle2D(double x, double y) {
         this.x = x;
         this.y = y;
         this.width = 1.0;
@@ -39,7 +39,7 @@ public class Rectangle2D {
     }
 
     /**
-     * A rectangle at (x, y)
+     * A rectangle at (x, y) with custom size.
      *
      * @param x      the x coordinate
      * @param y      the y coordinate
@@ -72,19 +72,32 @@ public class Rectangle2D {
         return ((xDistance < shortestX) && (yDistance < shortestY));
     }
 
-    // getters
+    // getters and setters --------------------------------------
+
+    /**
+     * @return the x-coordinate
+     */
     public double getX() {
         return this.x;
     }
 
+    /**
+     * @return the y-coordinate
+     */
     public double getY() {
         return this.y;
     }
 
+    /**
+     * @return the width of this rectangle
+     */
     public double getWidth() {
         return this.width;
     }
 
+    /**
+     * @return the height of this rectangle
+     */
     public double getHeight() {
         return this.height;
     }

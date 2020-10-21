@@ -14,7 +14,7 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
 
     private GameWorld gameWorld;
     private PausableAnimationTimer gameLoop;
-    private HighScoreHandler scoreHandler;
+    private final HighScoreHandler scoreHandler;
     private ScoreCalculator scoreCalculator;
     private WaveManager waveManager;
     private CollisionHandler collisionHandler;
@@ -48,7 +48,7 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
                  * Calculates time since last update
                  *  @author Irja Vuorela
                  */
-                currentNanoTime = System.nanoTime();
+                currentNanoTime = System.nanoTime(); //todo: varför går ej att skicka med currentNanoTime till metod för att bryta ut?
                 double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
 
                 long elapsedTime = calculateElapsedTime(getStartNanoTime());
@@ -63,11 +63,9 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
         };
     }
 
-    public void setGameWorld() {
-        this.gameWorld = GameWorld.getInstance();
-    }
-
     /**
+     * Ends the game when the player's health reaches 0.
+     *
      * @authors Everyone
      */
     private void endGame() {
@@ -83,7 +81,37 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     }
 
     /**
-     * Calculates elapsed time
+     * Update the game state
+     *
+     * @param gameObjects the list of game objects on the playing field
+     * @param deltaTime   the length of last frame in the game loop
+     * @param elapsedTime the elapsed time since the start of the simulation
+     * @authors Irja, Isak, Viktor
+     */
+    private void update(List<AbstractGameObject> gameObjects, double deltaTime, long elapsedTime) {
+
+        moveGameObjects(gameObjects, deltaTime);
+        gameWorld.wrapAround(gameWorld.getSpaceship());
+        collisionHandler.handleCollision(gameObjects);
+        waveManager.projectileSpawner(elapsedTime, gameObjects, deltaTime, 1, 30);
+        scoreCalculator.calculateScore(elapsedTime);
+    }
+
+    /**
+     * Update positions of all game objects.
+     *
+     * @param gameObjects a list of game objects on the playing field
+     * @param deltaTime   the length of the last frame in the game loop
+     * @author Irja vuorela
+     */
+    private void moveGameObjects(List<AbstractGameObject> gameObjects, double deltaTime) {
+        for (AbstractGameObject gameObject : gameObjects) {
+            gameObject.move(deltaTime);
+        }
+    }
+
+    /**
+     * Calculates elapsed time.
      *
      * @param startNanoTime time at the start of the simulation
      * @return elapsed time since start of the simulation
@@ -94,6 +122,12 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
         return currentNanoTime - startNanoTime;
     }
 
+    // Add, remove and notify observers --------------------------
+
+    /**
+     * @param time      the elapsed time since the start of the simulation
+     * @param deltaTime the length of the last frame in the game loop
+     */
     @Override
     public void notifyTimeObservers(long time, double deltaTime) {
         for (ITimeObserver obs : timeObservers) {
@@ -101,6 +135,9 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
         }
     }
 
+    /**
+     * @param obs an observer to be added to the list of observers
+     */
     @Override
     public void addTimeObserver(ITimeObserver obs) {
         this.timeObservers.add(obs);
@@ -122,33 +159,30 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
         }
     }
 
+    /**
+     * @param obs an observer to be added to the list of observers
+     */
     @Override
     public void addGameOverObserver(IGameOverObserver obs) {
         gameOverObservers.add(obs);
     }
 
+    /**
+     * @param obs an observer to the added to the list of observers
+     */
     @Override
     public void removeGameOverObserver(IGameOverObserver obs) {
         gameOverObservers.remove(obs);
     }
 
-    private void update(List<AbstractGameObject> gameObjects, double deltaTime, long elapsedTime) {
-        /**
-         * update positions
-         * @author Irja vuorela
-         */
-        for (AbstractGameObject gameObject : gameObjects) {
-            gameObject.move(deltaTime);
-        }
-
-        gameWorld.wrapAround(gameWorld.getSpaceship());
-        collisionHandler.handleCollision(gameObjects);
-        waveManager.projectileSpawner(elapsedTime, gameObjects, deltaTime, 1, 30);
-        scoreCalculator.calculateScore(elapsedTime);
-    }
+    // Getters and setters ---------------------------
 
     //todo: borde inte ligga i gameloop.java
     public CollisionHandler getCollisionHandler() {
         return collisionHandler;
+    }
+
+    public void setGameWorld() {
+        this.gameWorld = GameWorld.getInstance();
     }
 }

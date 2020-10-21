@@ -56,23 +56,30 @@ public class CollisionHandler implements IGameObjectObservable {
                 }
             }
         }
-
         for (AbstractGameObject a : toBeRemoved) {
             gameObjects.remove(a);
         }
     }
 
-
+    /**
+     * @param obs the observer to be added to a list of observers
+     */
     @Override
     public void addGameObjectObserver(IGameObjectObserver obs) {
         gameObjectObservers.add(obs);
     }
 
+    /**
+     * @param obs the observer to be removed from a list of observers
+     */
     @Override
     public void removeGameObjectObserver(IGameObjectObserver obs) {
         gameObjectObservers.remove(obs);
     }
 
+    /**
+     * @param c the class type to notify observers with
+     */
     @Override
     public void notifyGameObjectObservers(Class c) {
         for (IGameObjectObserver obs : gameObjectObservers) {

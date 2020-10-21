@@ -1,6 +1,7 @@
-package Model.Entities.Projectiles;
-
 import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.Movement.CollisionHandler;
 import org.junit.Assert;
 import org.junit.Before;

@@ -16,7 +16,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     private boolean collided;
     // Velocity (horizontal, vertical)
     public Point2D velocity;
-    // Game movement speed
+    // movement speed
     private double speed;
 
     public AbstractGameObject(double width, double height) {
@@ -28,19 +28,12 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.velocity = new Point2D(0, 0);
     }
 
-    /**
-     * @return the hitBoxes for this game object
-     * @author Tobias Engblom
-     */
-    public List<HitBox> getHitBoxes() {
-        return this.hitBoxes;
-    }
-
     //------------------------------------------------------
 
     /**
-     * Move self to a new position
+     * Move self to a new position.
      *
+     * @param deltaTime the length of a frame in the game loop
      * @author Irja Vuorela
      */
     public void move(double deltaTime) {
@@ -50,6 +43,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     /**
      * Update the position of a movable object
      *
+     * @param deltaTime the length of a frame in the game loop
      * @authors Irja Vuorela and Tobias Engblom
      */
     protected void updatePosition(double deltaTime) {
@@ -57,54 +51,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         for (HitBox hitBox : getHitBoxes()) {
             hitBox.updatePosition(velocity.getX(), velocity.getY());
         }
-    }
-
-    //-------------------------------------------------------
-
-    /**
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
-     */
-    @Override
-    public boolean getCollided() {
-        return this.collided;
-    }
-
-    @Override
-    public void setCollided(boolean b) {
-        this.collided = b;
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    /**
-     * @return the speed of this game object
-     * @author Isak Almeros
-     */
-    public double getSpeed() {
-        return speed;
-    }
-
-    /**
-     * Sets the new speed to this game object
-     *
-     * @param speed the new speed
-     * @author Isak Almeros
-     */
-    public void setSpeed(double speed) {
-        this.speed = speed;
-    }
-
-    /**
-     * @return the width of this game object
-     */
-    public double getWidth() {
-        return width;
     }
 
     /**
@@ -118,13 +64,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         for (HitBox hitBox : hitBoxes) {
             hitBox.setWidth(width);
         }
-    }
-
-    /**
-     * @return the height of this game object
-     */
-    public double getHeight() {
-        return height;
     }
 
     /**
@@ -148,5 +87,76 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     @Override
     public void actOnCollision(AbstractGameObject c) {
+        //todo: this is empty
     }
+
+    // Getters and setters -------------------------------------------------------
+
+    /**
+     * @return the hitBoxes for this game object
+     * @author Tobias Engblom
+     */
+    public List<HitBox> getHitBoxes() {
+        return this.hitBoxes;
+    }
+
+    /**
+     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     */
+    @Override
+    public boolean getCollided() {
+        return this.collided;
+    }
+
+    @Override
+    public void setCollided(boolean b) {
+        this.collided = b;
+    }
+
+    /**
+     * @param width the width of this object
+     */
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    /**
+     * @return the width of this game object
+     */
+    public double getWidth() {
+        return width;
+    }
+
+    /**
+     * @param height the height of this object
+     */
+    public void setHeight(double height) {
+        this.height = height;
+    }
+
+    /**
+     * @return the height of this game object
+     */
+    public double getHeight() {
+        return height;
+    }
+
+    /**
+     * @return the speed of this game object
+     * @author Isak Almeros
+     */
+    public double getSpeed() {
+        return speed;
+    }
+
+    /**
+     * Sets the new speed to this game object
+     *
+     * @param speed the new speed
+     * @author Isak Almeros
+     */
+    public void setSpeed(double speed) {
+        this.speed = speed;
+    }
+
 }

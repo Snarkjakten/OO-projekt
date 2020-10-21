@@ -58,21 +58,8 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         stage.setResizable(false);
         stage.show();
 
-        /**
-         * Handle key pressed
-         * @author Irja Vuorela
-         */
-        KeyController keyController = new KeyController(stage);
-        stage.getScene().setOnKeyPressed(
-                keyController::handleKeyPressed);
-
-        /**
-         * Handle key released
-         * @author Irja Vuorela
-         */
-        stage.getScene().setOnKeyReleased(
-                keyController::handleKeyReleased
-        );
+        // handle movement key inputs
+        handleMovementKeys(stage);
 
         window.init();
 
@@ -86,7 +73,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     /**
      * Updates all the images
      *
-     * @param time the elapsed time in the game loop
+     * @param time      the elapsed time in the game loop
      * @param deltaTime the length of a frame in the game loop
      * @author Everyone
      */
@@ -108,10 +95,28 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
     /**
      * Updates the sounds
+     *
      * @param c the class type associated with the sound to be played
      */
     private void updateSound(Class c) {
         soundHandler.playSound(c);
+    }
+
+    /**
+     * Handle movement key inputs
+     *
+     * @author Irja Vuorela
+     */
+    private void handleMovementKeys(Stage stage) {
+        // handle key pressed
+        KeyController keyController = new KeyController(stage);
+        stage.getScene().setOnKeyPressed(
+                keyController::handleKeyPressed);
+
+        // handle key released
+        stage.getScene().setOnKeyReleased(
+                keyController::handleKeyReleased
+        );
     }
 
     @Override

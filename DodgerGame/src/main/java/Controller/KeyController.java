@@ -6,7 +6,7 @@ import javafx.stage.Stage;
 
 public class KeyController {
 
-    // Stage is pausing the simulation
+    // Stage is for pausing the simulation
     private final Stage stage;
 
     public KeyController(Stage stage) {
@@ -14,9 +14,9 @@ public class KeyController {
     }
 
     /**
-     * Sets the direction the player wants the ship to move in when the game loop updates
+     * Sets the direction the player wants the ship to move in when the game loop updates.
      *
-     * @param event The pressed key
+     * @param event the pressed key
      * @author Irja Vuorela
      */
     public void handleKeyPressed(KeyEvent event) {
