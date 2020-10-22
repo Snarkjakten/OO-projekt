@@ -18,7 +18,6 @@ public abstract class Projectile extends AbstractGameObject {
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     public Projectile() {
-        getHitBoxes().add(new HitBox());
         randomPosition();
     }
 

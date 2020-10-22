@@ -15,7 +15,6 @@ public class Asteroid extends Projectile {
     public Asteroid() {
         randomPosition();
         initAsteroid();
-        getHitBoxes().add(new HitBox());
     }
 
     /**

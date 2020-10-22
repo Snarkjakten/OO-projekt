@@ -1,6 +1,5 @@
 package Model.Entities.Player;
 
-import Model.Entities.HitBox;
 import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
@@ -26,7 +25,7 @@ public class Spaceship extends AbstractGameObject {
      * @author Tobias Engblom
      */
     public Spaceship(double xPos, double yPos, double width, double height) {
-        getHitBoxes().add(new HitBox(xPos, yPos, width, height));
+        getHitBoxes().get(0).updateHitBox(xPos, yPos, width, height);
         this.nrOfShields = 0;
         this.maxHp = 200;
         this.hp = maxHp;
@@ -92,7 +91,7 @@ public class Spaceship extends AbstractGameObject {
     @Override
     public void actOnCollision(AbstractGameObject gameObject) {
         boolean gotShield = this.nrOfShields > 0;
-        if(!(gameObject instanceof LaserBeam)) {
+        if (!(gameObject instanceof LaserBeam)) {
             gameObject.setCollided(true);
         }
 

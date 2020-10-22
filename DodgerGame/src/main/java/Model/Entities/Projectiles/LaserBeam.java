@@ -44,7 +44,7 @@ public class LaserBeam extends Projectile {
     private void initSize() {
         if (isVertical) {
             this.setWidthHitBoxes(10);
-            this.setHeightHitBoxes(verticalMapSize + 100);
+            this.setHeightHitBoxes(verticalMapSize * 2);
         } else {
             this.setWidthHitBoxes(horizontalMapSize + 100);
             this.setHeightHitBoxes(10);
@@ -71,7 +71,6 @@ public class LaserBeam extends Projectile {
         switch (side) {
             case 0: // Bottom of the screen
                 setVelocity(0, -1);
-
                 hitBox.updateHitBoxPosition(-50, verticalMapSize + 50);
                 isVertical = false;
                 break;
@@ -107,5 +106,6 @@ public class LaserBeam extends Projectile {
      * @param c the type of object this object has collided with
      */
     @Override
-    public void actOnCollision(AbstractGameObject c) { }
+    public void actOnCollision(AbstractGameObject c) {
+    }
 }

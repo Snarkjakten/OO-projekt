@@ -12,7 +12,6 @@ import java.util.List;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private final List<HitBox> hitBoxes;
-    private HitBox unitHitBox;
     private boolean collided = false;
     // Velocity (horizontal, vertical)
     public Point2D velocity;
@@ -21,6 +20,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
 
     public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
+        hitBoxes.add(new HitBox());
     }
 
     //------------------------------------------------------
@@ -48,7 +48,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         }
     }
 
-    /** //todo: fyll i
+    /**
+     * //todo: fyll i
+     *
      * @param xPos
      * @param yPos
      * @param width
