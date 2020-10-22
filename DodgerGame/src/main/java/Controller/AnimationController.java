@@ -9,6 +9,8 @@ public class AnimationController {
     private final PausableAnimationTimer animationLoop;
     private Game game;
     private double animationTime;
+    private double deltaTime;
+    private long elapsedTime;
 
     public AnimationController(Game game) {
         this.game = game;
@@ -22,16 +24,10 @@ public class AnimationController {
             @Override
             public void tick(long currentNanoTime) {
 
-                /**
-                 * Calculates time since last update
-                 *  @author Irja Vuorela
-                 */
                 currentNanoTime = System.nanoTime();
-                double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
-                long elapsedTime = calculateElapsedTime(getStartNanoTime());
-                animationTime = (currentNanoTime - animationNanoTime) / 1e9;
-
-
+                deltaTime = calculateDeltaTime(currentNanoTime, previousNanoTime);
+                elapsedTime = calculateElapsedTime(getStartNanoTime());
+                animationTime = calculateAnimationTime(currentNanoTime, animationNanoTime);
 
                 game.updateWorld(deltaTime, elapsedTime);
 
@@ -40,6 +36,19 @@ public class AnimationController {
                 previousNanoTime = currentNanoTime;
             }
         };
+    }
+
+    private double calculateAnimationTime(long currentTime, long startAnimationTime ) {
+        return (currentTime - startAnimationTime) / 1e9;
+    }
+
+    /**
+     * Calculates time since last update
+     *  @author Irja Vuorela
+     */
+    private double calculateDeltaTime(long currentTime, long previousTime) {
+        double deltaTime = (currentTime - previousTime) / 1e9;
+        return deltaTime;
     }
 
     /**
