@@ -1,6 +1,5 @@
 package Controller;
 
-import Model.PausableAnimationTimer;
 import View.*;
 import Interfaces.IGameOverObserver;
 import javafx.stage.Stage;

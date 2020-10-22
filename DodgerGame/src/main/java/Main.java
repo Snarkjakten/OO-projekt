@@ -1,3 +1,4 @@
+import Controller.AnimationController;
 import Controller.KeyController;
 import Controller.ViewController;
 import Model.*;
@@ -19,7 +20,9 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
     private final SoundHandler soundHandler = new SoundHandler();
 
-    private GameLoop gameLoop;
+    private AnimationController animationController;
+
+    private Game game;
     Window window = new Window(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
     CollisionHandler collisionHandler = new CollisionHandler();
 
@@ -39,14 +42,15 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         GameOverMenu gameOverMenu = new GameOverMenu();
         PauseMenu pauseMenu = new PauseMenu();
 
-        gameLoop = new GameLoop();
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop.getGameLoop(), gameObjectGUI, pauseMenu);
-        collisionHandler = gameLoop.getCollisionHandler();
+        game = new Game();
+        animationController = new AnimationController(game);
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController.getAnimationLoop(), gameObjectGUI, pauseMenu);
+        collisionHandler = game.getCollisionHandler();
 
         // observers
-        gameLoop.addTimeObserver(this);
+        game.addTimeObserver(this);
         collisionHandler.addGameObjectObserver(this);
-        gameLoop.addGameOverObserver(vc);
+        game.addGameOverObserver(vc);
 
         stage.setTitle("Space Dodger"); // todo: move to window
 
