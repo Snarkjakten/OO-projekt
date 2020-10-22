@@ -11,15 +11,20 @@ public class LaserBeamTest {
     Point2D startPos;
     double deltaTime = 0.016;
 
+    /**
+     * @Author Olle Westerlund
+     */
     @Before
-    //@Author Olle Westerlund
     public void init() {
         laserBeam = new LaserBeam();
     }
 
+    /**
+     * Tests if a projectile can move its position to the left
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position to the left?
-    // @Author Irja Vuorela
     public void ProjectileMovedLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Negative horizontal value to move left
@@ -28,9 +33,12 @@ public class LaserBeamTest {
         assertTrue(laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX());
     }
 
+    /**
+     * Tests if a projectile can move its position to the right
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position to the right?
-    // @Author Irja Vuorela
     public void ProjectileMovedRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Positive horizontal value to move right
@@ -39,9 +47,12 @@ public class LaserBeamTest {
         assertTrue(laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX());
     }
 
+    /**
+     * Tests if a projectile can move its position up
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up?
-    // @Author Irja Vuorela
     public void ProjectileMovedUp() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Negative vertical value to move up
@@ -50,9 +61,12 @@ public class LaserBeamTest {
         assertTrue(laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY());
     }
 
+    /**
+     * Tests if a projectile can move its position down
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down?
-    // @Author Irja Vuorela
     public void ProjectileMovedDown() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         // Positive vertical value to move down
@@ -61,9 +75,12 @@ public class LaserBeamTest {
         assertTrue(laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY());
     }
 
+    /**
+     * Tests if a projectile can move its position up and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up and right diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedUpRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setVelocity(1, -1);
@@ -71,9 +88,12 @@ public class LaserBeamTest {
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position up and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position up and left diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedUpLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setVelocity(-1, -1);
@@ -81,9 +101,12 @@ public class LaserBeamTest {
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() < startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position down and right diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down and right diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedDownRight() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setVelocity(1, 1);
@@ -91,9 +114,12 @@ public class LaserBeamTest {
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() > startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
 
+    /**
+     * Tests if a projectile can move its position down and left diagonally
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() move the projectile's position down and left diagonally?
-    // @Author Irja Vuorela
     public void ProjectileMovedDownLeft() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setVelocity(-1, 1);
@@ -101,9 +127,12 @@ public class LaserBeamTest {
         assertTrue((laserBeam.getHitBoxes().get(0).getXPos() < startPos.getX()) && (laserBeam.getHitBoxes().get(0).getYPos() > startPos.getY()));
     }
 
+    /**
+     * Tests if the projectile's position is left unchanged when attempting to move while its velocity is zero
+     *
+     * @author Irja Vuorela
+     */
     @Test
-    // Does move() leave the projectile's position unchanged when its velocity was zero?
-    // @Author Irja Vuorela
     public void ProjectileNotMovingWhenVelocityZero() {
         startPos = laserBeam.getHitBoxes().get(0).getPosition();
         laserBeam.setVelocity(0, 0);

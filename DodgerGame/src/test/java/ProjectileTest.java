@@ -223,7 +223,7 @@ public class ProjectileTest {
     }
 
     /**
-     * Checks if all factory methods can successfully add to the list of game objects
+     * Checks if all factory methods can successfully create objects to add to the list of game objects
      *
      * @authors Irja & Viktor
      */
@@ -237,7 +237,9 @@ public class ProjectileTest {
         gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());
         gameObjects.add(ProjectileFactory.createShieldPowerUp(1, 1, 1, 1, 1));
         gameObjects.add(ProjectileFactory.createSlowDebuff());
+        gameObjects.add(ProjectileFactory.createRandomizedLaserBeam());
+        gameObjects.add(ProjectileFactory.createLaserBeam(1));
         int newListSize = gameObjects.size();
-        assertEquals(newListSize, oldListSize + 7); // 7 = times added to the list with factory
+        assertEquals(newListSize, oldListSize + 9); // 9 times added to the list with factories
     }
 }
