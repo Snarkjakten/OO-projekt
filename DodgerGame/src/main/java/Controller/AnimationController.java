@@ -38,13 +38,24 @@ public class AnimationController {
         };
     }
 
-    private double calculateAnimationTime(long currentTime, long startAnimationTime ) {
+    /**
+     * Calculates the animation time
+     *
+     * @param currentTime        the current time
+     * @param startAnimationTime the starting time of the simulation
+     * @return the animation time
+     * @author Olle Westerlund
+     */
+    private double calculateAnimationTime(long currentTime, long startAnimationTime) {
         return (currentTime - startAnimationTime) / 1e9;
     }
 
     /**
      * Calculates time since last update
-     *  @author Irja Vuorela
+     *
+     * @param currentTime  the current time
+     * @param previousTime the time of the last update
+     * @author Irja Vuorela
      */
     private double calculateDeltaTime(long currentTime, long previousTime) {
         double deltaTime = (currentTime - previousTime) / 1e9;
