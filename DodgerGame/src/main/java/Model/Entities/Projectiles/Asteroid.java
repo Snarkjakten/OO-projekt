@@ -34,6 +34,7 @@ public class Asteroid extends Projectile {
         setYVelocity(yVelocity);
         setSpeed(speed);
         updateHitBoxes(xPos, yPos, width, height);
+        this.damage = damage;
     }
 
     public int getDamage() {

@@ -76,7 +76,7 @@ public class Spaceship extends AbstractGameObject {
     /**
      * @author Olle Westerlund
      */
-    protected void loseShield() {
+    public void loseShield() {
         if (this.nrOfShields > 0) {
             this.nrOfShields -= 1;
         } else {

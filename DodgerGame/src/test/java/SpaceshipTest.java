@@ -1,5 +1,9 @@
+import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Player.SpaceshipFactory;
+import Model.Entities.Projectiles.Projectile;
+import Model.Entities.Projectiles.ProjectileFactory;
+import Model.GameWorld;
 import Model.Point2D;
 import org.junit.Before;
 import org.junit.Test;
@@ -10,6 +14,10 @@ import static junit.framework.TestCase.assertTrue;
 public class SpaceshipTest {
 
     Spaceship spaceship;
+    Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(20, 20, 20, 20, 20);
+    Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(20, 20, 20, 20, 20);
+    Projectile slowDebuff = ProjectileFactory.createSlowDebuff();
+    Projectile asteroid = ProjectileFactory.createAsteroid(20, 20, 20, 20, 20, 20, 20, 20);
     Point2D startPos;
     double deltaTime = 0.016;
 
@@ -186,41 +194,6 @@ public class SpaceshipTest {
         assertTrue((spaceship.getHitBoxes().get(0).getX() == startPos.getX()) && (spaceship.getHitBoxes().get(0).getY() == startPos.getY()));
     }
 
-
-    // todo: finish these
-
-    /**
-     * @author Tobias Engblom
-     */
-    @Test
-    public void westWrapAround() {
-
-    }
-
-    /**
-     * @author Tobias Engblom
-     */
-    @Test
-    public void northWrapAround() {
-
-    }
-
-    /**
-     * @author Tobias Engblom
-     */
-    @Test
-    public void eastWrapAround() {
-
-    }
-
-    /**
-     * @author Tobias Engblom
-     */
-    @Test
-    public void southWrapAround() {
-
-    }
-
     /**
      * @authors Viktor & Irja
      */
@@ -256,5 +229,167 @@ public class SpaceshipTest {
         spaceship.setHp(spaceship.getMaxHp() - 1);
         spaceship.gainHealth(spaceship.getMaxHp());
         assertEquals(spaceship.getHp(), spaceship.getMaxHp());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void collideWithHealthPowerUpGainHealth() {
+        spaceship.setHp(150);
+        spaceship.actOnCollisionEvent(healthPowerUp);
+        assertEquals(spaceship.getHp(), 200);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void collideWithShieldPowerUpGainShield() {
+        int oldNrOfShields = spaceship.getNrOfShields();
+        spaceship.actOnCollisionEvent(shieldPowerUp);
+        int newNrOfShields = spaceship.getNrOfShields();
+        assertTrue(newNrOfShields > oldNrOfShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void collideWithSlowDebuffSpeedDecreased() {
+        double oldSpeed = spaceship.getSpeed();
+        spaceship.actOnCollisionEvent(slowDebuff);
+        double newSpeed = spaceship.getSpeed();
+        assertTrue(newSpeed < oldSpeed);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void collideWithAsteroidHealthDecreased() {
+        double oldHp = spaceship.getHp();
+        spaceship.actOnCollisionEvent(asteroid);
+        double newHp = spaceship.getHp();
+        assertTrue(newHp < oldHp);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void collideWithAsteroidLoseShield() {
+        spaceship.gainShield(1);
+        int oldNrOfShields = spaceship.getNrOfShields();
+        spaceship.actOnCollisionEvent(asteroid);
+        int newNrOfShields = spaceship.getNrOfShields();
+        assertTrue(newNrOfShields < oldNrOfShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void testLoseShield() {
+        spaceship.gainShield(1);
+        int oldShields = spaceship.getNrOfShields();
+        spaceship.loseShield();
+        int newShields = spaceship.getNrOfShields();
+        assertTrue(newShields < oldShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void testLoseShieldWhenNrShieldsIsZero() {
+        int oldShields = spaceship.getNrOfShields();
+        spaceship.loseShield();
+        int newShields = spaceship.getNrOfShields();
+        assertEquals(newShields, oldShields);
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void westWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(-20, 300, 64, 64);
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void northWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(20, -5, 64, 64);
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void eastWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(770, 300, 64, 64);
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void southWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(20, 550, 64, 64);
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(2, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsWestWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(-20, 300, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(-20, 300, 64, 64));
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsNorthWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(20, -5, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(20, -5, 64, 64));
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsEastWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(770, 300, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(770, 300, 64, 64));
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void twoSpaceshipsSouthWrapAround() {
+        spaceship.getHitBoxes().get(0).updateHitBox(5, 550, 64, 64);
+        spaceship.getHitBoxes().add(new HitBox(5, 550, 64, 64));
+        GameWorld.getInstance().wrapAround(spaceship);
+        assertEquals(4, spaceship.getHitBoxes().size());
     }
 }
