@@ -11,24 +11,16 @@ import java.util.ArrayList;
 import java.util.List;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    private double width;
-    private double height;
     private final List<HitBox> hitBoxes;
-    private boolean collided;
+    private HitBox unitHitBox;
+    private boolean collided = false;
     // Velocity (horizontal, vertical)
     public Point2D velocity;
     // movement speed
     private double speed;
 
-    public CollisionHandler collisionHandler = new CollisionHandler();
-
-    public AbstractGameObject(double width, double height) {
-        this.width = width;
-        this.height = height;
+    public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
-        this.collided = false;
-        this.speed = 250;
-        this.velocity = new Point2D(0, 0);
     }
 
     //------------------------------------------------------
@@ -56,16 +48,41 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         }
     }
 
+    /** //todo: fyll i
+     * @param xPos
+     * @param yPos
+     * @param width
+     * @param height
+     * @authors Irja & Viktor
+     */
+    protected void updateHitBoxes(double xPos, double yPos, double width, double height) {
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.updateHitBox(xPos, yPos, width, height);
+        }
+    }
+
+    /**
+     * @param c the type of object this object has collided with
+     * @author Viktor Sundberg
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) {
+        if (c instanceof LaserBeam || c instanceof Spaceship) {
+            this.setCollided(true);
+        }
+    }
+
+    // Getters and setters -------------------------------------------------------
+
     /**
      * Updates width both for the object and its hitBoxes
      *
      * @param width the new width
      * @author Tobias Engblom
      */
-    public void updateWidthHitboxes(double width) {
-        this.width = width;
+    public void setWidthHitBoxes(double width) {
         for (HitBox hitBox : hitBoxes) {
-            hitBox.setWidth(width);
+            hitBox.getHitBox().setWidth(width);
         }
     }
 
@@ -75,27 +92,20 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @param height the new height
      * @author Tobias Engblom
      */
-    public void updateHeightHitboxes(double height) {
-        this.height = height;
+    public void setHeightHitBoxes(double height) {
         for (HitBox hitBox : hitBoxes) {
-            hitBox.setHeight(height);
+            hitBox.getHitBox().setHeight(height);
         }
     }
 
     /**
-     * Acts upon the collision based on instance of projectile
-     *
-     * @param c The gameObject this gameObject collided with
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * @return the height of the first hitbox
+     * @auhtor Irja & Viktor
      */
-    @Override
-    public void actOnCollision(AbstractGameObject c) {
-        if(c instanceof LaserBeam || c instanceof Spaceship) {
-            this.setCollided(true);
-        }
-    }
+    public double getHeight() {
+        return hitBoxes.get(0).getHeight();
 
-    // Getters and setters -------------------------------------------------------
+    }
 
     /**
      * @return the hitBoxes for this game object
@@ -116,34 +126,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     @Override
     public void setCollided(boolean b) {
         this.collided = b;
-    }
-
-    /**
-     * @param width the width of this object
-     */
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    /**
-     * @return the width of this game object
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * @param height the height of this object
-     */
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    /**
-     * @return the height of this game object
-     */
-    public double getHeight() {
-        return height;
     }
 
     /**

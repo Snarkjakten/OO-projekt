@@ -17,10 +17,8 @@ public abstract class Projectile extends AbstractGameObject {
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-    public Projectile(double speed, double width, double height) {
-        super(width, height);
-        setSpeed(speed);
-        getHitBoxes().add(new HitBox(0, 0, width, height));
+    public Projectile() {
+        getHitBoxes().add(new HitBox());
         randomPosition();
     }
 
@@ -28,7 +26,7 @@ public abstract class Projectile extends AbstractGameObject {
      * @author Olle Westerlund
      * The method sets a random starting position for the projectile.
      */
-    private void randomPosition() {
+    protected void randomPosition() {
         HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
         double xPos = 0;
@@ -54,7 +52,7 @@ public abstract class Projectile extends AbstractGameObject {
             default:
                 break;
         }
-        hitBox.setPosition(xPos, yPos);
+        hitBox.updateHitBoxPosition(xPos, yPos);
         randomStartVelocity(side);
     }
 
@@ -74,7 +72,7 @@ public abstract class Projectile extends AbstractGameObject {
         switch (side) {
             case 0: //Velocity from bottom
                 x = randomDouble.nextDouble() * horizontalMapSize;
-                if (x < hitBox.getXPos()) {
+                if (x < hitBox.getX()) {
                     x *= -1;
                 }
                 y = (randomDouble.nextDouble() * (verticalMapSize - 60)) * -1;
@@ -82,13 +80,13 @@ public abstract class Projectile extends AbstractGameObject {
             case 1: //Velocity from right
                 x = randomDouble.nextDouble() * (horizontalMapSize - 60) * -1;
                 y = randomDouble.nextDouble() * verticalMapSize;
-                if (y < hitBox.getYPos()) {
+                if (y < hitBox.getY()) {
                     y *= -1;
                 }
                 break;
             case 2: //Velocity from top
                 x = randomDouble.nextDouble() * horizontalMapSize;
-                if (x < hitBox.getXPos()) {
+                if (x < hitBox.getX()) {
                     x *= -1;
                 }
                 y = 60 + randomDouble.nextDouble() * (verticalMapSize - 60);
@@ -96,15 +94,14 @@ public abstract class Projectile extends AbstractGameObject {
             case 3: //Velocity from left
                 x = 60 + randomDouble.nextDouble() * (horizontalMapSize - 60);
                 y = randomDouble.nextDouble() * verticalMapSize;
-                if (y < hitBox.getYPos()) {
+                if (y < hitBox.getY()) {
                     y *= -1;
                 }
                 break;
             default:
                 break;
         }
-        setXVelocity(x);
-        setYVelocity(y);
+        setVelocity(x, y);
     }
 
     /**
@@ -137,8 +134,8 @@ public abstract class Projectile extends AbstractGameObject {
      */
     public boolean isNotOnScreen() {
         HitBox hitBox = getHitBoxes().get(0);
-        boolean isStillOnX = (hitBox.getXPos() > -130 && hitBox.getXPos() < (horizontalMapSize + 130));
-        boolean isStillOnY = (hitBox.getYPos() > -130 && hitBox.getYPos() < (verticalMapSize + 130));
+        boolean isStillOnX = (hitBox.getX() > -130 && hitBox.getX() < (horizontalMapSize + 130));
+        boolean isStillOnY = (hitBox.getY() > -130 && hitBox.getY() < (verticalMapSize + 130));
         return (!isStillOnX || !isStillOnY);
     }
 

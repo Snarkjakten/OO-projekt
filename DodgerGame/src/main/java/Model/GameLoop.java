@@ -12,26 +12,24 @@ import java.util.List;
 
 public class GameLoop implements ITimeObservable, IGameOverObservable {
 
-    private GameWorld gameWorld;
-    private PausableAnimationTimer gameLoop;
+    private final PausableAnimationTimer gameLoop;
     private final HighScoreHandler scoreHandler;
-    private ScoreCalculator scoreCalculator;
-    private WaveManager waveManager;
-    private CollisionHandler collisionHandler;
-    private List<AbstractGameObject> gameObjects;
-    private List<ITimeObserver> timeObservers;
-    private List<IGameOverObserver> gameOverObservers;
+    private final ScoreCalculator scoreCalculator;
+    private final WaveManager waveManager;
+    private final CollisionHandler collisionHandler;
+    private final List<AbstractGameObject> gameObjects;
+    private final List<ITimeObserver> timeObservers;
+    private final List<IGameOverObserver> gameOverObservers;
 
     /**
      * @authors Everyone
      */
     public GameLoop() {
-        this.gameWorld = GameWorld.getInstance();
         scoreCalculator = new ScoreCalculator();
         scoreHandler = new HighScoreHandler();
         waveManager = new WaveManager();
         collisionHandler = new CollisionHandler();
-        gameObjects = gameWorld.getGameObjects();
+        gameObjects = GameWorld.getInstance().getGameObjects();
         timeObservers = new ArrayList<>(); //todo: ska dessa ligga utanför? vad är bäst?
         gameOverObservers = new ArrayList<>();
 
@@ -42,8 +40,6 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
 
             @Override
             public void tick(long currentNanoTime) {
-                setGameWorld(); //todo why in every tick?
-
                 /**
                  * Calculates time since last update
                  *  @author Irja Vuorela
@@ -69,12 +65,11 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
      * @authors Everyone
      */
     private void endGame() {
-        if (gameWorld.getSpaceship().getHp() <= 0) {
-            gameWorld.setGameOver(true);
-            notifyGameOverObservers(gameWorld.getIsGameOver(), scoreCalculator.getPoints());
+        if (GameWorld.getInstance().getSpaceship().getHp() <= 0) {
+            GameWorld.getInstance().setGameOver(true);
+            notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
             gameObjects.clear();
-            gameWorld.createNewGameWorld();
-            gameWorld = GameWorld.getInstance();
+            GameWorld.getInstance().createNewGameWorld();
             gameLoop.stop();
             scoreHandler.handleScore(scoreCalculator.getPoints());
         }
@@ -91,7 +86,7 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     private void update(List<AbstractGameObject> gameObjects, double deltaTime, long elapsedTime) {
 
         moveGameObjects(gameObjects, deltaTime);
-        gameWorld.wrapAround(gameWorld.getSpaceship());
+        GameWorld.getInstance().wrapAround(GameWorld.getInstance().getSpaceship());
         collisionHandler.handleCollision(gameObjects);
         waveManager.projectileSpawner(elapsedTime, gameObjects, deltaTime, 1, 30);
         scoreCalculator.calculateScore(elapsedTime);
@@ -115,7 +110,7 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
      *
      * @param startNanoTime time at the start of the simulation
      * @return elapsed time since start of the simulation
-     * @autor Isak Almeros
+     * @author Isak Almeros
      */
     public long calculateElapsedTime(long startNanoTime) {
         long currentNanoTime = System.nanoTime();
@@ -180,9 +175,5 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     //todo: borde inte ligga i gameloop.java
     public CollisionHandler getCollisionHandler() {
         return collisionHandler;
-    }
-
-    public void setGameWorld() {
-        this.gameWorld = GameWorld.getInstance();
     }
 }

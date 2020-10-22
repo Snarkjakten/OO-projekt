@@ -70,8 +70,8 @@ public class ShieldGUI {
         if (spaceship.getNrOfShields() > 0) {
             Image image = getFrame(deltaTime);
             for (HitBox hitBox : spaceship.getHitBoxes()) {
-                double xPos = hitBox.getPosition().getX() - 37;
-                double yPos = hitBox.getPosition().getY() - 37;
+                double xPos = hitBox.getX() - 37;
+                double yPos = hitBox.getY() - 37;
                 double height = hitBox.getHeight() * 2.25;
                 double width = hitBox.getWidth() * 2.25;
                 gc.drawImage(image, xPos, yPos, height, width);

@@ -21,9 +21,13 @@ public class CollisionHandler implements IGameObjectObservable {
     List<AbstractGameObject> toBeRemoved = new ArrayList<>();;
 
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
-        for (HitBox hitBox1 : g.getHitBoxes())
-            for (HitBox hitBox2 : a.getHitBoxes())
-                return hitBox1.getHitBox().intersects(hitBox2.getHitBox()) && a != g;
+        for (HitBox hitBox1 : g.getHitBoxes()) {
+            for (HitBox hitBox2 : a.getHitBoxes()) {
+                if ((hitBox1.getHitBox().intersects(hitBox2.getHitBox()) == true) && a != g) {
+                    return true;
+                }
+            }
+        }
         return false;
     }
 

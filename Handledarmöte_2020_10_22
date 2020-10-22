@@ -1,0 +1,43 @@
+# Meeting Agenda
+
+Group: 13 TheDodgers
+Date: 22/10-20
+Chair: 
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, 
+	      Olle Westerlund, Viktor Sundberg, Oliver Karmetun
+
+
+
+## Objectives (5 min) 
+
+- Fråga om presentationen ska vara med i inlämningsmappen.
+- Fråga om webcam är ett måste på redovisningen
+- Fråga om man behöver ha tester på view
+- Fårga om man måste ha testat alla rader kod, svårt att komma åt 100% line coverage.
+- Fråga om SDD
+
+
+## Reports (15 min) from previous meeting
+
+- Redogjort för handledare vad vi gjort.
+- Visat upp nya refaktoriseringnen.
+- Visat upp uppdaterat SDD.
+
+## Discussion items (35 min)
+
+- Diskuterat att flytta ut animation timer från modellen, ha den som egen klass och kalla på den via controller.
+- Ska ha en pakage view + text i SDD
+- Mer info kring applikationens flow vid uppstart (SDD)
+- Resonemang kring hur väl designmodell och domänmodell stämmer överens (SDD)
+- Gå igenom de beroenden vi har (SDD)
+- Hyr väl testerna lyckas under Quality i SDD
+- Skriva upp alla problem vi vet om, info kring dessa (SDD)
+
+## Outcomes and assignments (5 min)
+
+- Olle ska försöka flytta ut animation timern från modellen
+- Övriga fortsätter med clean up + SDD/RAD
+
+
+## Wrap up
+- Nästa möte 23/10-2020

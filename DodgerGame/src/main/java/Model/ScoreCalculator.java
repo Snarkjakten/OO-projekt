@@ -1,9 +1,7 @@
 package Model;
 
-import Interfaces.ITimeObserver;
-
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 
 public class ScoreCalculator {
