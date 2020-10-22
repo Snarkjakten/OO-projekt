@@ -18,8 +18,4 @@ public abstract class MenuFactory {
     public static MainMenu createMainMenu() throws IOException {
         return new MainMenu();
     }
-
-    public static PauseMenu createPauseMenu() throws IOException {
-        return new PauseMenu();
-    }
 }

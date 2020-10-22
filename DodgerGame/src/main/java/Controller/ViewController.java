@@ -14,7 +14,6 @@ public class ViewController implements IGameOverObserver {
     private final MainMenu mainMenu;
     private final HighScoreMenu highScoreMenu;
     private final CharacterMenu characterMenu;
-    private final PauseMenu pauseMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private int spaceshipChoice;
@@ -22,12 +21,11 @@ public class ViewController implements IGameOverObserver {
     private final PausableAnimationTimer gameLoop;
 
     public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
-                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
+                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
         this.characterMenu = characterMenu;
-        this.pauseMenu = pauseMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
         this.spaceshipChoice = 0;
@@ -36,7 +34,6 @@ public class ViewController implements IGameOverObserver {
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
-        pauseMenuButtonHandler();
         gameOverButtonHandler();
         highScoreButtonHandler();
     }
@@ -103,29 +100,6 @@ public class ViewController implements IGameOverObserver {
         });
 
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
-    }
-
-    private void pauseMenuButtonHandler() {
-        pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(window.getRoot());
-            gameLoop.play();
-        });
-
-        pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(window.getRoot());
-            gameLoop.stop();
-            // TODO Need to use endGame()
-            gameLoop.start();
-            window.init();
-        });
-
-        pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(mainMenu.getRoot());
-            gameLoop.stop();
-            // TODO Need to use endGame()
-        });
-
-        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
     // Handles button clicks in the game over menu
