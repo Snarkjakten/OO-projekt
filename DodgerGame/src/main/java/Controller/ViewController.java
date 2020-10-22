@@ -46,7 +46,6 @@ public class ViewController implements IGameOverObserver {
         // Redirects player to character menu
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
-        // TODO: 2020-09-27 go to highscore menu
         mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
             highScoreMenu.updateScore();
             stage.getScene().setRoot(highScoreMenu.getRoot());
