@@ -10,8 +10,6 @@ import java.util.List;
 import Model.Point2D;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    private double width;
-    private double height;
     private final List<HitBox> hitBoxes;
     private boolean collided;
     // Velocity (horizontal, vertical)
@@ -19,9 +17,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     // Game movement speed
     private double speed;
 
-    public AbstractGameObject(double width, double height) {
-        this.width = width;
-        this.height = height;
+    public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
         this.collided = false;
         this.speed = 250;
@@ -74,14 +70,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.collided = b;
     }
 
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
     /**
      * @return the speed of this game object
      * @author Isak Almeros
@@ -101,30 +89,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the width of this game object
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
      * Updates width both for the object and its hitBoxes
      *
      * @param width the new width
      * @author Tobias Engblom
      */
     public void updateWidthHitboxes(double width) {
-        this.width = width;
         for (HitBox hitBox : hitBoxes) {
             hitBox.setWidth(width);
         }
-    }
-
-    /**
-     * @return the height of this game object
-     */
-    public double getHeight() {
-        return height;
     }
 
     /**
@@ -134,7 +107,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @author Tobias Engblom
      */
     public void updateHeightHitboxes(double height) {
-        this.height = height;
         for (HitBox hitBox : hitBoxes) {
             hitBox.setHeight(height);
         }
