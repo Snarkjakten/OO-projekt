@@ -1,7 +1,6 @@
 package Controller;
 
 import Model.Game;
-import Model.GameWorld;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -79,7 +78,7 @@ public class AnimationController {
 
     private void isGameOver() {
         if (game.isGameOver()) {
-            animationLoop.stop();
+            stopAnimationLoop();
         }
     }
 
@@ -89,7 +88,7 @@ public class AnimationController {
 
     public void startAnimationLoop() {
         startNanoTime = System.nanoTime();
-        GameWorld.getInstance().createNewGameWorld();
+        game.startGame();
         animationLoop.start();
     }
 

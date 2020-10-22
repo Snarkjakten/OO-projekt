@@ -32,7 +32,7 @@ public class Game implements ITimeObservable, IGameOverObservable {
         waveManager = new WaveManager();
         collisionHandler = new CollisionHandler();
         gameObjects = GameWorld.getInstance().getGameObjects();
-        timeObservers = new ArrayList<>(); //todo: ska dessa ligga utanför? vad är bäst?
+        timeObservers = new ArrayList<>();
         gameOverObservers = new ArrayList<>();
     }
 
@@ -61,12 +61,15 @@ public class Game implements ITimeObservable, IGameOverObservable {
         GameWorld.getInstance().setGameOver(true);
         notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
         gameObjects.clear();
-//        GameWorld.getInstance().createNewGameWorld();
         scoreHandler.handleScore(scoreCalculator.getPoints());
     }
 
     public boolean isGameOver() {
         return (GameWorld.getInstance().getSpaceship().getHp() <= 0);
+    }
+
+    public void startGame() {
+        GameWorld.getInstance().createNewGameWorld();
     }
 
     /**
