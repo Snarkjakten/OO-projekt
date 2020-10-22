@@ -1,13 +1,12 @@
 package Model.Movement;
 
-import Model.Entities.HitBox;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
+import Model.Entities.HitBox;
+import Model.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;
-
-import Model.Point2D;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private final List<HitBox> hitBoxes;
@@ -81,7 +80,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     public void setWidthHitBoxes(double width) {
         for (HitBox hitBox : hitBoxes) {
-            hitBox.setWidth(width);
+            hitBox.getHitBox().setWidth(width);
         }
     }
 
@@ -93,7 +92,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     public void setHeightHitBoxes(double height) {
         for (HitBox hitBox : hitBoxes) {
-            hitBox.setHeight(height);
+            hitBox.getHitBox().setHeight(height);
         }
     }
 

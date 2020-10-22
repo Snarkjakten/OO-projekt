@@ -144,7 +144,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private void checkInactive(List<HitBox> hitBoxes) {
-        hitBoxes.removeIf(hitBox -> hitBox.getX() < -spaceship.getWidth() - 12 || hitBox.getX() > getPlayingFieldWidth() - 12 || hitBox.getY() < -spaceship.getHeight() || hitBox.getY() > getPlayingFieldHeight());
+        hitBoxes.removeIf(hitBox -> hitBox.getX() < -hitBox.getWidth() - 12 || hitBox.getX() > getPlayingFieldWidth() - 12 || hitBox.getY() < -hitBox.getHeight() || hitBox.getY() > getPlayingFieldHeight());
     }
 
     /**
@@ -177,7 +177,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private boolean checkEastPosition(HitBox hitBox) {
-        return hitBox.getX() >= getPlayingFieldWidth() - spaceship.getWidth() - 12;
+        return hitBox.getX() >= getPlayingFieldWidth() - hitBox.getWidth() - 12;
     }
 
     /**
@@ -188,7 +188,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private boolean checkSouthPosition(HitBox hitBox) {
-        return hitBox.getY() >= getPlayingFieldHeight() - spaceship.getHeight();
+        return hitBox.getY() >= getPlayingFieldHeight() - hitBox.getHeight();
     }
 
     /**

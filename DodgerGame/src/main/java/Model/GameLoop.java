@@ -4,7 +4,6 @@ import Interfaces.IGameOverObservable;
 import Interfaces.IGameOverObserver;
 import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
-import Model.Entities.Projectiles.LaserBeam;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
 
@@ -103,9 +102,6 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     private void moveGameObjects(List<AbstractGameObject> gameObjects, double deltaTime) {
         for (AbstractGameObject gameObject : gameObjects) {
             gameObject.move(deltaTime);
-            if (gameObject instanceof LaserBeam) {
-                System.out.println("GameLoop.java: " + gameObject.getHitBoxes().get(0).getHitBox());
-            }
         }
     }
 

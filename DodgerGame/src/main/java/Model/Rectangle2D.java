@@ -8,8 +8,8 @@ import static java.lang.StrictMath.abs;
 
 public class Rectangle2D {
     private final Point2D position;
-    private final double width;
-    private final double height;
+    private double width;
+    private double height;
 
     /**
      * A 1x1 rectangle at (0, 0)
@@ -112,6 +112,20 @@ public class Rectangle2D {
      */
     public double getHeight() {
         return this.height;
+    }
+
+    /**
+     * @param width Sets the width of this rectangle
+     */
+    public void setWidth(double width) {
+        this.width = width;
+    }
+
+    /**
+     * @param height the height of this rectangle
+     */
+    public void setHeight(double height) {
+        this.height = height;
     }
 
 }
