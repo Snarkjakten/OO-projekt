@@ -20,7 +20,7 @@ public class GameObjectGUI {
     private final LaserGUI laserGUI;
     private double imageWidth;
     private double imageHeight;
-    private double deltaTime;
+    private double animationTime;
 
     private static final String firstChoice = "thor.gif";
     private static final String secondChoice = "turtle.png";
@@ -88,7 +88,7 @@ public class GameObjectGUI {
             image = new Image(inputStream);
         } else if (gameObject.equals(LaserBeam.class)) {
             laserGUI.setIsVertical(!(width > height));
-            image = laserGUI.getFrame(deltaTime);
+            image = laserGUI.getFrame(animationTime);
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
         }
@@ -102,11 +102,11 @@ public class GameObjectGUI {
      * @param c         The class of the object
      * @param width     The objects width
      * @param height    The objects height
-     * @param deltaTime
+     * @param animationTime
      * @author Olle Westerlund
      */
-    public void drawImage(List<HitBox> hitBoxes, Class c, double width, double height, double deltaTime) {
-        this.deltaTime = deltaTime;
+    public void drawImage(List<HitBox> hitBoxes, Class c, double width, double height, double animationTime) {
+        this.animationTime = animationTime;
         Image image = addImageToGameObject(c, width, height);
         for (HitBox hitBox : hitBoxes) {
             if (c.equals(LaserBeam.class)) {

@@ -89,12 +89,12 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         timerGUI.drawImage(time);
 
         for (AbstractGameObject gameObject : gameObjects) {
-            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), deltaTime);
+            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), animationController.getAnimationTime());
         }
 
         healthBarGUI.drawHealthBar(GameWorld.getInstance().getSpaceship().getHp(), GameWorld.getInstance().getSpaceship().getMaxHp());
 
-        shieldGUI.drawImage(GameWorld.getInstance().getSpaceship(), deltaTime);
+        shieldGUI.drawImage(GameWorld.getInstance().getSpaceship(), animationController.getAnimationTime());
     }
 
     /**

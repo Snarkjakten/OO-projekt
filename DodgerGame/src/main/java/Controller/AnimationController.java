@@ -8,6 +8,7 @@ import Model.Game;
 public class AnimationController {
     private final PausableAnimationTimer animationLoop;
     private Game game;
+    private double animationTime;
 
     public AnimationController(Game game) {
         this.game = game;
@@ -15,6 +16,7 @@ public class AnimationController {
         animationLoop = new PausableAnimationTimer() {
 
             final long currentNanoTime = System.nanoTime();
+            final long animationNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
 
             @Override
@@ -27,6 +29,9 @@ public class AnimationController {
                 currentNanoTime = System.nanoTime();
                 double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
                 long elapsedTime = calculateElapsedTime(getStartNanoTime());
+                animationTime = (currentNanoTime - animationNanoTime) / 1e9;
+
+
 
                 game.updateWorld(deltaTime, elapsedTime);
 
@@ -57,5 +62,9 @@ public class AnimationController {
 
     public PausableAnimationTimer getAnimationLoop() {
         return animationLoop;
+    }
+
+    public double getAnimationTime() {
+        return animationTime;
     }
 }
