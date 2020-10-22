@@ -17,13 +17,13 @@ import java.util.List;
 
 public class CollisionHandler implements IGameObjectObservable {
 
-    private List<IGameObjectObserver> gameObjectObservers = new ArrayList<>();
-    List<AbstractGameObject> toBeRemoved = new ArrayList<>();;
+    private final List<IGameObjectObserver> gameObjectObservers = new ArrayList<>();
+    List<AbstractGameObject> toBeRemoved = new ArrayList<>();
 
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
         for (HitBox hitBox1 : g.getHitBoxes()) {
             for (HitBox hitBox2 : a.getHitBoxes()) {
-                if ((hitBox1.getHitBox().intersects(hitBox2.getHitBox()) == true) && a != g) {
+                if ((hitBox1.getHitBox().intersects(hitBox2.getHitBox())) && a != g) {
                     return true;
                 }
             }
@@ -48,13 +48,13 @@ public class CollisionHandler implements IGameObjectObservable {
                     } else if (gameObject instanceof Spaceship) {
                         notifyGameObjectObservers(a.getClass());
                         gameObject.actOnCollision(a);
-                    } else if(gameObject instanceof LaserBeam || a instanceof LaserBeam){
+                    } else if (gameObject instanceof LaserBeam || a instanceof LaserBeam) {
                         notifyGameObjectObservers(a.getClass());
                         notifyGameObjectObservers(gameObject.getClass());
                     }
                     collide(a, gameObject);
                 }
-                if(a.getCollided()) {
+                if (a.getCollided()) {
                     toBeRemoved.add(a);
                 }
             }
