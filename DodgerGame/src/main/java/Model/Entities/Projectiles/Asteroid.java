@@ -19,14 +19,14 @@ public class Asteroid extends Projectile {
     }
 
     /**
-     * @param speed     the speed of this object.
-     * @param width     the width of this object.
-     * @param height    the height of this object.
-     * @param xPos      the x-value of this object's position.
-     * @param yPos      the y-value of this object's position.
-     * @param xVelocity the x-value to calculate this object's velocity.
-     * @param yVelocity the y-value to calculate this object's velocity.
-     * @param damage
+     * @param speed     the speed of this asteroid.
+     * @param width     the width of this asteroid.
+     * @param height    the height of this asteroid.
+     * @param xPos      the x-value of this asteroid's position.
+     * @param yPos      the y-value of this asteroid's position.
+     * @param xVelocity the x-value to calculate this asteroid's velocity.
+     * @param yVelocity the y-value to calculate this asteroid's velocity.
+     * @param damage    the damage of this asteroid
      * @authors Irja & Viktor
      */
     public Asteroid(double speed, double width, double height, double xPos, double yPos, double xVelocity, double yVelocity, int damage) {

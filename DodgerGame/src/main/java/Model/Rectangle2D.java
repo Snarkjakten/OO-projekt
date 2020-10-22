@@ -3,13 +3,13 @@ package Model;
 import static java.lang.StrictMath.abs;
 
 /**
- * A rectangle to be used for the game's hitboxes.
+ * A rectangle to be used for the game's hitBoxes.
  */
 
 public class Rectangle2D {
-    private Point2D position;
-    private double width;
-    private double height;
+    private final Point2D position;
+    private final double width;
+    private final double height;
 
     /**
      * A 1x1 rectangle at (0, 0)
