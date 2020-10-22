@@ -4,8 +4,6 @@ import Interfaces.IGameOverObservable;
 import Interfaces.IGameOverObserver;
 import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
-import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.LaserBeam;
 import Model.Movement.AbstractGameObject;
 import Model.Movement.CollisionHandler;
 
