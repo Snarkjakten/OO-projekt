@@ -44,6 +44,7 @@ public class Asteroid extends Projectile {
      * Creates one of two random asteroids, a smaller, faster one or a bigger, slower
      * with more damage. About one of three is a bigger one and about two of three is
      * a smaller one.
+     *
      * @author Olle Westerlund
      */
     private void initAsteroid() {
@@ -52,8 +53,8 @@ public class Asteroid extends Projectile {
         if (type <= 70) {
             //Small asteroid
             this.damage = 20;
-            updateWidthHitboxes(smallSize);
-            updateHeightHitboxes(smallSize);
+            setWidth(smallSize);
+            setHeight(smallSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
@@ -61,8 +62,8 @@ public class Asteroid extends Projectile {
         } else {
             // medium asteroid
             this.damage = 35;
-            updateWidthHitboxes(mediumSize);
-            updateHeightHitboxes(mediumSize);
+            setWidth(mediumSize);
+            setHeight(mediumSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);

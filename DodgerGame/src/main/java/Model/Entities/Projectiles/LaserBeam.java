@@ -48,14 +48,12 @@ public class LaserBeam extends Projectile {
      */
     private void initSize() {
         if (isVertical) {
-            this.setWidth(10);
-            this.setHeight(verticalMapSize + 100);
+            setWidth(10);
+            setHeight(verticalMapSize + 100);
         } else {
-            this.setWidth(horizontalMapSize + 100);
-            this.setHeight(10);
+            setWidth(horizontalMapSize + 100);
+            setHeight(10);
         }
-        updateWidthHitboxes(this.getWidth());
-        updateHeightHitboxes(this.getHeight());
     }
 
     /**

@@ -123,30 +123,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * Updates width both for the object and its hitBoxes
-     *
-     * @param width the new width
-     * @author Tobias Engblom
-     */
-    public void updateWidthHitboxes(double width) {
-        for (HitBox hitBox : hitBoxes) {
-            hitBox.setWidth(width);
-        }
-    }
-
-    /**
-     * Updates height both for the object and its hitBoxes
-     *
-     * @param height the new height
-     * @author Tobias Engblom
-     */
-    public void updateHeightHitboxes(double height) {
-        for (HitBox hitBox : hitBoxes) {
-            hitBox.setHeight(height);
-        }
-    }
-
-    /**
      * Acts upon the collision based on instance of projectile
      *
      * @param c The gameObject this gameObject collided with
