@@ -10,6 +10,7 @@ public class GameObjectsSounds {
     private static String shieldSound = "src/main/resources/514289__mrthenoronha__alien-sound-2-8-bit (1).wav";
     private static String healthSound = "src/main/resources/368691__fartbiscuit1700__8-bit-arcade-video-game-start-sound-effect-gun-reload-and-jump.wav";
     private static String slowDebuffSound = "src/main/resources/146731__leszek-szary__game-fail.wav";
+    private static String laserBeamSound = "src/main/resources/394623__mobeyee__laser-shot.wav";
 
     public static String getBackgroundMusicPath() {
         return backgroundMusicPath;
@@ -28,4 +29,6 @@ public class GameObjectsSounds {
     }
 
     public static String getSlowDebuffSound() { return slowDebuffSound; }
+
+    public static String getLaserBeamSound() { return laserBeamSound; }
 }

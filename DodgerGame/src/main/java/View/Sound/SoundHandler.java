@@ -74,6 +74,8 @@ public class SoundHandler {
             soundFilepath = GameObjectsSounds.getHealthSound();
         } else if (c.equals(SlowDebuff.class)) {
             soundFilepath = GameObjectsSounds.getSlowDebuffSound();
+        } else if(c.equals(LaserBeam.class)) {
+            soundFilepath = GameObjectsSounds.getLaserBeamSound();
         }
 
         if(soundFilepath != null) {

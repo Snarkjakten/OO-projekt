@@ -41,19 +41,17 @@ public class CollisionHandler implements IGameObjectObservable {
                     if (a instanceof Spaceship) {
                         notifyGameObjectObservers(gameObject.getClass());
                         a.actOnCollision(gameObject);
-                        if (!(gameObject instanceof LaserBeam)) {
-                            toBeRemoved.add(gameObject);
-                        }
                     } else if (gameObject instanceof Spaceship) {
                         notifyGameObjectObservers(a.getClass());
                         gameObject.actOnCollision(a);
-                        if (!(a instanceof LaserBeam)) {
-                            toBeRemoved.add(a);
-                        }
                     } else if(gameObject instanceof LaserBeam || a instanceof LaserBeam){
-                        toBeRemoved.add(executeCollisionOnLaserbeam(gameObject, a));
+                        notifyGameObjectObservers(a.getClass());
+                        notifyGameObjectObservers(gameObject.getClass());
                     }
                     collide(a, gameObject);
+                }
+                if(a.getCollided()) {
+                    toBeRemoved.add(a);
                 }
             }
         }
@@ -61,27 +59,6 @@ public class CollisionHandler implements IGameObjectObservable {
             gameObjects.remove(a);
         }
     }
-
-    /**
-     * Checks which one of the two objects is a laserbeam, does collide() and returns the one that should be removed
-     *
-     * @param a game object
-     * @param b game object
-     * @return game object that is not an instance of laserbeam
-     * @author Viktor
-     */
-    public AbstractGameObject executeCollisionOnLaserbeam(AbstractGameObject a, AbstractGameObject b) {
-        collide(a, b);
-        if(a instanceof LaserBeam) {
-            return b;
-        } else {
-            return a;
-        }
-    }
-
-    /*public void addObjectsToBeRemoved(AbstractGameObject abstractGameObject) {
-        toBeRemoved.add(abstractGameObject);
-    }*/
 
     /**
      * @param obs the observer to be added to a list of observers
