@@ -1,19 +1,24 @@
 package Interfaces;
 
-import Model.Entities.HitBox;
-
-import java.util.List;
-
 public interface IGameObjectObservable {
 
     /**
      * @author Irja Vuorela
      */
 
-    void addObserver(IGameObjectObserver obs);
+    /**
+     * @param obs an observer to be added to a list of observers
+     */
+    void addGameObjectObserver(IGameObjectObserver obs);
 
-    void removeObserver(IGameObjectObserver obs);
+    /**
+     * @param obs an observer to be removed from a list of observers
+     */
+    void removeGameObjectObserver(IGameObjectObserver obs);
 
-    void notifyGameObjectObservers(List<HitBox> hitBoxes, Class c, double height, double width);
+    /**
+     * @param c the type of object which is observed
+     */
+    void notifyGameObjectObservers(Class c);
 
 }

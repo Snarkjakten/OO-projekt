@@ -1,66 +1,107 @@
 package Model.Entities;
 
 
-import Model.Point2D;
 import Model.Rectangle2D;
 
 public class HitBox {
 
-    private double width;
-    private double height;
-    // Position (x, y)
-    private Point2D position;
     private Rectangle2D hitBox;
 
-    public HitBox(double xPos, double yPos, double width, double height) {
-        this.width = width;
-        this.height = height;
-        this.position = new Point2D(xPos, yPos);
-        setHitBox(xPos, yPos, this.width, this.height);
+    /**
+     * A unit HitBox
+     *
+     * @author Viktor & Irja
+     */
+    public HitBox() {
+        updateHitBox(0, 0, 0, 0);
     }
 
-    public double getXPos() {
+    public HitBox(double xPos, double yPos, double width, double height) {
+        updateHitBox(xPos, yPos, width, height);
+    }
+
+    /**
+     * Creates a new Rectangle2D with the new values
+     *
+     * @param xPos   new xPosition
+     * @param yPos   new yPosition
+     * @param width  new Width
+     * @param height new Height
+     * @author Tobias Engblom
+     */
+    public void updateHitBox(double xPos, double yPos, double width, double height) {
+        setHitBox(new Rectangle2D(xPos, yPos, width, height));
+    }
+
+    /**
+     * @param xPos the new xPosition for this hitBox
+     * @param yPos the new yPosition for this hitbox
+     * @author Tobias Engblom
+     */
+    public void updateHitBoxPosition(double xPos, double yPos) {
+        setHitBox(new Rectangle2D(xPos, yPos, getHitBox().getWidth(), getHitBox().getHeight()));
+    }
+
+    /**
+     * @param width  the new width for this hitBox
+     * @param height the new height for this hitBox
+     * @author Tobias Engblom
+     */
+    public void updateHitBoxSize(double width, double height) {
+        setHitBox(new Rectangle2D(getHitBox().getX(), getHitBox().getY(), width, height));
+    }
+
+    /**
+     * Updates the position of the hitBox depending on the velocity
+     *
+     * @param xVelocity the xVelocity for this hitBox
+     * @param yVelocity the yVelocity for this hitBox
+     * @author Tobias Engblom
+     */
+    public void updatePosition(double xVelocity, double yVelocity) {
+        updateHitBox(this.getX() + xVelocity, this.getY() + yVelocity, getHitBox().getWidth(), getHitBox().getHeight());
+    }
+
+    /**
+     * @return the xPosition of this hitBox
+     */
+    public double getX() {
         return this.hitBox.getX();
     }
 
-    public double getYPos() {
+    /**
+     * @return the yPosition of this hitBox
+     */
+    public double getY() {
         return this.hitBox.getY();
     }
 
-    public void setHitBox(double xPos, double yPos, double width, double height) {
-        this.hitBox = new Rectangle2D(xPos, yPos, width, height);
+    /**
+     * @param hitBox the new 2D rectangle for this hitBox
+     * @author Tobias Engblom
+     */
+    private void setHitBox(Rectangle2D hitBox) {
+        this.hitBox = hitBox;
     }
 
-    public void updatePosition(double xVelocity, double yVelocity) {
-        this.position = position.add(xVelocity, yVelocity);
-        setHitBox(this.position.getX(), this.position.getY(), this.width, this.height);
-    }
-
+    /**
+     * @return the 2D rectangle of this hitBox
+     */
     public Rectangle2D getHitBox() {
         return hitBox;
     }
 
-    public Point2D getPosition() {
-        return this.position;
-    }
-
-    public void setPosition(double xPos, double yPos) {
-        this.position = new Point2D(xPos, yPos);
-    }
-
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
+    /**
+     * @return the hitBox width
+     */
     public double getWidth() {
-        return width;
+        return getHitBox().getWidth();
     }
 
+    /**
+     * @return the hitBox height
+     */
     public double getHeight() {
-        return height;
+        return getHitBox().getHeight();
     }
 }

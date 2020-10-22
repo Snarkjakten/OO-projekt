@@ -16,7 +16,7 @@ public class ScoreCalculatorTest {
     @Test
     public void scoreTest() {
         long time = 0L;
-        scoreCalculator.actOnEvent(time,0);
+        scoreCalculator.calculateScore(time);
         assertTrue(scoreCalculator.getPoints() == 0);
     }
 
@@ -26,7 +26,7 @@ public class ScoreCalculatorTest {
     @Test
     public void scoreTest2() {
         long time = 5000000000L;
-        scoreCalculator.actOnEvent(time,0);
+        scoreCalculator.calculateScore(time);
         assertTrue(scoreCalculator.getPoints() == 5);
     }
 
@@ -36,7 +36,7 @@ public class ScoreCalculatorTest {
     @Test
     public void scoreTest3() {
         long time = 10000000000L;
-        scoreCalculator.actOnEvent(time,0);
+        scoreCalculator.calculateScore(time);
         assertTrue(scoreCalculator.getPoints() == 10);
     }
 }

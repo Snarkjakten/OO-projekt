@@ -1,19 +1,18 @@
 package Model.Entities.Player;
 
-import Interfaces.ICollisionObserver;
 import Model.Entities.HitBox;
 import Model.Entities.Projectiles.*;
 import Model.Movement.AbstractGameObject;
 import Model.Point2D;
 
 // A spaceship to be controlled by the player
-public class Spaceship extends AbstractGameObject implements ICollisionObserver {
+public class Spaceship extends AbstractGameObject {
 
     private final int maxHp;
     private int hp;
     private int nrOfShields;
 
-    // Game.Movement directions
+    // Movement directions
     private int up = 0; // moving up decreases vertical axis value
     private int down = 0; // moving down increases vertical axis value
     private int left = 0; // moving left decreases horizontal axis value
@@ -27,7 +26,6 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
      * @author Tobias Engblom
      */
     public Spaceship(double xPos, double yPos, double width, double height) {
-        super(width, height);
         getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         this.nrOfShields = 0;
         this.maxHp = 200;
@@ -38,6 +36,7 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     /**
      * Move self to a new position
      *
+     * @param deltaTime the length of a frame in the game loop
      * @author Irja Vuorela
      */
     @Override
@@ -47,19 +46,85 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
     }
 
     /**
-     * Updates velocity
+     * Updates velocity. Stop if moving in two opposite directions simultaneously.
      *
      * @author Irja Vuorela
      */
     public void updateVelocity() {
-        // Stop if moving in two opposite direction simultaneously
-        // Normalize velocity (keep same direction and turn into a unit vector)
+        // a unit vector with your direction
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
-        // Multiply direction with speed
+        // Multiply your direction with speed
         this.velocity = velocity.multiply(getSpeed());
     }
 
-    // Setters for movement directions
+    /**
+     * @param hitCapacity amount of collisions a single shield power up can block
+     * @authors Irja & Viktor
+     */
+    public void gainShield(int hitCapacity) {
+        this.nrOfShields += hitCapacity;
+    }
+
+    /**
+     * @param healingValue amount of healing from one health power up
+     * @authors Irja & Viktor
+     */
+    public void gainHealth(int healingValue) {
+        setHp(Math.min(getHp() + healingValue, maxHp));
+    }
+
+    /**
+     * @author Olle Westerlund
+     */
+    public void loseShield() {
+        if (this.nrOfShields > 0) {
+            this.nrOfShields -= 1;
+        } else {
+            this.nrOfShields = 0;
+        }
+    }
+
+    /**
+     * Acts upon the collision based on instance of projectile
+     *
+     * @param gameObject the gameObject spaceship collided with
+     *                   todo: make all gameobjects act on collision
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject gameObject) {
+        gameObject.setCollided(!(gameObject instanceof LaserBeam));
+    }
+
+    /**
+     * @param gameObject an object from the game objects list in the game loop
+     * @authors Viktor, Olle, Tobias
+     */
+
+    public void actOnCollisionEvent(AbstractGameObject gameObject) {
+        boolean gotShield = this.nrOfShields > 0;
+        if (gameObject instanceof Asteroid) {
+            if (gotShield) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+            }
+        } else if (gameObject instanceof ShieldPowerUp) {
+            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
+        } else if (gameObject instanceof HealthPowerUp) {
+            gainHealth(((HealthPowerUp) gameObject).getHealingValue());
+        } else if (gameObject instanceof SlowDebuff) {
+            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
+            setSpeed(getSpeed() * slowSpeedFactor);
+        } else if (gameObject instanceof LaserBeam) {
+            if (gotShield) {
+                loseShield();
+            } else {
+                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
+            }
+        }
+    }
+
+    // Getters and setters --------------------------
 
     /**
      * Setter for direction up
@@ -127,73 +192,4 @@ public class Spaceship extends AbstractGameObject implements ICollisionObserver 
         return this.nrOfShields;
     }
 
-    /**
-     * @param hitCapacity amount of collisions a single shield power up can block
-     * @authors Irja & Viktor
-     */
-    public void gainShield(int hitCapacity) {
-        this.nrOfShields += hitCapacity;
-    }
-
-    /**
-     * @param healingValue amount of healing from one health power up
-     * @authors Irja & Viktor
-     */
-    public void gainHealth(int healingValue) {
-        if (getHp() + healingValue > maxHp) {
-            setHp(maxHp);
-        } else {
-            setHp(getHp() + healingValue);
-        }
-    }
-
-    /**
-     * @author Olle Westerlund
-     */
-    protected void loseShield() {
-        if (this.nrOfShields > 0) this.nrOfShields -= 1;
-        else this.nrOfShields = 0;
-    }
-
-    /**
-     * Acts upon the collision based on instance of projectile
-     *
-     * @param gameObject the gameObject spaceship collided with
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
-     */
-    @Override
-    public void actOnCollision(AbstractGameObject gameObject) {
-        gameObject.setCollided(!(gameObject instanceof LaserBeam));
-
-    }
-
-    /**
-     * @param gameObject an object from the game objects list in the game loop
-     * @authors Viktor, Olle, Tobias
-     */
-    @Override
-    public void actOnCollisionEvent(AbstractGameObject gameObject) {
-        boolean gotShield = this.nrOfShields > 0;
-        if (gameObject instanceof Asteroid) {
-            if (gotShield) {
-                loseShield();
-            } else {
-                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
-            }
-        } else if (gameObject instanceof ShieldPowerUp) {
-            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
-        } else if (gameObject instanceof HealthPowerUp) {
-            gainHealth(((HealthPowerUp) gameObject).getHealingValue());
-        } else if (gameObject instanceof SlowDebuff) {
-            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
-            setSpeed(getSpeed() * slowSpeedFactor);
-        } else if (gameObject instanceof LaserBeam) {
-            if (gotShield) {
-                loseShield();
-            } else {
-                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
-            }
-        }
-
-    }
 }

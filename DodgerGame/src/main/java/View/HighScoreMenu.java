@@ -1,13 +1,8 @@
 package View;
 
 import Model.HighScoreHandler;
-import javafx.scene.Parent;
-import javafx.scene.canvas.Canvas;
-import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
-import javafx.scene.layout.Pane;
-import javafx.scene.layout.VBox;
 import javafx.scene.paint.Color;
 import javafx.scene.text.Font;
 import javafx.scene.text.FontWeight;
@@ -17,31 +12,30 @@ import java.io.IOException;
 import java.io.InputStream;
 import java.util.List;
 
-public class HighScoreMenu {
+public class HighScoreMenu extends AbstractMenu {
 
-    private Pane root;
-    private MenuButton mainMenuBtn;
-    HighScoreHandler hs = new HighScoreHandler();
-    private HighScoreMenu.ButtonMenu buttonMenu;
-    private StringBuilder sb;
-    private Text scores;
+    private final MenuButton mainMenuBtn;
+    private final Text scores;
+    private final HighScoreHandler hs = new HighScoreHandler();
 
     public HighScoreMenu() throws IOException {
 
         // Creates a title to the page.
-        Canvas title = new Canvas(800, 200);
-        GraphicsContext gc = title.getGraphicsContext2D();
-        gc.setFill(Color.GRAY);
-        gc.setStroke(Color.WHITE);
-        gc.setLineWidth(2);
+        getGraphicsContext().setFill(Color.GRAY);
         Font theFont = Font.font("Arial", FontWeight.BOLD, 80);
-        gc.setFont(theFont);
-        gc.fillText("High Scores", 150, 100);
-        gc.strokeText("High Scores", 150, 100);
+        getGraphicsContext().setFont(theFont);
+        getGraphicsContext().fillText("High Scores", 150, 100);
+        getGraphicsContext().strokeText("High Scores", 150, 100);
 
-        buttonMenu = new HighScoreMenu.ButtonMenu();
+        ButtonMenu buttonMenu = new ButtonMenu(20);
+
+        buttonMenu.getvBox().setTranslateX(270);
+        buttonMenu.getvBox().setTranslateY(530);
+
+        mainMenuBtn = new MenuButton("BACK");
 
         // Presents the scores
+        HighScoreHandler hs = new HighScoreHandler();
         scores = new Text();
         scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
         Font theFont2 = Font.font("Arial", FontWeight.BOLD, 30);
@@ -53,6 +47,7 @@ public class HighScoreMenu {
 
         // Adds a background to the screen.
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("bg_1_1.png");
+        assert inputStream != null;
         Image image = new Image(inputStream);
         inputStream.close();
 
@@ -60,33 +55,13 @@ public class HighScoreMenu {
         background.setFitWidth(800);
         background.setFitHeight(600);
 
-        root = new Pane();
-        root.setPrefSize(800, 600);
+        buttonMenu.getvBox().getChildren().addAll(mainMenuBtn);
 
-        root.getChildren().addAll(background, title, scores, buttonMenu);
+        getRoot().getChildren().addAll(background, getTitle(), scores, buttonMenu);
     }
 
     public void updateScore() {
         scores.setText(presentableScores(hs.getScoresFromFile(hs.getFileName())));
-    }
-
-    // Menu that contains the buttons on the screen
-    private class ButtonMenu extends Parent {
-        public ButtonMenu() {
-            VBox menu = new VBox(20);
-
-            menu.setTranslateX(270);
-            menu.setTranslateY(530);
-
-            mainMenuBtn = new MenuButton("BACK");
-
-            menu.getChildren().addAll(mainMenuBtn);
-            getChildren().addAll(menu);
-        }
-    }
-
-    public Pane getRoot() {
-        return root;
     }
 
     public MenuButton getMainMenuBtn() {
@@ -108,7 +83,7 @@ public class HighScoreMenu {
             StringBuilder sb = new StringBuilder();
             int i = 1;
             for (int s : scores) {
-                sb.append(i + ": " + s);
+                sb.append(i).append(": ").append(s);
                 sb.append("\n");
                 i++;
             }

@@ -1,6 +1,5 @@
 package View.Sound;
 import Model.Entities.Projectiles.*;
-import Interfaces.ISoundObserve;
 
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
@@ -12,7 +11,7 @@ import java.io.File;
  * @Author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class SoundHandler implements ISoundObserve {
+public class SoundHandler {
 
     private double volume = 0.01;
 
@@ -64,8 +63,7 @@ public class SoundHandler implements ISoundObserve {
         gain.setValue(decibel);
     }
 
-    @Override
-    public void actOnEvent(Class c) {
+    public void playSound(Class c) {
         String soundFilepath = null;
 
         if (c.equals(Asteroid.class)) {

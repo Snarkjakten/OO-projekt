@@ -1,7 +1,5 @@
 package View;
 
-import Interfaces.ISpaceshipObserver;
-import Model.Entities.Player.Spaceship;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -11,7 +9,7 @@ import java.io.InputStream;
  * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class HealthBarGUI implements ISpaceshipObserver {
+public class HealthBarGUI {
     private final GraphicsContext gc;
     private Image background;
     private Image foreground;
@@ -55,14 +53,9 @@ public class HealthBarGUI implements ISpaceshipObserver {
      * @param maxHealth the maximum amount of health point
      * @author Olle Westerlund
      */
-    private void drawHealthBar(double remainingHp, double maxHealth) {
+    public void drawHealthBar(double remainingHp, double maxHealth) {
         gc.drawImage(background, 0, 0, maxHealth, 40);
         gc.drawImage(foreground, 0, 0, remainingHp, 40);
         gc.drawImage(border, 0, 0, maxHealth, 40);
-    }
-
-    @Override
-    public void actOnEvent(Spaceship spaceship) {
-        drawHealthBar(spaceship.getHp(), spaceship.getMaxHp());
     }
 }

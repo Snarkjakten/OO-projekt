@@ -1,6 +1,7 @@
 import Model.Point2D;
 
 import org.junit.Test;
+
 import static org.junit.Assert.*;
 
 public class Point2DTest {
@@ -70,5 +71,14 @@ public class Point2DTest {
         assertEquals(point.magnitude(), 1, 0.0000001);
     }
 
+    /**
+     * Tests if toSring works properly.
+     */
+    @Test
+    public void correctPrint() {
+        Point2D point = new Point2D(3, 4);
+        String pointSring = "(3.0, 4.0)";
+        assertEquals(point.toString(), pointSring);
+    }
 
 }

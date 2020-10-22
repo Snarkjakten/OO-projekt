@@ -1,7 +1,7 @@
 package Model; /**
  * @author Irja Vuorela
  * <p>
- * HighScore adds the player's score in a text file if it's among the top scores in that file.
+ * HighScoreHandler adds the player's score in a text file if it's among the top scores in that file.
  */
 
 import java.io.*;
@@ -12,12 +12,11 @@ import java.util.Scanner;
 /**
  * Handles score keeping
  */
-
 public class HighScoreHandler {
 
     String fileName = "src/main/resources/HighScores.txt"; // include the file extension
     List<Integer> topScores = new ArrayList<>();
-    int nrOfTopScores = 10; // Defined number of top scores
+    int maxNrOfTopScores = 10; // Defined number of top scores
 
     /**
      * Saves a player's score in a text file with the best times.
@@ -27,7 +26,7 @@ public class HighScoreHandler {
     public void handleScore(int score) {
         createFile(fileName);
         topScores = getScoresFromFile(fileName);
-        addToTopScores(score, topScores, nrOfTopScores);
+        addToTopScores(score, topScores, maxNrOfTopScores);
         writeToFile(topScores, fileName);
     }
 
@@ -39,9 +38,7 @@ public class HighScoreHandler {
     private void createFile(String fileName) {
         try {
             File file = new File(fileName);
-            if (file.createNewFile()) {
-                System.out.println("Created " + file.getName() + " at: " + file.getAbsolutePath());
-            }
+            file.createNewFile();
         } catch (IOException e) {
             e.printStackTrace();
         }
@@ -49,7 +46,7 @@ public class HighScoreHandler {
 
     /**
      * Create a list where each line in the file is an element (each score in the file).
-     * The list will be empty if the file doesn't exist
+     * Return an empty list if the file doesn't exist.
      *
      * @param fileName name of the text file.
      * @return list of top scores
@@ -63,7 +60,6 @@ public class HighScoreHandler {
 
             while (input.hasNextLine()) {
                 scores.add(Integer.parseInt(input.nextLine()));
-
             }
         } catch (FileNotFoundException e) {
             List<Integer> emptyList = new ArrayList<>();
@@ -98,11 +94,11 @@ public class HighScoreHandler {
     public boolean isTopScore(int score, List<Integer> topScores) {
 
         // True if the list isn't filled yet.
-        if (topScores.size() < nrOfTopScores) {
+        if (topScores.size() < maxNrOfTopScores) {
             return true;
         }
         // True if score is better than the worst top score
-        else if (topScores.get(nrOfTopScores - 1) < score) {
+        else if (topScores.get(maxNrOfTopScores - 1) < score) {
             return true;
         } else return false;
     }
@@ -160,7 +156,6 @@ public class HighScoreHandler {
             }
             writer.close();
         } catch (IOException e) {
-            System.out.println("An error occurred.");
             e.printStackTrace();
         }
     }
@@ -169,8 +164,8 @@ public class HighScoreHandler {
      * @return the number of top scores for the list of top scores.
      * @author Irja vuorela
      */
-    public int getNrOfTopScores() {
-        return this.nrOfTopScores;
+    public int getMaxNrOfTopScores() {
+        return this.maxNrOfTopScores;
     }
 
     /**

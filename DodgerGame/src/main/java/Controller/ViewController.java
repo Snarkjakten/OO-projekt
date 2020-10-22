@@ -46,7 +46,6 @@ public class ViewController implements IGameOverObserver {
         // Redirects player to character menu
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 
-        // TODO: 2020-09-27 go to highscore menu
         mainMenu.getHighScoreBtn().setOnMouseClicked(event -> {
             highScoreMenu.updateScore();
             stage.getScene().setRoot(highScoreMenu.getRoot());
@@ -141,7 +140,7 @@ public class ViewController implements IGameOverObserver {
     }
 
     @Override
-    public void actOnEvent(boolean isGameOver, int points) {
+    public void actOnGameOverEvent(boolean isGameOver, int points) {
         if (isGameOver) {
             gameOverMenu.showScore(points);
             stage.getScene().setRoot(gameOverMenu.getRoot());

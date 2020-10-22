@@ -41,7 +41,7 @@ public class WaveManagerTest {
     @Test
     public void removedOffscreenAsteroids() {
         boolean offscreenAsteroidExists = false;
-        gameObjects.add(ProjectileFactory.createAsteroid(0, 64, 64, playingFieldWidth * 2, playingFieldHeight * 2, 0, 0));
+        gameObjects.add(ProjectileFactory.createAsteroid(0, 64, 64, playingFieldWidth * 2, playingFieldHeight * 2, 0, 0, 20));
         // waveManager removes offscreen projectiles
         waveManager.projectileSpawner(time, gameObjects, deltaTime, scenario, maxNumGameObjects);
         for (AbstractGameObject gameObject : gameObjects) {

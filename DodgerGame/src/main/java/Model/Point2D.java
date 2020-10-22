@@ -8,15 +8,15 @@ import static java.lang.StrictMath.sqrt;
 
 public class Point2D {
 
-    // The x- and y-values of a point
+    // The x- and y-coordinates of a point
     private double x;
     private double y;
 
     /**
-     * Creates a Point with x and y coordinates.
+     * Creates a Point with x- and y-coordinates.
      *
-     * @param x the point's x-value
-     * @param y the point's y-value
+     * @param x the point's x-coordinate
+     * @param y the point's y-coordinate
      * @author Irja Vuorela
      */
     public Point2D(double x, double y) {
@@ -38,8 +38,8 @@ public class Point2D {
     /**
      * Create a point with the specified coordinates added to the coordinates of this point.
      *
-     * @param x the x coordinate.
-     * @param y the y coordinate
+     * @param x the x-coordinate.
+     * @param y the y-coordinate
      * @return a point with the specified coordinates added to the coordinates of this point.
      * @author Irja Vuorela
      */
@@ -50,7 +50,7 @@ public class Point2D {
     /**
      * Returns a point with the coordinates of this point multiplied by the specified factor
      *
-     * @param factor
+     * @param factor the value to be multiplied with the point's x- and y-coordinates
      * @return a point with the coordinates of this point multiplied by the specified factor
      * @author Irja Vuorela
      */
@@ -84,11 +84,18 @@ public class Point2D {
         }
     }
 
-    // Getters
+    /**
+     *
+     * @return the x-coordinate
+     */
     public double getX() {
         return this.x;
     }
 
+    /**
+     *
+     * @return the y-coordinate
+     */
     public double getY() {
         return this.y;
     }
@@ -100,6 +107,6 @@ public class Point2D {
      */
     @Override
     public String toString() {
-        return ("(" + x + "," + y + ")");
+        return ("(" + x + ", " + y + ")");
     }
 }

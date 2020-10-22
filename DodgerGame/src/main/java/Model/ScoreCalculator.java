@@ -1,15 +1,13 @@
 package Model;
 
-import Interfaces.ITimeObserver;
-
 /**
- * @Author Isak Almeros
+ * @author Isak Almeros
  */
 
-public class ScoreCalculator implements ITimeObserver {
+public class ScoreCalculator {
     private int points;
 
-    private void calculateScore(long time) {
+    public void calculateScore(long time) {
         points = (int) (time / 1000000000);
     }
 
@@ -17,8 +15,4 @@ public class ScoreCalculator implements ITimeObserver {
         return points;
     }
 
-    @Override
-    public void actOnEvent(long time, double deltaTime) {
-        calculateScore(time);
-    }
 }

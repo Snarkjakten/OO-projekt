@@ -7,7 +7,9 @@ import org.junit.Test;
 import java.util.ArrayList;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
 import static org.junit.Assert.assertTrue;
+
 /**
  * @author Irja Vuorela
  */
@@ -15,7 +17,8 @@ import static org.junit.Assert.assertTrue;
 public class HighScoreHandlerTest {
     HighScoreHandler highScoreHandler = new HighScoreHandler();
     String fileName = highScoreHandler.getFileName();
-    int nrOfTopScores = highScoreHandler.getNrOfTopScores();
+    int nrOfTopScores = highScoreHandler.getMaxNrOfTopScores();
+    List<Integer> emptyList = new ArrayList<>();
 
     /**
      * Creates an empty high scores file for testing.
@@ -71,5 +74,31 @@ public class HighScoreHandlerTest {
         sortedList.add(1);
         sortedList.add(0);
         assertTrue(sortedList.equals(highScoreHandler.getScoresFromFile(fileName)));
+    }
+
+    /**
+     * Tests if trimScoresList successfully trims the scores list down to the max number of top scores
+     *
+     * @author Irja Vuorela
+     */
+    @Test
+    public void trimmedScoresFile() {
+        int max = highScoreHandler.getMaxNrOfTopScores();
+        for (int i = 0; i < (max + 20); i++) {
+            highScoreHandler.handleScore(100 * i);
+        }
+        assertTrue(highScoreHandler.getScoresFromFile(fileName).size() == max);
+    }
+
+    /**
+     * Tests if getScoresFromList throws an IOException when calling it with a non-filename.
+     *
+     * @authoer Irja Vuorela
+     */
+    @Test
+    public void getEmptyListWithBadFilename() {
+        // ".txt" missing, can't be a file name
+        List<Integer> scoresList = highScoreHandler.getScoresFromFile("badFilename");
+        assertEquals(scoresList, emptyList);
     }
 }

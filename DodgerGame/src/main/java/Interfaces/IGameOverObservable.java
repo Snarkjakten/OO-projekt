@@ -2,9 +2,19 @@ package Interfaces;
 
 public interface IGameOverObservable {
 
-    void notifyGameOverObservers(boolean isGameOver, int points);
+    /**
+     * @param isGameOver if the game is over
+     * @param finalScore the final score from when the game is ended
+     */
+    void notifyGameOverObservers(boolean isGameOver, int finalScore);
 
-    void addObserver(IGameOverObserver obs);
+    /**
+     * @param obs the observer to be added to a list of observers
+     */
+    void addGameOverObserver(IGameOverObserver obs);
 
-    void removeObserver(IGameOverObserver obs);
+    /**
+     * @param obs the observer to be removed from a list of observers
+     */
+    void removeGameOverObserver(IGameOverObserver obs);
 }

@@ -1,5 +1,6 @@
 package View;
 
+import Model.GameWorld;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.layout.Pane;
@@ -34,7 +35,7 @@ public class Window {
 
     //Sets size of Pane
     private void createContent() {
-        root.setPrefSize(800, 600);
+        root.setPrefSize(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
     }
 
     public Pane getRoot() {
