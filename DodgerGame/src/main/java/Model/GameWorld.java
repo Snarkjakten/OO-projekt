@@ -67,22 +67,38 @@ public class GameWorld {
         return this.gameObjects;
     }
 
-    //@Author Tobias Engblom
+    /**
+     * @param spaceship the spaceship we want to wrap around
+     * @author Tobias Engblom
+     */
     public void wrapAround(Spaceship spaceship) {
         HitBox hitBox = spaceship.getHitBoxes().get(0);
         int size = spaceship.getHitBoxes().size();
-        if (size == 1) checkWrapAround(spaceship, hitBox);
-        else if (size == 2) checkWrapAround(spaceship, hitBox, spaceship.getHitBoxes().get(1));
-        checkInactive(spaceship.getHitBoxes());
+        if (size == 1) {
+            checkWrapAround(spaceship, hitBox);
+        } else if (size == 2) {
+            checkWrapAround(spaceship, hitBox, spaceship.getHitBoxes().get(1));
+            checkInactive(spaceship.getHitBoxes());
+        }
     }
 
-    //@Author Tobias Engblom
+    /**
+     * @param spaceship the spaceship we want to add the hitBoxes to
+     * @param hitBox1   the first hitBox
+     * @param hitBox2   the second hitBox
+     * @author Tobias Engblom
+     */
     private void addHitBoxesToSpaceship(Spaceship spaceship, HitBox hitBox1, HitBox hitBox2) {
         spaceship.getHitBoxes().add(hitBox1);
         spaceship.getHitBoxes().add(hitBox2);
     }
 
-    //@Author Tobias Engblom
+    /**
+     * @param spaceship the spaceship we want to wrap around
+     * @param hitBox1   the first hitBox
+     * @param hitBox2   the second hitBox
+     * @author Tobias Engblom
+     */
     private void checkWrapAround(Spaceship spaceship, HitBox hitBox1, HitBox hitBox2) {
         HitBox newHitBox1;
         HitBox newHitBox2;
@@ -105,7 +121,11 @@ public class GameWorld {
         }
     }
 
-    //@Author Tobias Engblom
+    /**
+     * @param spaceship the spaceship we want to wrap around
+     * @param hitBox    the current hitBox
+     * @author Tobias Engblom
+     */
     private void checkWrapAround(Spaceship spaceship, HitBox hitBox) {
         if (checkWestPosition(hitBox))
             spaceship.getHitBoxes().add(new HitBox(getPlayingFieldWidth() - 12, hitBox.getY(), spaceship.getWidth(), spaceship.getHeight()));
@@ -171,18 +191,32 @@ public class GameWorld {
         return hitBox.getY() >= getPlayingFieldHeight() - spaceship.getHeight();
     }
 
+    /**
+     * @return true if game over
+     */
     public boolean getIsGameOver() {
         return isGameOver;
     }
 
+    /**
+     * Setter for game over
+     *
+     * @param gameOver true if game over
+     */
     public void setGameOver(boolean gameOver) {
         isGameOver = gameOver;
     }
 
+    /**
+     * @return the width of the playing field
+     */
     public static double getPlayingFieldWidth() {
         return playingFieldWidth;
     }
 
+    /**
+     * @return the height of the playing field
+     */
     public static double getPlayingFieldHeight() {
         return playingFieldHeight;
     }
