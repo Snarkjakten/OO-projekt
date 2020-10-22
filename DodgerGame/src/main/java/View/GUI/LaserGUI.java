@@ -1,4 +1,4 @@
-package View;
+package View.GUI;
 
 import Model.GameWorld;
 import javafx.scene.image.Image;

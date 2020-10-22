@@ -1,4 +1,4 @@
-package Model;
+package Model.Entities;
 
 import static java.lang.StrictMath.sqrt;
 

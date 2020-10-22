@@ -1,6 +1,7 @@
-package Model.Movement;
+package Model.Handlers;
 
 import Interfaces.*;
+import Model.Entities.AbstractGameObject;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.LaserBeam;

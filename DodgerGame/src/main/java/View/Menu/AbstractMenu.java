@@ -1,4 +1,4 @@
-package View;
+package View.Menu;
 
 import Model.GameWorld;
 import javafx.scene.canvas.Canvas;

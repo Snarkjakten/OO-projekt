@@ -1,6 +1,7 @@
-package View;
+package View.Menu;
 
 
+import View.GUI.GameObjectGUI;
 import javafx.scene.image.Image;
 
 

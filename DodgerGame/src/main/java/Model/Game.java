@@ -4,8 +4,11 @@ import Interfaces.IGameOverObservable;
 import Interfaces.IGameOverObserver;
 import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
-import Model.Movement.AbstractGameObject;
-import Model.Movement.CollisionHandler;
+import Model.Entities.AbstractGameObject;
+import Model.Handlers.CollisionHandler;
+import Model.Handlers.HighScoreHandler;
+import Model.Handlers.ScoreCalculator;
+import Model.Handlers.WaveManager;
 
 import java.util.ArrayList;
 import java.util.List;

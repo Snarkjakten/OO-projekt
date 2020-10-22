@@ -4,7 +4,7 @@ import Model.Entities.HitBox;
 
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Player.SpaceshipFactory;
-import Model.Movement.AbstractGameObject;
+import Model.Entities.AbstractGameObject;
 
 import java.util.ArrayList;
 import java.util.List;

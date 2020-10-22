@@ -1,4 +1,4 @@
-package View;
+package View.Menu;
 
 import java.io.IOException;
 

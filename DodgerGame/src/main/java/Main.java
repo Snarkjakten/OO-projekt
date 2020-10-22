@@ -3,12 +3,16 @@ import Controller.KeyController;
 import Controller.ViewController;
 import Model.*;
 import Interfaces.*;
-import Model.Movement.AbstractGameObject;
-import Model.Movement.CollisionHandler;
-import View.*;
+import Model.Entities.AbstractGameObject;
+import Model.Handlers.CollisionHandler;
+import View.GUI.*;
+import View.Menu.CharacterMenu;
+import View.Menu.GameOverMenu;
+import View.Menu.HighScoreMenu;
+import View.Menu.MainMenu;
 import View.Sound.GameObjectsSounds;
 import View.Sound.SoundHandler;
-import View.Window;
+import View.GameWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -23,10 +27,10 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     private AnimationController animationController;
 
     private Game game;
-    Window window = new Window(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
+    GameWindow gameWindow = new GameWindow(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
     CollisionHandler collisionHandler = new CollisionHandler();
 
-    GraphicsContext graphicsContext = window.getGraphicsContext();
+    GraphicsContext graphicsContext = gameWindow.getGraphicsContext();
     PlayingFieldGUI playingFieldGUI = new PlayingFieldGUI(graphicsContext);
     GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
     HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
@@ -43,7 +47,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
         game = new Game();
         animationController = new AnimationController(game);
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI);
+        ViewController vc = new ViewController(gameWindow, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI);
         collisionHandler = game.getCollisionHandler();
 
         // observers
@@ -64,7 +68,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         // handle movement key inputs
         handleMovementKeys(stage);
 
-        window.init();
+        gameWindow.init();
 
         soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
     }

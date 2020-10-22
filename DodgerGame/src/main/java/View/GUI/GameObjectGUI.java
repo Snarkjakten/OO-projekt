@@ -1,4 +1,4 @@
-package View;
+package View.GUI;
 
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
