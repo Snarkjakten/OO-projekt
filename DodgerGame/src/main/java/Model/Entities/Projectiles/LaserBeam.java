@@ -2,6 +2,7 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
 import Model.GameWorld;
+import Model.Movement.AbstractGameObject;
 
 import java.util.Random;
 
@@ -99,4 +100,12 @@ public class LaserBeam extends Projectile {
     public boolean isVertical() {
         return isVertical;
     }
+
+    /**
+     * Removes projectiles collided with asteroid unless object is an instance of laserbeam
+     *
+     * @param c the type of object this object has collided with
+     */
+    @Override
+    public void actOnCollision(AbstractGameObject c) { }
 }

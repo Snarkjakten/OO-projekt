@@ -3,6 +3,8 @@ package Model.Movement;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
 import Model.Entities.HitBox;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.LaserBeam;
 import Model.Point2D;
 
 import java.util.ArrayList;
@@ -46,7 +48,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         }
     }
 
-    /**
+    /** //todo: fyll i
      * @param xPos
      * @param yPos
      * @param width
@@ -60,14 +62,14 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * Acts upon the collision based on instance of projectile
-     *
-     * @param c The gameObject this gameObject collided with
-     * @author Viktor Sundberg (viktor.sundberg@icloud.com)
+     * @param c the type of object this object has collided with
+     * @author Viktor Sundberg
      */
     @Override
     public void actOnCollision(AbstractGameObject c) {
-        //todo: this is empty
+        if (c instanceof LaserBeam || c instanceof Spaceship) {
+            this.setCollided(true);
+        }
     }
 
     // Getters and setters -------------------------------------------------------
@@ -97,20 +99,20 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the width of the first hitbox
-     * @auhtor Irja & Viktor
-     */
-    public double getWidth() {
-        return hitBoxes.get(0).getWidth();
-    }
-
-    /**
      * @return the height of the first hitbox
-     * @auhtor Irja & Viktor
+     * @author Irja & Viktor
      */
     public double getHeight() {
         return hitBoxes.get(0).getHeight();
 
+    }
+
+    /**
+     * @return the width of the first hitbox
+     * @author Irja & Viktor
+     */
+    public double getWidth() {
+        return hitBoxes.get(0).getWidth();
     }
 
     /**

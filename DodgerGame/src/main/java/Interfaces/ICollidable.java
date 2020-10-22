@@ -9,6 +9,11 @@ import Model.Movement.AbstractGameObject;
 public interface ICollidable {
 
     /**
+     * If this object has collided or not
+     */
+    boolean collided = false;
+
+    /**
      * @param collided if this object has collided
      */
     void setCollided(boolean collided);

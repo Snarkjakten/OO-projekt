@@ -18,6 +18,7 @@ import java.util.List;
 public class CollisionHandler implements IGameObjectObservable {
 
     private List<IGameObjectObserver> gameObjectObservers = new ArrayList<>();
+    List<AbstractGameObject> toBeRemoved = new ArrayList<>();;
 
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
         for (HitBox hitBox1 : g.getHitBoxes()) {
@@ -36,8 +37,6 @@ public class CollisionHandler implements IGameObjectObservable {
     }
 
     public void handleCollision(List<AbstractGameObject> gameObjects) {
-        List<AbstractGameObject> toBeRemoved;
-        toBeRemoved = new ArrayList<>();
 
         for (AbstractGameObject gameObject : gameObjects) {
 
@@ -45,18 +44,18 @@ public class CollisionHandler implements IGameObjectObservable {
                 if (checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
                     if (a instanceof Spaceship) {
                         notifyGameObjectObservers(gameObject.getClass());
-                        ((Spaceship) a).actOnCollisionEvent(gameObject);
-                        if (!(gameObject instanceof LaserBeam)) {
-                            toBeRemoved.add(gameObject);
-                        }
+                        a.actOnCollision(gameObject);
                     } else if (gameObject instanceof Spaceship) {
                         notifyGameObjectObservers(a.getClass());
-                        ((Spaceship) gameObject).actOnCollisionEvent(a);
-                        if (!(a instanceof LaserBeam)) {
-                            toBeRemoved.add(a);
-                        }
+                        gameObject.actOnCollision(a);
+                    } else if(gameObject instanceof LaserBeam || a instanceof LaserBeam){
+                        notifyGameObjectObservers(a.getClass());
+                        notifyGameObjectObservers(gameObject.getClass());
                     }
                     collide(a, gameObject);
+                }
+                if(a.getCollided()) {
+                    toBeRemoved.add(a);
                 }
             }
         }
