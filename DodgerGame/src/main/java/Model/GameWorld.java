@@ -87,20 +87,20 @@ public class GameWorld {
         HitBox newHitBox1;
         HitBox newHitBox2;
         if (checkWestPosition(hitBox1) && checkWestPosition(hitBox2)) {
-            newHitBox1 = new HitBox(788, hitBox1.getY(), spaceship.getWidth(), spaceship.getHeight());
-            newHitBox2 = new HitBox(788, hitBox2.getY(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox1 = new HitBox(getPlayingFieldWidth() - 12, hitBox1.getY(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(getPlayingFieldWidth() - 12, hitBox2.getY(), spaceship.getWidth(), spaceship.getHeight());
             addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
         } else if (checkNorthPosition(hitBox1) && checkNorthPosition(hitBox2)) {
-            newHitBox1 = new HitBox(hitBox1.getX(), 600, spaceship.getWidth(), spaceship.getHeight());
-            newHitBox2 = new HitBox(hitBox2.getX(), 600, spaceship.getWidth(), spaceship.getHeight());
+            newHitBox1 = new HitBox(hitBox1.getX(), getPlayingFieldHeight(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(hitBox2.getX(), getPlayingFieldHeight(), spaceship.getWidth(), spaceship.getHeight());
             addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
         } else if (checkEastPosition(hitBox1) && checkEastPosition(hitBox2)) {
-            newHitBox1 = new HitBox(-76, hitBox1.getY(), spaceship.getWidth(), spaceship.getHeight());
-            newHitBox2 = new HitBox(-76, hitBox2.getY(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox1 = new HitBox(-spaceship.getWidth() - 12, hitBox1.getY(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(-spaceship.getWidth() - 12, hitBox2.getY(), spaceship.getWidth(), spaceship.getHeight());
             addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
         } else if (checkSouthPosition(hitBox1) && checkSouthPosition(hitBox2)) {
-            newHitBox1 = new HitBox(hitBox1.getX(), -64, spaceship.getWidth(), spaceship.getHeight());
-            newHitBox2 = new HitBox(hitBox2.getX(), -64, spaceship.getWidth(), spaceship.getHeight());
+            newHitBox1 = new HitBox(hitBox1.getX(), -spaceship.getHeight(), spaceship.getWidth(), spaceship.getHeight());
+            newHitBox2 = new HitBox(hitBox2.getX(), -spaceship.getHeight(), spaceship.getWidth(), spaceship.getHeight());
             addHitBoxesToSpaceship(spaceship, newHitBox1, newHitBox2);
         }
     }
@@ -108,13 +108,13 @@ public class GameWorld {
     //@Author Tobias Engblom
     private void checkWrapAround(Spaceship spaceship, HitBox hitBox) {
         if (checkWestPosition(hitBox))
-            spaceship.getHitBoxes().add(new HitBox(788, hitBox.getY(), spaceship.getWidth(), spaceship.getHeight()));
+            spaceship.getHitBoxes().add(new HitBox(getPlayingFieldWidth() - 12, hitBox.getY(), spaceship.getWidth(), spaceship.getHeight()));
         else if (checkNorthPosition(hitBox))
-            spaceship.getHitBoxes().add(new HitBox(hitBox.getX(), 600, spaceship.getWidth(), spaceship.getHeight()));
+            spaceship.getHitBoxes().add(new HitBox(hitBox.getX(), getPlayingFieldHeight(), spaceship.getWidth(), spaceship.getHeight()));
         else if (checkEastPosition(hitBox))
-            spaceship.getHitBoxes().add(new HitBox(-76, hitBox.getY(), spaceship.getWidth(), spaceship.getHeight()));
+            spaceship.getHitBoxes().add(new HitBox(-spaceship.getWidth() - 12, hitBox.getY(), spaceship.getWidth(), spaceship.getHeight()));
         else if (checkSouthPosition(hitBox))
-            spaceship.getHitBoxes().add(new HitBox(hitBox.getX(), -64, spaceship.getWidth(), spaceship.getHeight()));
+            spaceship.getHitBoxes().add(new HitBox(hitBox.getX(), -spaceship.getHeight(), spaceship.getWidth(), spaceship.getHeight()));
     }
 
     /**
@@ -124,7 +124,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private void checkInactive(List<HitBox> hitBoxes) {
-        hitBoxes.removeIf(hitBox -> hitBox.getX() < -76 || hitBox.getX() > 788 || hitBox.getY() < -64 || hitBox.getY() > 600);
+        hitBoxes.removeIf(hitBox -> hitBox.getX() < -spaceship.getWidth() - 12 || hitBox.getX() > getPlayingFieldWidth() - 12 || hitBox.getY() < -spaceship.getHeight() || hitBox.getY() > getPlayingFieldHeight());
     }
 
     /**
@@ -157,7 +157,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private boolean checkEastPosition(HitBox hitBox) {
-        return hitBox.getX() >= 724;
+        return hitBox.getX() >= getPlayingFieldWidth() - spaceship.getWidth() - 12;
     }
 
     /**
@@ -168,7 +168,7 @@ public class GameWorld {
      * @author Tobias Engblom
      */
     private boolean checkSouthPosition(HitBox hitBox) {
-        return hitBox.getY() >= 536;
+        return hitBox.getY() >= getPlayingFieldHeight() - spaceship.getHeight();
     }
 
     public boolean getIsGameOver() {
