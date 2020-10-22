@@ -237,7 +237,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithHealthPowerUpGainHealth() {
         spaceship.setHp(150);
-        spaceship.actOnCollisionEvent(healthPowerUp);
+        spaceship.actOnCollision(healthPowerUp);
         assertEquals(spaceship.getHp(), 200);
     }
 
@@ -247,7 +247,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithShieldPowerUpGainShield() {
         int oldNrOfShields = spaceship.getNrOfShields();
-        spaceship.actOnCollisionEvent(shieldPowerUp);
+        spaceship.actOnCollision(shieldPowerUp);
         int newNrOfShields = spaceship.getNrOfShields();
         assertTrue(newNrOfShields > oldNrOfShields);
     }
@@ -258,7 +258,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithSlowDebuffSpeedDecreased() {
         double oldSpeed = spaceship.getSpeed();
-        spaceship.actOnCollisionEvent(slowDebuff);
+        spaceship.actOnCollision(slowDebuff);
         double newSpeed = spaceship.getSpeed();
         assertTrue(newSpeed < oldSpeed);
     }
@@ -269,7 +269,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithAsteroidHealthDecreased() {
         double oldHp = spaceship.getHp();
-        spaceship.actOnCollisionEvent(asteroid);
+        spaceship.actOnCollision(asteroid);
         double newHp = spaceship.getHp();
         assertTrue(newHp < oldHp);
     }
@@ -281,7 +281,7 @@ public class SpaceshipTest {
     public void collideWithAsteroidLoseShield() {
         spaceship.gainShield(1);
         int oldNrOfShields = spaceship.getNrOfShields();
-        spaceship.actOnCollisionEvent(asteroid);
+        spaceship.actOnCollision(asteroid);
         int newNrOfShields = spaceship.getNrOfShields();
         assertTrue(newNrOfShields < oldNrOfShields);
     }
