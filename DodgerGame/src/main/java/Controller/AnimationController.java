@@ -2,32 +2,34 @@ package Controller;
 
 import Model.Game;
 import Model.GameWorld;
+import javafx.animation.AnimationTimer;
 
 /**
  * @author Olle Westerlund
  */
 public class AnimationController {
-    private final PausableAnimationTimer animationLoop;
+    private final AnimationTimer animationLoop;
     private Game game;
     private double animationTime;
     private double deltaTime;
     private long elapsedTime;
+    private long startNanoTime;
 
     public AnimationController(Game game) {
         this.game = game;
 
-        animationLoop = new PausableAnimationTimer() {
+        animationLoop = new AnimationTimer() {
 
             final long currentNanoTime = System.nanoTime();
             final long animationNanoTime = System.nanoTime();
             long previousNanoTime = currentNanoTime;
 
             @Override
-            public void tick(long currentNanoTime) {
+            public void handle(long currentNanoTime) {
 
                 currentNanoTime = System.nanoTime();
                 deltaTime = calculateDeltaTime(currentNanoTime, previousNanoTime);
-                elapsedTime = calculateElapsedTime(getStartNanoTime());
+                elapsedTime = calculateElapsedTime(startNanoTime);
                 animationTime = calculateAnimationTime(currentNanoTime, animationNanoTime);
 
                 game.updateWorld(deltaTime, elapsedTime);
@@ -81,15 +83,12 @@ public class AnimationController {
         }
     }
 
-    public PausableAnimationTimer getAnimationLoop() {
-        return animationLoop;
-    }
-
     public double getAnimationTime() {
         return animationTime;
     }
 
     public void startAnimationLoop() {
+        startNanoTime = System.nanoTime();
         GameWorld.getInstance().createNewGameWorld();
         animationLoop.start();
     }
@@ -97,4 +96,6 @@ public class AnimationController {
     public void stopAnimationLoop() {
         animationLoop.stop();
     }
+
+
 }
