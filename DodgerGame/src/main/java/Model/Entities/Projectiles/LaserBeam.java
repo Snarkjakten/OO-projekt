@@ -1,7 +1,6 @@
 package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
-import Model.Entities.Player.Spaceship;
 import Model.GameWorld;
 import Model.Movement.AbstractGameObject;
 
@@ -115,9 +114,5 @@ public class LaserBeam extends Projectile {
      * @param c the type of object this object has collided with
      */
     @Override
-    public void actOnCollision(AbstractGameObject c) {
-        if(!(c instanceof Spaceship)) {
-            c.setCollided(true);
-        }
-    }
+    public void actOnCollision(AbstractGameObject c) { }
 }

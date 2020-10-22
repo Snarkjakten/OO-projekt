@@ -102,6 +102,7 @@ public class Spaceship extends AbstractGameObject {
      * @authors Viktor, Olle, Tobias
      */
 
+    @Override
     public void actOnCollision(AbstractGameObject gameObject) {
         boolean gotShield = this.nrOfShields > 0;
         if(!(gameObject instanceof LaserBeam)) {

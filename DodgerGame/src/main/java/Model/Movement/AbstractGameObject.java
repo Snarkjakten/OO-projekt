@@ -3,6 +3,8 @@ package Model.Movement;
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
 import Model.Entities.HitBox;
+import Model.Entities.Player.Spaceship;
+import Model.Entities.Projectiles.LaserBeam;
 import Model.Point2D;
 
 import java.util.ArrayList;
@@ -88,7 +90,9 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      */
     @Override
     public void actOnCollision(AbstractGameObject c) {
-        //todo: this is empty
+        if(c instanceof LaserBeam || c instanceof Spaceship) {
+            this.setCollided(true);
+        }
     }
 
     // Getters and setters -------------------------------------------------------
