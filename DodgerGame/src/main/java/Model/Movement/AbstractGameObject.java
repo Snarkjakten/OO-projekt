@@ -8,7 +8,6 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Point2D;
-import com.sun.javafx.scene.text.TextLayout;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private final List<HitBox> hitBoxes;
@@ -21,8 +20,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
 
     public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
-        this.unitHitBox = new HitBox();
-        hitBoxes.add(unitHitBox);
     }
 
     //------------------------------------------------------

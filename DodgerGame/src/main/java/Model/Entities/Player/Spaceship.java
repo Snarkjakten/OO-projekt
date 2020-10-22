@@ -70,19 +70,18 @@ public class Spaceship extends AbstractGameObject {
      * @authors Irja & Viktor
      */
     public void gainHealth(int healingValue) {
-        if (getHp() + healingValue > maxHp) {
-            setHp(maxHp);
-        } else {
-            setHp(getHp() + healingValue);
-        }
+        setHp(Math.min(getHp() + healingValue, maxHp));
     }
 
     /**
      * @author Olle Westerlund
      */
     protected void loseShield() {
-        if (this.nrOfShields > 0) this.nrOfShields -= 1;
-        else this.nrOfShields = 0;
+        if (this.nrOfShields > 0) {
+            this.nrOfShields -= 1;
+        } else {
+            this.nrOfShields = 0;
+        }
     }
 
     /**

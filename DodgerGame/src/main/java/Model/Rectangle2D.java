@@ -7,8 +7,7 @@ import static java.lang.StrictMath.abs;
  */
 
 public class Rectangle2D {
-    private double x;
-    private double y;
+    private Point2D position;
     private double width;
     private double height;
 
@@ -18,8 +17,7 @@ public class Rectangle2D {
      * @author Irja Vuorela
      */
     public Rectangle2D() {
-        this.x = 0.0;
-        this.y = 0.0;
+        this.position = new Point2D(0, 0);
         this.width = 1.0;
         this.height = 1.0;
     }
@@ -32,8 +30,7 @@ public class Rectangle2D {
      * @author Irja Vuorela
      */
     public Rectangle2D(double x, double y) {
-        this.x = x;
-        this.y = y;
+        this.position = new Point2D(x, y);
         this.width = 1.0;
         this.height = 1.0;
     }
@@ -48,8 +45,7 @@ public class Rectangle2D {
      * @author Irja Vuorela
      */
     public Rectangle2D(double x, double y, double width, double height) {
-        this.x = x;
-        this.y = y;
+        this.position = new Point2D(x, y);
         this.width = abs(width);
         this.height = abs(height);
     }
@@ -63,8 +59,8 @@ public class Rectangle2D {
      */
     public boolean intersects(Rectangle2D other) {
         // the distances between this rectangle's and the other rectangle's x- and y-values.
-        double xDistance = abs(this.x - other.getX());
-        double yDistance = abs(this.y - other.getY());
+        double xDistance = abs(position.getX() - other.getX());
+        double yDistance = abs(position.getY() - other.getY());
         // the shortest possible distance between the two rectangles' centres without overlap
         double shortestY = (this.height + other.getHeight()) / 2.0;
         double shortestX = (this.width + other.getWidth() / 2.0);
@@ -78,23 +74,30 @@ public class Rectangle2D {
      */
     @Override
     public String toString() {
-        return ("x: " + this.x + ", y: " + this.y + ", width: " + this.width + ", height: " + this.height);
+        return ("x: " + position.getX() + ", y: " + position.getY() + ", width: " + this.width + ", height: " + this.height);
     }
 
     // getters and setters --------------------------------------
 
     /**
+     * @return the position
+     */
+    public Point2D getPosition() {
+        return this.position;
+    }
+
+    /**
      * @return the x-coordinate
      */
     public double getX() {
-        return this.x;
+        return this.position.getX();
     }
 
     /**
      * @return the y-coordinate
      */
     public double getY() {
-        return this.y;
+        return this.position.getY();
     }
 
     /**

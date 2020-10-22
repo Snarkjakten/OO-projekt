@@ -71,22 +71,22 @@ public class LaserBeam extends Projectile {
             case 0: // Bottom of the screen
                 setVelocity(0, -1);
 
-                hitBox.setPosition(-50, verticalMapSize + 50);
+                hitBox.updateHitBoxPosition(-50, verticalMapSize + 50);
                 isVertical = false;
                 break;
             case 1: // Right side of the screen
                 setVelocity(-1, 0);
-                hitBox.setPosition(horizontalMapSize + 50, -50);
+                hitBox.updateHitBoxPosition(horizontalMapSize + 50, -50);
                 isVertical = true;
                 break;
             case 2: // Top of the screen
                 setVelocity(0, 1);
-                hitBox.setPosition(-50, -50);
+                hitBox.updateHitBoxPosition(-50, -50);
                 isVertical = false;
                 break;
             default: // Left of the screen
                 setVelocity(1, 0);
-                hitBox.setPosition(-50, -50);
+                hitBox.updateHitBoxPosition(-50, -50);
                 isVertical = true;
                 break;
         }

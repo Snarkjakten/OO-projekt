@@ -3,7 +3,6 @@ package View;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.*;
-import Interfaces.IGameObjectObserver;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
 
@@ -18,7 +17,7 @@ public class GameObjectGUI {
     private final GraphicsContext gc;
     private Image image;
     private String spaceshipImageName;
-    private LaserGUI laserGUI;
+    private final LaserGUI laserGUI;
     private double imageWidth;
     private double imageHeight;
     private double deltaTime;
@@ -52,6 +51,7 @@ public class GameObjectGUI {
 
     /**
      * The method sets the correct image depending on the specific gameObject.
+     *
      * @param gameObject The gameObject to set the image to.
      * @return The a specific image depending on the gameObject.
      * @author Olle Westerlund
@@ -87,11 +87,7 @@ public class GameObjectGUI {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(LaserBeam.class)) {
-            if (width > height) {
-                laserGUI.setIsVertical(false);
-            } else {
-                laserGUI.setIsVertical(true);
-            }
+            laserGUI.setIsVertical(!(width > height));
             image = laserGUI.getFrame(deltaTime);
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();
@@ -101,10 +97,11 @@ public class GameObjectGUI {
 
     /**
      * Draws the correct image on the current position for the object
-     * @param hitBoxes The hitboxes of the object to be drawn.
-     * @param c The class of the object
-     * @param width The objects width
-     * @param height The objects height
+     *
+     * @param hitBoxes  The hitboxes of the object to be drawn.
+     * @param c         The class of the object
+     * @param width     The objects width
+     * @param height    The objects height
      * @param deltaTime
      * @author Olle Westerlund
      */
@@ -114,12 +111,12 @@ public class GameObjectGUI {
         for (HitBox hitBox : hitBoxes) {
             if (c.equals(LaserBeam.class)) {
                 if (imageWidth > imageHeight) {
-                    gc.drawImage(image, (hitBox.getXPos()), (hitBox.getYPos()) - (256 / 2), imageWidth, imageHeight);
+                    gc.drawImage(image, (hitBox.getX()), (hitBox.getY()) - (256 / 2), imageWidth, imageHeight);
                 } else {
-                    gc.drawImage(image, hitBox.getXPos() - (257 / 2), (hitBox.getYPos()), imageWidth, imageHeight);
+                    gc.drawImage(image, hitBox.getX() - (257 / 2), (hitBox.getY()), imageWidth, imageHeight);
                 }
             } else {
-                gc.drawImage(image, (hitBox.getXPos() - imageWidth / 2), (hitBox.getYPos() - imageHeight / 2), imageWidth, imageHeight);
+                gc.drawImage(image, (hitBox.getX() - imageWidth / 2), (hitBox.getY() - imageHeight / 2), imageWidth, imageHeight);
             }
         }
     }

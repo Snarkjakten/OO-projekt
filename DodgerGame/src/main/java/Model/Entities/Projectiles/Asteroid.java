@@ -9,12 +9,13 @@ import java.util.Random;
  */
 public class Asteroid extends Projectile {
     private int damage;
-    private int smallSize = 32;
-    private int mediumSize = 64;
+    private final int smallSize = 32;
+    private final int mediumSize = 64;
 
     public Asteroid() {
         randomPosition();
         initAsteroid();
+        getHitBoxes().add(new HitBox());
     }
 
     /**
@@ -55,7 +56,7 @@ public class Asteroid extends Projectile {
             setWidthHitBoxes(smallSize);
             setHeightHitBoxes(smallSize);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
 
         } else {
@@ -64,7 +65,7 @@ public class Asteroid extends Projectile {
             setWidthHitBoxes(mediumSize);
             setHeightHitBoxes(mediumSize);
             for (HitBox hitBox : getHitBoxes())
-                hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
+                hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);
         }
     }
