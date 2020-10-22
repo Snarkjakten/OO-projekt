@@ -1,5 +1,6 @@
 package View;
 
+import Model.GameWorld;
 import javafx.scene.canvas.Canvas;
 import javafx.scene.canvas.GraphicsContext;
 import javafx.scene.image.Image;
@@ -21,7 +22,8 @@ public abstract class AbstractMenu {
     private final Pane root;
 
     public AbstractMenu() throws IOException {
-        int windowWidth = 800;
+        double windowWidth = GameWorld.getPlayingFieldWidth();
+        double windowHeight = GameWorld.getPlayingFieldHeight();
         title = new Canvas(windowWidth, 200);
         graphicsContext = title.getGraphicsContext2D();
         Font font = Font.font("Times New Roman", FontWeight.BOLD, 100);
@@ -38,7 +40,6 @@ public abstract class AbstractMenu {
         // Adds background to Menu
         ImageView background = new ImageView(image);
         background.setFitWidth(windowWidth);
-        int windowHeight = 600;
         background.setFitHeight(windowHeight);
 
         root = new Pane();

@@ -40,11 +40,10 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         HighScoreMenu highScoreMenu = new HighScoreMenu();
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
-        PauseMenu pauseMenu = new PauseMenu();
 
         game = new Game();
         animationController = new AnimationController(game);
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI, pauseMenu);
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI);
         collisionHandler = game.getCollisionHandler();
 
         // observers
