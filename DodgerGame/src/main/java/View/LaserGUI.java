@@ -48,7 +48,6 @@ public class LaserGUI {
      */
     public Image getFrame(double time) {
         int index = (int) ((time % (frames.length * duration)) / duration);
-        System.out.println(index);
         return frames[index];
     }
 
