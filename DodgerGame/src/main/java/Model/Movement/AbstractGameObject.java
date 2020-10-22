@@ -89,6 +89,40 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
+     * @return the width of this game object
+     * @author Tobias Engblom
+     */
+    public double getWidth() {
+        return this.hitBoxes.get(0).getWidth();
+    }
+
+    /**
+     * @return the height of this game object
+     * @author Tobias Engblom
+     */
+    public double getHeight() {
+        return this.hitBoxes.get(0).getHeight();
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    public void setWidth(double width) {
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setWidth(width);
+        }
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    public void setHeight(double height) {
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setHeight(height);
+        }
+    }
+
+    /**
      * Updates width both for the object and its hitBoxes
      *
      * @param width the new width
