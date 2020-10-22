@@ -50,12 +50,8 @@ public class CollisionHandler implements IGameObjectObservable {
                         if (!(a instanceof LaserBeam)) {
                             toBeRemoved.add(a);
                         }
-                    } else if(gameObject instanceof LaserBeam){
-                        collide(gameObject, a);
-                        toBeRemoved.add(a);
-                    } else if(a instanceof LaserBeam){
-                        collide(gameObject, a);
-                        toBeRemoved.add(gameObject);
+                    } else if(gameObject instanceof LaserBeam || a instanceof LaserBeam){
+                        toBeRemoved.add(executeCollisionOnLaserbeam(gameObject, a));
                     }
                     collide(a, gameObject);
                 }
@@ -63,6 +59,23 @@ public class CollisionHandler implements IGameObjectObservable {
         }
         for (AbstractGameObject a : toBeRemoved) {
             gameObjects.remove(a);
+        }
+    }
+
+    /**
+     * Checks which one of the two objects is a laserbeam, does collide() and returns the one that should be removed
+     *
+     * @param a game object
+     * @param b game object
+     * @return game object that is not an instance of laserbeam
+     * @author Viktor
+     */
+    public AbstractGameObject executeCollisionOnLaserbeam(AbstractGameObject a, AbstractGameObject b) {
+        collide(a, b);
+        if(a instanceof LaserBeam) {
+            return b;
+        } else {
+            return a;
         }
     }
 
