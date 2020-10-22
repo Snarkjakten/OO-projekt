@@ -18,10 +18,10 @@ public class ViewController implements IGameOverObserver {
     private final Stage stage;
     private int spaceshipChoice;
     private final GameObjectGUI gameObjectGUI;
-    private final PausableAnimationTimer gameLoop;
+    private final AnimationController gameLoop;
 
     public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
-                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
+                          GameOverMenu gameOverMenu, Stage stage, AnimationController gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
         this.window = window;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
@@ -96,7 +96,7 @@ public class ViewController implements IGameOverObserver {
             if (spaceshipChoice != 0) {
                 gameObjectGUI.chooseSpaceshipImage(spaceshipChoice);
                 stage.getScene().setRoot(window.getRoot());
-                gameLoop.start();
+                gameLoop.startAnimationLoop();
                 window.init();
             }
         });
@@ -107,20 +107,20 @@ public class ViewController implements IGameOverObserver {
     private void pauseMenuButtonHandler() {
         pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
-            gameLoop.play();
+//            gameLoop.play();
         });
 
         pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(window.getRoot());
-            gameLoop.stop();
+            gameLoop.stopAnimationLoop();
             // TODO Need to use endGame()
-            gameLoop.start();
+
             window.init();
         });
 
         pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
             stage.getScene().setRoot(mainMenu.getRoot());
-            gameLoop.stop();
+            gameLoop.stopAnimationLoop();
             // TODO Need to use endGame()
         });
 
@@ -130,7 +130,7 @@ public class ViewController implements IGameOverObserver {
     // Handles button clicks in the game over menu
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
-            gameLoop.start();
+            gameLoop.startAnimationLoop();
             stage.getScene().setRoot(window.getRoot());
             window.init();
         });

@@ -1,6 +1,7 @@
 package Controller;
 
 import Model.Game;
+import Model.GameWorld;
 
 /**
  * @author Olle Westerlund
@@ -86,5 +87,14 @@ public class AnimationController {
 
     public double getAnimationTime() {
         return animationTime;
+    }
+
+    public void startAnimationLoop() {
+        GameWorld.getInstance().createNewGameWorld();
+        animationLoop.start();
+    }
+
+    public void stopAnimationLoop() {
+        animationLoop.stop();
     }
 }

@@ -44,7 +44,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
         game = new Game();
         animationController = new AnimationController(game);
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController.getAnimationLoop(), gameObjectGUI, pauseMenu);
+        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI, pauseMenu);
         collisionHandler = game.getCollisionHandler();
 
         // observers

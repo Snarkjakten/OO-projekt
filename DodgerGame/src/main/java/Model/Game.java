@@ -35,7 +35,8 @@ public class Game implements ITimeObservable, IGameOverObservable {
 
     /**
      * Update the game and all objects depending on delta time.
-     * @param deltaTime length since last update
+     *
+     * @param deltaTime   length since last update
      * @param elapsedTime total time since the start
      * @author Olle Westerlund
      */
@@ -54,13 +55,11 @@ public class Game implements ITimeObservable, IGameOverObservable {
      * @authors Everyone
      */
     private void gameOver() {
-        if (GameWorld.getInstance().getSpaceship().getHp() <= 0) {
-            GameWorld.getInstance().setGameOver(true);
-            notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
-            gameObjects.clear();
-            GameWorld.getInstance().createNewGameWorld();
-            scoreHandler.handleScore(scoreCalculator.getPoints());
-        }
+        GameWorld.getInstance().setGameOver(true);
+        notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
+        gameObjects.clear();
+//        GameWorld.getInstance().createNewGameWorld();
+        scoreHandler.handleScore(scoreCalculator.getPoints());
     }
 
     public boolean isGameOver() {
