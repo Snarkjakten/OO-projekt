@@ -14,8 +14,7 @@ public class HitBox {
     public HitBox(double xPos, double yPos, double width, double height) {
         this.width = width;
         this.height = height;
-        setPosition(new Point2D(xPos, yPos));
-        updateHitBox(xPos, yPos, width, height);
+        updateHitBox(xPos, yPos, this.width, this.height);
     }
 
     /**
@@ -28,7 +27,7 @@ public class HitBox {
      * @author Tobias Engblom
      */
     public void updateHitBox(double xPos, double yPos, double width, double height) {
-        setHitBox(new Rectangle2D(xPos, yPos, width * 0.6, height * 0.6));
+        setHitBox(new Rectangle2D(xPos, yPos, width, height));
         setPosition(new Point2D(xPos, yPos));
     }
 
@@ -71,7 +70,7 @@ public class HitBox {
     }
 
     /**
-     * The hitBox width is 0.6 times the width of the game object
+     * Setter for hitBox width
      *
      * @param width the new width
      * @author Tobias Engblom
@@ -81,7 +80,7 @@ public class HitBox {
     }
 
     /**
-     * The hitBox height is 0.6 times the height of the game object
+     * Setter for hitBox height
      *
      * @param height the new height
      * @author Tobias Engblom
