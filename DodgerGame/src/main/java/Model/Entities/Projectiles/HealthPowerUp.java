@@ -1,14 +1,16 @@
 package Model.Entities.Projectiles;
 
-/**
- * @author Olle Westerlund
- */
 public class HealthPowerUp extends Projectile {
 
     private final int healingValue = 50;  // Amount of healing
 
+    /**
+     * @author Viktor, Olle & Irja
+     */
     public HealthPowerUp() {
-        super(200, 64, 64);
+        this.setSpeed(200);
+        this.setHeightHitBoxes(64);
+        this.setWidthHitBoxes(64);
     }
 
     /**
@@ -20,11 +22,10 @@ public class HealthPowerUp extends Projectile {
      * @authors Irja & Viktor
      */
     public HealthPowerUp(double speed, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, 64, 64);
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
-        setSpeed(200);
-        getHitBoxes().get(0).setPosition(xPos, yPos);
+        setSpeed(speed);
+        updateHitBoxes(xPos, yPos, 64, 64);
     }
 
     /**

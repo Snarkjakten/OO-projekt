@@ -8,7 +8,9 @@ public class SlowDebuff extends Projectile {
     private final double slowSpeedFactor;
 
     public SlowDebuff() {
-        super(300, 32, 32);
+        setSpeed(300);
+        setWidthHitBoxes(32);
+        setHeightHitBoxes(32);
         slowSpeedFactor = 0.75;
     }
 

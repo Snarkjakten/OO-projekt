@@ -72,6 +72,15 @@ public class Rectangle2D {
         return ((xDistance < shortestX) && (yDistance < shortestY));
     }
 
+    /**
+     * @return string
+     * @author Irja Vuorela
+     */
+    @Override
+    public String toString() {
+        return ("x: " + this.x + ", y: " + this.y + ", width: " + this.width + ", height: " + this.height);
+    }
+
     // getters and setters --------------------------------------
 
     /**
@@ -101,4 +110,5 @@ public class Rectangle2D {
     public double getHeight() {
         return this.height;
     }
+
 }

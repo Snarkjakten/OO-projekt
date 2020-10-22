@@ -13,27 +13,26 @@ public class Asteroid extends Projectile {
     private int mediumSize = 64;
 
     public Asteroid() {
-        super(50, 24, 24);
+        randomPosition();
         initAsteroid();
     }
 
     /**
      * @param speed     the speed of this object.
-     * @param height    the height of this object.
      * @param width     the width of this object.
+     * @param height    the height of this object.
      * @param xPos      the x-value of this object's position.
      * @param yPos      the y-value of this object's position.
      * @param xVelocity the x-value to calculate this object's velocity.
      * @param yVelocity the y-value to calculate this object's velocity.
+     * @param damage
      * @authors Irja & Viktor
      */
-    public Asteroid(double speed, double width, double height, double xPos, double yPos, double xVelocity, double yVelocity) {
-        super(speed, width, height);
+    public Asteroid(double speed, double width, double height, double xPos, double yPos, double xVelocity, double yVelocity, int damage) {
         setXVelocity(xVelocity);
         setYVelocity(yVelocity);
-        setSpeed(200);
-        this.damage = 20;
-        getHitBoxes().get(0).setPosition(xPos, yPos);
+        setSpeed(speed);
+        updateHitBoxes(xPos, yPos, width, height);
     }
 
     public int getDamage() {
@@ -44,6 +43,7 @@ public class Asteroid extends Projectile {
      * Creates one of two random asteroids, a smaller, faster one or a bigger, slower
      * with more damage. About one of three is a bigger one and about two of three is
      * a smaller one.
+     *
      * @author Olle Westerlund
      */
     private void initAsteroid() {
@@ -52,8 +52,8 @@ public class Asteroid extends Projectile {
         if (type <= 70) {
             //Small asteroid
             this.damage = 20;
-            updateWidthHitboxes(smallSize);
-            updateHeightHitboxes(smallSize);
+            setWidthHitBoxes(smallSize);
+            setHeightHitBoxes(smallSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(200);
@@ -61,8 +61,8 @@ public class Asteroid extends Projectile {
         } else {
             // medium asteroid
             this.damage = 35;
-            updateWidthHitboxes(mediumSize);
-            updateHeightHitboxes(mediumSize);
+            setWidthHitBoxes(mediumSize);
+            setHeightHitBoxes(mediumSize);
             for (HitBox hitBox : getHitBoxes())
                 hitBox.setHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);

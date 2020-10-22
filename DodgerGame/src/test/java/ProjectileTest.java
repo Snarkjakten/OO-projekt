@@ -231,7 +231,7 @@ public class ProjectileTest {
     public void addedProjectilesWithFactory() {
         int oldListSize = gameObjects.size();
         gameObjects.add(ProjectileFactory.createRandomizedAsteroid());
-        gameObjects.add(ProjectileFactory.createAsteroid(1, 1, 1, 1, 1, 1, 1));
+        gameObjects.add(ProjectileFactory.createAsteroid(1, 1, 1, 1, 1, 1, 1, 20));
         gameObjects.add(ProjectileFactory.createRandomizedHealthPowerUp());
         gameObjects.add(ProjectileFactory.createHealthPowerUp(1, 1, 1, 1, 1));
         gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());

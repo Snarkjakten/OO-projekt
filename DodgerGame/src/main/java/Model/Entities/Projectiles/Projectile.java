@@ -17,10 +17,7 @@ public abstract class Projectile extends AbstractGameObject {
     private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
     private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
-    public Projectile(double speed, double width, double height) {
-        super(width, height);
-        setSpeed(speed);
-        getHitBoxes().add(new HitBox(0, 0, width, height));
+    public Projectile() {
         randomPosition();
     }
 
@@ -28,7 +25,7 @@ public abstract class Projectile extends AbstractGameObject {
      * @author Olle Westerlund
      * The method sets a random starting position for the projectile.
      */
-    private void randomPosition() {
+    protected void randomPosition() {
         HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
         double xPos = 0;

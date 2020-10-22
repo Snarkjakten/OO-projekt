@@ -8,24 +8,21 @@ import java.util.ArrayList;
 import java.util.List;
 
 import Model.Point2D;
+import com.sun.javafx.scene.text.TextLayout;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
-    private double width;
-    private double height;
     private final List<HitBox> hitBoxes;
-    private boolean collided;
+    private HitBox unitHitBox;
+    private boolean collided = false;
     // Velocity (horizontal, vertical)
     public Point2D velocity;
     // movement speed
     private double speed;
 
-    public AbstractGameObject(double width, double height) {
-        this.width = width;
-        this.height = height;
+    public AbstractGameObject() {
         this.hitBoxes = new ArrayList<>();
-        this.collided = false;
-        this.speed = 250;
-        this.velocity = new Point2D(0, 0);
+        this.unitHitBox = new HitBox();
+        hitBoxes.add(unitHitBox);
     }
 
     //------------------------------------------------------
@@ -54,28 +51,15 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * Updates width both for the object and its hitBoxes
-     *
-     * @param width the new width
-     * @author Tobias Engblom
+     * @param xPos
+     * @param yPos
+     * @param width
+     * @param height
+     * @authors Irja & Viktor
      */
-    public void updateWidthHitboxes(double width) {
-        this.width = width;
+    protected void updateHitBoxes(double xPos, double yPos, double width, double height) {
         for (HitBox hitBox : hitBoxes) {
-            hitBox.setWidth(width);
-        }
-    }
-
-    /**
-     * Updates height both for the object and its hitBoxes
-     *
-     * @param height the new height
-     * @author Tobias Engblom
-     */
-    public void updateHeightHitboxes(double height) {
-        this.height = height;
-        for (HitBox hitBox : hitBoxes) {
-            hitBox.setHeight(height);
+            hitBox.updateHitBox(xPos, yPos, width, height);
         }
     }
 
@@ -91,6 +75,47 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     // Getters and setters -------------------------------------------------------
+
+    /**
+     * Updates width both for the object and its hitBoxes
+     *
+     * @param width the new width
+     * @author Tobias Engblom
+     */
+    public void setWidthHitBoxes(double width) {
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setWidth(width);
+        }
+    }
+
+    /**
+     * Updates height both for the object and its hitBoxes
+     *
+     * @param height the new height
+     * @author Tobias Engblom
+     */
+    public void setHeightHitBoxes(double height) {
+        for (HitBox hitBox : hitBoxes) {
+            hitBox.setHeight(height);
+        }
+    }
+
+    /**
+     * @return the width of the first hitbox
+     * @auhtor Irja & Viktor
+     */
+    public double getWidth() {
+        return hitBoxes.get(0).getWidth();
+    }
+
+    /**
+     * @return the height of the first hitbox
+     * @auhtor Irja & Viktor
+     */
+    public double getHeight() {
+        return hitBoxes.get(0).getHeight();
+
+    }
 
     /**
      * @return the hitBoxes for this game object
@@ -111,34 +136,6 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     @Override
     public void setCollided(boolean b) {
         this.collided = b;
-    }
-
-    /**
-     * @param width the width of this object
-     */
-    public void setWidth(double width) {
-        this.width = width;
-    }
-
-    /**
-     * @return the width of this game object
-     */
-    public double getWidth() {
-        return width;
-    }
-
-    /**
-     * @param height the height of this object
-     */
-    public void setHeight(double height) {
-        this.height = height;
-    }
-
-    /**
-     * @return the height of this game object
-     */
-    public double getHeight() {
-        return height;
     }
 
     /**

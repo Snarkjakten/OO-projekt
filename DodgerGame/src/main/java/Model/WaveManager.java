@@ -198,7 +198,7 @@ public class WaveManager {
         verticalWaveCooldown = verticalWaveCooldown - deltaTime;
         if (verticalWaveCooldown < 0 && doesNotExceedsMaxNumSize(maxNumGameObjects, gameObjects.size(), 1)) {
             for (int i = 0; i < size; i++) {
-                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, -65, 32 + (verticalGap * 2 * i), 1, 0));
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, -65, 32 + (verticalGap * 2 * i), 1, 0, 20));
             }
             verticalWaveCooldown = cooldown;
         }
@@ -217,7 +217,7 @@ public class WaveManager {
         horizontalWaveCooldown = horizontalWaveCooldown - deltaTime;
         if (horizontalWaveCooldown < 0 && doesNotExceedsMaxNumSize(maxNumGameObjects, gameObjects.size(), 1)) {
             for (int i = 0; i < size; i++) {
-                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, 32 + (horizontalGap * 2 * i), -65, 0, 1));
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, 32 + (horizontalGap * 2 * i), -65, 0, 1, 20));
             }
             horizontalWaveCooldown = cooldown;
         }
@@ -288,15 +288,15 @@ public class WaveManager {
         }
         if (seconds < 20 || seconds > 30) {
             // adds a laser beam every 7 seconds
-            if (seconds % 7 == 0) {
+            if (seconds % 7 == 3) {
                 addLaserBeam(gameObjects, deltaTime, 7, 1);
             }
             // adds a vertical wave of asteroids every five seconds
-            if (seconds % 5 == 0) {
+            if (seconds % 5 == 2) {
                 addVerticalWave(gameObjects, deltaTime, 2, verticalWaveSize);
             }
             // adds a horizontal wave of asteroids every three seconds
-            if (seconds % 3 == 0) {
+            if (seconds % 3 == 1) {
                 addHorizontalWave(gameObjects, deltaTime, 2, horizontalWaveSize);
             }
             // leaves room for the largest wave size

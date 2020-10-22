@@ -26,7 +26,6 @@ public class Spaceship extends AbstractGameObject {
      * @author Tobias Engblom
      */
     public Spaceship(double xPos, double yPos, double width, double height) {
-        super(width, height);
         getHitBoxes().add(new HitBox(xPos, yPos, width, height));
         this.nrOfShields = 0;
         this.maxHp = 200;
