@@ -217,7 +217,7 @@ public class WaveManager {
         horizontalWaveCoolDown = horizontalWaveCoolDown - deltaTime;
         if (horizontalWaveCoolDown < 0 && doesNotExceedsMaxNumSize(maxNumGameObjects, gameObjects.size(), 1)) {
             for (int i = 0; i < size; i++) {
-                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, 32 + (horizontalGap * 2 * i), -65, 0, 1, 20));
+                gameObjects.add(ProjectileFactory.createAsteroid(200, 32, 32, 64 + (horizontalGap * 2 * i), -65, 0, 1, 20));
             }
             horizontalWaveCoolDown = coolDown;
         }
