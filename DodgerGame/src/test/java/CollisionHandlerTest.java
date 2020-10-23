@@ -70,10 +70,6 @@ public class CollisionHandlerTest {
         boolean intersects = spaceship.getHitBoxes().get(0).getHitBox().intersects(asteroid.getHitBoxes().get(0).getHitBox());
         boolean intersects2 = spaceship.getHitBoxes().get(1).getHitBox().intersects(asteroid.getHitBoxes().get(0).getHitBox());
         boolean checkCollision = collisionHandler.checkCollision(spaceship, asteroid);
-        System.out.println("intersects " + intersects);
-        System.out.println("2" + intersects2);
-        System.out.println("check " + checkCollision);
         Assert.assertTrue(checkCollision == intersects2 && !intersects);
-
     }
 }
