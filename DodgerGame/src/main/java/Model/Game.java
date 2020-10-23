@@ -69,8 +69,6 @@ public class Game implements ITimeObservable, IGameOverObservable {
      * Check if the game is over
      * @return true if the game is over
      */
-    public boolean isGameOver() {
-        return (GameWorld.getInstance().getSpaceship().getHp() <= 0);
     public boolean isGameOver(Spaceship spaceship) {
         return (spaceship.getHp() <= 0);
     }
