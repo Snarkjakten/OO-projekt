@@ -9,14 +9,14 @@ import javafx.scene.layout.Pane;
  * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
 
-public class Window {
+public class GameWindow {
 
     //Creates Pane
     private final Pane root = new Pane();
     private final Canvas canvas;
     private final GraphicsContext gc;
 
-    public Window(double width, double height) {
+    public GameWindow(double width, double height) {
         this.canvas = new Canvas(width, height);
         this.gc = canvas.getGraphicsContext2D();
     }

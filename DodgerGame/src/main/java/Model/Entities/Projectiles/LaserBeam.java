@@ -2,7 +2,7 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
 import Model.GameWorld;
-import Model.Movement.AbstractGameObject;
+import Model.Entities.AbstractGameObject;
 
 import java.util.Random;
 

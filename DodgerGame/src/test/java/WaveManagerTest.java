@@ -1,8 +1,8 @@
 import Model.Entities.Projectiles.Asteroid;
 import Model.Entities.Projectiles.ProjectileFactory;
-import Model.WaveManager;
+import Model.Handlers.WaveManager;
 import Model.GameWorld;
-import Model.Movement.AbstractGameObject;
+import Model.Entities.AbstractGameObject;
 import Model.Entities.Player.SpaceshipFactory;
 import org.junit.Before;
 import org.junit.Test;

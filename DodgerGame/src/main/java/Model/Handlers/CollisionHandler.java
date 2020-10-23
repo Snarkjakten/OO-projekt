@@ -1,6 +1,7 @@
-package Model.Movement;
+package Model.Handlers;
 
 import Interfaces.*;
+import Model.Entities.AbstractGameObject;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.LaserBeam;
@@ -51,8 +52,10 @@ public class CollisionHandler implements IGameObjectObservable {
                     } else if (gameObject instanceof LaserBeam || a instanceof LaserBeam) {
                         notifyGameObjectObservers(a.getClass());
                         notifyGameObjectObservers(gameObject.getClass());
+                        collide(a, gameObject);
+                    } else {
+                        collide(a, gameObject);
                     }
-                    collide(a, gameObject);
                 }
                 if (a.getCollided()) {
                     toBeRemoved.add(a);

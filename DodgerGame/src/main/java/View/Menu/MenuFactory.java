@@ -1,4 +1,4 @@
-package View;
+package View.Menu;
 
 import java.io.IOException;
 
@@ -19,7 +19,4 @@ public abstract class MenuFactory {
         return new MainMenu();
     }
 
-    public static PauseMenu createPauseMenu() throws IOException {
-        return new PauseMenu();
-    }
 }

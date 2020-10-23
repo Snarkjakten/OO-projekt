@@ -1,8 +1,12 @@
 package Controller;
 
-import Model.PausableAnimationTimer;
 import View.*;
 import Interfaces.IGameOverObserver;
+import View.GUI.GameObjectGUI;
+import View.Menu.CharacterMenu;
+import View.Menu.GameOverMenu;
+import View.Menu.HighScoreMenu;
+import View.Menu.MainMenu;
 import javafx.stage.Stage;
 
 /**
@@ -10,24 +14,22 @@ import javafx.stage.Stage;
  */
 
 public class ViewController implements IGameOverObserver {
-    private final Window window;
+    private final GameWindow gameWindow;
     private final MainMenu mainMenu;
     private final HighScoreMenu highScoreMenu;
     private final CharacterMenu characterMenu;
-    private final PauseMenu pauseMenu;
     private final GameOverMenu gameOverMenu;
     private final Stage stage;
     private int spaceshipChoice;
     private final GameObjectGUI gameObjectGUI;
-    private final PausableAnimationTimer gameLoop;
+    private final AnimationController gameLoop;
 
-    public ViewController(Window window, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
-                          GameOverMenu gameOverMenu, Stage stage, PausableAnimationTimer gameLoop, GameObjectGUI gameObjectGUI, PauseMenu pauseMenu) {
-        this.window = window;
+    public ViewController(GameWindow gameWindow, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
+                          GameOverMenu gameOverMenu, Stage stage, AnimationController gameLoop, GameObjectGUI gameObjectGUI) {
+        this.gameWindow = gameWindow;
         this.mainMenu = mainMenu;
         this.highScoreMenu = highScoreMenu;
         this.characterMenu = characterMenu;
-        this.pauseMenu = pauseMenu;
         this.gameOverMenu = gameOverMenu;
         this.stage = stage;
         this.spaceshipChoice = 0;
@@ -36,7 +38,6 @@ public class ViewController implements IGameOverObserver {
 
         mainMenuButtonHandler();
         characterMenuButtonHandler();
-        pauseMenuButtonHandler();
         gameOverButtonHandler();
         highScoreButtonHandler();
     }
@@ -96,44 +97,22 @@ public class ViewController implements IGameOverObserver {
         characterMenu.getStartBtn().setOnMouseClicked(event -> {
             if (spaceshipChoice != 0) {
                 gameObjectGUI.chooseSpaceshipImage(spaceshipChoice);
-                stage.getScene().setRoot(window.getRoot());
-                gameLoop.start();
-                window.init();
+                stage.getScene().setRoot(gameWindow.getRoot());
+                gameLoop.startAnimationLoop();
+                gameWindow.init();
             }
         });
 
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
-    private void pauseMenuButtonHandler() {
-        pauseMenu.getResumeGameBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(window.getRoot());
-            gameLoop.play();
-        });
-
-        pauseMenu.getRestartGameBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(window.getRoot());
-            gameLoop.stop();
-            // TODO Need to use endGame()
-            gameLoop.start();
-            window.init();
-        });
-
-        pauseMenu.getMainMenuBtn().setOnMouseClicked(event -> {
-            stage.getScene().setRoot(mainMenu.getRoot());
-            gameLoop.stop();
-            // TODO Need to use endGame()
-        });
-
-        pauseMenu.getQuitGameBtn().setOnMouseClicked(event -> System.exit(0));
-    }
 
     // Handles button clicks in the game over menu
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
-            gameLoop.start();
-            stage.getScene().setRoot(window.getRoot());
-            window.init();
+            gameLoop.startAnimationLoop();
+            stage.getScene().setRoot(gameWindow.getRoot());
+            gameWindow.init();
         });
 
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));

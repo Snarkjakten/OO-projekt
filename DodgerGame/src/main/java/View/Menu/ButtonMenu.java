@@ -1,4 +1,4 @@
-package View;
+package View.Menu;
 
 import javafx.scene.Parent;
 import javafx.scene.layout.HBox;

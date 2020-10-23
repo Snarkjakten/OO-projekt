@@ -1,4 +1,4 @@
-package View;
+package View.Menu;
 
 import javafx.geometry.Pos;
 import javafx.scene.effect.DropShadow;

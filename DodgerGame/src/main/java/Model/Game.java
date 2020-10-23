@@ -4,15 +4,17 @@ import Interfaces.IGameOverObservable;
 import Interfaces.IGameOverObserver;
 import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
-import Model.Movement.AbstractGameObject;
-import Model.Movement.CollisionHandler;
+import Model.Entities.AbstractGameObject;
+import Model.Handlers.CollisionHandler;
+import Model.Handlers.HighScoreHandler;
+import Model.Handlers.ScoreCalculator;
+import Model.Handlers.WaveManager;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GameLoop implements ITimeObservable, IGameOverObservable {
+public class Game implements ITimeObservable, IGameOverObservable {
 
-    private final PausableAnimationTimer gameLoop;
     private final HighScoreHandler scoreHandler;
     private final ScoreCalculator scoreCalculator;
     private final WaveManager waveManager;
@@ -24,39 +26,30 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     /**
      * @authors Everyone
      */
-    public GameLoop() {
+    public Game() {
         scoreCalculator = new ScoreCalculator();
         scoreHandler = new HighScoreHandler();
         waveManager = new WaveManager();
         collisionHandler = new CollisionHandler();
         gameObjects = GameWorld.getInstance().getGameObjects();
-        timeObservers = new ArrayList<>(); //todo: ska dessa ligga utanför? vad är bäst?
+        timeObservers = new ArrayList<>();
         gameOverObservers = new ArrayList<>();
+    }
 
-        gameLoop = new PausableAnimationTimer() {
+    /**
+     * Update the game and all objects depending on delta time.
+     *
+     * @param deltaTime   length since last update
+     * @param elapsedTime total time since the start
+     * @author Olle Westerlund
+     */
+    public void updateWorld(double deltaTime, long elapsedTime) {
+        update(gameObjects, deltaTime, elapsedTime);
+        notifyTimeObservers(elapsedTime, deltaTime);
 
-            final long currentNanoTime = System.nanoTime();
-            long previousNanoTime = currentNanoTime;
-
-            @Override
-            public void tick(long currentNanoTime) {
-                /**
-                 * Calculates time since last update
-                 *  @author Irja Vuorela
-                 */
-                currentNanoTime = System.nanoTime(); //todo: varför går ej att skicka med currentNanoTime till metod för att bryta ut?
-                double deltaTime = (currentNanoTime - previousNanoTime) / 1e9;
-
-                long elapsedTime = calculateElapsedTime(getStartNanoTime());
-
-                update(gameObjects, deltaTime, elapsedTime);
-                notifyTimeObservers(elapsedTime, deltaTime);
-
-                endGame();
-
-                previousNanoTime = currentNanoTime;
-            }
-        };
+        if (isGameOver()) {
+            gameOver();
+        }
     }
 
     /**
@@ -64,15 +57,19 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
      *
      * @authors Everyone
      */
-    private void endGame() {
-        if (GameWorld.getInstance().getSpaceship().getHp() <= 0) {
-            GameWorld.getInstance().setGameOver(true);
-            notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
-            gameObjects.clear();
-            GameWorld.getInstance().createNewGameWorld();
-            gameLoop.stop();
-            scoreHandler.handleScore(scoreCalculator.getPoints());
-        }
+    private void gameOver() {
+        GameWorld.getInstance().setGameOver(true);
+        notifyGameOverObservers(GameWorld.getInstance().getIsGameOver(), scoreCalculator.getPoints());
+        gameObjects.clear();
+        scoreHandler.handleScore(scoreCalculator.getPoints());
+    }
+
+    public boolean isGameOver() {
+        return (GameWorld.getInstance().getSpaceship().getHp() <= 0);
+    }
+
+    public void startGame() {
+        GameWorld.getInstance().createNewGameWorld();
     }
 
     /**
@@ -104,18 +101,6 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
         }
     }
 
-    /**
-     * Calculates elapsed time.
-     *
-     * @param startNanoTime time at the start of the simulation
-     * @return elapsed time since start of the simulation
-     * @author Isak Almeros
-     */
-    public long calculateElapsedTime(long startNanoTime) {
-        long currentNanoTime = System.nanoTime();
-        return currentNanoTime - startNanoTime;
-    }
-
     // Add, remove and notify observers --------------------------
 
     /**
@@ -140,10 +125,6 @@ public class GameLoop implements ITimeObservable, IGameOverObservable {
     @Override
     public void removeTimeObserver(ITimeObserver obs) {
         this.timeObservers.remove(obs);
-    }
-
-    public PausableAnimationTimer getGameLoop() {
-        return gameLoop;
     }
 
     @Override

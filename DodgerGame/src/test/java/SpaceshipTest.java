@@ -4,7 +4,7 @@ import Model.Entities.Player.SpaceshipFactory;
 import Model.Entities.Projectiles.Projectile;
 import Model.Entities.Projectiles.ProjectileFactory;
 import Model.GameWorld;
-import Model.Point2D;
+import Model.Entities.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
