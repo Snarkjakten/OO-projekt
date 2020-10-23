@@ -14,6 +14,14 @@ public class HitBox {
         updateHitBox(0, 0, 0, 0);
     }
 
+    /**
+     * A specified HitBox
+     *
+     * @param xPos   The position on the x-axis
+     * @param yPos   The position on the y-axis
+     * @param width  The width of the hitbox
+     * @param height The height of the hitbox
+     */
     public HitBox(double xPos, double yPos, double width, double height) {
         updateHitBox(xPos, yPos, width, height);
     }

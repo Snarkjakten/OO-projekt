@@ -65,10 +65,17 @@ public class Game implements ITimeObservable, IGameOverObservable {
         scoreHandler.handleScore(scoreCalculator.getPoints());
     }
 
+    /**
+     * Check if the game is over
+     * @return true if the game is over
+     */
     public boolean isGameOver(Spaceship spaceship) {
         return (spaceship.getHp() <= 0);
     }
 
+    /**
+     * Creating a new gameWorld
+     */
     public void startGame() {
         GameWorld.getInstance().createNewGameWorld();
     }
@@ -152,7 +159,6 @@ public class Game implements ITimeObservable, IGameOverObservable {
 
     // Getters and setters ---------------------------
 
-    //todo: borde inte ligga i gameloop.java
     public CollisionHandler getCollisionHandler() {
         return collisionHandler;
     }

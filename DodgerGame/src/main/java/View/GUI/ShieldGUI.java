@@ -25,6 +25,7 @@ public class ShieldGUI {
 
     /**
      * Sets a image to all positions in the list.
+     *
      * @author Olle Westerlund
      */
     private void initImages() {
@@ -35,6 +36,7 @@ public class ShieldGUI {
 
     /**
      * Loads a specific image and returns it.
+     *
      * @param number The number for the picture that the is needed.
      * @return the loaded image.
      * @author Olle Westerlund
@@ -49,9 +51,10 @@ public class ShieldGUI {
         return image;
     }
 
-    /** todo: animations seems broken
-     * Dicides which image to show depending on the time, number of images and
+    /**
+     * Decides which image to show depending on the time, number of images and
      * the duration each images is shown.
+     *
      * @param time The current animation time.
      * @return The image that is going to be displayed at the current time.
      * @author Olle Westerlund
@@ -63,6 +66,7 @@ public class ShieldGUI {
 
     /**
      * Draws the image on the players position if the player has a shield.
+     *
      * @param spaceship The current spaceship.
      * @author Olle Westerlund
      */

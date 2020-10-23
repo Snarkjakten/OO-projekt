@@ -45,7 +45,7 @@ public class ProjectileTest {
     /**
      * Tests that slowdebuff slows the initial speed
      *
-     * @author Isak Ameros
+     * @author Everyone
      */
     @Test
     public void testSlowDebuff() {
@@ -61,7 +61,7 @@ public class ProjectileTest {
     /**
      * Test that the shield power up gives one shield when pick up.
      *
-     * @author Olle Westerlund
+     * @author Everyone
      */
     @Test
     public void getHitCapacity() {
@@ -88,7 +88,7 @@ public class ProjectileTest {
     /**
      * Test that asteroid does damage
      *
-     * @author Olle Westerlund
+     * @author Everyone
      */
     @Test
     public void asteroidDamage() {

@@ -40,7 +40,7 @@ public class LaserGUI {
         initImages();
     }
 
-    /** todo: animation seems broken
+    /**
      * The method decides which image to show.
      * @param time is used to calculate which index is used.
      * @return The image that is going to be displayed at the current time.
@@ -75,10 +75,12 @@ public class LaserGUI {
         if (isVertical) {
             url = "LaserBeam/laser0" + imageNumber + "V.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            assert inputStream != null;
             image = new Image(inputStream, 256, playingFieldHeight + 100, false, false);
         } else {
             url = "LaserBeam/laser0" + imageNumber + "H.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            assert inputStream != null;
             image = new Image(inputStream, playingFieldWidth + 100, 256, false, false);
         }
         return image;

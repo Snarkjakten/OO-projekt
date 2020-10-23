@@ -32,11 +32,20 @@ public class CollisionHandler implements IGameObjectObservable {
         return false;
     }
 
+    /**
+     * Sends notifies to the objects that have collided
+     * @param g first object that collided
+     * @param a second object that collided
+     */
     public void collide(AbstractGameObject g, AbstractGameObject a) {
         g.actOnCollision(a.getClass(), a.getAmount());
         a.actOnCollision(g.getClass(), g.getAmount());
     }
 
+    /**
+     * Handles the collision for all objects in a list
+     * @param gameObjects The list that is to be checked for collisions
+     */
     public void handleCollision(List<AbstractGameObject> gameObjects) {
 
         for (AbstractGameObject g : gameObjects) {

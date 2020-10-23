@@ -1,5 +1,8 @@
+import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.LaserBeam;
 import Model.Entities.Point2D;
+import Model.Entities.Projectiles.Projectile;
+import Model.Entities.Projectiles.ProjectileFactory;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -8,6 +11,8 @@ import static org.junit.Assert.assertTrue;
 public class LaserBeamTest {
 
     LaserBeam laserBeam;
+    Spaceship spaceship = new Spaceship(0, 0, 64, 64);
+    LaserBeam verticalLaserBeam;
     Point2D startPos;
     double deltaTime = 0.016;
 
@@ -17,6 +22,27 @@ public class LaserBeamTest {
     @Before
     public void init() {
         laserBeam = new LaserBeam();
+        verticalLaserBeam = new LaserBeam(1);
+    }
+
+    /**
+     * Test so that the laser beam don't get set to collided = true, since
+     * it should not be removed when colliding with other objects.
+     * @author Olle Westerlund
+     */
+    @Test
+    public void laserBeamCollision() {
+        laserBeam.actOnCollision(spaceship);
+        assertTrue(laserBeam.getCollided() == false);
+    }
+
+    /**
+     * Test that spawning on the left side creates a vertical laser beam.
+     * @author Olle Westerlund
+     */
+    @Test
+    public void laserBeamIsVertical() {
+        assertTrue(verticalLaserBeam.isVertical());
     }
 
     /**

@@ -13,7 +13,6 @@ public class Asteroid extends Projectile {
     private final int mediumSize = 64;
 
     public Asteroid() {
-        randomPosition();
         initAsteroid();
     }
 

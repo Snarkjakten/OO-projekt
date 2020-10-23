@@ -49,7 +49,7 @@ public class Spaceship extends AbstractGameObject {
      *
      * @author Irja Vuorela
      */
-    public void updateVelocity() {
+    private void updateVelocity() {
         // a unit vector with your direction
         this.velocity = (new Point2D((right - left), (down - up))).normalize();
         // Multiply your direction with speed
