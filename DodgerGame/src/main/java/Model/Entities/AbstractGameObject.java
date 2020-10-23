@@ -1,11 +1,9 @@
-package Model.Movement;
+package Model.Entities;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Projectiles.LaserBeam;
-import Model.Point2D;
 
 import java.util.ArrayList;
 import java.util.List;

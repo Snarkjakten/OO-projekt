@@ -1,4 +1,4 @@
-import Model.Point2D;
+import Model.Entities.Point2D;
 
 import org.junit.Test;
 

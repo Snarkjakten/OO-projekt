@@ -1,8 +1,8 @@
 package Model.Entities.Player;
 
 import Model.Entities.Projectiles.*;
-import Model.Movement.AbstractGameObject;
-import Model.Point2D;
+import Model.Entities.AbstractGameObject;
+import Model.Entities.Point2D;
 
 // A spaceship to be controlled by the player
 public class Spaceship extends AbstractGameObject {

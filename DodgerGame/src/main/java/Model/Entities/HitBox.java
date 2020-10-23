@@ -1,8 +1,6 @@
 package Model.Entities;
 
 
-import Model.Rectangle2D;
-
 public class HitBox {
 
     private Rectangle2D hitBox;

@@ -1,6 +1,6 @@
-package View;
+package View.Menu;
 
-import Model.HighScoreHandler;
+import Model.Handlers.HighScoreHandler;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.paint.Color;

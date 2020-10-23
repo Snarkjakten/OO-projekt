@@ -1,6 +1,5 @@
-package View;
+package View.GUI;
 
-import Interfaces.ITimeObserver;
 import Model.GameWorld;
 import javafx.scene.image.Image;
 

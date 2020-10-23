@@ -1,5 +1,5 @@
 import Model.Entities.Projectiles.LaserBeam;
-import Model.Point2D;
+import Model.Entities.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 

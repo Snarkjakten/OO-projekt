@@ -1,4 +1,4 @@
-package Model; /**
+package Model.Handlers; /**
  * @author Irja Vuorela
  * <p>
  * HighScoreHandler adds the player's score in a text file if it's among the top scores in that file.

@@ -1,4 +1,4 @@
-import Model.Rectangle2D;
+import Model.Entities.Rectangle2D;
 import org.junit.Test;
 
 import static org.junit.Assert.*;

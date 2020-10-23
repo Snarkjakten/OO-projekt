@@ -1,13 +1,18 @@
+import Controller.AnimationController;
 import Controller.KeyController;
 import Controller.ViewController;
 import Model.*;
 import Interfaces.*;
-import Model.Movement.AbstractGameObject;
-import Model.Movement.CollisionHandler;
-import View.*;
+import Model.Entities.AbstractGameObject;
+import Model.Handlers.CollisionHandler;
+import View.GUI.*;
+import View.Menu.CharacterMenu;
+import View.Menu.GameOverMenu;
+import View.Menu.HighScoreMenu;
+import View.Menu.MainMenu;
 import View.Sound.GameObjectsSounds;
 import View.Sound.SoundHandler;
-import View.Window;
+import View.GameWindow;
 import javafx.application.Application;
 import javafx.scene.Scene;
 import javafx.scene.canvas.GraphicsContext;
@@ -19,11 +24,13 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
     private final SoundHandler soundHandler = new SoundHandler();
 
-    private GameLoop gameLoop;
-    Window window = new Window(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
+    private AnimationController animationController;
+
+    private Game game;
+    GameWindow gameWindow = new GameWindow(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
     CollisionHandler collisionHandler = new CollisionHandler();
 
-    GraphicsContext graphicsContext = window.getGraphicsContext();
+    GraphicsContext graphicsContext = gameWindow.getGraphicsContext();
     PlayingFieldGUI playingFieldGUI = new PlayingFieldGUI(graphicsContext);
     GameObjectGUI gameObjectGUI = new GameObjectGUI(graphicsContext);
     HealthBarGUI healthBarGUI = new HealthBarGUI(graphicsContext);
@@ -38,14 +45,15 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         CharacterMenu characterMenu = new CharacterMenu();
         GameOverMenu gameOverMenu = new GameOverMenu();
 
-        gameLoop = new GameLoop();
-        ViewController vc = new ViewController(window, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, gameLoop.getGameLoop(), gameObjectGUI);
-        collisionHandler = gameLoop.getCollisionHandler();
+        game = new Game();
+        animationController = new AnimationController(game);
+        ViewController vc = new ViewController(gameWindow, mainMenu, highScoreMenu, characterMenu, gameOverMenu, stage, animationController, gameObjectGUI);
+        collisionHandler = game.getCollisionHandler();
 
         // observers
-        gameLoop.addTimeObserver(this);
+        game.addTimeObserver(this);
         collisionHandler.addGameObjectObserver(this);
-        gameLoop.addGameOverObserver(vc);
+        game.addGameOverObserver(vc);
 
         stage.setTitle("Space Dodger"); // todo: move to window
 
@@ -60,7 +68,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         // handle movement key inputs
         handleMovementKeys(stage);
 
-        window.init();
+        gameWindow.init();
 
         soundHandler.musicPlayer(GameObjectsSounds.getBackgroundMusicPath());
     }
@@ -84,12 +92,12 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         timerGUI.drawImage(time);
 
         for (AbstractGameObject gameObject : gameObjects) {
-            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), deltaTime);
+            gameObjectGUI.drawImage(gameObject.getHitBoxes(), gameObject.getClass(), gameObject.getWidth(), gameObject.getHeight(), animationController.getAnimationTime());
         }
 
         healthBarGUI.drawHealthBar(GameWorld.getInstance().getSpaceship().getHp(), GameWorld.getInstance().getSpaceship().getMaxHp());
 
-        shieldGUI.drawImage(GameWorld.getInstance().getSpaceship(), deltaTime);
+        shieldGUI.drawImage(GameWorld.getInstance().getSpaceship(), animationController.getAnimationTime());
     }
 
     /**
