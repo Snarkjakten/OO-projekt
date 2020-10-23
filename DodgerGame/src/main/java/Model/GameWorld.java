@@ -11,8 +11,8 @@ import java.util.List;
 
 
 public class GameWorld {
-    private final List<AbstractGameObject> gameObjects;
     private Spaceship spaceship;
+    private final List<AbstractGameObject> gameObjects;
     private static GameWorld instance = null;
     private boolean isGameOver;
 
@@ -32,15 +32,6 @@ public class GameWorld {
     private void reset() {
         this.isGameOver = false;
         this.gameObjects.clear();
-        initSpaceship();
-    }
-
-    /**
-     * @author Tobias Engblom
-     */
-    private void initSpaceship() {
-        this.spaceship = SpaceshipFactory.createSpaceship(368, 268, 32, 32);
-        gameObjects.add(spaceship);
     }
 
     /**
@@ -55,6 +46,15 @@ public class GameWorld {
 
     /**
      * @author Tobias Engblom
+     */
+    private void initSpaceship() {
+        this.spaceship = SpaceshipFactory.createSpaceship(368, 268, 32, 32);
+        gameObjects.add(spaceship);
+    }
+
+    /**
+     * @author Tobias Engblom
+     *
      */
     public Spaceship getSpaceship() {
         return this.spaceship;
