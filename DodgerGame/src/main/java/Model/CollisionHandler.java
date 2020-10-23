@@ -1,4 +1,4 @@
-package Model.Handlers;
+package Model;
 
 import Interfaces.*;
 import Model.Entities.AbstractGameObject;
@@ -38,8 +38,8 @@ public class CollisionHandler implements IGameObjectObservable {
      * @param a second object that collided
      */
     public void collide(AbstractGameObject g, AbstractGameObject a) {
-        g.actOnCollision(a.getClass(), a.getAmount());
-        a.actOnCollision(g.getClass(), g.getAmount());
+        g.actOnCollision(a.toString(), a.getAmount());
+        a.actOnCollision(g.toString(), g.getAmount());
     }
 
     /**
@@ -53,12 +53,12 @@ public class CollisionHandler implements IGameObjectObservable {
             for (AbstractGameObject a : gameObjects) {
                 if (checkCollision(g, a) && !g.getCollided() && !a.getCollided()) {
                     if (a instanceof Spaceship) {
-                        notifyGameObjectObservers(g.getClass(), g.getAmount());
+                        notifyGameObjectObservers(g.toString(), g.getAmount());
                     } else if (g instanceof Spaceship) {
-                        notifyGameObjectObservers(a.getClass(), a.getAmount());
+                        notifyGameObjectObservers(a.toString(), a.getAmount());
                     } else if (g instanceof LaserBeam || a instanceof LaserBeam) {
-                        notifyGameObjectObservers(a.getClass(), a.getAmount());
-                        notifyGameObjectObservers(g.getClass(), g.getAmount());
+                        notifyGameObjectObservers(a.toString(), a.getAmount());
+                        notifyGameObjectObservers(g.toString(), g.getAmount());
                     }
                     collide(a, g);
                 }
@@ -89,12 +89,12 @@ public class CollisionHandler implements IGameObjectObservable {
     }
 
     /**
-     * @param c the class type to notify observers with
+     * @param className the class type to notify observers with
      */
     @Override
-    public void notifyGameObjectObservers(Class c, int amount) {
+    public void notifyGameObjectObservers(String className, int amount) {
         for (IGameObjectObserver obs : gameObjectObservers) {
-            obs.actOnGameObjectEvent(c, amount);
+            obs.actOnGameObjectEvent(className, amount);
         }
     }
 

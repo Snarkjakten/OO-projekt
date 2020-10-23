@@ -18,4 +18,9 @@ public class SlowDebuff extends Projectile {
     public int getAmount() {
         return slowSpeedFactor;
     }
+
+    @Override
+    public String toString() {
+        return "SlowDebuff";
+    }
 }

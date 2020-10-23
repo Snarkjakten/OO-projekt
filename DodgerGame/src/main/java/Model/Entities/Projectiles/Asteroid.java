@@ -12,7 +12,8 @@ public class Asteroid extends Projectile {
     private final int smallSize = 32;
     private final int mediumSize = 64;
 
-    public Asteroid() {
+    public Asteroid(double playingFieldWidth, double playingFieldHeight) {
+        randomPosition(playingFieldWidth, playingFieldHeight);
         initAsteroid();
     }
 
@@ -68,5 +69,10 @@ public class Asteroid extends Projectile {
                 hitBox.updateHitBox(hitBox.getHitBox().getX(), hitBox.getHitBox().getY(), hitBox.getWidth(), hitBox.getHeight());
             setSpeed(100);
         }
+    }
+
+    @Override
+    public String toString() {
+        return "Asteroid";
     }
 }

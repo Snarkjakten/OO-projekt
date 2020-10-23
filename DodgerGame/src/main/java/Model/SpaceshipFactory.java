@@ -1,4 +1,6 @@
-package Model.Entities.Player;
+package Model;
+
+import Model.Entities.Player.Spaceship;
 
 /**
  * @author Tobias Engblom

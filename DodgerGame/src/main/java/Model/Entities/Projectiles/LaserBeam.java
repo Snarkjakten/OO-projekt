@@ -1,7 +1,6 @@
 package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
-import Model.GameWorld;
 
 import java.util.Random;
 
@@ -11,17 +10,15 @@ import java.util.Random;
 public class LaserBeam extends Projectile {
     private boolean isVertical;
     private final int damage = 25;
-    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
 
     /**
      * @author Olle Westerlund
      * Constructor for a random laser beam
      */
-    public LaserBeam() {
+    public LaserBeam(double playingFieldWidth, double playingFieldHeight) {
         setSpeed(100);
-        randomStartSide();
-        initSize();
+        randomStartSide(playingFieldWidth, playingFieldHeight);
+        initSize(1200, 1200);
     }
 
     /**
@@ -29,10 +26,10 @@ public class LaserBeam extends Projectile {
      * @author Olle Westerlund
      * Constructor for a specified laser beam.
      */
-    public LaserBeam(int side) {
+    public LaserBeam(int side, double playingFieldWidth, double playingFieldHeight) {
         setSpeed(100);
-        moveDirection(side);
-        initSize();
+        moveDirection(side, playingFieldWidth, playingFieldHeight);
+        initSize(1200, 1200);
     }
 
     /**
@@ -40,12 +37,12 @@ public class LaserBeam extends Projectile {
      * The method sets the right size depending on if the laser beam
      * is vertical or not.
      */
-    private void initSize() {
+    private void initSize(double playingFieldWidth, double playingFieldHeight) {
         if (isVertical) {
             this.setWidthHitBoxes(10);
-            this.setHeightHitBoxes(verticalMapSize * 2);
+            this.setHeightHitBoxes(playingFieldHeight * 2);
         } else {
-            this.setWidthHitBoxes(horizontalMapSize + 100);
+            this.setWidthHitBoxes(playingFieldWidth + 100);
             this.setHeightHitBoxes(10);
         }
     }
@@ -55,27 +52,27 @@ public class LaserBeam extends Projectile {
      * The method returns a random side for the laser beam
      * to spawn on.
      */
-    private void randomStartSide() {
+    private void randomStartSide(double playingFieldWidth, double playingFieldHeight) {
         Random random = new Random();
         int side = random.nextInt(4);
-        moveDirection(side);
+        moveDirection(side, playingFieldWidth, playingFieldHeight);
     }
 
     /**
      * @param side The side that the laser beam is spawning on.
      * @author Olle Westerlund
      */
-    private void moveDirection(int side) {
+    private void moveDirection(int side, double playingFieldWidth, double playingFieldHeight) {
         HitBox hitBox = getHitBoxes().get(0);
         switch (side) {
             case 0: // Bottom of the screen
                 setVelocity(0, -1);
-                hitBox.updateHitBoxPosition(-50, verticalMapSize + 50);
+                hitBox.updateHitBoxPosition(-50, playingFieldHeight + 50);
                 isVertical = false;
                 break;
             case 1: // Right side of the screen
                 setVelocity(-1, 0);
-                hitBox.updateHitBoxPosition(horizontalMapSize + 50, -50);
+                hitBox.updateHitBoxPosition(playingFieldWidth + 50, -50);
                 isVertical = true;
                 break;
             case 2: // Top of the screen
@@ -103,9 +100,14 @@ public class LaserBeam extends Projectile {
     /**
      * Removes projectiles collided with asteroid unless object is an instance of laserbeam
      *
-     * @param c the type of object this object has collided with
+     * @param className the type of object this object has collided with
      */
     @Override
-    public void actOnCollision(Class c, int amount) {
+    public void actOnCollision(String className, int amount) {
+    }
+
+    @Override
+    public String toString() {
+        return "LaserBeam";
     }
 }

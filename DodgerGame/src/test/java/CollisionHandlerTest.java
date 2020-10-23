@@ -5,7 +5,8 @@ import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.LaserBeam;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.GameWorld;
-import Model.Handlers.CollisionHandler;
+import Model.CollisionHandler;
+import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -27,10 +28,10 @@ public class CollisionHandlerTest {
 
     @Before
     public void init() {
-        asteroid = new Asteroid();
+        asteroid = new Asteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldWidth());
         hpUp = new HealthPowerUp();
-        shieldPU = new ShieldPowerUp();
-        laserBeam = new LaserBeam(1);
+        shieldPU = new ShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
+        laserBeam = new LaserBeam(1, PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         spaceship = new Spaceship(368, 248, 64, 64);
     }
 
@@ -153,7 +154,7 @@ public class CollisionHandlerTest {
      */
     @Test
     public void handleTwoAsteroidsCollision() {
-        Asteroid asteroid2 = new Asteroid();
+        Asteroid asteroid2 = new Asteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         asteroid.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
         asteroid2.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
         GameWorld.getInstance().getGameObjects().clear();
@@ -170,6 +171,6 @@ public class CollisionHandlerTest {
     public void testNotifyGameObjectObservers() {
         Main main = new Main();
         collisionHandler.addGameObjectObserver(main);
-        collisionHandler.notifyGameObjectObservers(spaceship.getClass(), spaceship.getAmount());
+        collisionHandler.notifyGameObjectObservers(spaceship.toString(), spaceship.getAmount());
     }
 }

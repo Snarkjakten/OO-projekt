@@ -7,7 +7,8 @@ public class ShieldPowerUp extends Projectile {
     /**
      * @author Olle, Irja & Viktor
      */
-    public ShieldPowerUp() {
+    public ShieldPowerUp(double playingFieldWidth, double playingFieldHeight) {
+        randomPosition(playingFieldWidth, playingFieldHeight);
         setWidthHitBoxes(64);
         setHeightHitBoxes(64);
         setSpeed(200);
@@ -31,5 +32,10 @@ public class ShieldPowerUp extends Projectile {
     @Override
     public int getAmount() {
         return hitCapacity;
+    }
+
+    @Override
+    public String toString() {
+        return "ShieldPowerUp";
     }
 }

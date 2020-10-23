@@ -1,6 +1,5 @@
 package Model.Entities.Player;
 
-import Model.Entities.Projectiles.*;
 import Model.Entities.AbstractGameObject;
 import Model.Entities.Point2D;
 
@@ -84,30 +83,30 @@ public class Spaceship extends AbstractGameObject {
     }
 
     /**
-     * @param c an object from the game objects list in the game loop
+     * @param className an object from the game objects list in the game loop
      * @authors Viktor, Olle, Tobias
      */
 
     @Override
-    public void actOnCollision(Class c, int amount) {
+    public void actOnCollision(String className, int amount) {
         boolean gotShield = this.nrOfShields > 0;
 
-        if (c.equals(Asteroid.class)) {
+        if (className.equals("Asteroid")) {
             if (gotShield) {
                 reduceShield();
             } else {
                 this.setHp(getHp() - amount);
             }
-        } else if (c.equals(ShieldPowerUp.class)) {
+        } else if (className.equals("ShieldPowerUp")) {
             gainShield(amount);
-        } else if (c.equals(HealthPowerUp.class)) {
+        } else if (className.equals("HealthPowerUp")) {
             gainHealth(amount);
-        } else if (c.equals(SlowDebuff.class)) {
+        } else if (className.equals("SlowDebuff")) {
             int slowSpeedFactor = amount;
             if(getSpeed() - slowSpeedFactor > 10) {
                 setSpeed(getSpeed() - slowSpeedFactor);
             }
-        } else if (c.equals(LaserBeam.class)) {
+        } else if (className.equals("LaserBeam")) {
             if (gotShield) {
                 reduceShield();
             } else {
@@ -187,5 +186,10 @@ public class Spaceship extends AbstractGameObject {
     @Override
     public int getAmount() {
         return 0;
+    }
+
+    @Override
+    public String toString() {
+        return "Spaceship";
     }
 }

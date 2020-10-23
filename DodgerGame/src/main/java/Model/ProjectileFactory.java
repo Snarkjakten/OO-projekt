@@ -1,4 +1,6 @@
-package Model.Entities.Projectiles;
+package Model;
+
+import Model.Entities.Projectiles.*;
 
 /**
  * A factory class that creates the different projectiles.
@@ -12,8 +14,8 @@ public abstract class ProjectileFactory {
      * @return a random asteroid with random position and velocity
      * @author Olle Westerlund
      */
-    public static Projectile createRandomizedAsteroid() {
-        return new Asteroid();
+    public static Projectile createRandomizedAsteroid(double playingFieldWidth, double playingFieldHeight) {
+        return new Asteroid(playingFieldWidth, playingFieldHeight);
     }
 
     /**
@@ -42,8 +44,8 @@ public abstract class ProjectileFactory {
      * @return a shield power up with random position and velocity
      * @author Olle Westerlund
      */
-    public static Projectile createRandomizedShieldPowerUp() {
-        return new ShieldPowerUp();
+    public static Projectile createRandomizedShieldPowerUp(double playingFieldWidth, double playingFieldHeight) {
+        return new ShieldPowerUp(playingFieldWidth, playingFieldHeight);
     }
 
     /**
@@ -63,7 +65,7 @@ public abstract class ProjectileFactory {
      * @author Olle Westerlund
      */
     public static Projectile createRandomizedLaserBeam() {
-        return new LaserBeam();
+        return new LaserBeam(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
     }
 
     /**
@@ -72,7 +74,7 @@ public abstract class ProjectileFactory {
      * @author Olle Westerlund
      */
     public static Projectile createLaserBeam(int side) {
-        return new LaserBeam(side);
+        return new LaserBeam(side, PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
     }
 
 

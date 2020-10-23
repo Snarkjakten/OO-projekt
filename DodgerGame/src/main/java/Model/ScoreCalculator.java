@@ -1,4 +1,4 @@
-package Model.Handlers;
+package Model;
 
 /**
  * @author Isak Almeros

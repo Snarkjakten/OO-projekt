@@ -1,8 +1,7 @@
-package Model.Handlers;
+package Model;
 
-import Model.Entities.Projectiles.Projectile;
-import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Entities.AbstractGameObject;
+import Model.Entities.Projectiles.Projectile;
 
 import java.util.List;
 
@@ -76,7 +75,7 @@ public class WaveManager {
     private void removeOffscreenProjectiles(List<AbstractGameObject> gameObjects) {
         for (AbstractGameObject g : gameObjects) {
             if (g instanceof Projectile) {
-                if (((Projectile) g).isNotOnScreen()) {
+                if (((Projectile) g).isNotOnPlayingField(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight())) {
                     gameObjects.remove(g);
                     break;
                 }
@@ -110,7 +109,7 @@ public class WaveManager {
     private void addAsteroid(List<AbstractGameObject> gameObjects, double deltaTime, double coolDown) {
         asteroidCoolDown = asteroidCoolDown - deltaTime;
         if (asteroidCoolDown < 0 && doesNotExceedsMaxNumSize(maxNumGameObjects, gameObjects.size(), gameObjects.size() / 3)) {
-            Projectile asteroid = ProjectileFactory.createRandomizedAsteroid();
+            Projectile asteroid = ProjectileFactory.createRandomizedAsteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
             asteroid.setSpeed(asteroid.getSpeed() + (seconds + minutes * 60));
             gameObjects.add(asteroid);
             asteroidCoolDown = coolDown;
@@ -128,7 +127,7 @@ public class WaveManager {
     private void addShieldPowerUp(List<AbstractGameObject> gameObjects, double deltaTime, double coolDown) {
         shieldPowerUpCoolDown = shieldPowerUpCoolDown - deltaTime;
         if (shieldPowerUpCoolDown < 0 && doesNotExceedsMaxNumSize(maxNumGameObjects, gameObjects.size(), 1)) {
-            gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());
+            gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight()));
             shieldPowerUpCoolDown = coolDown;
         }
     }

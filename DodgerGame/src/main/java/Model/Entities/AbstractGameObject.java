@@ -2,8 +2,6 @@ package Model.Entities;
 
 import Interfaces.ICollidable;
 import Interfaces.IMovable;
-import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.LaserBeam;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -60,12 +58,12 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @param c the type of object this object has collided with
+     * @param className the type of object this object has collided with
      * @author Viktor Sundberg
      */
     @Override
-    public void actOnCollision(Class c, int amount) {
-        if (c.equals(LaserBeam.class) || c.equals(Spaceship.class)) {
+    public void actOnCollision(String className, int amount) {
+        if (className.equals("LaserBeam") || className.equals("Spaceship")) {
             this.setCollided(true);
         }
     }
@@ -153,5 +151,8 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     public abstract int getAmount();
+
+    @Override
+    public abstract String toString();
 
 }

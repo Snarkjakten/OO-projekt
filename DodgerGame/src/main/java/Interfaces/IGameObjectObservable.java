@@ -17,8 +17,8 @@ public interface IGameObjectObservable {
     void removeGameObjectObserver(IGameObjectObserver obs);
 
     /**
-     * @param c the type of object which is observed
+     * @param className the type of object which is observed
      */
-    void notifyGameObjectObservers(Class c, int amount);
+    void notifyGameObjectObservers(String className, int amount);
 
 }

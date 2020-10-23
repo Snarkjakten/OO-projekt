@@ -4,7 +4,7 @@ import Controller.ViewController;
 import Model.*;
 import Interfaces.*;
 import Model.Entities.AbstractGameObject;
-import Model.Handlers.CollisionHandler;
+import Model.CollisionHandler;
 import View.GUI.*;
 import View.Menu.CharacterMenu;
 import View.Menu.GameOverMenu;
@@ -103,8 +103,8 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
      *
      * @param c the class type associated with the sound to be played
      */
-    private void updateSound(Class c) {
-        soundHandler.playSound(c);
+    private void updateSound(String className) {
+        soundHandler.playSound(className);
     }
 
     /**
@@ -130,7 +130,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     }
 
     @Override
-    public void actOnGameObjectEvent(Class c, int amount) {
-        updateSound(c);
+    public void actOnGameObjectEvent(String className, int amount) {
+        updateSound(className);
     }
 }
