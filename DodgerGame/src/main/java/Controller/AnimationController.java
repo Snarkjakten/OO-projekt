@@ -60,8 +60,7 @@ public class AnimationController {
      * @author Irja Vuorela
      */
     private double calculateDeltaTime(long currentTime, long previousTime) {
-        double deltaTime = (currentTime - previousTime) / 1e9;
-        return deltaTime;
+        return (currentTime - previousTime) / 1e9;
     }
 
     /**
