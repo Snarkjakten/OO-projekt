@@ -11,8 +11,8 @@ import java.util.Random;
 public class LaserBeam extends Projectile {
     private boolean isVertical;
     private final int damage = 25;
-    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+    private final double horizontalMapSize = GameWorld.getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getPlayingFieldHeight();
 
     /**
      * @author Olle Westerlund

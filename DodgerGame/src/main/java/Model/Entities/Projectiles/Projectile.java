@@ -14,8 +14,8 @@ import java.util.Random;
 public abstract class Projectile extends AbstractGameObject {
     private double xVelocity;    // positive value: right, negative value: left
     private double yVelocity;      // positive value: up, negative value: down
-    private final double horizontalMapSize = GameWorld.getInstance().getPlayingFieldWidth();
-    private final double verticalMapSize = GameWorld.getInstance().getPlayingFieldHeight();
+    private final double horizontalMapSize = GameWorld.getPlayingFieldWidth();
+    private final double verticalMapSize = GameWorld.getPlayingFieldHeight();
 
     public Projectile() {
         randomPosition();
