@@ -1,0 +1,31 @@
+
+# Meeting Agenda
+
+Group: TheDodgers (grupp 13)
+Date: 23 oktober 2020
+Chair:
+Participants: Irja Vuorela, Isak Almeros, Tobias Engblom, Olle Westerlund, Viktor Sundberg
+
+Objectives
+- Mergea pull requests
+
+Reports
+- Alla har jobbat med cleanup av koden
+- Alla har refaktorerat tillsammans
+- Irja och Viktor strukturerade om bredd och höjd, så att hitboxarnas bredd och höjd används. Löst buggar i projectile. Skrivit lite på SDD. 
+- Irja fixat bugg i checkcollisions och har gjort extra tester. Skrivit javadocs
+- Viktor har ändrat kollisionslogik och gjort alla objekt collidable
+- Olle har brutit ut gameloop från modellen och har fixat bugg med att man tog dubbel skada från skada. Fixat animation med sköld och laserstråle. Löst bugg med poängen, så man inte längre får poäng i game over-menyn.
+- Tobias har gjort så att hitboxes har en point. Löst lite buggar med wraparound.
+
+Discussion items
+
+Outcomes and assignments
+- Vi delar in oss i två grupper. Ena gruppen jobbar med kod, den andra jobbar med dokumenten. Byte efter lunch
+- Skriva klart allt inför inlämningen, men fokus på SDD och RAD
+- En sista städ och koll på koden
+- Göra UML-diagram
+
+Wrap up
+- Måste man logga in med CID till redovisningen?
+- Kolla på STAN
