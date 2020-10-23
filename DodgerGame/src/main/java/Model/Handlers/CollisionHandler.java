@@ -33,29 +33,25 @@ public class CollisionHandler implements IGameObjectObservable {
     }
 
     public void collide(AbstractGameObject g, AbstractGameObject a) {
-        g.actOnCollision(a);
-        a.actOnCollision(g);
+        g.actOnCollision(a.getClass(), a.getAmount());
+        a.actOnCollision(g.getClass(), g.getAmount());
     }
 
     public void handleCollision(List<AbstractGameObject> gameObjects) {
 
-        for (AbstractGameObject gameObject : gameObjects) {
+        for (AbstractGameObject g : gameObjects) {
 
             for (AbstractGameObject a : gameObjects) {
-                if (checkCollision(gameObject, a) && !gameObject.getCollided() && !a.getCollided()) {
+                if (checkCollision(g, a) && !g.getCollided() && !a.getCollided()) {
                     if (a instanceof Spaceship) {
-                        notifyGameObjectObservers(gameObject.getClass());
-                        a.actOnCollision(gameObject);
-                    } else if (gameObject instanceof Spaceship) {
-                        notifyGameObjectObservers(a.getClass());
-                        gameObject.actOnCollision(a);
-                    } else if (gameObject instanceof LaserBeam || a instanceof LaserBeam) {
-                        notifyGameObjectObservers(a.getClass());
-                        notifyGameObjectObservers(gameObject.getClass());
-                        collide(a, gameObject);
-                    } else {
-                        collide(a, gameObject);
+                        notifyGameObjectObservers(g.getClass(), g.getAmount());
+                    } else if (g instanceof Spaceship) {
+                        notifyGameObjectObservers(a.getClass(), a.getAmount());
+                    } else if (g instanceof LaserBeam || a instanceof LaserBeam) {
+                        notifyGameObjectObservers(a.getClass(), a.getAmount());
+                        notifyGameObjectObservers(g.getClass(), g.getAmount());
                     }
+                    collide(a, g);
                 }
                 if (a.getCollided()) {
                     toBeRemoved.add(a);
@@ -87,9 +83,9 @@ public class CollisionHandler implements IGameObjectObservable {
      * @param c the class type to notify observers with
      */
     @Override
-    public void notifyGameObjectObservers(Class c) {
+    public void notifyGameObjectObservers(Class c, int amount) {
         for (IGameObjectObserver obs : gameObjectObservers) {
-            obs.actOnGameObjectEvent(c);
+            obs.actOnGameObjectEvent(c, amount);
         }
     }
 

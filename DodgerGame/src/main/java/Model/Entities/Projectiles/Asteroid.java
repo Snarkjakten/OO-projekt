@@ -36,7 +36,8 @@ public class Asteroid extends Projectile {
         this.damage = damage;
     }
 
-    public int getDamage() {
+    @Override
+    public int getAmount() {
         return damage;
     }
 

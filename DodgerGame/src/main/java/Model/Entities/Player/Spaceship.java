@@ -75,7 +75,7 @@ public class Spaceship extends AbstractGameObject {
     /**
      * @author Olle Westerlund
      */
-    public void loseShield() {
+    public void reduceShield() {
         if (this.nrOfShields > 0) {
             this.nrOfShields -= 1;
         } else {
@@ -84,35 +84,34 @@ public class Spaceship extends AbstractGameObject {
     }
 
     /**
-     * @param gameObject an object from the game objects list in the game loop
+     * @param c an object from the game objects list in the game loop
      * @authors Viktor, Olle, Tobias
      */
 
     @Override
-    public void actOnCollision(AbstractGameObject gameObject) {
+    public void actOnCollision(Class c, int amount) {
         boolean gotShield = this.nrOfShields > 0;
-        if (!(gameObject instanceof LaserBeam)) {
-            gameObject.setCollided(true);
-        }
 
-        if (gameObject instanceof Asteroid) {
+        if (c.equals(Asteroid.class)) {
             if (gotShield) {
-                loseShield();
+                reduceShield();
             } else {
-                this.setHp(getHp() - ((Asteroid) gameObject).getDamage());
+                this.setHp(getHp() - amount);
             }
-        } else if (gameObject instanceof ShieldPowerUp) {
-            gainShield(((ShieldPowerUp) gameObject).getHitCapacity());
-        } else if (gameObject instanceof HealthPowerUp) {
-            gainHealth(((HealthPowerUp) gameObject).getHealingValue());
-        } else if (gameObject instanceof SlowDebuff) {
-            double slowSpeedFactor = ((SlowDebuff) gameObject).getSlowSpeedFactor();
-            setSpeed(getSpeed() * slowSpeedFactor);
-        } else if (gameObject instanceof LaserBeam) {
+        } else if (c.equals(ShieldPowerUp.class)) {
+            gainShield(amount);
+        } else if (c.equals(HealthPowerUp.class)) {
+            gainHealth(amount);
+        } else if (c.equals(SlowDebuff.class)) {
+            int slowSpeedFactor = amount;
+            if(getSpeed() - slowSpeedFactor > 10) {
+                setSpeed(getSpeed() - slowSpeedFactor);
+            }
+        } else if (c.equals(LaserBeam.class)) {
             if (gotShield) {
-                loseShield();
+                reduceShield();
             } else {
-                this.setHp(getHp() - ((LaserBeam) gameObject).getDamage());
+                this.setHp(getHp() - amount);
             }
         }
     }
@@ -185,4 +184,8 @@ public class Spaceship extends AbstractGameObject {
         return this.nrOfShields;
     }
 
+    @Override
+    public int getAmount() {
+        return 0;
+    }
 }

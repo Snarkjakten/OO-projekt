@@ -8,5 +8,5 @@ public interface IGameObjectObserver {
      * @param c the type of an object
      * @author Irja Vuorela
      */
-    void actOnGameObjectEvent(Class c);
+    void actOnGameObjectEvent(Class c, int amount);
 }

@@ -1,7 +1,9 @@
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.*;
-import Model.Game;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.HealthPowerUp;
+import Model.Entities.Projectiles.LaserBeam;
+import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.GameWorld;
 import Model.Handlers.CollisionHandler;
 import org.junit.Before;
@@ -58,6 +60,8 @@ public class CollisionHandlerTest {
         collisionHandler.collide(asteroid, hpUp);
         assertFalse(asteroid.getCollided());
     }
+
+    //----------------------------------------------------------------------------------------------------------------
 
     /**
      * Tests if checkCollisions works for objects with multiple hitBoxes.
@@ -166,6 +170,6 @@ public class CollisionHandlerTest {
     public void testNotifyGameObjectObservers() {
         Main main = new Main();
         collisionHandler.addGameObjectObserver(main);
-        collisionHandler.notifyGameObjectObservers(Spaceship.class);
+        collisionHandler.notifyGameObjectObservers(spaceship.getClass(), spaceship.getAmount());
     }
 }

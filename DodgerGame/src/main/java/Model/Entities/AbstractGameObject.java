@@ -29,9 +29,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @param deltaTime the length of a frame in the game loop
      * @author Irja Vuorela
      */
-    public void move(double deltaTime) {
-        updatePosition(deltaTime);
-    }
+    public abstract void move(double deltaTime);
 
     /**
      * Update the position of a movable object
@@ -64,8 +62,8 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @author Viktor Sundberg
      */
     @Override
-    public void actOnCollision(AbstractGameObject c) {
-        if (c instanceof LaserBeam || c instanceof Spaceship) {
+    public void actOnCollision(Class c, int amount) {
+        if (c.equals(LaserBeam.class) || c.equals(Spaceship.class)) {
             this.setCollided(true);
         }
     }
@@ -151,5 +149,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     public void setSpeed(double speed) {
         this.speed = speed;
     }
+
+    public abstract int getAmount();
 
 }

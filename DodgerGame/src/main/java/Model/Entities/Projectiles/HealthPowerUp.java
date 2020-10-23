@@ -33,7 +33,8 @@ public class HealthPowerUp extends Projectile {
      *
      * @return The amount of health the player will gain.
      */
-    public int getHealingValue() {
+    @Override
+    public int getAmount() {
         return this.healingValue;
     }
 }

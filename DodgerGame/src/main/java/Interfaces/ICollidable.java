@@ -1,7 +1,5 @@
 package Interfaces;
 
-import Model.Entities.AbstractGameObject;
-
 /**
  * @author Viktor Sundberg (viktor.sundberg@icloud.com)
  */
@@ -18,10 +16,12 @@ public interface ICollidable {
      */
     boolean getCollided();
 
+    int getAmount();
+
     /**
      * @param c the type of object this object has collided with
      */
-    void actOnCollision(AbstractGameObject c);
+    void actOnCollision(Class c, int amount);
 
 }
 

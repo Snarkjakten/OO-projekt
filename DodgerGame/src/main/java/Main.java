@@ -131,7 +131,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     }
 
     @Override
-    public void actOnGameObjectEvent(Class c) {
+    public void actOnGameObjectEvent(Class c, int amount) {
         updateSound(c);
     }
 }

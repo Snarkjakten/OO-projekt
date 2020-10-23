@@ -5,16 +5,17 @@ package Model.Entities.Projectiles;
  */
 
 public class SlowDebuff extends Projectile {
-    private final double slowSpeedFactor;
+    private final int slowSpeedFactor;
 
     public SlowDebuff() {
         setSpeed(300);
         setWidthHitBoxes(32);
         setHeightHitBoxes(32);
-        slowSpeedFactor = 0.75;
+        slowSpeedFactor = 50;
     }
 
-    public double getSlowSpeedFactor() {
+    @Override
+    public int getAmount() {
         return slowSpeedFactor;
     }
 }

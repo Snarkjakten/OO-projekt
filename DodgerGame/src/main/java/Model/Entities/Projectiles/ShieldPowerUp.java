@@ -29,7 +29,8 @@ public class ShieldPowerUp extends Projectile {
         updateHitBoxes(xPos, yPos, 64, 64);
     }
 
-    public int getHitCapacity() {
+    @Override
+    public int getAmount() {
         return hitCapacity;
     }
 }

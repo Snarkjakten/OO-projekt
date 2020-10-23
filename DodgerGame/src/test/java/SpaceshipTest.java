@@ -237,7 +237,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithHealthPowerUpGainHealth() {
         spaceship.setHp(150);
-        spaceship.actOnCollision(healthPowerUp);
+        spaceship.actOnCollision(healthPowerUp.getClass(), healthPowerUp.getAmount());
         assertEquals(spaceship.getHp(), 200);
     }
 
@@ -247,7 +247,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithShieldPowerUpGainShield() {
         int oldNrOfShields = spaceship.getNrOfShields();
-        spaceship.actOnCollision(shieldPowerUp);
+        spaceship.actOnCollision(shieldPowerUp.getClass(), shieldPowerUp.getAmount());
         int newNrOfShields = spaceship.getNrOfShields();
         assertTrue(newNrOfShields > oldNrOfShields);
     }
@@ -258,7 +258,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithSlowDebuffSpeedDecreased() {
         double oldSpeed = spaceship.getSpeed();
-        spaceship.actOnCollision(slowDebuff);
+        spaceship.actOnCollision(slowDebuff.getClass(), slowDebuff.getAmount());
         double newSpeed = spaceship.getSpeed();
         assertTrue(newSpeed < oldSpeed);
     }
@@ -269,7 +269,7 @@ public class SpaceshipTest {
     @Test
     public void collideWithAsteroidHealthDecreased() {
         double oldHp = spaceship.getHp();
-        spaceship.actOnCollision(asteroid);
+        spaceship.actOnCollision(asteroid.getClass(), asteroid.getAmount());
         double newHp = spaceship.getHp();
         assertTrue(newHp < oldHp);
     }
@@ -281,7 +281,7 @@ public class SpaceshipTest {
     public void collideWithAsteroidLoseShield() {
         spaceship.gainShield(1);
         int oldNrOfShields = spaceship.getNrOfShields();
-        spaceship.actOnCollision(asteroid);
+        spaceship.actOnCollision(asteroid.getClass(), asteroid.getAmount());
         int newNrOfShields = spaceship.getNrOfShields();
         assertTrue(newNrOfShields < oldNrOfShields);
     }
@@ -293,7 +293,7 @@ public class SpaceshipTest {
     public void testLoseShield() {
         spaceship.gainShield(1);
         int oldShields = spaceship.getNrOfShields();
-        spaceship.loseShield();
+        spaceship.reduceShield();
         int newShields = spaceship.getNrOfShields();
         assertTrue(newShields < oldShields);
     }
@@ -304,7 +304,7 @@ public class SpaceshipTest {
     @Test
     public void testLoseShieldWhenNrShieldsIsZero() {
         int oldShields = spaceship.getNrOfShields();
-        spaceship.loseShield();
+        spaceship.reduceShield();
         int newShields = spaceship.getNrOfShields();
         assertEquals(newShields, oldShields);
     }

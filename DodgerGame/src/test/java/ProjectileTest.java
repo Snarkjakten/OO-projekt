@@ -1,6 +1,8 @@
-import Model.Entities.Projectiles.*;
 import Model.Entities.AbstractGameObject;
+import Model.Entities.Player.Spaceship;
 import Model.Entities.Point2D;
+import Model.Entities.Projectiles.*;
+import Model.Handlers.CollisionHandler;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -12,7 +14,9 @@ import static org.junit.Assert.assertEquals;
 
 public class ProjectileTest {
 
+    CollisionHandler collisionHandler;
     Asteroid projAsteroid;
+    Spaceship spaceship;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
     SlowDebuff slowDebuff;
@@ -27,7 +31,9 @@ public class ProjectileTest {
      */
     @Before
     public void init() {
+        collisionHandler = new CollisionHandler();
         projAsteroid = new Asteroid();
+        spaceship = new Spaceship(0,0,20,20);
         shieldPU = new ShieldPowerUp();
         slowDebuff = new SlowDebuff();
         shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
@@ -43,8 +49,12 @@ public class ProjectileTest {
      */
     @Test
     public void testSlowDebuff() {
-        double initialSpeed = 200;
-        double slowedSpeed = slowDebuff.getSlowSpeedFactor() * initialSpeed;
+        double initialSpeed = spaceship.getSpeed();
+        slowDebuff.getHitBoxes().get(0).updateHitBox(0,0,20,20);
+        gameObjects.add(slowDebuff);
+        gameObjects.add(spaceship);
+        collisionHandler.handleCollision(gameObjects);
+        double slowedSpeed = spaceship.getSpeed();
         assertTrue(slowedSpeed < initialSpeed);
     }
 
@@ -54,9 +64,13 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    public void getHitCapacity() {  // todo: this is redundant?
-        int shields = 0;
-        int shieldsAfterShieldPU = shields + shieldPU.getHitCapacity();
+    public void getHitCapacity() {
+        int shields = spaceship.getNrOfShields();
+        shieldPowerUp.getHitBoxes().get(0).updateHitBox(0,0,20,20);
+        gameObjects.add(shieldPowerUp);
+        gameObjects.add(spaceship);
+        collisionHandler.handleCollision(gameObjects);
+        int shieldsAfterShieldPU = spaceship.getNrOfShields();
         assertTrue(shieldsAfterShieldPU > shields);
     }
 
@@ -77,10 +91,13 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    //@Author Olle Westerlund
     public void asteroidDamage() {
-        int startHealth = 200;
-        int healthAfterHit = startHealth - projAsteroid.getDamage();
+        int startHealth = spaceship.getHp();
+        projAsteroid.getHitBoxes().get(0).updateHitBox(0,0,20,20);
+        gameObjects.add(projAsteroid);
+        gameObjects.add(spaceship);
+        collisionHandler.handleCollision(gameObjects);
+        int healthAfterHit = spaceship.getHp();
         assertTrue(startHealth > healthAfterHit);
     }
 

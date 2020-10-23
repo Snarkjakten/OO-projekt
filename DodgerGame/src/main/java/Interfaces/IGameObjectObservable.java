@@ -19,6 +19,6 @@ public interface IGameObjectObservable {
     /**
      * @param c the type of object which is observed
      */
-    void notifyGameObjectObservers(Class c);
+    void notifyGameObjectObservers(Class c, int amount);
 
 }

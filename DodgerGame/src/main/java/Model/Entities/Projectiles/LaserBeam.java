@@ -2,7 +2,6 @@ package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
 import Model.GameWorld;
-import Model.Entities.AbstractGameObject;
 
 import java.util.Random;
 
@@ -92,7 +91,8 @@ public class LaserBeam extends Projectile {
         }
     }
 
-    public int getDamage() {
+    @Override
+    public int getAmount() {
         return damage;
     }
 
@@ -106,6 +106,6 @@ public class LaserBeam extends Projectile {
      * @param c the type of object this object has collided with
      */
     @Override
-    public void actOnCollision(AbstractGameObject c) {
+    public void actOnCollision(Class c, int amount) {
     }
 }
