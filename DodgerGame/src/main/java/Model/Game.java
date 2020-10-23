@@ -45,7 +45,7 @@ public class Game implements ITimeObservable, IGameOverObservable {
      */
     public void updateWorld(double deltaTime, long elapsedTime) {
         update(gameObjects, deltaTime, elapsedTime);
-        notifyTimeObservers(elapsedTime, deltaTime);
+        notifyTimeObservers(elapsedTime);
 
         if (isGameOver()) {
             gameOver();
@@ -104,13 +104,12 @@ public class Game implements ITimeObservable, IGameOverObservable {
     // Add, remove and notify observers --------------------------
 
     /**
-     * @param time      the elapsed time since the start of the simulation
-     * @param deltaTime the length of the last frame in the game loop
+     * @param time the elapsed time since the start of the simulation
      */
     @Override
-    public void notifyTimeObservers(long time, double deltaTime) {
+    public void notifyTimeObservers(long time) {
         for (ITimeObserver obs : timeObservers) {
-            obs.actOnTimeEvent(time, deltaTime);
+            obs.actOnTimeEvent(time);
         }
     }
 

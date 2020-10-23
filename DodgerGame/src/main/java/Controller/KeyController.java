@@ -2,16 +2,8 @@ package Controller;
 
 import Model.GameWorld;
 import javafx.scene.input.KeyEvent;
-import javafx.stage.Stage;
 
 public class KeyController {
-
-    // Stage is for pausing the simulation
-    private final Stage stage;
-
-    public KeyController(Stage stage) {
-        this.stage = stage;
-    }
 
     /**
      * Sets the direction the player wants the ship to move in when the game loop updates.
@@ -32,11 +24,6 @@ public class KeyController {
                 break;
             case RIGHT:
                 GameWorld.getInstance().getSpaceship().setRight(1);
-                break;
-            case ESCAPE:
-                // TODO Implement pause function and pause menu
-                //gameLoop.pause();
-                //stage.getScene().setRoot(pauseMenu.getRoot());
                 break;
             default:
                 break;

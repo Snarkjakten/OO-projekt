@@ -4,9 +4,8 @@ public interface ITimeObservable {
 
     /**
      * @param time      an amount of time
-     * @param deltaTime a difference in time
      */
-    void notifyTimeObservers(long time, double deltaTime);
+    void notifyTimeObservers(long time);
 
     /**
      * @param obs an observer to be added to a list of observers
