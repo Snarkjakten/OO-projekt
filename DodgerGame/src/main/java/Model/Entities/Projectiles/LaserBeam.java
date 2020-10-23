@@ -100,9 +100,14 @@ public class LaserBeam extends Projectile {
     /**
      * Removes projectiles collided with asteroid unless object is an instance of laserbeam
      *
-     * @param c the type of object this object has collided with
+     * @param className the type of object this object has collided with
      */
     @Override
-    public void actOnCollision(Class c, int amount) {
+    public void actOnCollision(String className, int amount) {
+    }
+
+    @Override
+    public String toString() {
+        return "LaserBeam";
     }
 }

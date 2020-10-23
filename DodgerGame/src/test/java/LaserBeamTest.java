@@ -31,7 +31,7 @@ public class LaserBeamTest {
      */
     @Test
     public void laserBeamCollision() {
-        laserBeam.actOnCollision(spaceship.getClass(), spaceship.getAmount());
+        laserBeam.actOnCollision(spaceship.getClass().toString(), spaceship.getAmount());
         assertTrue(laserBeam.getCollided() == false);
     }
 

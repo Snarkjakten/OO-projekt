@@ -1,6 +1,4 @@
 package View.Sound;
-import Model.Entities.Projectiles.*;
-
 import javax.sound.sampled.AudioInputStream;
 import javax.sound.sampled.AudioSystem;
 import javax.sound.sampled.Clip;
@@ -63,18 +61,18 @@ public class SoundHandler {
         gain.setValue(decibel);
     }
 
-    public void playSound(Class c) {
+    public void playSound(String className) {
         String soundFilepath = null;
 
-        if (c.equals(Asteroid.class)) {
+        if (className.equals("Asteroid")) {
             soundFilepath = GameObjectsSounds.getAsteroidSound();
-        } else if (c.equals(ShieldPowerUp.class)) {
+        } else if (className.equals("ShieldPowerUp")) {
             soundFilepath = GameObjectsSounds.getShieldSound();
-        } else if (c.equals(HealthPowerUp.class)) {
+        } else if (className.equals("HealthPowerUp")) {
             soundFilepath = GameObjectsSounds.getHealthSound();
-        } else if (c.equals(SlowDebuff.class)) {
+        } else if (className.equals("SlowDebuff")) {
             soundFilepath = GameObjectsSounds.getSlowDebuffSound();
-        } else if(c.equals(LaserBeam.class)) {
+        } else if(className.equals("LaserBeam")) {
             soundFilepath = GameObjectsSounds.getLaserBeamSound();
         }
 

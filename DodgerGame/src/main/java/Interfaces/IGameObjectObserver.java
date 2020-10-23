@@ -5,8 +5,8 @@ public interface IGameObjectObserver {
     /**
      * Perform actions associated with the observed type.
      *
-     * @param c the type of an object
+     * @param className the type of an object
      * @author Irja Vuorela
      */
-    void actOnGameObjectEvent(Class c, int amount);
+    void actOnGameObjectEvent(String className, int amount);
 }

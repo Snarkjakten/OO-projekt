@@ -19,9 +19,9 @@ public interface ICollidable {
     int getAmount();
 
     /**
-     * @param c the type of object this object has collided with
+     * @param className the type of object this object has collided with
      */
-    void actOnCollision(Class c, int amount);
+    void actOnCollision(String className, int amount);
 
 }
 

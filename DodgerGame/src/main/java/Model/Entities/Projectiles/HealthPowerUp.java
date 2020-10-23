@@ -37,4 +37,9 @@ public class HealthPowerUp extends Projectile {
     public int getAmount() {
         return this.healingValue;
     }
+
+    @Override
+    public String toString() {
+        return "HealthPowerUp";
+    }
 }

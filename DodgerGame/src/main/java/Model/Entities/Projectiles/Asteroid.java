@@ -70,4 +70,9 @@ public class Asteroid extends Projectile {
             setSpeed(100);
         }
     }
+
+    @Override
+    public String toString() {
+        return "Asteroid";
+    }
 }

@@ -33,4 +33,9 @@ public class ShieldPowerUp extends Projectile {
     public int getAmount() {
         return hitCapacity;
     }
+
+    @Override
+    public String toString() {
+        return "ShieldPowerUp";
+    }
 }

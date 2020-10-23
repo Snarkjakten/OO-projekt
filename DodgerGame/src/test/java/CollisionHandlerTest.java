@@ -171,6 +171,6 @@ public class CollisionHandlerTest {
     public void testNotifyGameObjectObservers() {
         Main main = new Main();
         collisionHandler.addGameObjectObserver(main);
-        collisionHandler.notifyGameObjectObservers(spaceship.getClass(), spaceship.getAmount());
+        collisionHandler.notifyGameObjectObservers(spaceship.toString(), spaceship.getAmount());
     }
 }
