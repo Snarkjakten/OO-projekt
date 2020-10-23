@@ -47,12 +47,12 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * //todo: fyll i
+     * Update the position and size of the hitbox.
      *
-     * @param xPos
-     * @param yPos
-     * @param width
-     * @param height
+     * @param xPos   the new x position for the hitbox.
+     * @param yPos   the new y position for the hitbox.
+     * @param width  the new width for the hitbox.
+     * @param height the new height for the hitbox.
      * @authors Irja & Viktor
      */
     protected void updateHitBoxes(double xPos, double yPos, double width, double height) {

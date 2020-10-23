@@ -37,6 +37,10 @@ public class GameObjectGUI {
         this.laserGUI = LaserGUI.getInstance();
     }
 
+    /**
+     * Set a specific image string depending on the spaceshipChoice
+     * @param spaceshipChoice the int that sets what string is used for the spaceship
+     */
     public void chooseSpaceshipImage(int spaceshipChoice) {
         if (spaceshipChoice == 1) {
             spaceshipImageName = firstChoice;

@@ -64,10 +64,17 @@ public class Game implements ITimeObservable, IGameOverObservable {
         scoreHandler.handleScore(scoreCalculator.getPoints());
     }
 
+    /**
+     * Check if the game is over
+     * @return true if the game is over
+     */
     public boolean isGameOver() {
         return (GameWorld.getInstance().getSpaceship().getHp() <= 0);
     }
 
+    /**
+     * Creating a new gameWorld
+     */
     public void startGame() {
         GameWorld.getInstance().createNewGameWorld();
     }

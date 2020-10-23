@@ -22,8 +22,9 @@ public abstract class Projectile extends AbstractGameObject {
     }
 
     /**
-     * @author Olle Westerlund
      * The method sets a random starting position for the projectile.
+     *
+     * @author Olle Westerlund
      */
     protected void randomPosition() {
         HitBox hitBox = getHitBoxes().get(0);
@@ -59,9 +60,10 @@ public abstract class Projectile extends AbstractGameObject {
     // todo: kolla om vi kan undvika projektiler som missar skärmen
 
     /**
+     * The method sets a random velocity and direction for the projectile.
+     *
      * @param side The side of the screen that the asteroid spawns on.
      * @author Olle Westerlund
-     * The method sets a random velocity and direction for the projectile.
      */
     private void randomStartVelocity(int side) {
         HitBox hitBox = getHitBoxes().get(0);
@@ -127,9 +129,10 @@ public abstract class Projectile extends AbstractGameObject {
     }
 
     /**
+     * The method checks if the projectile is still on the screen.
+     *
      * @return Boolean if the object is no longer on the screen.
      * @author Olle Westerlund
-     * The method checks if the projectile is still on the screen.
      */
     public boolean isNotOnScreen() {
         HitBox hitBox = getHitBoxes().get(0);
