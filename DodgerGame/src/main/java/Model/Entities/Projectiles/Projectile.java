@@ -26,7 +26,7 @@ public abstract class Projectile extends AbstractGameObject {
      *
      * @author Olle Westerlund
      */
-    protected void randomPosition() {
+    private void randomPosition() {
         HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
         double xPos = 0;

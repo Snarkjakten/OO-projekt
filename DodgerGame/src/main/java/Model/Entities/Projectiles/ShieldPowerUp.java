@@ -8,7 +8,6 @@ public class ShieldPowerUp extends Projectile {
      * @author Olle, Irja & Viktor
      */
     public ShieldPowerUp() {
-        randomPosition();
         setWidthHitBoxes(64);
         setHeightHitBoxes(64);
         setSpeed(200);
