@@ -37,6 +37,9 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     ShieldGUI shieldGUI = new ShieldGUI(graphicsContext);
     TimerGUI timerGUI = new TimerGUI(graphicsContext);
 
+    /**
+     * Initializes GUI, controllers and game world and adds observers
+     */
     @Override
     public void start(Stage stage) throws Exception {
         // Menus
@@ -101,7 +104,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     /**
      * Updates the sounds
      *
-     * @param c the class type associated with the sound to be played
+     * @param className the class type associated with the sound to be played
      */
     private void updateSound(String className) {
         soundHandler.playSound(className);

@@ -61,6 +61,7 @@ public class SoundHandler {
         gain.setValue(decibel);
     }
 
+    // Plays a sound
     public void playSound(String className) {
         String soundFilepath = null;
 

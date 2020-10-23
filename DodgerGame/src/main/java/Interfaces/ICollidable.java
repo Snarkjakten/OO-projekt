@@ -16,6 +16,9 @@ public interface ICollidable {
      */
     boolean getCollided();
 
+    /**
+     * @return a value from an object associated with collisions
+     */
     int getAmount();
 
     /**

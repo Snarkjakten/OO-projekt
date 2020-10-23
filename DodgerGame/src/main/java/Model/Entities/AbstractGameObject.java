@@ -8,7 +8,7 @@ import java.util.List;
 
 public abstract class AbstractGameObject implements IMovable, ICollidable {
     private final List<HitBox> hitBoxes;
-    private boolean collided = false;
+    private boolean collided;
     // Velocity (horizontal, vertical)
     public Point2D velocity;
     // movement speed
@@ -27,6 +27,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
      * @param deltaTime the length of a frame in the game loop
      * @author Irja Vuorela
      */
+    @Override
     public abstract void move(double deltaTime);
 
     /**
@@ -150,6 +151,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
         this.speed = speed;
     }
 
+    @Override
     public abstract int getAmount();
 
     @Override

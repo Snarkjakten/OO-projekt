@@ -37,9 +37,9 @@ public class ProjectileTest {
         projAsteroid = new Asteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         spaceship = new Spaceship(0,0,20,20);
         shieldPU = new ShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
-        slowDebuff = new SlowDebuff();
+        slowDebuff = new SlowDebuff(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
-        hpUp = new HealthPowerUp();
+        hpUp = new HealthPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         healthPowerUp = new HealthPowerUp(400, 100, 100, 0, 1);
         gameObjects = new ArrayList<>();
     }

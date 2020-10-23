@@ -1,5 +1,9 @@
 package View.Sound;
 
+/**
+ * @auhtor Viktor Sundberg
+ */
+
 public class GameObjectsSounds {
 
     //Background music file

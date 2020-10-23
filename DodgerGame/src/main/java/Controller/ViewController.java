@@ -53,7 +53,7 @@ public class ViewController implements IGameOverObserver {
      *
      * @author Isak Almeros
      */
-    public void mainMenuButtonHandler() {
+    private void mainMenuButtonHandler() {
         // Redirects player to character menu
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
 

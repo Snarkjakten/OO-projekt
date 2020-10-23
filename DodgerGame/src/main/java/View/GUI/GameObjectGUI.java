@@ -91,7 +91,7 @@ public class GameObjectGUI {
             assert inputStream != null;
             image = new Image(inputStream);
         } else if (gameObject.equals(LaserBeam.class)) {
-            laserGUI.setIsVertical(!(width > height));
+            laserGUI.setIsVertical(width < height);
             image = laserGUI.getFrame(animationTime);
             imageWidth = image.getWidth();
             imageHeight = image.getHeight();

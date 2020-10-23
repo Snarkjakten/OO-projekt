@@ -77,7 +77,7 @@ public class Point2D {
      */
     public Point2D normalize() {
         double length = this.magnitude();
-        if (!(length == 0)) {
+        if (length != 0) {
             return new Point2D(this.x / length, this.y / length);
         } else {
             return new Point2D(0, 0);

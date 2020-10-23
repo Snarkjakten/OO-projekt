@@ -5,6 +5,7 @@ import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;
 
+import static org.junit.Assert.assertFalse;
 import static org.junit.Assert.assertTrue;
 
 public class LaserBeamTest {
@@ -32,7 +33,7 @@ public class LaserBeamTest {
     @Test
     public void laserBeamCollision() {
         laserBeam.actOnCollision(spaceship.toString(), spaceship.getAmount());
-        assertTrue(laserBeam.getCollided() == false);
+        assertFalse(laserBeam.getCollided());
     }
 
     /**
@@ -41,7 +42,7 @@ public class LaserBeamTest {
      */
     @Test
     public void laserBeamIsVertical() {
-        assertTrue(verticalLaserBeam.isVertical());
+        assertTrue(verticalLaserBeam.getIsVertical());
     }
 
     /**
