@@ -28,7 +28,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
     private Game game;
     GameWindow gameWindow = new GameWindow(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
-    CollisionHandler collisionHandler = new CollisionHandler();
+    CollisionHandler collisionHandler;
 
     GraphicsContext graphicsContext = gameWindow.getGraphicsContext();
     PlayingFieldGUI playingFieldGUI = new PlayingFieldGUI(graphicsContext);
