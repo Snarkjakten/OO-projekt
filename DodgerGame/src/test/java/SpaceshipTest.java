@@ -306,7 +306,7 @@ public class SpaceshipTest {
     public void collisionWithLaserBeamWithShield() {
         spaceship.gainShield(1);
         int shield = spaceship.getNrOfShields();
-        spaceship.actOnCollision(laserBeam);
+        spaceship.actOnCollision(laserBeam.getClass(), laserBeam.getAmount());
         int currentShield = spaceship.getNrOfShields();
         assertTrue(currentShield < shield);
     }
@@ -317,7 +317,7 @@ public class SpaceshipTest {
     @Test
     public void collisionWithLaserBeam() {
         int health = spaceship.getHp();
-        spaceship.actOnCollision(laserBeam);
+        spaceship.actOnCollision(laserBeam.getClass(), laserBeam.getAmount());
         int currentHealth = spaceship.getHp();
         assertTrue(currentHealth < health);
     }

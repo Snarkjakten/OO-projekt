@@ -1,8 +1,6 @@
 import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.LaserBeam;
 import Model.Entities.Point2D;
-import Model.Entities.Projectiles.Projectile;
-import Model.Entities.Projectiles.ProjectileFactory;
+import Model.Entities.Projectiles.LaserBeam;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,7 +30,7 @@ public class LaserBeamTest {
      */
     @Test
     public void laserBeamCollision() {
-        laserBeam.actOnCollision(spaceship);
+        laserBeam.actOnCollision(spaceship.getClass(), spaceship.getAmount());
         assertTrue(laserBeam.getCollided() == false);
     }
 
