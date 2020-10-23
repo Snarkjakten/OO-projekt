@@ -52,7 +52,6 @@ public class ShieldGUI {
     }
 
     /**
-     * todo: animations seems broken
      * Decides which image to show depending on the time, number of images and
      * the duration each images is shown.
      *

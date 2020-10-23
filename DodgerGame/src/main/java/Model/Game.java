@@ -159,7 +159,6 @@ public class Game implements ITimeObservable, IGameOverObservable {
 
     // Getters and setters ---------------------------
 
-    //todo: borde inte ligga i gameloop.java
     public CollisionHandler getCollisionHandler() {
         return collisionHandler;
     }

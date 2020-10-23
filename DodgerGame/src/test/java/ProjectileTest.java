@@ -54,7 +54,7 @@ public class ProjectileTest {
      * @author Olle Westerlund
      */
     @Test
-    public void getHitCapacity() {  // todo: this is redundant?
+    public void getHitCapacity() {
         int shields = 0;
         int shieldsAfterShieldPU = shields + shieldPU.getHitCapacity();
         assertTrue(shieldsAfterShieldPU > shields);
