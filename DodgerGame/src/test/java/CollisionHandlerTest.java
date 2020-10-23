@@ -1,8 +1,8 @@
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.HealthPowerUp;
-import Model.Entities.Projectiles.ShieldPowerUp;
+import Model.Entities.Projectiles.*;
+import Model.Game;
+import Model.GameWorld;
 import Model.Handlers.CollisionHandler;
 import org.junit.Before;
 import org.junit.Test;
@@ -18,6 +18,7 @@ public class CollisionHandlerTest {
     Asteroid asteroid;
     HealthPowerUp hpUp;
     ShieldPowerUp shieldPU;
+    LaserBeam laserBeam;
     Spaceship spaceship;
 
     CollisionHandler collisionHandler = new CollisionHandler();
@@ -27,6 +28,7 @@ public class CollisionHandlerTest {
         asteroid = new Asteroid();
         hpUp = new HealthPowerUp();
         shieldPU = new ShieldPowerUp();
+        laserBeam = new LaserBeam(1);
         spaceship = new Spaceship(368, 248, 64, 64);
     }
 
@@ -82,7 +84,6 @@ public class CollisionHandlerTest {
     @Test
     public void addGameObjectObserverSizeOne() {
         Main main = new Main();
-        CollisionHandler collisionHandler = new CollisionHandler();
         collisionHandler.addGameObjectObserver(main);
         assertEquals(1, collisionHandler.getGameObjectObservers().size());
     }
@@ -95,9 +96,76 @@ public class CollisionHandlerTest {
     @Test
     public void removeGameObjectObserverSizeZero() {
         Main main = new Main();
-        CollisionHandler collisionHandler = new CollisionHandler();
         collisionHandler.addGameObjectObserver(main);
         collisionHandler.removeGameObjectObserver(main);
         assertEquals(0, collisionHandler.getGameObjectObservers().size());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void handleSpaceshipCollisionIfIsFirstGameObject() {
+        spaceship.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        asteroid.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        GameWorld.getInstance().getGameObjects().clear();
+        GameWorld.getInstance().getGameObjects().add(asteroid);
+        GameWorld.getInstance().getGameObjects().add(spaceship);
+        collisionHandler.handleCollision(GameWorld.getInstance().getGameObjects());
+        assertTrue(asteroid.getCollided());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void handleSpaceshipCollisionIfIsSecondGameObject() {
+        spaceship.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        asteroid.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        GameWorld.getInstance().getGameObjects().clear();
+        GameWorld.getInstance().getGameObjects().add(spaceship);
+        GameWorld.getInstance().getGameObjects().add(asteroid);
+        collisionHandler.handleCollision(GameWorld.getInstance().getGameObjects());
+        assertTrue(asteroid.getCollided());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void handleLaserBeamCollision() {
+        asteroid.setCollided(false);
+        laserBeam.getHitBoxes().get(0).updateHitBoxPosition(20, -50);
+        asteroid.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        GameWorld.getInstance().getGameObjects().clear();
+        GameWorld.getInstance().getGameObjects().add(asteroid);
+        GameWorld.getInstance().getGameObjects().add(laserBeam);
+        collisionHandler.handleCollision(GameWorld.getInstance().getGameObjects());
+        assertTrue(asteroid.getCollided());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void handleTwoAsteroidsCollision() {
+        Asteroid asteroid2 = new Asteroid();
+        asteroid.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        asteroid2.getHitBoxes().get(0).updateHitBoxPosition(20, 20);
+        GameWorld.getInstance().getGameObjects().clear();
+        GameWorld.getInstance().getGameObjects().add(asteroid);
+        GameWorld.getInstance().getGameObjects().add(asteroid2);
+        collisionHandler.handleCollision(GameWorld.getInstance().getGameObjects());
+        assertFalse(asteroid.getCollided());
+    }
+
+    /**
+     * @author Tobias Engblom
+     */
+    @Test
+    public void testNotifyGameObjectObservers() {
+        Main main = new Main();
+        collisionHandler.addGameObjectObserver(main);
+        collisionHandler.notifyGameObjectObservers(Spaceship.class);
     }
 }
