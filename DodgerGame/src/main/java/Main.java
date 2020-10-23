@@ -55,12 +55,11 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
         collisionHandler.addGameObjectObserver(this);
         game.addGameOverObserver(vc);
 
-        stage.setTitle("Space Dodger"); // todo: move to window
+        stage.setTitle("Space Dodger");
 
         Scene mainMenuScene = new Scene(mainMenu.getRoot());
         stage.setScene(mainMenuScene);
 
-        //todo: move to window
         //Removes option to change size of program window
         stage.setResizable(false);
         stage.show();

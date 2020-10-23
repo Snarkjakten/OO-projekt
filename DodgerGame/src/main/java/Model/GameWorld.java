@@ -32,6 +32,7 @@ public class GameWorld {
     private void reset() {
         this.isGameOver = false;
         this.gameObjects.clear();
+        initSpaceship();
     }
 
     /**
