@@ -13,13 +13,14 @@ import static junit.framework.TestCase.assertTrue;
 
 public class SpaceshipTest {
 
-    Spaceship spaceship;
-    Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(20, 20, 20, 20, 20);
-    Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(20, 20, 20, 20, 20);
-    Projectile slowDebuff = ProjectileFactory.createSlowDebuff();
-    Projectile asteroid = ProjectileFactory.createAsteroid(20, 20, 20, 20, 20, 20, 20, 20);
-    Point2D startPos;
-    double deltaTime = 0.016;
+    private Spaceship spaceship;
+    private Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(20, 20, 20, 20, 20);
+    private Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(20, 20, 20, 20, 20);
+    private Projectile slowDebuff = ProjectileFactory.createSlowDebuff();
+    private Projectile asteroid = ProjectileFactory.createAsteroid(20, 20, 20, 20, 20, 20, 20, 20);
+    private Projectile laserBeam = ProjectileFactory.createLaserBeam(3);
+    private Point2D startPos;
+    private double deltaTime = 0.016;
 
     /**
      * creates a spaceship for testing
@@ -310,6 +311,29 @@ public class SpaceshipTest {
     }
 
     /**
+     * @author Olle Westerlund
+     */
+    @Test
+    public void collisionWithLaserBeamWithShield() {
+        spaceship.gainShield(1);
+        int shield = spaceship.getNrOfShields();
+        spaceship.actOnCollision(laserBeam);
+        int currentShield = spaceship.getNrOfShields();
+        assertTrue(currentShield < shield);
+    }
+
+    /**
+     * @author Olle Westerlund
+     */
+    @Test
+    public void collisionWithLaserBeam() {
+        int health = spaceship.getHp();
+        spaceship.actOnCollision(laserBeam);
+        int currentHealth = spaceship.getHp();
+        assertTrue(currentHealth < health);
+    }
+
+    /**
      * @author Tobias Engblom
      */
     @Test
@@ -391,5 +415,19 @@ public class SpaceshipTest {
         spaceship.getHitBoxes().add(new HitBox(5, 550, 64, 64));
         GameWorld.getInstance().wrapAround(spaceship);
         assertEquals(4, spaceship.getHitBoxes().size());
+    }
+
+    /**
+     * @author Olle Westerlund
+     */
+    @Test
+    public void updateHitBoxSize() {
+        HitBox hitbox = spaceship.getHitBoxes().get(0);
+        double width = hitbox.getWidth();
+        double height = hitbox.getHeight();
+        spaceship.getHitBoxes().get(0).updateHitBoxSize(width * 2, height * 2);
+        double newWidth = hitbox.getWidth();
+        double newHeight = hitbox.getHeight();
+        assertTrue(newWidth == (width * 2) && newHeight == (height * 2));
     }
 }
