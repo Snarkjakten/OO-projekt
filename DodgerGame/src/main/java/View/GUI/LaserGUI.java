@@ -8,13 +8,13 @@ import java.io.InputStream;
 /**
  * @author Olle Westerlund
  */
-public class LaserGUI {
+public final class LaserGUI {
     private Image[] frames;
     private final double duration = 0.1;
     private boolean isVertical;
     private final double playingFieldWidth = GameWorld.getInstance().getPlayingFieldWidth();
     private final double playingFieldHeight = GameWorld.getInstance().getPlayingFieldHeight();
-    private static LaserGUI instance = null;
+    private static LaserGUI instance;
 
     private LaserGUI() {
         this.frames = new Image[8];

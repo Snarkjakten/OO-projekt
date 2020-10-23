@@ -7,7 +7,8 @@ package Model.Entities.Projectiles;
 public class SlowDebuff extends Projectile {
     private final int slowSpeedFactor;
 
-    public SlowDebuff() {
+    public SlowDebuff(double playingFieldWidth, double playingFieldHeight) {
+        randomPosition(playingFieldWidth, playingFieldHeight);
         setSpeed(300);
         setWidthHitBoxes(32);
         setHeightHitBoxes(32);

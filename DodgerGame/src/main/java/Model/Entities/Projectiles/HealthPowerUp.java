@@ -7,7 +7,8 @@ public class HealthPowerUp extends Projectile {
     /**
      * @author Viktor, Olle & Irja
      */
-    public HealthPowerUp() {
+    public HealthPowerUp(double playingFieldWidth, double playingFieldHeight) {
+        randomPosition(playingFieldWidth, playingFieldHeight);
         this.setSpeed(200);
         this.setHeightHitBoxes(64);
         this.setWidthHitBoxes(64);

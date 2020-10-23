@@ -9,10 +9,10 @@ import java.util.ArrayList;
 import java.util.List;
 
 
-public class GameWorld {
+public final class GameWorld {
     private Spaceship spaceship;
     private final List<AbstractGameObject> gameObjects;
-    private static GameWorld instance = null;
+    private static GameWorld instance;
     private boolean isGameOver;
 
     private static final double playingFieldWidth = 800;

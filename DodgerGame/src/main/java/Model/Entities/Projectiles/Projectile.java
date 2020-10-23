@@ -14,8 +14,6 @@ public abstract class Projectile extends AbstractGameObject {
     private double xVelocity;    // positive value: right, negative value: left
     private double yVelocity;      // positive value: up, negative value: down
 
-    public Projectile() { }
-
     /**
      * The method sets a random starting position for the projectile.
      *
@@ -114,8 +112,7 @@ public abstract class Projectile extends AbstractGameObject {
      *
      * @author Irja Vuorela
      */
-
-    public void updateVelocity() {
+    private void updateVelocity() {
         this.velocity = (new Point2D(xVelocity, yVelocity).normalize());
         this.velocity = velocity.multiply(getSpeed());
     }

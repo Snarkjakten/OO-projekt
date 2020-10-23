@@ -11,10 +11,10 @@ public class Spaceship extends AbstractGameObject {
     private int nrOfShields;
 
     // Movement directions
-    private int up = 0; // moving up decreases vertical axis value
-    private int down = 0; // moving down increases vertical axis value
-    private int left = 0; // moving left decreases horizontal axis value
-    private int right = 0; // moving right increases horizontal axis value
+    private int up;    // moving up decreases vertical axis value
+    private int down;  // moving down increases vertical axis value
+    private int left;  // moving left decreases horizontal axis value
+    private int right; // moving right increases horizontal axis value
 
     /**
      * @param xPos   current xPosition of the spaceship
@@ -59,7 +59,7 @@ public class Spaceship extends AbstractGameObject {
      * @param hitCapacity amount of collisions a single shield power up can block
      * @authors Irja & Viktor
      */
-    public void gainShield(int hitCapacity) {
+    private void gainShield(int hitCapacity) {
         this.nrOfShields += hitCapacity;
     }
 
@@ -67,14 +67,14 @@ public class Spaceship extends AbstractGameObject {
      * @param healingValue amount of healing from one health power up
      * @authors Irja & Viktor
      */
-    public void gainHealth(int healingValue) {
+    private void gainHealth(int healingValue) {
         setHp(Math.min(getHp() + healingValue, maxHp));
     }
 
     /**
      * @author Olle Westerlund
      */
-    public void reduceShield() {
+    private void reduceShield() {
         if (this.nrOfShields > 0) {
             this.nrOfShields -= 1;
         } else {
@@ -103,7 +103,7 @@ public class Spaceship extends AbstractGameObject {
             gainHealth(amount);
         } else if (className.equals("SlowDebuff")) {
             int slowSpeedFactor = amount;
-            if(getSpeed() - slowSpeedFactor > 10) {
+            if (getSpeed() - slowSpeedFactor > 10) {
                 setSpeed(getSpeed() - slowSpeedFactor);
             }
         } else if (className.equals("LaserBeam")) {

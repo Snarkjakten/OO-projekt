@@ -1,3 +1,5 @@
+import Model.CollisionHandler;
+import Model.Entities.AbstractGameObject;
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
 import Model.SpaceshipFactory;
@@ -8,11 +10,16 @@ import Model.Entities.Point2D;
 import org.junit.Before;
 import org.junit.Test;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import static junit.framework.TestCase.assertEquals;
 import static junit.framework.TestCase.assertTrue;
 
 public class SpaceshipTest {
 
+    private CollisionHandler collisionHandler = new CollisionHandler();
+    private List<AbstractGameObject> gameObjects = new ArrayList<>();
     private Spaceship spaceship;
     private Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(20, 20, 20, 20, 20);
     private Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(20, 20, 20, 20, 20);
@@ -36,7 +43,6 @@ public class SpaceshipTest {
      * @author Irja Vuorela
      */
     @Test
-
     public void spaceshipMovedLeft() {
         startPos = spaceship.getHitBoxes().get(0).getHitBox().getPosition();
         spaceship.setLeft(1);
@@ -190,7 +196,12 @@ public class SpaceshipTest {
     @Test
     public void testGainShield() {
         int oldShields = spaceship.getNrOfShields();
-        spaceship.gainShield(1);
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(10, 10, 10, 10);
+        Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(0, 10, 10, 0, 0);
+        gameObjects.clear();
+        gameObjects.add(shieldPowerUp);
+        gameObjects.add(spaceship);
+        collisionHandler.handleCollision(gameObjects);
         int newShields = spaceship.getNrOfShields();
         assertTrue(newShields > oldShields);
     }
@@ -202,9 +213,11 @@ public class SpaceshipTest {
      */
     @Test
     public void testGainHealth() {
-        spaceship.setHp(spaceship.getMaxHp() / 2);
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(10, 10, 10, 10);
+        Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(0, 10, 10, 0, 0);
+        spaceship.setHp(spaceship.getHp()-1);
         int oldHealth = spaceship.getHp();
-        spaceship.gainHealth(1);
+        spaceship.actOnCollision("HealthPowerUp", healthPowerUp.getAmount());
         int newHealth = spaceship.getHp();
         assertTrue(newHealth > oldHealth);
     }
@@ -216,8 +229,11 @@ public class SpaceshipTest {
      */
     @Test
     public void didNotExceedMaxHp() {
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(10,10,10,10);
+        Projectile healthPowerUp = ProjectileFactory.createHealthPowerUp(0,10,10,0,0);
+
         spaceship.setHp(spaceship.getMaxHp() - 1);
-        spaceship.gainHealth(spaceship.getMaxHp());
+        spaceship.actOnCollision(healthPowerUp.toString(), healthPowerUp.getAmount());
         assertEquals(spaceship.getHp(), spaceship.getMaxHp());
     }
 
@@ -265,11 +281,14 @@ public class SpaceshipTest {
     }
 
     /**
-     * @author Tobias Engblom
+     * @author Tobias Engblom & Irja Vuorela
      */
     @Test
     public void collideWithAsteroidLoseShield() {
-        spaceship.gainShield(1);
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(10, 10, 10, 10);
+        Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(0, 10, 10, 0, 0);
+        Projectile asteroid = ProjectileFactory.createAsteroid(0, 10, 10, 10, 10, 0, 0, 1);
+        spaceship.actOnCollision(shieldPowerUp.toString(), shieldPowerUp.getAmount());
         int oldNrOfShields = spaceship.getNrOfShields();
         spaceship.actOnCollision(asteroid.toString(), asteroid.getAmount());
         int newNrOfShields = spaceship.getNrOfShields();
@@ -280,35 +299,15 @@ public class SpaceshipTest {
      * @author Tobias Engblom
      */
     @Test
-    public void testLoseShield() {
-        spaceship.gainShield(1);
-        int oldShields = spaceship.getNrOfShields();
-        spaceship.reduceShield();
-        int newShields = spaceship.getNrOfShields();
-        assertTrue(newShields < oldShields);
-    }
-
-    /**
-     * @author Tobias Engblom
-     */
-    @Test
     public void testLoseShieldWhenNrShieldsIsZero() {
+        Spaceship spaceship = SpaceshipFactory.createSpaceship(10, 10, 10, 10);
+        Projectile shieldPowerUp = ProjectileFactory.createShieldPowerUp(0, 10, 10, 0, 0);
+        Projectile asteroid = ProjectileFactory.createAsteroid(0, 10, 10, 10, 10, 0, 0, 1);
         int oldShields = spaceship.getNrOfShields();
-        spaceship.reduceShield();
+        spaceship.actOnCollision(shieldPowerUp.toString(), shieldPowerUp.getAmount());
+        spaceship.actOnCollision(asteroid.toString(), asteroid.getAmount());
         int newShields = spaceship.getNrOfShields();
         assertEquals(newShields, oldShields);
-    }
-
-    /**
-     * @author Olle Westerlund
-     */
-    @Test
-    public void collisionWithLaserBeamWithShield() {
-        spaceship.gainShield(1);
-        int shield = spaceship.getNrOfShields();
-        spaceship.actOnCollision(laserBeam.toString(), laserBeam.getAmount());
-        int currentShield = spaceship.getNrOfShields();
-        assertTrue(currentShield < shield);
     }
 
     /**

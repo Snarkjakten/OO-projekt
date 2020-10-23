@@ -73,7 +73,7 @@ public class HighScoreHandlerTest {
         sortedList.add(1);
         sortedList.add(1);
         sortedList.add(0);
-        assertTrue(sortedList.equals(highScoreHandler.getScoresFromFile(fileName)));
+        assertEquals(sortedList, highScoreHandler.getScoresFromFile(fileName));
     }
 
     /**

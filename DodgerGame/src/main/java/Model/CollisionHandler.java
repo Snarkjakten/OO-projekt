@@ -21,10 +21,15 @@ public class CollisionHandler implements IGameObjectObservable {
     private final List<IGameObjectObserver> gameObjectObservers = new ArrayList<>();
     List<AbstractGameObject> toBeRemoved = new ArrayList<>();
 
+    /**
+     * Checks if a collision has occurred between two game objects
+     *
+     * @author Viktor Sundberg
+     */
     public boolean checkCollision(AbstractGameObject g, AbstractGameObject a) {
         for (HitBox hitBox1 : g.getHitBoxes()) {
             for (HitBox hitBox2 : a.getHitBoxes()) {
-                if ((hitBox1.getHitBox().intersects(hitBox2.getHitBox())) && a != g) {
+                if ((hitBox1.getHitBox().intersects(hitBox2.getHitBox())) && !a.equals(g)) {
                     return true;
                 }
             }
@@ -34,17 +39,20 @@ public class CollisionHandler implements IGameObjectObservable {
 
     /**
      * Sends notifies to the objects that have collided
+     *
      * @param g first object that collided
      * @param a second object that collided
      */
-    public void collide(AbstractGameObject g, AbstractGameObject a) {
+    private void collide(AbstractGameObject g, AbstractGameObject a) {
         g.actOnCollision(a.toString(), a.getAmount());
         a.actOnCollision(g.toString(), g.getAmount());
     }
 
     /**
      * Handles the collision for all objects in a list
+     *
      * @param gameObjects The list that is to be checked for collisions
+     * @author Viktor Sundberg
      */
     public void handleCollision(List<AbstractGameObject> gameObjects) {
 

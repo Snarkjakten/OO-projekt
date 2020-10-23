@@ -29,7 +29,7 @@ public class CollisionHandlerTest {
     @Before
     public void init() {
         asteroid = new Asteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldWidth());
-        hpUp = new HealthPowerUp();
+        hpUp = new HealthPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         shieldPU = new ShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         laserBeam = new LaserBeam(1, PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         spaceship = new Spaceship(368, 248, 64, 64);
@@ -49,18 +49,6 @@ public class CollisionHandlerTest {
         assertFalse(collisionHandler.checkCollision(asteroid, spaceship));
     }
 
-    @Test
-    public void spaceshipCollided() {
-        collisionHandler.collide(asteroid, spaceship);
-        assertTrue(asteroid.getCollided());
-        asteroid.setCollided(false);
-    }
-
-    @Test
-    public void projectileCollided() {
-        collisionHandler.collide(asteroid, hpUp);
-        assertFalse(asteroid.getCollided());
-    }
 
     //----------------------------------------------------------------------------------------------------------------
 

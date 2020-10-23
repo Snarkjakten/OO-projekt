@@ -30,7 +30,7 @@ public abstract class ProjectileFactory {
      * @author Olle Westerlund
      */
     public static Projectile createRandomizedHealthPowerUp() {
-        return new HealthPowerUp();
+        return new HealthPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
     }
 
     /**
@@ -56,7 +56,7 @@ public abstract class ProjectileFactory {
     }
 
     public static Projectile createSlowDebuff() {
-        return new SlowDebuff();
+        return new SlowDebuff(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
     }
 
 

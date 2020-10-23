@@ -93,15 +93,10 @@ public class LaserBeam extends Projectile {
         return damage;
     }
 
-    public boolean isVertical() {
+    public boolean getIsVertical() {
         return isVertical;
     }
 
-    /**
-     * Removes projectiles collided with asteroid unless object is an instance of laserbeam
-     *
-     * @param className the type of object this object has collided with
-     */
     @Override
     public void actOnCollision(String className, int amount) {
     }

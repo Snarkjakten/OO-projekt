@@ -16,6 +16,11 @@ public class AnimationController {
     private long elapsedTime;
     private long startNanoTime;
 
+    /**
+     * Simulates the time for the simulation.
+     *
+     * @param game the simulation
+     */
     public AnimationController(Game game) {
         this.game = game;
 
@@ -28,7 +33,6 @@ public class AnimationController {
             @Override
             public void handle(long currentNanoTime) {
 
-                currentNanoTime = System.nanoTime();
                 deltaTime = calculateDeltaTime(currentNanoTime, previousNanoTime);
                 elapsedTime = calculateElapsedTime(startNanoTime);
                 animationTime = calculateAnimationTime(currentNanoTime, animationNanoTime);

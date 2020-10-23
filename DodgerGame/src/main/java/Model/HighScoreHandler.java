@@ -14,9 +14,10 @@ import java.util.Scanner;
  */
 public class HighScoreHandler {
 
-    String fileName = "src/main/resources/HighScores.txt"; // include the file extension
-    List<Integer> topScores = new ArrayList<>();
-    int maxNrOfTopScores = 10; // Defined number of top scores
+    private final String fileName = "src/main/resources/HighScores.txt"; // include the file extension
+    private List<Integer> topScores = new ArrayList<>();
+    private final int maxNrOfTopScores = 10; // Defined number of top scores
+    private FileWriter writer;
 
     /**
      * Saves a player's score in a text file with the best times.
@@ -147,12 +148,10 @@ public class HighScoreHandler {
      * @author Irja Vuorela
      */
     private void writeToFile(List<Integer> scores, String fileName) {
-        BufferedWriter writer;
         try {
-            writer = new BufferedWriter(new FileWriter(fileName));
+            writer = new FileWriter(fileName);
             for (Integer score : scores) {
-                writer.write(score.toString());
-                writer.newLine();
+                writer.write(score.toString() + "\n");
             }
             writer.close();
         } catch (IOException e) {
