@@ -19,6 +19,8 @@ Reports
 - Tobias har gjort så att hitboxes har en point. Löst lite buggar med wraparound.
 
 Discussion items
+- Kodstädning
+- Rapportskrivande
 
 Outcomes and assignments
 - Vi delar in oss i två grupper. Ena gruppen jobbar med kod, den andra jobbar med dokumenten. Byte efter lunch
