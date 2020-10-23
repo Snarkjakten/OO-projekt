@@ -1,15 +1,18 @@
-import Model.Entities.Projectiles.Asteroid;
-import Model.Entities.Projectiles.ProjectileFactory;
-import Model.Handlers.WaveManager;
-import Model.GameWorld;
 import Model.Entities.AbstractGameObject;
 import Model.Entities.Player.SpaceshipFactory;
+import Model.Entities.Projectiles.Asteroid;
+import Model.Entities.Projectiles.ProjectileFactory;
+import Model.GameWorld;
+import Model.Handlers.WaveManager;
+import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;
-import static org.junit.Assert.*;
 
 import java.util.ArrayList;
 import java.util.List;
+
+import static org.junit.Assert.assertFalse;
+import static org.junit.Assert.assertTrue;
 
 public class WaveManagerTest {
     WaveManager waveManager = new WaveManager();
@@ -46,7 +49,7 @@ public class WaveManagerTest {
         waveManager.projectileSpawner(time, gameObjects, deltaTime, scenario, maxNumGameObjects);
         for (AbstractGameObject gameObject : gameObjects) {
             if (gameObject instanceof Asteroid) {
-                if (((Asteroid) gameObject).isNotOnScreen()) {
+                if (((Asteroid) gameObject).isNotOnPlayingField(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight())) {
                     offscreenAsteroidExists = true;
                 }
             }

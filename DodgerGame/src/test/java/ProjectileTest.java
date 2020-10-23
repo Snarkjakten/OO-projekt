@@ -3,6 +3,7 @@ import Model.Entities.Player.Spaceship;
 import Model.Entities.Point2D;
 import Model.Entities.Projectiles.*;
 import Model.Handlers.CollisionHandler;
+import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -32,9 +33,9 @@ public class ProjectileTest {
     @Before
     public void init() {
         collisionHandler = new CollisionHandler();
-        projAsteroid = new Asteroid();
+        projAsteroid = new Asteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         spaceship = new Spaceship(0,0,20,20);
-        shieldPU = new ShieldPowerUp();
+        shieldPU = new ShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
         slowDebuff = new SlowDebuff();
         shieldPowerUp = new ShieldPowerUp(400, 100, 100, 0, 1);
         hpUp = new HealthPowerUp();
@@ -109,7 +110,7 @@ public class ProjectileTest {
     @Test
     public void asteroidIsNotOnScreen() {
         projAsteroid.getHitBoxes().get(0).updateHitBox(-130, -130, projAsteroid.getWidth(), projAsteroid.getHeight());
-        assertTrue(projAsteroid.isNotOnScreen());
+        assertTrue(projAsteroid.isNotOnPlayingField(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight()));
     }
 
     /**
@@ -246,11 +247,11 @@ public class ProjectileTest {
     @Test
     public void addedProjectilesWithFactory() {
         int oldListSize = gameObjects.size();
-        gameObjects.add(ProjectileFactory.createRandomizedAsteroid());
+        gameObjects.add(ProjectileFactory.createRandomizedAsteroid(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight()));
         gameObjects.add(ProjectileFactory.createAsteroid(1, 1, 1, 1, 1, 1, 1, 20));
         gameObjects.add(ProjectileFactory.createRandomizedHealthPowerUp());
         gameObjects.add(ProjectileFactory.createHealthPowerUp(1, 1, 1, 1, 1));
-        gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp());
+        gameObjects.add(ProjectileFactory.createRandomizedShieldPowerUp(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight()));
         gameObjects.add(ProjectileFactory.createShieldPowerUp(1, 1, 1, 1, 1));
         gameObjects.add(ProjectileFactory.createSlowDebuff());
         gameObjects.add(ProjectileFactory.createRandomizedLaserBeam());

@@ -3,7 +3,6 @@ package Model.Entities.Projectiles;
 import Model.Entities.AbstractGameObject;
 import Model.Entities.HitBox;
 import Model.Entities.Point2D;
-import Model.PlayingField;
 
 import java.util.Random;
 
@@ -14,19 +13,15 @@ import java.util.Random;
 public abstract class Projectile extends AbstractGameObject {
     private double xVelocity;    // positive value: right, negative value: left
     private double yVelocity;      // positive value: up, negative value: down
-    private final double horizontalMapSize = PlayingField.getPlayingFieldWidth();
-    private final double verticalMapSize = PlayingField.getPlayingFieldHeight();
 
-    public Projectile() {
-        randomPosition();
-    }
+    public Projectile() { }
 
     /**
      * The method sets a random starting position for the projectile.
      *
      * @author Olle Westerlund
      */
-    private void randomPosition() {
+    protected void randomPosition(double playingFieldWidth, double playingFieldHeight) {
         HitBox hitBox = getHitBoxes().get(0);
         Random randomPos = new Random();
         double xPos = 0;
@@ -34,26 +29,26 @@ public abstract class Projectile extends AbstractGameObject {
         int side = randomPos.nextInt(4);
         switch (side) {
             case 0: // Bottom of the screen
-                xPos = randomPos.nextDouble() * horizontalMapSize;
-                yPos = verticalMapSize + 50;
+                xPos = randomPos.nextDouble() * playingFieldWidth;
+                yPos = playingFieldHeight + 50;
                 break;
             case 1: // Right side of the screen
-                xPos = horizontalMapSize + 50;
-                yPos = randomPos.nextDouble() * verticalMapSize;
+                xPos = playingFieldWidth + 50;
+                yPos = randomPos.nextDouble() * playingFieldHeight;
                 break;
             case 2: // Top of the screen
-                xPos = randomPos.nextDouble() * horizontalMapSize;
+                xPos = randomPos.nextDouble() * playingFieldWidth;
                 yPos = -50;
                 break;
             case 3: // Left of the screen
                 xPos = -50;
-                yPos = randomPos.nextDouble() * verticalMapSize;
+                yPos = randomPos.nextDouble() * playingFieldWidth;
                 break;
             default:
                 break;
         }
         hitBox.updateHitBoxPosition(xPos, yPos);
-        randomStartVelocity(side);
+        randomStartVelocity(side, playingFieldWidth, playingFieldHeight);
     }
 
     /**
@@ -62,36 +57,36 @@ public abstract class Projectile extends AbstractGameObject {
      * @param side The side of the screen that the asteroid spawns on.
      * @author Olle Westerlund
      */
-    private void randomStartVelocity(int side) {
+    private void randomStartVelocity(int side, double playingFieldWidth, double playingFieldHeight) {
         HitBox hitBox = getHitBoxes().get(0);
         double x = 0;
         double y = 0;
         Random randomDouble = new Random();
         switch (side) {
             case 0: //Velocity from bottom
-                x = randomDouble.nextDouble() * horizontalMapSize;
+                x = randomDouble.nextDouble() * playingFieldWidth;
                 if (x < hitBox.getX()) {
                     x *= -1;
                 }
-                y = (randomDouble.nextDouble() * (verticalMapSize - 60)) * -1;
+                y = (randomDouble.nextDouble() * (playingFieldHeight - 60)) * -1;
                 break;
             case 1: //Velocity from right
-                x = randomDouble.nextDouble() * (horizontalMapSize - 60) * -1;
-                y = randomDouble.nextDouble() * verticalMapSize;
+                x = randomDouble.nextDouble() * (playingFieldWidth - 60) * -1;
+                y = randomDouble.nextDouble() * playingFieldHeight;
                 if (y < hitBox.getY()) {
                     y *= -1;
                 }
                 break;
             case 2: //Velocity from top
-                x = randomDouble.nextDouble() * horizontalMapSize;
+                x = randomDouble.nextDouble() * playingFieldWidth;
                 if (x < hitBox.getX()) {
                     x *= -1;
                 }
-                y = 60 + randomDouble.nextDouble() * (verticalMapSize - 60);
+                y = 60 + randomDouble.nextDouble() * (playingFieldHeight - 60);
                 break;
             case 3: //Velocity from left
-                x = 60 + randomDouble.nextDouble() * (horizontalMapSize - 60);
-                y = randomDouble.nextDouble() * verticalMapSize;
+                x = 60 + randomDouble.nextDouble() * (playingFieldWidth - 60);
+                y = randomDouble.nextDouble() * playingFieldHeight;
                 if (y < hitBox.getY()) {
                     y *= -1;
                 }
@@ -131,10 +126,10 @@ public abstract class Projectile extends AbstractGameObject {
      * @return Boolean if the object is no longer on the screen.
      * @author Olle Westerlund
      */
-    public boolean isNotOnScreen() {
+    public boolean isNotOnPlayingField(double playingFieldWidth, double playingFieldHeight) {
         HitBox hitBox = getHitBoxes().get(0);
-        boolean isStillOnX = (hitBox.getX() > -130 && hitBox.getX() < (horizontalMapSize + 130));
-        boolean isStillOnY = (hitBox.getY() > -130 && hitBox.getY() < (verticalMapSize + 130));
+        boolean isStillOnX = (hitBox.getX() > -130 && hitBox.getX() < (playingFieldWidth + 130));
+        boolean isStillOnY = (hitBox.getY() > -130 && hitBox.getY() < (playingFieldHeight + 130));
         return (!isStillOnX || !isStillOnY);
     }
 

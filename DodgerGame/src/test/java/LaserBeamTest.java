@@ -1,6 +1,7 @@
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Point2D;
 import Model.Entities.Projectiles.LaserBeam;
+import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;
 
@@ -19,8 +20,8 @@ public class LaserBeamTest {
      */
     @Before
     public void init() {
-        laserBeam = new LaserBeam();
-        verticalLaserBeam = new LaserBeam(1);
+        laserBeam = new LaserBeam(PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
+        verticalLaserBeam = new LaserBeam(1, PlayingField.getPlayingFieldWidth(), PlayingField.getPlayingFieldHeight());
     }
 
     /**
