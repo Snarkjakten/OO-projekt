@@ -8,7 +8,7 @@ import javafx.animation.AnimationTimer;
  */
 public class AnimationController {
     private final AnimationTimer animationLoop;
-    private Game game;
+    private final Game game;
     private double animationTime;
     private double deltaTime;
     private long elapsedTime;
