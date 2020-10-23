@@ -47,12 +47,10 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * //todo: fyll i
-     *
-     * @param xPos
-     * @param yPos
-     * @param width
-     * @param height
+     * @param xPos   the new x Position
+     * @param yPos   the new y Position
+     * @param width  the new width
+     * @param height the new height
      * @authors Irja & Viktor
      */
     protected void updateHitBoxes(double xPos, double yPos, double width, double height) {
@@ -99,7 +97,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the height of the first hitbox
+     * @return the height of the first hitBox
      * @author Irja & Viktor
      */
     public double getHeight() {
@@ -108,7 +106,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the width of the first hitbox
+     * @return the width of the first hitBox
      * @author Irja & Viktor
      */
     public double getWidth() {
