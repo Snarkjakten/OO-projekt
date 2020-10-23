@@ -25,6 +25,7 @@ public class PlayingFieldGUI {
 
     private Image addBackgroundImage() {
         InputStream inputStream = getClass().getClassLoader().getResourceAsStream("space.jpg");
+        assert inputStream != null;
         Image image = new Image(inputStream);
         return image;
     }

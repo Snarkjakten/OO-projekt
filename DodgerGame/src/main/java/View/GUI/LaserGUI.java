@@ -75,10 +75,12 @@ public class LaserGUI {
         if (isVertical) {
             url = "LaserBeam/laser0" + imageNumber + "V.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            assert inputStream != null;
             image = new Image(inputStream, 256, playingFieldHeight + 100, false, false);
         } else {
             url = "LaserBeam/laser0" + imageNumber + "H.png";
             inputStream = getClass().getClassLoader().getResourceAsStream(url);
+            assert inputStream != null;
             image = new Image(inputStream, playingFieldWidth + 100, 256, false, false);
         }
         return image;
