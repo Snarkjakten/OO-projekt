@@ -28,7 +28,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
 
     private Game game;
     GameWindow gameWindow = new GameWindow(GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight());
-    CollisionHandler collisionHandler = new CollisionHandler();
+    CollisionHandler collisionHandler;
 
     GraphicsContext graphicsContext = gameWindow.getGraphicsContext();
     PlayingFieldGUI playingFieldGUI = new PlayingFieldGUI(graphicsContext);
@@ -80,11 +80,10 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     /**
      * Updates all the images
      *
-     * @param time      the elapsed time in the game loop
-     * @param deltaTime the length of a frame in the game loop
+     * @param time the elapsed time in the game loop
      * @author Everyone
      */
-    private void updateGUI(long time, double deltaTime) {
+    private void updateGUI(long time) {
         List<AbstractGameObject> gameObjects = GameWorld.getInstance().getGameObjects();
 
         playingFieldGUI.drawBackground(0, 0, GameWorld.getPlayingFieldWidth(), GameWorld.getPlayingFieldHeight(), 0);
@@ -116,7 +115,7 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
      */
     private void handleMovementKeys(Stage stage) {
         // handle key pressed
-        KeyController keyController = new KeyController(stage);
+        KeyController keyController = new KeyController();
         stage.getScene().setOnKeyPressed(
                 keyController::handleKeyPressed);
 
@@ -127,8 +126,8 @@ public class Main extends Application implements ITimeObserver, IGameObjectObser
     }
 
     @Override
-    public void actOnTimeEvent(long time, double deltaTime) {
-        updateGUI(time, deltaTime);
+    public void actOnTimeEvent(long time) {
+        updateGUI(time);
     }
 
     @Override

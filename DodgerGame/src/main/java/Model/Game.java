@@ -5,6 +5,7 @@ import Interfaces.IGameOverObserver;
 import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
 import Model.Entities.AbstractGameObject;
+import Model.Entities.Player.Spaceship;
 import Model.Handlers.CollisionHandler;
 import Model.Handlers.HighScoreHandler;
 import Model.Handlers.ScoreCalculator;
@@ -43,11 +44,11 @@ public class Game implements ITimeObservable, IGameOverObservable {
      * @param elapsedTime total time since the start
      * @author Olle Westerlund
      */
-    public void updateWorld(double deltaTime, long elapsedTime) {
-        update(gameObjects, deltaTime, elapsedTime);
-        notifyTimeObservers(elapsedTime, deltaTime);
+    public void updateWorld(Spaceship spaceship, double deltaTime, long elapsedTime) {
+        update(gameObjects, spaceship, deltaTime, elapsedTime);
+        notifyTimeObservers(elapsedTime);
 
-        if (isGameOver()) {
+        if (isGameOver(spaceship)) {
             gameOver();
         }
     }
@@ -64,8 +65,8 @@ public class Game implements ITimeObservable, IGameOverObservable {
         scoreHandler.handleScore(scoreCalculator.getPoints());
     }
 
-    public boolean isGameOver() {
-        return (GameWorld.getInstance().getSpaceship().getHp() <= 0);
+    public boolean isGameOver(Spaceship spaceship) {
+        return (spaceship.getHp() <= 0);
     }
 
     public void startGame() {
@@ -80,9 +81,9 @@ public class Game implements ITimeObservable, IGameOverObservable {
      * @param elapsedTime the elapsed time since the start of the simulation
      * @authors Irja, Isak, Viktor
      */
-    private void update(List<AbstractGameObject> gameObjects, double deltaTime, long elapsedTime) {
+    private void update(List<AbstractGameObject> gameObjects, Spaceship spaceship, double deltaTime, long elapsedTime) {
         moveGameObjects(gameObjects, deltaTime);
-        GameWorld.getInstance().wrapAround(GameWorld.getInstance().getSpaceship());
+        GameWorld.getInstance().wrapAround(spaceship);
         collisionHandler.handleCollision(gameObjects);
         waveManager.projectileSpawner(elapsedTime, gameObjects, deltaTime, 1, 30);
         scoreCalculator.calculateScore(elapsedTime);
@@ -104,13 +105,12 @@ public class Game implements ITimeObservable, IGameOverObservable {
     // Add, remove and notify observers --------------------------
 
     /**
-     * @param time      the elapsed time since the start of the simulation
-     * @param deltaTime the length of the last frame in the game loop
+     * @param time the elapsed time since the start of the simulation
      */
     @Override
-    public void notifyTimeObservers(long time, double deltaTime) {
+    public void notifyTimeObservers(long time) {
         for (ITimeObserver obs : timeObservers) {
-            obs.actOnTimeEvent(time, deltaTime);
+            obs.actOnTimeEvent(time);
         }
     }
 

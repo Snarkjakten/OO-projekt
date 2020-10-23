@@ -92,4 +92,12 @@ public class CollisionHandler implements IGameObjectObservable {
             obs.actOnGameObjectEvent(c);
         }
     }
+
+    /**
+     * @return the list of game object observers
+     * @author Tobias Engblom
+     */
+    public List<IGameObjectObserver> getGameObjectObservers() {
+        return gameObjectObservers;
+    }
 }
