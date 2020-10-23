@@ -1,9 +1,7 @@
-package Model.Handlers;
+package Model;
 
-import Model.Entities.Projectiles.Projectile;
-import Model.Entities.Projectiles.ProjectileFactory;
 import Model.Entities.AbstractGameObject;
-import Model.PlayingField;
+import Model.Entities.Projectiles.Projectile;
 
 import java.util.List;
 

@@ -1,6 +1,6 @@
-package Model.Entities.Projectiles;
+package Model;
 
-import Model.PlayingField;
+import Model.Entities.Projectiles.*;
 
 /**
  * A factory class that creates the different projectiles.

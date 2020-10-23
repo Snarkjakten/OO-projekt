@@ -1,8 +1,8 @@
 import Model.Entities.HitBox;
 import Model.Entities.Player.Spaceship;
-import Model.Entities.Player.SpaceshipFactory;
+import Model.SpaceshipFactory;
 import Model.Entities.Projectiles.Projectile;
-import Model.Entities.Projectiles.ProjectileFactory;
+import Model.ProjectileFactory;
 import Model.GameWorld;
 import Model.Entities.Point2D;
 import org.junit.Before;

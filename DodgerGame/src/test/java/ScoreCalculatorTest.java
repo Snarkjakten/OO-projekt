@@ -1,4 +1,4 @@
-import Model.Handlers.ScoreCalculator;
+import Model.ScoreCalculator;
 import org.junit.Test;
 import static org.junit.Assert.assertTrue;
 

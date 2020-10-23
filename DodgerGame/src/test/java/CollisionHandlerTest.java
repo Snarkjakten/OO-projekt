@@ -5,7 +5,7 @@ import Model.Entities.Projectiles.HealthPowerUp;
 import Model.Entities.Projectiles.LaserBeam;
 import Model.Entities.Projectiles.ShieldPowerUp;
 import Model.GameWorld;
-import Model.Handlers.CollisionHandler;
+import Model.CollisionHandler;
 import Model.PlayingField;
 import org.junit.Before;
 import org.junit.Test;

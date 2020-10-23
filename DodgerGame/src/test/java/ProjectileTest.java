@@ -2,8 +2,9 @@ import Model.Entities.AbstractGameObject;
 import Model.Entities.Player.Spaceship;
 import Model.Entities.Point2D;
 import Model.Entities.Projectiles.*;
-import Model.Handlers.CollisionHandler;
+import Model.CollisionHandler;
 import Model.PlayingField;
+import Model.ProjectileFactory;
 import org.junit.Before;
 import org.junit.Test;
 

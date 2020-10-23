@@ -1,4 +1,4 @@
-package Model.Handlers;
+package Model;
 
 import Interfaces.*;
 import Model.Entities.AbstractGameObject;

@@ -4,7 +4,7 @@ import Controller.ViewController;
 import Model.*;
 import Interfaces.*;
 import Model.Entities.AbstractGameObject;
-import Model.Handlers.CollisionHandler;
+import Model.CollisionHandler;
 import View.GUI.*;
 import View.Menu.CharacterMenu;
 import View.Menu.GameOverMenu;

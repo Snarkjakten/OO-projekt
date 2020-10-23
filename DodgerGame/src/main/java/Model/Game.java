@@ -6,10 +6,6 @@ import Interfaces.ITimeObservable;
 import Interfaces.ITimeObserver;
 import Model.Entities.AbstractGameObject;
 import Model.Entities.Player.Spaceship;
-import Model.Handlers.CollisionHandler;
-import Model.Handlers.HighScoreHandler;
-import Model.Handlers.ScoreCalculator;
-import Model.Handlers.WaveManager;
 
 import java.util.ArrayList;
 import java.util.List;
