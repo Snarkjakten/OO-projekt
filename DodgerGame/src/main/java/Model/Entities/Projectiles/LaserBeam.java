@@ -1,7 +1,7 @@
 package Model.Entities.Projectiles;
 
 import Model.Entities.HitBox;
-import Model.GameWorld;
+import Model.PlayingField;
 
 import java.util.Random;
 
@@ -11,8 +11,8 @@ import java.util.Random;
 public class LaserBeam extends Projectile {
     private boolean isVertical;
     private final int damage = 25;
-    private final double horizontalMapSize = GameWorld.getPlayingFieldWidth();
-    private final double verticalMapSize = GameWorld.getPlayingFieldHeight();
+    private final double horizontalMapSize = PlayingField.getPlayingFieldWidth();
+    private final double verticalMapSize = PlayingField.getPlayingFieldHeight();
 
     /**
      * @author Olle Westerlund
