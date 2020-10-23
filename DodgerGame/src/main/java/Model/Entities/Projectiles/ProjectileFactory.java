@@ -69,7 +69,7 @@ public abstract class ProjectileFactory {
     /**
      * @param side the side the laser beam will spawn on
      * @return a laser beam with a specific starting side.
-     * @authoor Olle Westerlund
+     * @author Olle Westerlund
      */
     public static Projectile createLaserBeam(int side) {
         return new LaserBeam(side);
