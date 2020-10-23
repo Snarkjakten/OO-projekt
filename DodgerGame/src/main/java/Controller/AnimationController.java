@@ -1,6 +1,8 @@
 package Controller;
 
+import Model.Entities.Player.Spaceship;
 import Model.Game;
+import Model.GameWorld;
 import javafx.animation.AnimationTimer;
 
 /**
@@ -8,7 +10,7 @@ import javafx.animation.AnimationTimer;
  */
 public class AnimationController {
     private final AnimationTimer animationLoop;
-    private Game game;
+    private final Game game;
     private double animationTime;
     private double deltaTime;
     private long elapsedTime;
@@ -31,9 +33,9 @@ public class AnimationController {
                 elapsedTime = calculateElapsedTime(startNanoTime);
                 animationTime = calculateAnimationTime(currentNanoTime, animationNanoTime);
 
-                game.updateWorld(deltaTime, elapsedTime);
+                game.updateWorld(GameWorld.getInstance().getSpaceship(), deltaTime, elapsedTime);
 
-                isGameOver();
+                isGameOver(GameWorld.getInstance().getSpaceship());
 
                 previousNanoTime = currentNanoTime;
             }
@@ -60,8 +62,7 @@ public class AnimationController {
      * @author Irja Vuorela
      */
     private double calculateDeltaTime(long currentTime, long previousTime) {
-        double deltaTime = (currentTime - previousTime) / 1e9;
-        return deltaTime;
+        return (currentTime - previousTime) / 1e9;
     }
 
     /**
@@ -76,8 +77,8 @@ public class AnimationController {
         return currentNanoTime - startNanoTime;
     }
 
-    private void isGameOver() {
-        if (game.isGameOver()) {
+    private void isGameOver(Spaceship spaceship) {
+        if (game.isGameOver(spaceship)) {
             stopAnimationLoop();
         }
     }

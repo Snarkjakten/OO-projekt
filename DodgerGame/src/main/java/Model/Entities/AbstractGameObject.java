@@ -99,7 +99,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the height of the first hitbox
+     * @return the height of the first hitBox
      * @author Irja & Viktor
      */
     public double getHeight() {
@@ -108,7 +108,7 @@ public abstract class AbstractGameObject implements IMovable, ICollidable {
     }
 
     /**
-     * @return the width of the first hitbox
+     * @return the width of the first hitBox
      * @author Irja & Viktor
      */
     public double getWidth() {

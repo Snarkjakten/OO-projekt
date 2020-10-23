@@ -9,10 +9,6 @@ import View.Menu.HighScoreMenu;
 import View.Menu.MainMenu;
 import javafx.stage.Stage;
 
-/**
- * @author Isak Almeros
- */
-
 public class ViewController implements IGameOverObserver {
     private final GameWindow gameWindow;
     private final MainMenu mainMenu;
@@ -24,6 +20,16 @@ public class ViewController implements IGameOverObserver {
     private final GameObjectGUI gameObjectGUI;
     private final AnimationController gameLoop;
 
+    /**
+     * @param gameWindow    the window that appears when the round of play is started
+     * @param mainMenu      the main menu
+     * @param highScoreMenu the menu where the player can see the highScores
+     * @param characterMenu the menu where the player choose spaceship
+     * @param gameOverMenu  the menu where the player is redirected to if he or she loses
+     * @param stage         the stage of the Application
+     * @param gameLoop      the gameLoop of the current game
+     * @param gameObjectGUI the GUI where every game object is drawn
+     */
     public ViewController(GameWindow gameWindow, MainMenu mainMenu, HighScoreMenu highScoreMenu, CharacterMenu characterMenu,
                           GameOverMenu gameOverMenu, Stage stage, AnimationController gameLoop, GameObjectGUI gameObjectGUI) {
         this.gameWindow = gameWindow;
@@ -42,7 +48,11 @@ public class ViewController implements IGameOverObserver {
         highScoreButtonHandler();
     }
 
-    // Handles button clicks in the main menu
+    /**
+     * Handles button clicks in the main menu
+     *
+     * @author Isak Almeros
+     */
     public void mainMenuButtonHandler() {
         // Redirects player to character menu
         mainMenu.getPlayBtn().setOnMouseClicked(event -> stage.getScene().setRoot(characterMenu.getRoot()));
@@ -56,11 +66,20 @@ public class ViewController implements IGameOverObserver {
         mainMenu.getQuitBtn().setOnMouseClicked(event -> System.exit(0));
     }
 
+    /**
+     * Handles button clicks in the highScore menu
+     *
+     * @author Irja Vuorela
+     */
     private void highScoreButtonHandler() {
         highScoreMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
-    // @Author Tobias Engblom
+    /**
+     * Handles button clicks in the character menu
+     *
+     * @author Tobias Engblom
+     */
     private void characterMenuButtonHandler() {
         characterMenu.getSpaceshipLighterBtn().setOnMouseClicked(event -> {
             spaceshipChoice = 1;
@@ -106,8 +125,11 @@ public class ViewController implements IGameOverObserver {
         characterMenu.getReturnBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
-
-    // Handles button clicks in the game over menu
+    /**
+     * Handles button clicks in the game over menu
+     *
+     * @author Irja Vuorela
+     */
     private void gameOverButtonHandler() {
         gameOverMenu.getTryAgainBtn().setOnMouseClicked(event -> {
             gameLoop.startAnimationLoop();
@@ -118,6 +140,12 @@ public class ViewController implements IGameOverObserver {
         gameOverMenu.getMainMenuBtn().setOnMouseClicked(event -> stage.getScene().setRoot(mainMenu.getRoot()));
     }
 
+    /**
+     * Sets scene to game over menu if game over and shows the points the player got
+     *
+     * @param isGameOver if the game is over
+     * @param points     the points the player got during the last round of play
+     */
     @Override
     public void actOnGameOverEvent(boolean isGameOver, int points) {
         if (isGameOver) {
